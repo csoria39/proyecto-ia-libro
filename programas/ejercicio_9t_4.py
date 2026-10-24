@@ -4,7 +4,7 @@
 # 16 hechos por problema (antes 12). El examen llega hasta
 # 14 pasos; se sigue entrenando SOLO con 1 a 4 pasos.
 # Más hechos = prompt más largo: hay que ampliar CTX (y con
-# él emb_pos) y el relleno, para que las posiciones finales
+# él wpe) y el relleno, para que las posiciones finales
 # también se vean al entrenar.
 # Uso: python ejercicio_9t_4.py [pasos]   (por defecto 2000)
 # =======================================================
