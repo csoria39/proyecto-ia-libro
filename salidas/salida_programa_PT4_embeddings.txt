@@ -6,12 +6,12 @@ Parametros aprendibles: 144
 Tokens de hola: [8, 13, 10, 2]
 Shape: torch.Size([4, 8])
 Embedding de h:
-  [-1.322  0.093  1.172 -0.131 -0.512 -0.157  1.489  0.61 ]
+  [-2.332 -0.005 -0.63   0.477 -0.683  0.406 -0.523 -0.137]
 
 Similitudes coseno (aleatorias antes de entrenar):
-  sim('h', 'o') = -0.1206
+  sim('h', 'o') = 0.3434
   sim('h', 'h') = 1.0000
-  sim('h', ' ') = 0.6485
+  sim('h', ' ') = 0.3206
 
 Tras el entrenamiento, caracteres en contextos
 similares tendran similitudes mas altas.

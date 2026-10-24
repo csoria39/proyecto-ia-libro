@@ -12,5 +12,5 @@ Perplejidad: e^0.2835 = 1.33
   2.0000    7.39  Patrones de carácter bien aprendidos
   1.5000    4.48  Patrones de carácter bien aprendidos
   1.0000    2.72  Buen modelo: captura el estilo
-  0.5000    1.65  Excelente... o sobreajuste (ver 9 ter)
-  0.2835    1.33  Excelente... o sobreajuste (ver 9 ter)
+  0.5000    1.65  Excelente... o sobreajuste (ver Capítulo 15)
+  0.2835    1.33  Excelente... o sobreajuste (ver Capítulo 15)

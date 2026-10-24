@@ -4,4 +4,4 @@
                 Neurona AND (2 entradas)             3
                          MLP XOR (2-8-1)            33
                 MLP mediano (10-64-32-1)         2,817
-         Simulación GPT-2 (768-3072-768)     4,722,432
+FFN de un bloque de GPT-2 (768-3072-768)     4,722,432

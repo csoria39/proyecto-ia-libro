@@ -84,3 +84,7 @@ OpenAI publicó GPT-2 con licencia MIT.
 ## Erratas y contacto
 
 Las erratas y sugerencias pueden enviarse a de.la.neurona.al.llm@gmail.com o abrirse como *issue* en este repositorio.
+
+## Comprobación
+
+Todos los programas se ejecutaron desde una copia limpia de este repositorio, con un entorno virtual nuevo de Python 3.11 y NumPy 2.4.6. La salida de cada uno coincide con la de `salidas/`. Solo cambian los tiempos que imprimen algunos programas y la de `programa_PT4_embeddings.py`, que no fija la semilla aleatoria; el libro no imprime su salida.
