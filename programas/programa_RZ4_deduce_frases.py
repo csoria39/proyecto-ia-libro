@@ -52,7 +52,7 @@
 #      el 80 % de las deducciones de 3 pasos (se quedó atascado en una
 #      meseta), el programa vuelve a empezar con otra semilla.
 # Uso: python programa_RZ4_deduce_frases.py [semilla]
-# Tiempo aproximado: 15–20 minutos en un portátil.
+# Tiempo aproximado: unos 35 minutos en un portátil.
 # =======================================================
 import sys
 import numpy as np

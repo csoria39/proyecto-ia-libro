@@ -35,7 +35,7 @@
 #   python programa_RZ3_deduce_letras.py                    -> aprende
 #   python programa_RZ3_deduce_letras.py directo            -> no aprende
 #   python programa_RZ3_deduce_letras.py paso_a_paso no     -> no aprende
-# Tiempo aproximado: 6–8 minutos en un portátil.
+# Tiempo aproximado: unos 8 minutos en un portátil.
 # =======================================================
 import sys
 import numpy as np

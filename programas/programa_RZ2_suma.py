@@ -27,7 +27,7 @@
 #              unidades sean 7 y 5 (ni 5 y 7); el examen son esas
 #              200 sumas. Comprueba si el modelo deduce un hecho
 #              que nunca vio.
-# Tiempo aproximado: 2–3 minutos.
+# Tiempo aproximado: unos 3 minutos.
 # =======================================================
 import sys
 import numpy as np

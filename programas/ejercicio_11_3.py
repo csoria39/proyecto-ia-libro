@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 import numpy as np
- 
+
 def softmax(x):
     e = np.exp(x - x.max()); return e / e.sum()
- 
+
 def generar_3_clases(n=80):
     X, y = [], []
     np.random.seed(1)
@@ -23,7 +23,7 @@ def generar_3_clases(n=80):
             y.append(clase)
     idx = np.random.permutation(len(X))
     return np.array(X)[idx], np.array(y)[idx]
- 
+
 X, y = generar_3_clases()
 print(f'Dataset: {len(X)} imágenes, 3 clases')
 print(f'Clase 0 (horiz): {sum(y==0)}  Clase 1 (vert): {sum(y==1)}  Clase 2 (diag): {sum(y==2)}')
