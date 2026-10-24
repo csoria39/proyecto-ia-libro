@@ -1,0 +1,13 @@
+=== EFECTO DE LA REGULARIZACION L2 ===
+Modelo: 256 neuronas ocultas (propenso a overfitting)
+
+                           Configuracion     Train       Val       |W|^2  Diagnostico
+------------------------------------------------------------------------------------------
+          Sin regularizacion  (lambda=0)   0.03283   0.09202       616.7  OVERFITTING (val=2.8x train)
+     L2 moderada         (lambda=0.0001)   0.05480   0.08593        27.6  buen ajuste
+      L2 fuerte           (lambda=0.001)   0.18629   0.22495         3.7  underfitting
+
+Análisis de los pesos tras el entrenamiento:
+         Sin regularizacion  (lambda=0): max|w|=5.583  mean|w|=0.7165
+    L2 moderada         (lambda=0.0001): max|w|=1.869  mean|w|=0.0540
+     L2 fuerte           (lambda=0.001): max|w|=0.815  mean|w|=0.0156

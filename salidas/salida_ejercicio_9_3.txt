@@ -1,0 +1,16 @@
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Pérdida media en el texto de entrenamiento: 0.2835
+Perplejidad: e^0.2835 = 1.33
+
+ Pérdida     PPL  Interpretación
+----------------------------------------------------------
+  3.8286   46.00  Al azar: no ha aprendido nada
+  3.0000   20.09  Algo de estructura local
+  2.0000    7.39  Patrones de carácter bien aprendidos
+  1.5000    4.48  Patrones de carácter bien aprendidos
+  1.0000    2.72  Buen modelo: captura el estilo
+  0.5000    1.65  Excelente... o sobreajuste (ver 9 ter)
+  0.2835    1.33  Excelente... o sobreajuste (ver 9 ter)

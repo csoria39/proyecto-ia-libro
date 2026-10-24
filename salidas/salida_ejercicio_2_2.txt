@@ -1,0 +1,10 @@
+              Entradas     Sigmoid        ReLU         z
+---------------------------------------------------------
+       [1.0, 1.0, 1.0]      0.6464      0.6031    0.6031
+    [-1.0, -1.0, -1.0]      0.4006      0.0000   -0.4031
+       [0.0, 0.0, 0.0]      0.5250      0.1000    0.1000
+
+Diferencias clave:
+* Sigmoid: acotada en (0,1), nunca exactamente 0
+* ReLU:    puede ser 0 exacto (neurona apagada)
+* ReLU:    sin acotación superior

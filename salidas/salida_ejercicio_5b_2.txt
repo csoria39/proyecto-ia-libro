@@ -1,0 +1,13 @@
+=== EFECTO DEL TAMAÑO DEL DATASET (red fija: 256 neuronas) ===
+
+ N ejemplos   Err Train     Err Val   Ratio Val/Train
+-------------------------------------------------------
+         10     0.01459     0.18786              12.9x
+         20     0.03283     0.09202               2.8x
+         50     0.03838     0.07504               2.0x
+        100     0.04900     0.06756               1.4x
+        500     0.06124     0.06425               1.0x
+
+Con pocos datos (n=10), la misma red memoriza perfectamente
+pero generaliza fatal. Con muchos datos (n=500), ya no puede
+memorizar cada punto y se ve forzada a generalizar mejor.

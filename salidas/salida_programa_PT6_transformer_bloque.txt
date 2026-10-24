@@ -1,0 +1,6 @@
+Bloque Transformer PyTorch: d=16, d_ff=64, n_heads=2
+Entrada: torch.Size([6, 16])  ->  Salida: torch.Size([6, 16])
+Parametros: 3,280  (los mismos 3.280 del Programa 7)
+Std entrada: 0.9249   Std salida: 0.9984
+
+TransformerEncoderLayer: 3,280 params (equivalente)

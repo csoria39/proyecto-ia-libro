@@ -1,0 +1,19 @@
+=== NEURONA AND CON PYTORCH ===
+Parametros iniciales:
+  Pesos: [[-0.005  0.379]]
+  Sesgo: -0.5820
+
+Epoca     0: perdida = 0.571347
+Epoca  2000: perdida = 0.017364
+Epoca  4000: perdida = 0.008659
+Epoca  6000: perdida = 0.005755
+Epoca  8000: perdida = 0.004307
+
+Pesos finales: [[10.678 10.678]]
+Sesgo final:   -16.1863
+
+Prueba final:
+  AND[0, 0] = 0  pred=0.0000  v
+  AND[0, 1] = 0  pred=0.0040  v
+  AND[1, 0] = 0  pred=0.0040  v
+  AND[1, 1] = 1  pred=0.9943  v

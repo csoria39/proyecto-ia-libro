@@ -1,0 +1,22 @@
+Pesos leídos en 1.1 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Secuencia (principio): innppers cul Quad zones 512 corporations invari lonely realization~~~~~~~~ Whatever ...
+
+Pérdida media en la 1.ª copia: 12.87   aciertos: 0%
+Pérdida media en la 2.ª copia: 0.26   aciertos: 98%
+Referencia «al azar»: ln(50257) = 10.82
+
+Cabezas de inducción (atención media al token que siguió a la vez anterior):
+   bloque  6, cabeza  6: 0.95
+   bloque  7, cabeza 10: 0.94
+   bloque  8, cabeza 11: 0.93
+   bloque  6, cabeza  2: 0.90
+   bloque  8, cabeza  3: 0.85
+Cabezas «token anterior» (atención media al token inmediatamente anterior):
+   bloque  5, cabeza 12: 0.99
+   bloque  4, cabeza  8: 0.52
+   bloque  7, cabeza  9: 0.50
+Media de las 144 cabezas: inducción 0.09, token anterior 0.10
+
+Figura guardada en figura_9q_induccion.png (bloque 6, cabeza 6)

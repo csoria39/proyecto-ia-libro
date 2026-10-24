@@ -1,0 +1,26 @@
+=== RESOLVIENDO XOR CON MLP ===
+Arquitectura: 2 entradas -> 8 ocultas (ReLU) -> 1 salida (Sigmoid)
+Parámetros: 33 pesos + sesgos
+
+Entrenamiento:
+  Época     0: pérdida = 0.329071
+  Época   500: pérdida = 0.140453
+  Época  1000: pérdida = 0.084028
+  Época  1500: pérdida = 0.051418
+  Época  2000: pérdida = 0.032855
+  Época  2500: pérdida = 0.022492
+  Época  3000: pérdida = 0.016372
+  Época  3500: pérdida = 0.012510
+  Época  4000: pérdida = 0.009925
+  Época  4500: pérdida = 0.008110
+  Época  4999: pérdida = 0.006787
+
+=== RESULTADOS FINALES ===
+   Entradas       Predicción   Redondeado   Correcto
+-----------------------------------------------------
+    0 XOR 0           0.1272            0          ✓
+    0 XOR 1           0.9294            1          ✓
+    1 XOR 0           0.9398            1          ✓
+    1 XOR 1           0.0486            0          ✓
+
+Pérdida final: 0.00678707

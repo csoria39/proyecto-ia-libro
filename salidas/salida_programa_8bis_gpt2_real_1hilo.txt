@@ -1,0 +1,65 @@
+Pesos leídos en 1.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+
+=== 1. EL TOKENIZADOR BPE (Ġ = espacio delante de la palabra) ===
+'Hello world': 11 caracteres -> 2 tokens
+    ['Hello', 'Ġworld']
+    [15496, 995]
+'The capital of France is': 24 caracteres -> 5 tokens
+    ['The', 'Ġcapital', 'Ġof', 'ĠFrance', 'Ġis']
+    [464, 3139, 286, 4881, 318]
+'la inteligencia artificial aprende de los datos.': 48 caracteres -> 13 tokens
+    ['la', 'Ġintel', 'igen', 'cia', 'Ġartificial', 'Ġap', 'rend', 'e', 'Ġde', 'Ġlos', 'Ġdat', 'os', '.']
+    [5031, 33649, 9324, 33743, 11666, 2471, 10920, 68, 390, 22346, 4818, 418, 13]
+
+=== 2. ¿QUÉ TOKEN VIENE DESPUÉS? (las 5 opciones más probables) ===
+'The capital of France is'   (1.59 s)
+            ␣the  0.085
+            ␣now  0.048
+              ␣a  0.046
+         ␣France  0.032
+          ␣Paris  0.032
+'Paris is the capital of'   (0.62 s)
+            ␣the  0.257
+              ␣a  0.070
+         ␣France  0.041
+         ␣Europe  0.024
+        ␣Germany  0.020
+'The cat sat on the'   (0.50 s)
+          ␣floor  0.076
+            ␣bed  0.065
+          ␣couch  0.054
+         ␣ground  0.052
+           ␣edge  0.048
+'One, two, three, four,'   (0.48 s)
+           ␣five  0.742
+            ␣ten  0.026
+            ␣six  0.019
+            ␣and  0.018
+           ␣four  0.014
+
+=== 3. PÉRDIDA Y PERPLEJIDAD EN UN TEXTO QUE NO ESTÁ EN SU CORPUS ===
+44 tokens | pérdida media = 3.534 | perplejidad = 34.3
+Referencia «al azar»: ln(50257) = 10.82, perplejidad 50257
+
+=== 4. GENERACIÓN GREEDY (comprobación) ===
+I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk
+(20.1 s)
+
+=== 5. GENERACIÓN CON TEMPERATURA 0,8 Y TOP-P 0,9 ===
+
+--- 'The meaning of life is' ---
+The meaning of life is and always will be a question of importance to us, both those who are here and those who are not. I am not willing to give up the hope of a lifetime that will be the exact opposite
+
+--- 'In a shocking finding, scientists discovered' ---
+In a shocking finding, scientists discovered that the U.S. has the highest rate of autism prevalence among children younger than 5.
+
+The findings are in the latest medical journal Neurology, a peer-reviewed journal.
+
+
+
+--- 'La inteligencia artificial es' ---
+La inteligencia artificial español, de 20 minografico, el vento desempos de cœuriales del consejo
+
+cœuriales del consejo

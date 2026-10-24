@@ -1,0 +1,7 @@
+Pesos leídos en 1.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+--- repetition penalty = 1.0 ---
+I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog. /  / I'm not sure
+--- repetition penalty = 1.3 ---
+I enjoy walking with my cute dog, but I'm not sure if it's because of the dogs or just a lack. / I've been to many dog shows and I'm always impressed by the dogs that come out of my house

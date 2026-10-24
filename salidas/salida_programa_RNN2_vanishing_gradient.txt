@@ -1,0 +1,44 @@
+=== VANISHING / EXPLODING GRADIENT EN RNN ===
+Estado oculto H=32, secuencia T=60
+
+Norma del gradiente a distintas distancias del final:
+
+ Distancia       W_hh pequena      W_hh moderada        W_hh grande    W_hh muy grande
+--------------------------------------------------------------------------------------
+         0           1.000000           1.000000           1.000000           1.000000
+         1           0.130100           0.454545           0.748099           1.706543
+         2           0.017290           0.209258           0.566045           2.669450
+         5           0.000068           0.018165           0.297183           8.238849
+        10           0.000000           0.000482           0.053872          38.145981
+        20  < 1e-10  (MUERTO)           0.000000           0.004103        1189.766160
+        30  < 1e-10  (MUERTO)           0.000000           0.000358  6.1e+04  (EXPLOTA)
+        50  < 1e-10  (MUERTO)  < 1e-10  (MUERTO)           0.000003  1.3e+08  (EXPLOTA)
+        60  < 1e-10  (MUERTO)  < 1e-10  (MUERTO)           0.000000  1.1e+10  (EXPLOTA)
+
+Visualizacion del gradiente (W_hh pequena — caso tipico):
+Norma del gradiente al retropropagar hacia atras:
+  Distancia   0: 1.00e+00  ######################################## 
+  Distancia   5: 6.82e-05   <-- el gradiente es casi NULO
+  Distancia  10: 4.94e-09   <-- el gradiente es casi NULO
+  Distancia  15: 2.47e-13   <-- el gradiente es casi NULO
+  Distancia  20: 1.91e-17   <-- el gradiente es casi NULO
+  Distancia  25: 1.87e-21   <-- el gradiente es casi NULO
+  Distancia  30: 1.06e-25   <-- el gradiente es casi NULO
+  Distancia  35: 6.17e-30   <-- el gradiente es casi NULO
+  Distancia  40: 6.74e-34   <-- el gradiente es casi NULO
+  Distancia  45: 4.60e-38   <-- el gradiente es casi NULO
+  Distancia  50: 2.22e-42   <-- el gradiente es casi NULO
+  Distancia  55: 2.29e-46   <-- el gradiente es casi NULO
+  Distancia  60: 1.88e-50   <-- el gradiente es casi NULO
+
+Conclusion:
+  Con W_hh pequena: el gradiente desaparece rapidamente.
+  Los tokens lejanos NO contribuyen al aprendizaje.
+  El RNN solo puede aprender dependencias de corto alcance.
+
+  Con W_hh grande (escala 0.3): el gradiente decae mas despacio, pero decae.
+  Con W_hh muy grande (escala 0.5): el gradiente EXPLOTA.
+
+  Esta es la razon fundamental por la que el Transformer
+  supero a los RNNs: la atencion conecta directamente
+  cualquier par de tokens sin importar la distancia.

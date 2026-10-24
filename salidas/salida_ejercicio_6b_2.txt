@@ -1,0 +1,13 @@
+Caracteres totales en el corpus: 164
+
+ N fusiones   Tokens BPE   Compresion   Mejora vs anterior
+------------------------------------------------------------
+          5          146        1.12x                11.0%
+         10          126        1.30x                13.7%
+         20          103        1.59x                18.3%
+         40           77        2.13x                25.2%
+         80           37        4.43x                51.9%
+
+La compresion mejora con cada fusion, pero la GANANCIA marginal
+decrece: las primeras fusiones (patrones frecuentes) aportan
+mucho mas que las ultimas (casos cada vez mas raros).

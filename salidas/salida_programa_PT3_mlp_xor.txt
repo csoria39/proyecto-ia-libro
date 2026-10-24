@@ -1,0 +1,20 @@
+Arquitectura: 2 -> 8 (ReLU) -> 1 (Sigmoid)
+Parametros:   33
+Estructura:
+          red.0.weight: [8, 2]
+            red.0.bias: [8]
+          red.2.weight: [1, 8]
+            red.2.bias: [1]
+
+Epoca     0: perdida = 0.722013
+Epoca  1000: perdida = 0.000715
+Epoca  2000: perdida = 0.000170
+Epoca  3000: perdida = 0.000068
+Epoca  4000: perdida = 0.000032
+
+XOR resuelto con MLP PyTorch:
+  XOR[0, 0] = 0  pred=0.0000  v
+  XOR[0, 1] = 1  pred=1.0000  v
+  XOR[1, 0] = 1  pred=1.0000  v
+  XOR[1, 1] = 0  pred=0.0000  v
+Precision: 4/4

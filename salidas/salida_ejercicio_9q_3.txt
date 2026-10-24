@@ -1,0 +1,18 @@
+Pesos leídos en 0.9 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+32 tokens. Para cada cabeza: % de posiciones cuyo máximo de atención es el token anterior
+   bloque  5, cabeza 12: 100%
+   bloque  3, cabeza  3: 74%
+   bloque  2, cabeza  1: 65%
+   media de las 144 cabezas: 11%
+
+Bloque 5, cabeza 12, en las 8 primeras posiciones (a quién mira cada token):
+   ' neural'    → 'The'        (1.00)
+   ' network'   → ' neural'    (1.00)
+   ' reads'     → ' network'   (1.00)
+   ' the'       → ' reads'     (1.00)
+   ' sentence'  → ' the'       (1.00)
+   ' one'       → ' sentence'  (0.98)
+   ' token'     → ' one'       (1.00)
+   ' at'        → ' token'     (0.96)

@@ -1,0 +1,20 @@
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+frase: 'la atención permite ver ' T = 24
+Bloque 1, cabeza 1: distancias al más atendido [0, 1, 2, 1, 2, 1, 1, 1, 2, 0, 1, 2, 3, 1, 3, 3, 1, 0, 1, 0, 1, 1, 2, 3]
+   peso máximo medio 0.63 | máximo en el anterior: 11 de 24 | en sí mismo: 4 | fila «ó»: [0.07 0.08 0.07 0.09 0.13 0.13 0.07 0.11 0.09 0.16]
+Bloque 1, cabeza 2: distancias al más atendido [0, 1, 2, 3, 1, 5, 2, 2, 2, 1, 2, 2, 1, 0, 1, 2, 7, 5, 0, 4, 2, 0, 1, 3]
+   peso máximo medio 0.47 | máximo en el anterior: 6 de 24 | en sí mismo: 4 | fila «ó»: [0.01 0.02 0.03 0.04 0.11 0.11 0.02 0.1  0.47 0.11]
+Bloque 1, cabeza 3: distancias al más atendido [0, 1, 2, 1, 2, 2, 2, 2, 1, 0, 1, 3, 5, 2, 2, 1, 4, 1, 0, 3, 0, 1, 2, 2]
+   peso máximo medio 0.51 | máximo en el anterior: 7 de 24 | en sí mismo: 4 | fila «ó»: [0.01 0.09 0.03 0.19 0.02 0.02 0.03 0.04 0.02 0.55]
+Bloque 1, cabeza 4: distancias al más atendido [0, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 2, 2, 1, 5, 1, 2, 2, 1, 2, 1, 1, 2, 3]
+   peso máximo medio 0.64 | máximo en el anterior: 14 de 24 | en sí mismo: 1 | fila «ó»: [0.07 0.05 0.04 0.08 0.12 0.04 0.11 0.17 0.24 0.08]
+Bloque 2, cabeza 1: distancias al más atendido [0, 1, 2, 1, 1, 1, 1, 6, 7, 8, 2, 1, 6, 3, 8, 12, 3, 6, 2, 9, 6, 8, 4, 13]
+   peso máximo medio 0.59 | máximo en el anterior: 6 de 24 | en sí mismo: 1 | fila «ó»: [0.02 0.48 0.   0.06 0.   0.02 0.4  0.   0.   0.01]
+Bloque 2, cabeza 2: distancias al más atendido [0, 1, 0, 3, 0, 2, 2, 6, 5, 6, 3, 2, 7, 6, 6, 2, 1, 5, 3, 8, 10, 6, 10, 11]
+   peso máximo medio 0.66 | máximo en el anterior: 2 de 24 | en sí mismo: 3 | fila «ó»: [0.   0.02 0.02 0.86 0.   0.09 0.   0.   0.01 0.  ]
+Bloque 2, cabeza 3: distancias al más atendido [0, 0, 2, 0, 1, 0, 1, 4, 7, 4, 3, 5, 0, 1, 2, 3, 4, 2, 13, 13, 1, 7, 8, 1]
+   peso máximo medio 0.61 | máximo en el anterior: 5 de 24 | en sí mismo: 5 | fila «ó»: [0.04 0.03 0.02 0.16 0.04 0.31 0.08 0.26 0.06 0.01]
+Bloque 2, cabeza 4: distancias al más atendido [0, 1, 0, 3, 4, 0, 6, 0, 4, 4, 3, 6, 4, 8, 1, 3, 11, 0, 4, 14, 12, 7, 8, 3]
+   peso máximo medio 0.64 | máximo en el anterior: 2 de 24 | en sí mismo: 5 | fila «ó»: [0.   0.03 0.02 0.01 0.   0.92 0.02 0.   0.   0.  ]

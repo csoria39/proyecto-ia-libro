@@ -1,0 +1,14 @@
+Tipo INGLES (palabras cortas):
+  Caracteres: 73  Tokens: 36  Fertilidad: 1.57 tokens/palabra
+
+Tipo ALEMAN (compuestos largos):
+  Caracteres: 104  Tokens: 59  Fertilidad: 11.80 tokens/palabra
+
+El corpus con compuestos largos necesita MAS tokens por palabra
+porque las palabras unicas son mas dificiles de comprimir:
+cada compuesto aparece pocas veces, asi que BPE no puede
+asignarle un token unico tan facilmente.
+
+Esto replica el fenomeno real: idiomas con composicion morfologica
+rica (aleman, finlandes, turco) tienen mayor fertilidad de token
+en tokenizadores entrenados principalmente en ingles.

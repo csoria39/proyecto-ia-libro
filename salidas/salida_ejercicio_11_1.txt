@@ -1,0 +1,8 @@
+Imagen diagonal: activación total = 56.00
+Imagen barra horiz.: activación total = 6.00
+
+El filtro debe activarse mucho más sobre la diagonal
+que sobre la barra horizontal.
+
+Variante: filtro diagonal secundaria /
+  filtro_anti = [[-1.0, -1.0, 2.0], [-1.0, 2.0, -1.0], [2.0, -1.0, -1.0]]

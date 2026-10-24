@@ -1,0 +1,40 @@
+Modo: paso_a_paso | emb_prev: sí | parámetros: 63,360
+
+Entrenando con deducciones de 1 a 4 pasos...
+Paso     0: pérdida 14.2360 | aciertos con 3 pasos    0% | con 7 pasos (nunca vistos)    0%
+Paso   250: pérdida 2.5468 | aciertos con 3 pasos   52% | con 7 pasos (nunca vistos)   64%
+Paso   500: pérdida 2.5143 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   66%
+Paso   750: pérdida 2.5044 | aciertos con 3 pasos   52% | con 7 pasos (nunca vistos)   64%
+Paso  1000: pérdida 2.4559 | aciertos con 3 pasos   46% | con 7 pasos (nunca vistos)   36%
+Paso  1250: pérdida 2.3451 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   44%
+Paso  1500: pérdida 2.2621 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   34%
+Paso  1750: pérdida 2.3061 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   32%
+Paso  1999: pérdida 2.1989 | aciertos con 3 pasos   48% | con 7 pasos (nunca vistos)   42%
+
+=== EXAMEN: 200 problemas nuevos por cada número de pasos ===
+pasos  respuesta  razonamiento completo correcto
+    1      50.0%       0.5%
+    2      48.0%       0.0%
+    3      46.5%       0.0%
+    4      49.0%       0.0%
+    5      48.0%       0.0%  ← nunca visto al entrenar
+    6      43.5%       0.0%  ← nunca visto al entrenar
+    7      50.5%       0.0%  ← nunca visto al entrenar
+    8      57.5%       0.0%  ← nunca visto al entrenar
+    9      46.0%       0.0%  ← nunca visto al entrenar
+   10      49.5%       0.0%  ← nunca visto al entrenar
+   11      46.5%       0.0%  ← nunca visto al entrenar
+   12      51.5%       0.0%  ← nunca visto al entrenar
+   13      50.0%       0.0%  ← nunca visto al entrenar
+   14      50.5%       0.0%  ← nunca visto al entrenar
+
+=== EJEMPLOS ===
+Hechos: k>d, e>s, j>a, q>i, s>o, p>b, v>r, c>m, w>c, b>e, l>w, a>l, i>z, o>h, h>j, r>k
+¿v>d?   Modelo: l > v  ⇒  NO   (correcto: SÍ)
+
+Hechos: p>s, e>x, y>k, n>a, q>e, h>m, x>p, o>q, k>f, l>i, u>o, f>n, b>v, i>y, z>b, v>u
+¿z>a?   Modelo: t > v  ⇒  NO   (correcto: NO)
+
+Hechos: i>m, h>e, a>s, p>o, y>h, m>w, j>a, s>y, c>r, l>i, u>g, o>l, n>c, k>j, w>t, e>p
+¿k>r?   Modelo: l > v  ⇒  NO   (correcto: NO)
+

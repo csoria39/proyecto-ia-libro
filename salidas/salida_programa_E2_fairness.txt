@@ -1,0 +1,17 @@
+=== METRICAS DE EQUIDAD: SISTEMA DE SELECCION ===
+
+               Metrica     Grupo 0     Grupo 1    Diferencia   Alerta?
+----------------------------------------------------------------------
+        tasa_seleccion       39.5%       58.3%        -18.8%    !!! SI
+       TPR (sensibil.)       37.8%       55.1%        -17.3%    !!! SI
+        FPR (1-espec.)       40.8%       60.7%        -19.8%    !!! SI
+         precision_PPV       43.5%       40.6%         +2.9%        no
+             exactitud       49.5%       46.1%         +3.4%        no
+
+Interpretacion:
+  Paridad demografica: tasa_seleccion igual para todos los grupos
+  Equal Opportunity:   TPR igual (misma oportunidad si eres valido)
+  Equalized Odds:      TPR Y FPR iguales (simetria total)
+
+Nota: estas metricas son INCOMPATIBLES entre si en muchos casos.
+Elegir cual garantizar es una decision etica, no tecnica.

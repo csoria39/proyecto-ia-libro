@@ -1,0 +1,17 @@
+=== COSTE DE TOKENS SEGUN K (fragmentos recuperados) ===
+
+   k   Tokens totales   Costo (USD)
+------------------------------------
+   1              380  $    0.00380
+   3              680  $    0.00680
+   5              980  $    0.00980
+  10             1730  $    0.01730
+  20             3230  $    0.03230
+
+A 1000 consultas/dia con k=5:
+  Costo diario: $9.80
+  Costo mensual: $294.00
+
+Por eso en produccion se ajusta k cuidadosamente:
+mas contexto puede mejorar la respuesta, pero el costo
+y la latencia crecen linealmente con k.

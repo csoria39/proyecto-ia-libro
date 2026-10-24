@@ -1,0 +1,44 @@
+Frases: 93 | entrenamiento: 83 | validación: 10
+Ejemplos de frases de validación (el modelo no las verá):
+    la atención permite ver todo el contexto a la vez.
+    la función softmax convierte logits en probabilidades.
+    ¡el aprendizaje nunca termina! sigue explorando.
+
+=== PRUEBA 1: pérdida en entrenamiento y en validación ===
+Referencia: adivinar al azar = ln(46) = 3.829
+Paso     0: entrenamiento 3.827 | validación 3.825
+Paso  1000: entrenamiento 1.378 | validación 1.934
+Paso  2000: entrenamiento 0.823 | validación 2.188
+Paso  3000: entrenamiento 0.519 | validación 2.613
+Paso  4000: entrenamiento 0.403 | validación 3.091
+Paso  5000: entrenamiento 0.368 | validación 3.497
+Paso  6000: entrenamiento 0.319 | validación 3.534
+Paso  7000: entrenamiento 0.282 | validación 3.708
+Paso  8000: entrenamiento 0.251 | validación 3.967
+Paso  9000: entrenamiento 0.236 | validación 4.017
+Paso 10000: entrenamiento 0.228 | validación 4.050
+Paso 11000: entrenamiento 0.216 | validación 4.118
+Paso 11999: entrenamiento 0.212 | validación 4.175
+Mejor validación: 1.923 en el paso 750 (ahí habría parado el Early Stopping del Capítulo 7)
+
+=== PRUEBA 2: contadores de n-gramas (sin red neuronal) ===
+contexto   entrenamiento   validación
+    0 car.        2.945        2.964
+    1 car.        2.128        2.263
+    2 car.        1.540        1.874
+    3 car.        0.946        1.691
+    4 car.        0.572        1.702
+    5 car.        0.376        1.762
+
+=== PRUEBA 3: texto generado por el Programa 8 (todo el corpus) ===
+semilla              copia(>=20 car.)  líneas idénticas  palabras inventadas
+'la inteligencia'          100%         20/20         0 
+'un modelo '               100%         16/16         0 
+'el gato '                  81%         15/17        15 ativo, ente, entenece
+'mañana la '                97%         18/20         0 
+
+Ejemplo con una semilla que no está en el corpus:
+mañana la vez.
+los transformers son la base de los llm modernos.
+entrenar un modelo requiere muchos datos y cálculo.
+el futuro pertenece a quienes comprenden la

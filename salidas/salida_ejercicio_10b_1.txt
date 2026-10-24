@@ -1,0 +1,10 @@
+=== INTERPRETACION DE PERPLEJIDAD ===
+
+    Modelo    Perdida       PPL  Interpretacion
+------------------------------------------------------------
+  Modelo A       1.20      3.32  Muy bueno: duda entre pocas opciones razonables
+  Modelo B       2.50     12.18  Aceptable: bastante incertidumbre
+  Modelo C       0.30      1.35  Excelente: casi siempre acierta el token correcto
+
+Comparacion relativa:
+  Modelo C es 9.0x mejor que Modelo B

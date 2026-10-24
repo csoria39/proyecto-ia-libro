@@ -1,0 +1,11 @@
+Pesos leídos en 1.1 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Diferencia máxima entre los logits con y sin cache: 6.7e-06 (los logits valen hasta 164)
+
+Tiempo por token generado (greedy, 10 tokens), según la longitud del contexto:
+ contexto   sin cache   con cache   ahorro   mismos tokens
+     50      0.97 s      0.62 s     1.6x   sí
+    200      1.39 s      0.62 s     2.2x   sí
+    800      5.27 s      0.94 s     5.6x   sí
+(el tiempo «con cache» incluye el prefill de la semilla, repartido entre los tokens generados)

@@ -1,0 +1,9 @@
+=== SISTEMA RAG MINIMO ===
+
+Pregunta simulada: relacionada con optimizadores
+
+  [ optimizador] sim=0.976  "Adam combina Momentum y RMSprop con correccion de sesgo."
+  [         bpe] sim=0.038  "BPE fusiona iterativamente los pares de caracteres mas frecuentes."
+
+El LLM recibiria estos 2 fragmentos como contexto adicional
+antes de generar su respuesta a la pregunta del usuario.

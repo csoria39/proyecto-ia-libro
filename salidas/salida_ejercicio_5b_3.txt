@@ -1,0 +1,10 @@
+=== COMBINANDO DROPOUT Y EARLY STOPPING ===
+
+               Configuracion   Err Val Final   Mejor Err Val   Epoca parada
+---------------------------------------------------------------------------
+        Solo Dropout (p=0.3)         0.08875         0.07289           5000
+         Solo Early Stopping         0.19730         0.19722            246
+    Dropout + Early Stopping         0.20160         0.20105            192
+
+La combinacion suele dar el mejor resultado: Dropout regulariza
+la capacidad del modelo, Early Stopping detiene en el momento justo.

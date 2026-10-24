@@ -1,0 +1,6 @@
+XOR: pérdida=0.00679  precision=4/4  preds=[0, 1, 1, 0]
+XNOR: pérdida=0.00655  precision=4/4  preds=[1, 0, 0, 1]
+
+Observación: XNOR = NOT XOR.
+La misma arquitectura resuelve ambos porque ambos son
+no linealmente separables y tienen la misma complejidad.

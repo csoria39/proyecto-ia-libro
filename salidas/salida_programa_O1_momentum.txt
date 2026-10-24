@@ -1,0 +1,16 @@
+=== SGD vs SGD+MOMENTUM — Funcion de Rosenbrock ===
+Minimo en (1.0, 1.0), f=0.  Partimos de [-0.5, 0.8]
+
+  Paso           SGD    SGD+Momentum  Pérdida del Momentum
+------------------------------------------------
+     0     32.500000       32.500000  igual
+    50      2.895213        0.164685  17.6 veces menor
+   200      2.268292        0.017729  128 veces menor
+   500      0.878829        0.001051  836 veces menor
+  1000      0.227352        0.000015  1.52e+04 veces menor
+  2000      0.053682        0.000000  1.49e+07 veces menor
+  3000      0.018243        0.000000  2.07e+10 veces menor
+
+Posicion final SGD:          [0.8651 0.7477]
+Posicion final SGD+Momentum: [1. 1.]
+Posicion optima:             [1.0, 1.0]

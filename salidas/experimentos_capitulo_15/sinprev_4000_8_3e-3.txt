@@ -1,0 +1,3 @@
+Modo: paso_a_paso | emb_prev: no | parámetros: 60,960
+
+Entrenando con deducciones de 1 a 4 pasos...

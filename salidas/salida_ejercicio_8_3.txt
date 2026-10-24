@@ -1,0 +1,14 @@
+Similitudes coseno entre posición 0 y otras posiciones
+
+ Distancia   Pos A   Pos B     Similitud  Barra
+-------------------------------------------------------
+         1       0       1        0.9571  ████████████████████████████
+         2       0       2        0.8581  █████████████████████████
+         4       0       4        0.7288  █████████████████████
+         8       0       8        0.6576  ███████████████████
+        16       0      16        0.4953  ██████████████
+        32       0      32        0.6016  ██████████████████
+
+Observación: la similitud decrece al aumentar la distancia.
+Esto permite al transformer aprender que tokens cercanos
+están más relacionados que tokens lejanos.

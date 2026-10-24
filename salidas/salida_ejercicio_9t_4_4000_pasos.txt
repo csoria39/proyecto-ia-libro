@@ -1,0 +1,48 @@
+Modo: paso_a_paso | emb_prev: sí | parámetros: 63,360
+
+Entrenando con deducciones de 1 a 4 pasos...
+Paso     0: pérdida 14.2360 | aciertos con 3 pasos    0% | con 7 pasos (nunca vistos)    0%
+Paso   250: pérdida 2.5606 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   62%
+Paso   500: pérdida 2.4871 | aciertos con 3 pasos   48% | con 7 pasos (nunca vistos)   36%
+Paso   750: pérdida 2.4589 | aciertos con 3 pasos   46% | con 7 pasos (nunca vistos)   62%
+Paso  1000: pérdida 0.5810 | aciertos con 3 pasos   60% | con 7 pasos (nunca vistos)   46%
+Paso  1250: pérdida 0.0024 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)   98%
+Paso  1500: pérdida 0.0009 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  1750: pérdida 0.0017 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  2000: pérdida 0.0008 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  2250: pérdida 0.0005 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  2500: pérdida 0.0002 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  2750: pérdida 0.0003 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3000: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3250: pérdida 0.0002 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3500: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3750: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3999: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+
+=== EXAMEN: 200 problemas nuevos por cada número de pasos ===
+pasos  respuesta  razonamiento completo correcto
+    1     100.0%     100.0%
+    2     100.0%     100.0%
+    3     100.0%     100.0%
+    4     100.0%     100.0%
+    5     100.0%     100.0%  ← nunca visto al entrenar
+    6     100.0%      99.5%  ← nunca visto al entrenar
+    7     100.0%     100.0%  ← nunca visto al entrenar
+    8     100.0%     100.0%  ← nunca visto al entrenar
+    9     100.0%     100.0%  ← nunca visto al entrenar
+   10     100.0%     100.0%  ← nunca visto al entrenar
+   11     100.0%     100.0%  ← nunca visto al entrenar
+   12      99.5%      99.0%  ← nunca visto al entrenar
+   13     100.0%      99.5%  ← nunca visto al entrenar
+   14     100.0%     100.0%  ← nunca visto al entrenar
+
+=== EJEMPLOS ===
+Hechos: k>d, e>s, j>a, q>i, s>o, p>b, v>r, c>m, w>c, b>e, l>w, a>l, i>z, o>h, h>j, r>k
+¿v>d?   Modelo: v > r > k > d  ⇒  SÍ   (correcto: SÍ)
+
+Hechos: p>s, e>x, y>k, n>a, q>e, h>m, x>p, o>q, k>f, l>i, u>o, f>n, b>v, i>y, z>b, v>u
+¿z>a?   Modelo: z > b > v > u > o > q > e > x > p > s  ⇒  NO   (correcto: NO)
+
+Hechos: i>m, h>e, a>s, p>o, y>h, m>w, j>a, s>y, c>r, l>i, u>g, o>l, n>c, k>j, w>t, e>p
+¿k>r?   Modelo: k > j > a > s > y > h > e > p > o > l > i > m > w > t  ⇒  NO   (correcto: NO)
+

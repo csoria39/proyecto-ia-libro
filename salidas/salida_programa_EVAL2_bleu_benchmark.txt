@@ -1,0 +1,36 @@
+=== BLEU SCORE: EJEMPLOS ===
+
+  Traduccion perfecta:
+    Candidato: "el modelo aprende de los datos"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 1.0000  (BLEU-1: 1.000, BLEU-2: 1.000, BP: 1.000)
+
+  Traduccion buena:
+    Candidato: "el modelo aprende usando los datos"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 0.7071  (BLEU-1: 0.833, BLEU-2: 0.600, BP: 1.000)
+
+  Traduccion parcial:
+    Candidato: "el sistema procesa informacion"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 0.0000  (BLEU-1: 0.250, BLEU-2: 0.000, BP: 0.607)
+
+  Texto sin relacion:
+    Candidato: "la tarde cae sobre el monte"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 0.0000  (BLEU-1: 0.167, BLEU-2: 0.000, BP: 1.000)
+
+=== FRAMEWORK DE EVALUACION: OPCION MULTIPLE ===
+
+Mini-benchmark de IA (5 preguntas):
+
+              Modelo    Aciertos     Precision  Interpretacion
+--------------------------------------------------------------------
+    Modelo aleatorio     3/   5         60.0%  Conocimiento basico
+       Modelo basico     3/   5         60.0%  Conocimiento basico
+     Modelo avanzado     4/   5         80.0%  Buen dominio del tema
+      Modelo experto     5/   5        100.0%  Dominio completo
+
+En benchmarks reales como MMLU (57 materias, 14.000 preguntas):
+  GPT-3.5: ~70%   GPT-4: ~86%   Claude 3 Opus: ~87%
+  Humano experto: ~90%  Humano promedio: ~57%

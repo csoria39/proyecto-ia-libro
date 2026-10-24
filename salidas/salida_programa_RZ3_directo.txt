@@ -1,0 +1,36 @@
+Modo: directo | emb_prev: sí | parámetros: 62,592
+
+Entrenando con deducciones de 1 a 4 pasos...
+Paso     0: pérdida 15.2851 | aciertos con 3 pasos    0% | con 7 pasos (nunca vistos)    0%
+Paso   250: pérdida 0.3618 | aciertos con 3 pasos   54% | con 7 pasos (nunca vistos)   44%
+Paso   500: pérdida 0.3552 | aciertos con 3 pasos   38% | con 7 pasos (nunca vistos)   56%
+Paso   750: pérdida 0.3427 | aciertos con 3 pasos   38% | con 7 pasos (nunca vistos)   54%
+Paso  1000: pérdida 0.3479 | aciertos con 3 pasos   38% | con 7 pasos (nunca vistos)   54%
+Paso  1250: pérdida 0.3614 | aciertos con 3 pasos   62% | con 7 pasos (nunca vistos)   46%
+Paso  1500: pérdida 0.3453 | aciertos con 3 pasos   40% | con 7 pasos (nunca vistos)   46%
+Paso  1750: pérdida 0.3463 | aciertos con 3 pasos   62% | con 7 pasos (nunca vistos)   46%
+Paso  1999: pérdida 0.3485 | aciertos con 3 pasos   62% | con 7 pasos (nunca vistos)   46%
+
+=== EXAMEN: 200 problemas nuevos por cada número de pasos ===
+pasos  respuesta  razonamiento completo correcto
+    1      47.5%      47.5%
+    2      50.0%      50.0%
+    3      53.0%      53.0%
+    4      54.5%      54.5%
+    5      49.0%      49.0%  ← nunca visto al entrenar
+    6      46.5%      46.5%  ← nunca visto al entrenar
+    7      50.0%      50.0%  ← nunca visto al entrenar
+    8      51.0%      51.0%  ← nunca visto al entrenar
+    9      47.5%      47.5%  ← nunca visto al entrenar
+   10      51.5%      51.5%  ← nunca visto al entrenar
+
+=== EJEMPLOS ===
+Hechos: d>q, v>r, b>e, q>i, j>a, s>o, p>b, e>s, z>p, o>h, h>j, r>k
+¿v>k?   Modelo: SÍ   (correcto: SÍ)
+
+Hechos: g>s, o>u, z>m, s>x, q>t, l>k, m>l, u>z, x>h, n>o, y>g, h>i
+¿n>k?   Modelo: SÍ   (correcto: SÍ)
+
+Hechos: k>x, p>n, h>f, e>g, w>h, r>v, s>i, v>y, g>k, x>m, i>e, m>r
+¿s>n?   Modelo: SÍ   (correcto: NO)
+

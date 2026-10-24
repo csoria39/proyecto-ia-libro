@@ -1,0 +1,16 @@
+=== ANALISIS DE SESGO EN EL MODELO DE CREDITO ===
+
+El modelo NO usa el grupo como variable de entrada.
+Aun asi, aprende el sesgo historico de los datos.
+
+   Grupo    Aprobados reales    Aprobados modelo    Diferencia
+--------------------------------------------------------------
+       0               34.2%                1.6%        -32.5%
+       1               45.8%               19.4%        -26.4%
+
+Paridad demografica: diferencia del 17.7%
+(0% = paridad perfecta, > 5% = señal de alerta)
+
+Precision global: 61.4%
+La precision global oculta la disparidad entre grupos.
+Un desarrollador desatento pensaria que el modelo es justo.

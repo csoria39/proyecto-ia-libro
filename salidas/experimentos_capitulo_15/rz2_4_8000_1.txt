@@ -1,0 +1,39 @@
+Parámetros: 57,696
+Semilla 4 | cabezas 1 | sumas de entrenamiento: 8000 | sumas de examen (no vistas): 2000
+
+Entrenando...  (exactitud = suma entera correcta)
+Paso     0: pérdida 2.5889 | exactitud entrenamiento   0.0% | sumas NUNCA vistas   0.0%
+Paso   500: pérdida 1.3247 | exactitud entrenamiento   3.0% | sumas NUNCA vistas   3.5%
+Paso  1000: pérdida 0.8081 | exactitud entrenamiento  11.1% | sumas NUNCA vistas   9.2%
+Paso  1500: pérdida 0.7653 | exactitud entrenamiento   8.6% | sumas NUNCA vistas  10.3%
+Paso  2000: pérdida 0.7809 | exactitud entrenamiento  10.5% | sumas NUNCA vistas   8.9%
+Paso  2500: pérdida 0.7663 | exactitud entrenamiento  10.1% | sumas NUNCA vistas   9.8%
+Paso  3000: pérdida 0.7725 | exactitud entrenamiento  10.1% | sumas NUNCA vistas   9.8%
+Paso  3500: pérdida 0.7732 | exactitud entrenamiento  11.7% | sumas NUNCA vistas   8.9%
+Paso  4000: pérdida 0.7692 | exactitud entrenamiento  10.0% | sumas NUNCA vistas  10.3%
+Paso  4500: pérdida 0.7665 | exactitud entrenamiento  10.8% | sumas NUNCA vistas   8.3%
+Paso  5000: pérdida 0.7709 | exactitud entrenamiento  11.5% | sumas NUNCA vistas  10.0%
+Paso  5500: pérdida 0.7669 | exactitud entrenamiento  10.1% | sumas NUNCA vistas   7.6%
+Paso  5999: pérdida 0.7658 | exactitud entrenamiento  10.2% | sumas NUNCA vistas   8.0%
+
+=== EXAMEN CON SUMAS QUE EL MODELO NUNCA VIO ===
+93 + 94 = 107   ✗ (correcto: 187)
+ 8 + 98 = 156   ✗ (correcto: 106)
+23 + 98 = 171   ✗ (correcto: 121)
+59 +  6 =  75   ✗ (correcto: 65)
+23 + 43 = 106   ✗ (correcto: 66)
+82 + 25 = 107   ✓
+55 +  6 =  51   ✗ (correcto: 61)
+64 + 51 = 135   ✗ (correcto: 115)
+26 + 70 =  66   ✗ (correcto: 96)
+34 + 97 = 151   ✗ (correcto: 131)
+
+Aciertos en las 2000 sumas no vistas: 8.0%
+
+=== ¿A QUÉ CIFRAS ATIENDE CADA CABEZA? (media sobre 2000 sumas) ===
+Bloque 0, al escribir las unidades -> cabeza 0: a(uni) 0.51 + b(uni) 0.49
+Bloque 0, al escribir las decenas  -> cabeza 0: r(uni) 0.69 + a(uni) 0.17
+Bloque 0, al escribir las centenas -> cabeza 0: a(dec) 0.41 + b(dec) 0.41
+Bloque 1, al escribir las unidades -> cabeza 0: + 0.54 + b(uni) 0.45
+Bloque 1, al escribir las decenas  -> cabeza 0: + 0.55 + b(uni) 0.43
+Bloque 1, al escribir las centenas -> cabeza 0: a(dec) 0.44 + b(dec) 0.38

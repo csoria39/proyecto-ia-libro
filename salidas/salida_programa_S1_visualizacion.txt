@@ -1,0 +1,78 @@
+============================================================
+VISUALIZACION DE ESTRATEGIAS DE MUESTREO
+============================================================
+
+  BASE  (tau=1.0, sin filtros):
+  Tokens activos (prob > 0.1%): 11/12
+              el:  0.471  #######################
+              la:  0.259  ############
+              un:  0.086  ####
+             los:  0.064  ###
+              de:  0.047  ##
+             que:  0.029  #
+              en:  0.017  
+               y:  0.013  
+               a:  0.008  
+             por:  0.005  
+         extraño:  0.001  
+
+  TEMPERATURA BAJA  (tau=0.5):
+  Tokens activos (prob > 0.1%): 6/12
+              el:  0.730  ####################################
+              la:  0.220  ##########
+              un:  0.024  #
+             los:  0.013  
+              de:  0.007  
+             que:  0.003  
+
+  TOP-K=3  (solo los 3 mejores):
+  Tokens activos (prob > 0.1%): 3/12
+              el:  0.578  ############################
+              la:  0.317  ###############
+              un:  0.106  #####
+
+  TOP-K=6  (los 6 mejores):
+  Tokens activos (prob > 0.1%): 6/12
+              el:  0.493  ########################
+              la:  0.271  #############
+              un:  0.090  ####
+             los:  0.067  ###
+              de:  0.049  ##
+             que:  0.030  #
+
+  TOP-P=0.80  (3 tokens cubren 80%):
+  Tokens activos (prob > 0.1%): 3/12
+              el:  0.578  ############################
+              la:  0.317  ###############
+              un:  0.106  #####
+
+  TOP-P=0.95  (6 tokens cubren 95%):
+  Tokens activos (prob > 0.1%): 6/12
+              el:  0.493  ########################
+              la:  0.271  #############
+              un:  0.090  ####
+             los:  0.067  ###
+              de:  0.049  ##
+             que:  0.030  #
+
+COMPARATIVA: Tokens incluidos por cada estrategia
+       Token      Base   tau=0.5    Top-k=3   Top-k=6   Top-p.80   Top-p.95
+---------------------------------------------------------------------------
+          el     0.471     0.730      0.578     0.493      0.578      0.493
+          la     0.259     0.220      0.317     0.271      0.317      0.271
+          un     0.086     0.024      0.106     0.090      0.106      0.090
+         los     0.064     0.013        ---     0.067        ---      0.067
+          de     0.047     0.007        ---     0.049        ---      0.049
+         que     0.029     0.003        ---     0.030        ---      0.030
+          en     0.017       ---        ---       ---        ---        ---
+           y     0.013       ---        ---       ---        ---        ---
+           a     0.008       ---        ---       ---        ---        ---
+         por     0.005       ---        ---       ---        ---        ---
+     extraño     0.001       ---        ---       ---        ---        ---
+         xyz       ---       ---        ---       ---        ---        ---
+
+Observacion clave:
+  Top-k=3: exactamente 3 tokens siempre, sin importar la distribucion.
+  Top-p=0.80: el numero de tokens se adapta a la forma de la dist.
+  Con dist. concentrada: Top-p usara MENOS tokens que Top-k=6.
+  Con dist. plana: Top-p usara MAS tokens que Top-k=6.

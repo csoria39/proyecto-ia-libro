@@ -1,0 +1,16 @@
+=== NUESTRA PRIMERA NEURONA ARTIFICIAL ===
+
+Neurona creada:
+  Neurona(n=3, pesos=[ 0.149  -0.0415  0.1943], sesgo=0.0000)
+
+Descripción                      z (pre-act.)     Salida
+----------------------------------------------------------
+Entradas todas a cero                  0.0000     0.5000
+Entradas todas a uno                   0.3018     0.5749
+Entradas mixtas                        0.2275     0.5566
+Entradas con negativos                -0.3291     0.4185
+
+Interpretación:
+  Salida ≈ 0.5 -> la neurona no tiene preferencia
+  Salida -> 1.0 -> la neurona se activa fuertemente
+  Salida -> 0.0 -> la neurona se inhibe fuertemente

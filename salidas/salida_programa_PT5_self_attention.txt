@@ -1,0 +1,10 @@
+=== SELF-ATTENTION PYTORCH ===
+Entrada: torch.Size([5, 8])  ->  Salida: torch.Size([5, 8])
+Pesos de atencion (5x5):
+[[1.    0.    0.    0.    0.   ]
+ [0.416 0.584 0.    0.    0.   ]
+ [0.355 0.373 0.272 0.    0.   ]
+ [0.363 0.187 0.206 0.243 0.   ]
+ [0.16  0.228 0.223 0.191 0.197]]
+Filas suman 1: True
+Parametros de la capa: 256

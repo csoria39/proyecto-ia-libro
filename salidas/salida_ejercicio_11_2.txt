@@ -1,0 +1,38 @@
+  Nuestra CNN simple:
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+        maxpool 2x2: campo = 6x6
+    -> Una neurona profunda ve 6x6 px
+
+  CNN con 2 pools:
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+        maxpool 2x2: campo = 6x6
+           conv 3x3: campo = 8x8
+        maxpool 2x2: campo = 16x16
+    -> Una neurona profunda ve 16x16 px
+
+  VGG-style (5 conv):
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+           conv 3x3: campo = 5x5
+        maxpool 2x2: campo = 10x10
+           conv 3x3: campo = 12x12
+           conv 3x3: campo = 14x14
+        maxpool 2x2: campo = 28x28
+           conv 3x3: campo = 30x30
+    -> Una neurona profunda ve 30x30 px
+
+  Muy profunda (8 conv):
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+           conv 3x3: campo = 5x5
+           conv 3x3: campo = 7x7
+           conv 3x3: campo = 9x9
+        maxpool 2x2: campo = 18x18
+           conv 3x3: campo = 20x20
+           conv 3x3: campo = 22x22
+           conv 3x3: campo = 24x24
+           conv 3x3: campo = 26x26
+    -> Una neurona profunda ve 26x26 px
+

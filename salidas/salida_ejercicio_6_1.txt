@@ -1,0 +1,18 @@
+Nombre: "Alan Turing"
+Vocabulario (10 caracteres): [' ', 'A', 'T', 'a', 'g', 'i', 'l', 'n', 'r', 'u']
+
+Codificado:   [1, 6, 3, 7, 0, 2, 9, 8, 5, 7, 4]
+Decodificado: "Alan Turing"
+Reversible:   True
+
+Índice de cada carácter:
+     ' '  ->  índice 0
+     'A'  ->  índice 1
+     'T'  ->  índice 2
+     'a'  ->  índice 3
+     'g'  ->  índice 4
+     'i'  ->  índice 5
+     'l'  ->  índice 6
+     'n'  ->  índice 7
+     'r'  ->  índice 8
+     'u'  ->  índice 9

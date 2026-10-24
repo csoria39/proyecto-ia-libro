@@ -1,0 +1,35 @@
+Frases: 93 | entrenamiento: 83 | validación: 10
+Ejemplos de frases de validación (el modelo no las verá):
+    la atención permite ver todo el contexto a la vez.
+    la función softmax convierte logits en probabilidades.
+    ¡el aprendizaje nunca termina! sigue explorando.
+
+=== PRUEBA 1: pérdida en entrenamiento y en validación ===
+Referencia: adivinar al azar = ln(46) = 3.829
+Paso     0: entrenamiento 3.827 | validación 3.825
+Paso  1000: entrenamiento 1.378 | validación 1.934
+Paso  2000: entrenamiento 0.823 | validación 2.188
+Paso  3000: entrenamiento 0.519 | validación 2.613
+Paso  4000: entrenamiento 0.403 | validación 3.091
+Paso  5000: entrenamiento 0.368 | validación 3.497
+Paso  6000: entrenamiento 0.319 | validación 3.534
+Paso  7000: entrenamiento 0.282 | validación 3.708
+Paso  8000: entrenamiento 0.251 | validación 3.967
+Paso  9000: entrenamiento 0.236 | validación 4.017
+Paso 10000: entrenamiento 0.228 | validación 4.050
+Paso 11000: entrenamiento 0.216 | validación 4.118
+Paso 11999: entrenamiento 0.212 | validación 4.175
+Mejor validación: 1.923 en el paso 750 (ahí habría parado el Early Stopping del Capítulo 7)
+
+=== MODELO FINAL frente a MODELO CON EARLY STOPPING ===
+
+final (paso 11999): entrenamiento 0.212 | validación 4.175 | copia literal 90%
+mañana la entrada directamente con la salida.
+la normalización evita que las activaciones crezcan sin control.
+una red ancha tiene muchas neuronas en cada capa.
+
+mejor validación (paso 750): entrenamiento 1.587 | validación 1.923 | copia literal 0%
+mañana la de trenales.
+la compreficelizadale alentro muchactas.
+la finación espación conternad de el modelo.
+la dentexto perdenso diconcicaliza prefibila aciste

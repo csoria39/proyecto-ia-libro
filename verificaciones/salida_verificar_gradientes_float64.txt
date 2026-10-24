@@ -1,0 +1,16 @@
+Pesos leídos en 6.8 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+float64: diferencia máxima de logits = 1.6e-12
+float64: pérdida 1.828328286246 frente a 1.828328684674
+   wte    error relativo 5.7e-15
+   wpe    error relativo 1.8e-13
+   Wq0    error relativo 1.5e-13
+   Wv5    error relativo 3.2e-13
+   W111   error relativo 2.9e-14
+   ln1_g0 error relativo 1.3e-13
+   lnf_b  error relativo 3.5e-15
+
+real	0m32.837s
+user	0m13.592s
+sys	0m23.318s

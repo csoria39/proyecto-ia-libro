@@ -1,0 +1,6 @@
+gpt2/
+*.npz
+__pycache__/
+*.pyc
+*.png
+!diagramas/**/*.png
