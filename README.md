@@ -80,6 +80,7 @@ OpenAI publicó GPT-2 con licencia MIT.
 - **Código** (`programas/`, `verificaciones/`, scripts de `diagramas/`): licencia MIT, © 2026 Carlos Soria Martínez. Archivo [`LICENSE`](LICENSE).
 - **Libro** (texto, ilustraciones y diagramas, PDF y DOCX): Creative Commons Atribución–NoComercial–SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0). Archivo [`LICENSE-LIBRO.md`](LICENSE-LIBRO.md).
 - **Pesos de GPT-2:** de OpenAI, con licencia MIT. No se incluyen.
+- **Código de terceros:** en `programas/programa_8bis_gpt2_real.py` (y en `ejercicio_9q_1.py`, que lo reutiliza), la función `bytes_a_unicode()` y la expresión regular `TROCEO` reproducen las del tokenizador de GPT-2, `src/encoder.py` del repositorio [openai/gpt-2](https://github.com/openai/gpt-2) (© 2019 OpenAI, licencia MIT): tienen que ser idénticas para obtener los mismos tokens que el modelo.
 
 ## Erratas y contacto
 
