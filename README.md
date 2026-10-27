@@ -25,7 +25,7 @@ Solo NumPy es imprescindible. Las gráficas usan matplotlib, y el Apéndice D y 
 | `programas/` | Los 117 programas y soluciones de ejercicios del libro, en una sola carpeta. Así funcionan las dependencias entre ellos: por ejemplo, RZ-1 lee `programa_8_nano_llm.py` y varios ejercicios ejecutan el programa de su capítulo. |
 | `salidas/` | La salida real de cada programa, tal como aparece en el libro. `experimentos_capitulo_15/` contiene todas las ejecuciones de las tablas del Capítulo 15. |
 | `verificaciones/` | Comprobaciones que no van en el libro: el gradiente de los programas con diferencias finitas, y el Programa 8 bis frente a `transformers` (mismos logits y mismo tokenizador). |
-| `diagramas/` | Las ilustraciones de los Diagramas 6, 15 y 16 y los scripts que corrigieron sus erratas. |
+| `diagramas/` | Las 19 ilustraciones del libro, con la numeración por capítulo (Diagrama 2.1 … 20.2 y G.1); en `scripts/`, los programas que corrigieron sus erratas y su numeración, y en `originales/`, las versiones del autor antes de corregirlas. |
 
 Los nombres de archivo son los que cita el libro. Algunos conservan la numeración de los capítulos de una versión anterior; por ejemplo, `ejercicio_9t_2.py` es la solución del Ejercicio 15.2. La tabla siguiente indica a qué capítulo pertenece cada uno.
 
@@ -83,6 +83,8 @@ OpenAI publicó GPT-2 con licencia MIT.
 - **Código de terceros:** en `programas/programa_8bis_gpt2_real.py` (y en `ejercicio_9q_1.py`, que lo reutiliza), la función `bytes_a_unicode()` y la expresión regular `TROCEO` reproducen las del tokenizador de GPT-2, `src/encoder.py` del repositorio [openai/gpt-2](https://github.com/openai/gpt-2) (© 2019 OpenAI, licencia MIT): tienen que ser idénticas para obtener los mismos tokens que el modelo.
 
 ## Erratas y contacto
+
+Las erratas conocidas y su corrección están en [`ERRATAS.md`](ERRATAS.md).
 
 Las erratas y sugerencias pueden enviarse a de.la.neurona.al.llm@gmail.com o abrirse como *issue* en este repositorio.
 
