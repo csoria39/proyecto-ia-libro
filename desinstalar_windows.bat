@@ -8,10 +8,15 @@ set "ENTORNO=%USERPROFILE%\entorno_ia"
 set "LOG=%USERPROFILE%\desinstalar_entorno_ia.log"
 set "MODE=SIMULACION"
 
-rem Python que instalo el script del libro: 3.12 (versiones nuevas) o 3.11 (versiones anteriores)
-set "PYV=3.12"
-winget list --id Python.Python.3.12 --exact >nul 2>&1
-if errorlevel 1 set "PYV=3.11"
+rem Python que pudo instalar el script del libro: 3.13 (version actual), 3.12 o 3.11 (anteriores).
+rem Se busca cual esta instalado con winget; si no hay ninguno, el paso 2 se omite.
+set "PYV="
+for %%V in (3.13 3.12 3.11) do (
+    if not defined PYV (
+        winget list --id Python.Python.%%V --exact --accept-source-agreements >nul 2>&1
+        if not errorlevel 1 set "PYV=%%V"
+    )
+)
 
 if /I "%~1"=="/EXECUTE" set "MODE=EJECUCION"
 
@@ -52,7 +57,7 @@ if !errorlevel! equ 0 (
 echo.
 echo [PLAN]
 echo 1. Eliminar el entorno virtual "%ENTORNO%" si se confirma.
-echo 2. Preguntar por separado si se desea desinstalar Python %PYV%.
+if defined PYV (echo 2. Preguntar por separado si se desea desinstalar Python %PYV%.) else (echo 2. Python: winget no encuentra Python 3.11, 3.12 ni 3.13; no se tocara.)
 echo 3. Preguntar por separado si se desea desinstalar VS Code.
 echo 4. No borrar configuraciones ni extensiones de VS Code automaticamente.
 echo.
@@ -84,6 +89,8 @@ if /I not "!CONFIRMAR!"=="ELIMINAR" (
 
 echo.
 echo [PASO 1] Entorno virtual
+echo Antes de seguir, cierra VS Code y cualquier ventana con el entorno activado:
+echo si algun programa esta usando el entorno, Windows no deja borrarlo.
 if exist "%ENTORNO%\" (
     echo Se propone eliminar exclusivamente:
     echo "%ENTORNO%"
@@ -107,13 +114,18 @@ if exist "%ENTORNO%\" (
 )
 
 echo.
-echo [PASO 2] Python !PYV!
+echo [PASO 2] Python
+if not defined PYV (
+    echo [INFO] winget no encuentra Python 3.11, 3.12 ni 3.13: no se toca Python.
+    >>"%LOG%" echo INFO: winget no encontro Python 3.11, 3.12 ni 3.13.
+    goto :paso3
+)
 echo Solo continua si estas seguro de que deseas quitar Python !PYV!.
 set /p "QUITAR_PYTHON=Intentar desinstalar Python.Python.!PYV! con winget? (SI/NO): "
 if /I "!QUITAR_PYTHON!"=="SI" (
     where winget >nul 2>&1
     if !errorlevel! equ 0 (
-        winget uninstall --id Python.Python.!PYV! --exact
+        winget uninstall --id Python.Python.!PYV! --exact --accept-source-agreements
         if !errorlevel! equ 0 (
             echo [OK] Winget finalizo la solicitud de desinstalacion.
             >>"%LOG%" echo Solicitud de desinstalacion de Python !PYV! completada por winget.
@@ -130,6 +142,7 @@ if /I "!QUITAR_PYTHON!"=="SI" (
     >>"%LOG%" echo Conservado: Python !PYV! por decision del usuario.
 )
 
+:paso3
 echo.
 echo [PASO 3] Visual Studio Code
 echo Comprueba que no lo necesitas para otros proyectos.
@@ -137,7 +150,7 @@ set /p "QUITAR_VSCODE=Intentar desinstalar Microsoft.VisualStudioCode con winget
 if /I "!QUITAR_VSCODE!"=="SI" (
     where winget >nul 2>&1
     if !errorlevel! equ 0 (
-        winget uninstall --id Microsoft.VisualStudioCode --exact
+        winget uninstall --id Microsoft.VisualStudioCode --exact --accept-source-agreements
         if !errorlevel! equ 0 (
             echo [OK] Winget finalizo la solicitud de desinstalacion.
             >>"%LOG%" echo Solicitud de desinstalacion de VS Code completada por winget.

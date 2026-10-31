@@ -18,7 +18,7 @@ La forma más sencilla es el script de instalación de tu sistema operativo (sec
 
 Cada script instala Python (si no tienes la 3.11 o posterior), crea el entorno virtual `entorno_ia` en tu carpeta de usuario, instala en él NumPy (2.3 o posterior), matplotlib, PyTorch (CPU; en Mac con chip Apple, con aceleración MPS), transformers y requests, e instala Visual Studio Code con su extensión de Python. En Windows, [`desinstalar_windows.bat`](desinstalar_windows.bat) deshace la instalación (sin argumentos solo muestra lo que haría). En Linux y macOS basta con borrar la carpeta `~/entorno_ia`.
 
-**Mac con procesador Intel:** la última versión de PyTorch para ese chip es la 2.2, que necesita NumPy 1. Para no cambiar las cifras del libro, el script deja NumPy 2 en `entorno_ia` e instala PyTorch en un segundo entorno, `~/entorno_ia_pytorch`, que se activa solo para los programas del Apéndice D.
+**Mac con procesador Intel:** la última versión de PyTorch para ese chip es la 2.2, que necesita NumPy 1 y Python 3.12 o anterior (por eso, en un Mac Intel el script instala Python 3.12). Para no cambiar las cifras del libro, el script deja NumPy 2 en `entorno_ia` e instala PyTorch en un segundo entorno, `~/entorno_ia_pytorch`, que se activa solo para los programas del Apéndice D.
 
 Si prefieres hacerlo a mano (Apéndice E), necesitas Python 3.11 o posterior:
 

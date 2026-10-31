@@ -5,7 +5,8 @@
 #   Repositorio: https://github.com/csoria39/proyecto-ia-libro
 # ================================================================
 # Compatible con macOS 12 Monterey o posterior, en Mac con chip Apple
-# (M1, M2, M3, M4...) o Intel.
+# (M1, M2, M3, M4...) o Intel. No necesita Homebrew: si no tienes Python 3.11
+# o posterior, instala el de python.org (pide tu contrasena una vez).
 #
 # Uso:   chmod +x instalar_mac.sh
 #        ./instalar_mac.sh            (SIN sudo delante)
@@ -13,8 +14,10 @@
 set -e
 
 ENTORNO="$HOME/entorno_ia"
-ENTORNO_PT="$HOME/entorno_ia_pytorch"      # solo en Mac Intel (ver PASO 6)
-PYV="3.12"                                  # version de Python que instala Homebrew
+ENTORNO_PT="$HOME/entorno_ia_pytorch"      # solo en Mac Intel (ver PASO 5)
+# Python que se instala desde python.org si no hay uno valido (instalador universal2).
+# En Mac Intel, PyTorch solo llega a la 2.2, que no existe para Python 3.13: alli se usa 3.12.
+if [ "$(uname -m)" = "arm64" ]; then PYV="3.13"; PY_PKG="3.13.17"; else PYV="3.12"; PY_PKG="3.12.10"; fi
 VERDE='\033[0;32m'; ROJO='\033[0;31m'; AMARILLO='\033[1;33m'; AZUL='\033[0;34m'; NC='\033[0m'
 
 ok()    { echo -e "${VERDE}[OK]${NC} $1"; }
@@ -39,7 +42,7 @@ if curl -s --head --max-time 8 https://pypi.org > /dev/null; then
     ok "Conexion a internet detectada."
 else
     aviso "No se ha podido contactar con pypi.org."
-    echo "    El script necesita internet para descargar Homebrew, Python y las librerias."
+    echo "    El script necesita internet para descargar Python, las librerias y VS Code."
     echo "    Comprueba la conexion (WiFi, cable, VPN). En redes con proxy (instituto,"
     echo "    empresa) puede que necesites ayuda del servicio tecnico."
     read -r -p "Continuar de todas formas? (probablemente fallara) [s/N]: " R
@@ -47,15 +50,14 @@ else
 fi
 
 ARCH=$(uname -m)
-clear
+clear 2>/dev/null || true
 echo "================================================================"
 echo "  INSTALACION DEL ENTORNO DE IA — macOS"
 echo "  Libro: De la Neurona al LLM"
 echo "================================================================"
 echo ""
 echo "Este script instala, en orden:"
-echo "  - Homebrew       (gestor de paquetes para Mac)"
-echo "  - Python $PYV"
+echo "  - Python $PYV de python.org (solo si no tienes Python 3.11 o posterior)"
 echo "  - Entorno virtual aislado en ~/entorno_ia"
 echo "  - NumPy 2        (calculo numerico — imprescindible, Caps. 1-20)"
 echo "  - Matplotlib     (graficas)"
@@ -72,53 +74,68 @@ echo "Tiempo estimado: 15-25 minutos segun la conexion."
 echo ""
 read -r -p "Pulsa Enter para comenzar..."
 
-# ================================================================
-paso "PASO 1 — Homebrew"
-# ================================================================
-if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"; fi
-if [ -x /usr/local/bin/brew ] && ! command -v brew &> /dev/null; then eval "$(/usr/local/bin/brew shellenv)"; fi
-if command -v brew &> /dev/null; then
-    ok "Homebrew ya esta instalado: $(brew --version | head -1)"
-    brew update --quiet || aviso "No se pudo actualizar Homebrew (se continua)."
-else
-    echo "Instalando Homebrew (pedira tu contrasena de usuario del Mac)..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    if [ "$ARCH" = "arm64" ]; then BREW=/opt/homebrew/bin/brew; else BREW=/usr/local/bin/brew; fi
-    # Se anade al PATH una sola vez, aunque se ejecute el script varias veces
-    grep -q "brew shellenv" ~/.zprofile 2>/dev/null || echo "eval \"\$($BREW shellenv)\"" >> ~/.zprofile
-    eval "$($BREW shellenv)"
-    ok "Homebrew instalado y configurado."
-fi
+# Devuelve 0 si el interprete $1 existe, es Python 3.11 o posterior y puede crear entornos virtuales
+python_valido() {
+    [ -x "$1" ] || command -v "$1" &> /dev/null || return 1
+    "$1" -c 'import sys, venv, ensurepip; sys.exit(0 if sys.version_info >= (3, 11) else 1)' 2>/dev/null
+}
 
 # ================================================================
-paso "PASO 2 — Python $PYV"
+paso "PASO 1 — Python 3.11 o posterior"
 # ================================================================
-# El python3 que trae macOS (3.9) es demasiado antiguo para el libro.
-if brew list "python@$PYV" &> /dev/null; then
-    ok "Python $PYV ya estaba instalado."
+# El python3 que trae macOS (3.9) es demasiado antiguo para el libro. Se busca uno valido
+# (python.org o Homebrew); si no lo hay, se instala el oficial de python.org. No se usa
+# Homebrew para instalarlo: en Mac Intel y en macOS 14 o anterior, Homebrew compila Python
+# desde el codigo fuente, lo que tarda mucho y puede fallar.
+PY=""
+if [ "$ARCH" = "arm64" ]; then
+    CANDIDATOS="/Library/Frameworks/Python.framework/Versions/3.14/bin/python3 /Library/Frameworks/Python.framework/Versions/3.13/bin/python3
+                /Library/Frameworks/Python.framework/Versions/3.12/bin/python3 /Library/Frameworks/Python.framework/Versions/3.11/bin/python3
+                /opt/homebrew/bin/python3 python3.14 python3.13 python3.12 python3.11 python3"
 else
-    brew install "python@$PYV"
+    # Mac Intel: solo 3.11 o 3.12, porque PyTorch 2.2 no tiene version para 3.13
+    CANDIDATOS="/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 /Library/Frameworks/Python.framework/Versions/3.11/bin/python3
+                /usr/local/bin/python3.12 /usr/local/bin/python3.11 python3.12 python3.11"
 fi
-PY="$(brew --prefix "python@$PYV")/bin/python$PYV"
-[ -x "$PY" ] || error "No se encuentra $PY tras instalar Python con Homebrew."
+for c in $CANDIDATOS; do
+    if python_valido "$c"; then PY="$c"; break; fi
+done
+if [ -z "$PY" ]; then
+    echo "No hay Python 3.11 o posterior. Descargando Python $PY_PKG de python.org (unos 70 MB)..."
+    PKG="$(mktemp -d)/python-$PY_PKG-macos11.pkg"
+    curl -fL --progress-bar -o "$PKG" "https://www.python.org/ftp/python/$PY_PKG/python-$PY_PKG-macos11.pkg" || \
+        error "No se pudo descargar Python. Descargalo desde https://www.python.org/downloads/macos/, instalalo y vuelve a lanzar el script."
+    echo "Instalando Python (pedira tu contrasena de usuario del Mac)..."
+    sudo installer -pkg "$PKG" -target / || error "No se pudo instalar Python $PY_PKG."
+    rm -f "$PKG"
+    PY="/Library/Frameworks/Python.framework/Versions/$PYV/bin/python3"
+    python_valido "$PY" || error "No se encuentra $PY tras instalar Python."
+fi
 ok "Python: $("$PY" --version)  ($PY)"
 
 # ================================================================
-paso "PASO 3 — Visual Studio Code"
+paso "PASO 2 — Visual Studio Code"
 # ================================================================
-if command -v code &> /dev/null || [ -d "/Applications/Visual Studio Code.app" ]; then
+APP="/Applications/Visual Studio Code.app"
+if command -v code &> /dev/null || [ -d "$APP" ]; then
     ok "VS Code ya esta instalado."
-elif brew install --cask visual-studio-code; then
-    ok "Visual Studio Code instalado."
 else
-    aviso "No se pudo instalar VS Code. Descargalo desde https://code.visualstudio.com"
+    echo "Descargando Visual Studio Code (unos 250 MB)..."
+    ZIP="$(mktemp -d)/vscode.zip"
+    if curl -fL --progress-bar -o "$ZIP" "https://update.code.visualstudio.com/latest/darwin-universal/stable" && \
+       { ditto -xk "$ZIP" /Applications 2>/dev/null || sudo ditto -xk "$ZIP" /Applications; }; then
+        ok "Visual Studio Code instalado en /Applications."
+    else
+        aviso "No se pudo instalar VS Code. Descargalo desde https://code.visualstudio.com"
+    fi
+    rm -f "$ZIP"
 fi
 # El comando 'code' (para instalar la extension) viene dentro de la aplicacion
 CODE="$(command -v code || true)"
-[ -n "$CODE" ] || CODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+[ -n "$CODE" ] || CODE="$APP/Contents/Resources/app/bin/code"
 
 # ================================================================
-paso "PASO 4 — Entorno virtual ~/entorno_ia"
+paso "PASO 3 — Entorno virtual ~/entorno_ia"
 # ================================================================
 crear_entorno() {   # $1 = carpeta del entorno
     if [ -x "$1/bin/python" ] && "$1/bin/python" -c "" 2>/dev/null; then
@@ -139,7 +156,7 @@ python -m pip install --upgrade pip --quiet
 ok "Entorno activo y pip actualizado."
 
 # ================================================================
-paso "PASO 5 — NumPy 2, Matplotlib, Transformers y Requests"
+paso "PASO 4 — NumPy 2, Matplotlib, Transformers y Requests"
 # ================================================================
 pip install "numpy>=2.3" "matplotlib>=3.8" --quiet
 ok "NumPy $(python -c 'import numpy; print(numpy.__version__)') y Matplotlib instalados."
@@ -150,7 +167,7 @@ else
 fi
 
 # ================================================================
-paso "PASO 6 — PyTorch (Apendice D)"
+paso "PASO 5 — PyTorch (Apendice D)"
 # ================================================================
 if [ "$ARCH" = "arm64" ]; then
     echo "Instalando PyTorch con aceleracion MPS (chip Apple)..."
@@ -177,7 +194,7 @@ else
 fi
 
 # ================================================================
-paso "PASO 7 — Extension de Python en VS Code"
+paso "PASO 6 — Extension de Python en VS Code"
 # ================================================================
 if [ -x "$CODE" ] || command -v code &> /dev/null; then
     "$CODE" --install-extension ms-python.python --force > /dev/null 2>&1 && ok "Extension de Python instalada." \
@@ -187,7 +204,7 @@ else
 fi
 
 # ================================================================
-paso "PASO 8 — VERIFICACION FINAL"
+paso "PASO 7 — VERIFICACION FINAL"
 # ================================================================
 python - <<'FIN'
 import sys, importlib

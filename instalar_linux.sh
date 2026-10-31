@@ -33,7 +33,7 @@ if [ "$EUID" -eq 0 ]; then
         Lanzalo como usuario normal (./instalar_linux.sh); pedira la contrasena cuando la necesite."
 fi
 
-clear
+clear 2>/dev/null || true
 echo "================================================================"
 echo "  INSTALACION DEL ENTORNO DE IA — LINUX"
 echo "  Libro: De la Neurona al LLM"
@@ -65,7 +65,7 @@ paso "PASO 1 — Python 3.11 o posterior"
 # ================================================================
 PY=""
 if command -v apt-get &> /dev/null; then
-    sudo apt-get update -qq
+    sudo apt-get update -qq || error "No se pudo actualizar la lista de paquetes (apt). Comprueba la conexion a internet."
     # python3-venv crea entornos virtuales; en Debian/Ubuntu va aparte.
     sudo apt-get install -y -qq python3 python3-venv python3-pip git curl wget gpg
     if python_valido python3; then
@@ -95,7 +95,9 @@ instalar_vscode() {
     echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | \
         sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null || return 1
     sudo apt-get update -qq || return 1
-    sudo apt-get install -y -qq code
+    # Sin esto, el paquete 'code' pregunta en una ventana de texto si anade su propio repositorio
+    echo "code code/add-microsoft-repo boolean false" | sudo debconf-set-selections
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq code
 }
 
 # ================================================================

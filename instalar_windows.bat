@@ -18,7 +18,7 @@ echo  ================================================================
 echo    INSTALACION DEL ENTORNO - De la Neurona al LLM
 echo  ================================================================
 echo.
-echo  Instala: Python 3.12 (si no tienes 3.11 o posterior), NumPy 2,
+echo  Instala: Python 3.13 (si no tienes 3.11 o posterior), NumPy 2,
 echo           Matplotlib, PyTorch CPU, Transformers, Requests
 echo           y Visual Studio Code.
 echo.
@@ -48,8 +48,8 @@ echo.
 echo  [2/7] Verificando Python...
 call :find_python
 if "!PYTHON_EXE!"=="" (
-    echo  No hay Python 3.11 o posterior. Instalando Python 3.12...
-    winget install --id Python.Python.3.12 --exact --silent --accept-package-agreements --accept-source-agreements
+    echo  No hay Python 3.11 o posterior. Instalando Python 3.13...
+    winget install --id Python.Python.3.13 --exact --silent --accept-package-agreements --accept-source-agreements
     call :refresh_path
     call :find_python
 )
@@ -67,7 +67,9 @@ rem  PASO 3 - Visual Studio Code
 rem ================================================================
 echo.
 echo  [3/7] Verificando Visual Studio Code...
-winget list --id Microsoft.VisualStudioCode --exact >nul 2>&1
+rem Sin --accept-source-agreements, la primera vez winget pregunta por los terminos
+rem y, con la salida oculta, el script pareceria colgado.
+winget list --id Microsoft.VisualStudioCode --exact --accept-source-agreements >nul 2>&1
 if !errorlevel! neq 0 (
     echo  Instalando Visual Studio Code...
     winget install --id Microsoft.VisualStudioCode --exact --silent --accept-package-agreements --accept-source-agreements
@@ -213,10 +215,11 @@ rem ================================================================
 :find_python
 rem Busca un Python 3.11 o posterior: primero el lanzador "py", luego "python"
 rem del PATH (sin el acceso directo de Microsoft Store), luego rutas habituales.
+rem (la entrada vacia evita que el lanzador se quede esperando si pregunta si instalar una version)
 set "PYTHON_EXE="
 for %%T in (3.14 3.13 3.12 3.11) do (
     if "!PYTHON_EXE!"=="" (
-        for /f "delims=" %%P in ('py -%%T -c "import sys; print(sys.executable)" 2^>nul') do set "PYTHON_EXE=%%P"
+        for /f "delims=" %%P in ('py -%%T -c "import sys; print(sys.executable)" ^<nul 2^>nul') do set "PYTHON_EXE=%%P"
     )
 )
 if "!PYTHON_EXE!"=="" (
