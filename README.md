@@ -1,5 +1,7 @@
 # Proyecto IA — De la Neurona al LLM
 
+[![Apoya el libro en Ko-fi](https://img.shields.io/badge/Ko--fi-Apoya%20el%20libro-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/delaneuronaalllm)
+
 Repositorio oficial del libro de **Carlos Soria Martínez**. Contiene todos los programas y ejercicios resueltos del libro, sus salidas reales y las comprobaciones que respaldan sus cifras.
 
 El libro lleva a un estudiante de primero de Informática, a un autodidacta o a un curioso con Python básico desde una sola neurona hasta un GPT-2 completo, programado con NumPy. Al final, con ese mismo código, se ejecuta el GPT-2 real de OpenAI.
@@ -81,6 +83,16 @@ OpenAI publicó GPT-2 con licencia MIT.
 - **Libro** (texto, ilustraciones y diagramas, PDF y DOCX): Creative Commons Atribución–NoComercial–SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0). Archivo [`LICENSE-LIBRO.md`](LICENSE-LIBRO.md).
 - **Pesos de GPT-2:** de OpenAI, con licencia MIT. No se incluyen.
 - **Código de terceros:** en `programas/programa_8bis_gpt2_real.py` (y en `ejercicio_9q_1.py`, que lo reutiliza), la función `bytes_a_unicode()` y la expresión regular `TROCEO` reproducen las del tokenizador de GPT-2, `src/encoder.py` del repositorio [openai/gpt-2](https://github.com/openai/gpt-2) (© 2019 OpenAI, licencia MIT): tienen que ser idénticas para obtener los mismos tokens que el modelo.
+
+## Apoya el proyecto
+
+El libro y todo su código son gratuitos y lo seguirán siendo. Detrás hay muchas horas de escritura, de programas ejecutados uno a uno para que cada cifra del libro sea real y de revisión para que un estudiante de primer curso pueda seguirlo sin tropiezos.
+
+Si te ha servido para entender por fin cómo funciona un LLM, para preparar una asignatura o simplemente te ha gustado, puedes invitar al autor a un café en Ko-fi: es un pago único, del importe que quieras, con tarjeta y sin registrarte.
+
+**[ko-fi.com/delaneuronaalllm](https://ko-fi.com/delaneuronaalllm)**
+
+Cualquier aportación ayuda a mantener el repositorio, corregir erratas y preparar nuevas ediciones. Y si no puedes aportar, también ayudas mucho recomendándolo, dejando una estrella ⭐ en el repositorio o enviando una errata.
 
 ## Erratas y contacto
 
