@@ -8,11 +8,23 @@ El libro lleva a un estudiante de primero de Informática, a un autodidacta o a 
 
 ## Instalación
 
-Necesitas Python 3.10 o posterior. El libro explica la instalación paso a paso en la sección 1.4 y en el Apéndice E. Resumen:
+La forma más sencilla es el script de instalación de tu sistema operativo (sección 1.4 del libro). Descárgalo de esta página y ejecútalo:
+
+| Sistema | Script | Cómo se lanza |
+|---|---|---|
+| Windows 10/11 | [`instalar_windows.bat`](instalar_windows.bat) | Doble clic (o clic derecho → «Ejecutar como administrador») |
+| Linux (Ubuntu, Debian, Mint) | [`instalar_linux.sh`](instalar_linux.sh) | `chmod +x instalar_linux.sh && ./instalar_linux.sh` |
+| macOS 12 o posterior | [`instalar_mac.sh`](instalar_mac.sh) | `chmod +x instalar_mac.sh && ./instalar_mac.sh` |
+
+Cada script instala Python (si no tienes la 3.11 o posterior), crea el entorno virtual `entorno_ia` en tu carpeta de usuario, instala en él NumPy (2.3 o posterior), matplotlib, PyTorch (CPU; en Mac con chip Apple, con aceleración MPS), transformers y requests, e instala Visual Studio Code con su extensión de Python. En Windows, [`desinstalar_windows.bat`](desinstalar_windows.bat) deshace la instalación (sin argumentos solo muestra lo que haría). En Linux y macOS basta con borrar la carpeta `~/entorno_ia`.
+
+**Mac con procesador Intel:** la última versión de PyTorch para ese chip es la 2.2, que necesita NumPy 1. Para no cambiar las cifras del libro, el script deja NumPy 2 en `entorno_ia` e instala PyTorch en un segundo entorno, `~/entorno_ia_pytorch`, que se activa solo para los programas del Apéndice D.
+
+Si prefieres hacerlo a mano (Apéndice E), necesitas Python 3.11 o posterior:
 
 ```bash
-python -m venv entorno_ia
-source entorno_ia/bin/activate          # Windows: entorno_ia\Scripts\activate
+python3 -m venv ~/entorno_ia            # Windows (CMD): python -m venv %USERPROFILE%\entorno_ia
+source ~/entorno_ia/bin/activate        # Windows (CMD): %USERPROFILE%\entorno_ia\Scripts\activate.bat
 pip install -r requirements.txt
 cd programas
 python programa_1a_activaciones.py
@@ -103,3 +115,5 @@ Las erratas y sugerencias pueden enviarse a de.la.neurona.al.llm@gmail.com o abr
 ## Comprobación
 
 Todos los programas se ejecutaron desde una copia limpia de este repositorio, con un entorno virtual nuevo de Python 3.11 y NumPy 2.4.6. La salida de cada uno coincide con la de `salidas/`. Solo cambian los tiempos que imprimen algunos programas y la de `programa_PT4_embeddings.py`, que no fija la semilla aleatoria; el libro no imprime su salida.
+
+Hace falta NumPy 2.3 o posterior. Con NumPy 2.2 los programas funcionan, pero los entrenamientos largos (el Programa 8 y los que parten de él) se separan en los decimales a partir de unos miles de pasos, y las pérdidas finales y el texto generado ya no coinciden con los del libro. Se ha comprobado con el Programa 8: con NumPy 2.3.5 y 2.4.6 la salida es idéntica; con 2.2.6 cambia desde el paso 4000, tanto en Python 3.10 como en 3.11. Como Python 3.10 no admite NumPy 2.3, el libro y los scripts piden Python 3.11 o posterior.
