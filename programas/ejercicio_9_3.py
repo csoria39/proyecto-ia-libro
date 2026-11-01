@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 # =======================================================
-# EJERCICIO 9.3 — La perplejidad del Nano-LLM
+# EJERCICIO 13.3 — La perplejidad del Nano-LLM
 # PPL = exp(pérdida media por carácter). Se calcula con el
 # modelo entrenado sobre TODO el texto de entrenamiento.
 # =======================================================

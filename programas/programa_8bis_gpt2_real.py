@@ -132,7 +132,7 @@ def top_p_filtrar(probs, p):
 # GPT-2 trabaja con BYTES: cada uno de los 256 valores posibles de
 # un byte se representa con un carácter imprimible (el espacio, por
 # ejemplo, se convierte en «Ġ»). Sobre esos caracteres se aplican,
-# por orden, las 50.000 fusiones aprendidas que hay en merges.txt.
+# por orden, las 50 000 fusiones aprendidas que hay en merges.txt.
 def bytes_a_unicode():
     bs = (list(range(ord('!'), ord('~') + 1)) + list(range(ord('¡'), ord('¬') + 1))
           + list(range(ord('®'), ord('ÿ') + 1)))
@@ -231,7 +231,7 @@ t0 = time.time()
 print(generar('I enjoy walking with my cute dog', n_tokens=30, temperatura=0))
 print(f'({time.time() - t0:.1f} s)')
 
-print('\n=== 5. GENERACIÓN CON TEMPERATURA 0,8 Y TOP-P 0,9 ===')
+print('\n=== 5. GENERACIÓN CON TEMPERATURA 0.8 Y TOP-P 0.9 ===')
 np.random.seed(42)
 for semilla in ['The meaning of life is', 'In a shocking finding, scientists discovered',
                 'La inteligencia artificial es']:

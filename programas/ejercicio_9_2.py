@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 # =======================================================
-# EJERCICIO 9.2 — El efecto de la temperatura, con el modelo real
+# EJERCICIO 13.2 — El efecto de la temperatura, con el modelo real
 # Carga los pesos que guardó el Programa 8 y genera desde la
 # misma semilla con cinco temperaturas (top_p = 1.0 para aislar
 # el efecto de la temperatura).

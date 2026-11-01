@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 # EJERCICIO 16.5 — ¿En qué se va el tiempo de un token con KV-cache?
 # Con el cache, cada token nuevo atraviesa los 12 bloques y la proyección
-# final sobre los 50.257 tokens. Medimos cada parte por separado.
+# final sobre los 50 257 tokens. Medimos cada parte por separado.
 import time
 import numpy as np
 

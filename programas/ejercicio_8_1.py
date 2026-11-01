@@ -10,7 +10,7 @@ def params_transformer(d, d_ff=None, n_heads=1):
  
 configs = [
     ('Nuestro bloque (d=16)',     16,   64,  1),
-    ('Nano-LLM completo (2 bl.)', 48,  192,  2),   # 28.272 por bloque, como el Programa 8
+    ('Nano-LLM completo (2 bl.)', 48,  192,  2),   # 28 272 por bloque, como el Programa 8
     ('GPT-2 small (d=768, 12bl)',768, 3072, 12),
     ('GPT-3 (d=12288, 96bl)',  12288,49152, 96),
 ]

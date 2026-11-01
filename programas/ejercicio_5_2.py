@@ -27,4 +27,4 @@ for nombre, arq in casos.items():
 # Cálculo manual para verificar [2, 8, 1]:
 # Capa 1: 2*8 + 8 = 16 + 8 = 24
 # Capa 2: 8*1 + 1 =  8 + 1 =  9
-# Total: 24 + 9 = 33, que coincide con el Programa 3 (8 ocultas): 2*8+8 + 8*1+1 = 33
+# Total: 24 + 9 = 33, que coincide con el Programa 4 (8 ocultas): 2*8+8 + 8*1+1 = 33

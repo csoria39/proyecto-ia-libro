@@ -13,7 +13,7 @@ np.random.seed(0)
 H    = 32   # dimension del estado oculto
 T    = 60   # longitud de la secuencia
  
-# Tres RNNs con distintas inicializaciones de W_hh
+# Cuatro RNNs con distintas inicializaciones de W_hh
 configs = {
     'W_hh pequena  (escala 0.05)':      np.random.randn(H,H) * 0.05,
     'W_hh moderada (escala 1/sqrt(H))': np.random.randn(H,H) * (1.0/np.sqrt(H)),

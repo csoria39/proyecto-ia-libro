@@ -88,8 +88,8 @@ for paso in range(PASOS):
 
 print(f'\nDespués del ajuste: entrenamiento {bits_por_caracter(TRAIN):.2f} | '
       f'validación {bits_por_caracter(VAL):.2f} bits/carácter')
-print('Nano-LLM (Programa RZ-1), validación: mejor momento 1,923 nats = '
-      f'{1.923 / np.log(2):.2f} bits; al final 4,175 nats = {4.175 / np.log(2):.2f} bits')
+print('Nano-LLM (Programa RZ-1), validación: mejor momento 1.923 nats = '
+      f'{1.923 / np.log(2):.2f} bits; al final 4.175 nats = {4.175 / np.log(2):.2f} bits')
 np.random.seed(0)
 for semilla in ['la atención permite', 'la función softmax', 'un modelo']:
     print(f'\n--- {semilla!r} ---')

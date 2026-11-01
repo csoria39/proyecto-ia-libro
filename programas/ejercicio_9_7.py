@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 # =======================================================
-# EJERCICIO 9.7 — ¿Qué hace de verdad el recorte del gradiente?
+# EJERCICIO 13.7 — ¿Qué hace de verdad el recorte del gradiente?
 # Ejecuta el Programa 8 registrando la norma del gradiente en
 # cada paso, con recorte (CLIP = 1.0) o sin él.
 # Uso:  python ejercicio_9_7.py            -> con recorte

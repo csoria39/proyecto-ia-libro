@@ -19,7 +19,7 @@ def d_relu(z): return (z > 0).astype(float)
 # =============================================================
 # MLP CON REGULARIZACION L2 OPCIONAL
 # El unico cambio respecto al MLP basico: añadimos
-# lambda * W al gradiente en cada actualizacion.
+# 2 * lambda * W al gradiente en cada actualizacion.
 # =============================================================
 class MLPConL2:
     def __init__(self, n_oc, lam=0.0):

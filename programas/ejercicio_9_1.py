@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 # =======================================================
-# EJERCICIO 9.1 — Entrenar el Nano-LLM con otro texto
+# EJERCICIO 13.1 — Entrenar el Nano-LLM con otro texto
 # Reutiliza el Programa 8 tal cual: solo sustituye TEXTO,
 # reduce PASOS y guarda los pesos con otro nombre.
 # =======================================================

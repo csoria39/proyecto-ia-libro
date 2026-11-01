@@ -9,7 +9,7 @@ Paso    1: pérdida del lote = 4.676 nats/token   norma = 18.34   validación = 
 Paso   25: pérdida del lote = 3.392 nats/token   norma = 12.91   validación = 2.25 bits/carácter   (219 s)
 
 Después del ajuste: entrenamiento 1.96 | validación 2.25 bits/carácter
-Nano-LLM (Programa RZ-1), validación: mejor momento 1,923 nats = 2.77 bits; al final 4,175 nats = 6.02 bits
+Nano-LLM (Programa RZ-1), validación: mejor momento 1.923 nats = 2.77 bits; al final 4.175 nats = 6.02 bits
 
 --- 'la atención permite' ---
 la atención permite en español.

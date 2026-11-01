@@ -31,7 +31,7 @@ def convolucion_2d(imagen, filtro, relleno=1):
 def max_pooling(feat_map, tamano=2):
     """
     Reduce el mapa de características tomando el máximo
-    en cada ventana de tamanoxtamano.
+    en cada ventana de tamano x tamano.
     """
     H, W = feat_map.shape
     H_out = H // tamano

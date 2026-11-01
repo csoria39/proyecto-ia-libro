@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 # Fragmento 16.4 — Greedy con y sin penalización por repetición
-# La penalización es la del Programa S-2 (14.5), copiada tal cual.
+# La penalización es la del Programa S-2 (14.3), copiada tal cual.
 import numpy as np
 fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
 exec(fuente.split('# EXPERIMENTOS')[0])

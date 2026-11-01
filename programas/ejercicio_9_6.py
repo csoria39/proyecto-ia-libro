@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 # =======================================================
-# EJERCICIO 9.6 — Verifica tu backward con diferencias finitas
+# EJERCICIO 13.6 — Verifica tu backward con diferencias finitas
 # Compara el gradiente analítico de forward_backward() con el
 # gradiente numérico (L(w+ε) − L(w−ε)) / 2ε en elementos al azar
 # de TODOS los tensores del Programa 8.

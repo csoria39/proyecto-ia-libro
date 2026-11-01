@@ -290,7 +290,7 @@ PASOS  = 12000
 # Cada paso procesa un mini-lote de BATCH ventanas elegidas al azar,
 # no todo el texto, así que un paso NO es una "época" (una época es
 # una pasada completa por todos los datos; ver el glosario). Cuenta:
-# 12000 pasos × 8 ventanas × 24 caracteres ≈ 2,3 millones de
+# 12000 pasos × 8 ventanas × 24 caracteres ≈ 2.3 millones de
 # predicciones ≈ 454 pasadas por los 5076 caracteres del corpus.
 
 BATCH  = 8
@@ -412,7 +412,7 @@ for k in range(N_BLQ):
     params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)  # comprime D_FF -> D
 
 # Comprobación rápida en pantalla: tamaño del vocabulario, número
-# total de parámetros (60.000 justos con estos tamaños) y cuánto texto
+# total de parámetros (60 000 justos con estos tamaños) y cuánto texto
 # se va a usar para entrenar.
 total = sum(p.size for p in params.values())
 print(f'Vocabulario: {V} caracteres')
@@ -812,8 +812,8 @@ def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
 # BUCLE DE ENTRENAMIENTO: OPTIMIZADOR ADAM CON MINI-LOTES
 # =============================================================================
 # Adam ("Adaptive Moment Estimation") es el optimizador más usado en
-# la práctica para entrenar redes neuronales (y también el que usan,
-# por defecto, los LLMs reales). En vez de simplemente restar
+# la práctica para entrenar redes neuronales (los LLMs reales usan
+# su variante AdamW, 5.6). En vez de simplemente restar
 # `LR * gradiente` a cada peso (como el descenso de gradiente más
 # básico), Adam mantiene, PARA CADA PARÁMETRO POR SEPARADO, dos
 # "memorias" que se actualizan en cada paso:

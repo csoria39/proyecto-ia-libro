@@ -47,7 +47,7 @@ Referencia «al azar»: ln(50257) = 10.82, perplejidad 50257
 I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk
 (19.4 s)
 
-=== 5. GENERACIÓN CON TEMPERATURA 0,8 Y TOP-P 0,9 ===
+=== 5. GENERACIÓN CON TEMPERATURA 0.8 Y TOP-P 0.9 ===
 
 --- 'The meaning of life is' ---
 The meaning of life is and always will be a question of importance to us, both those who are here and those who are not. I am not willing to give up the hope of a lifetime that will be the exact opposite
