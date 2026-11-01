@@ -36,7 +36,7 @@ def generar_avanzado(
     generados = list(tokens)   # para repetition penalty
     
     for _ in range(n):
-        ctx    = tokens[-CTX:]   # SIN relleno: longitud real (ver 9.3)
+        ctx    = tokens[-CTX:]   # SIN relleno: se usa la longitud real
         
         # 1. Obtener logits del modelo
         logits = modelo_forward(ctx)[-1]

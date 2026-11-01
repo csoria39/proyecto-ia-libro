@@ -19,7 +19,7 @@ def generar_adaptativo(modelo_forward, c2i, i2c, semilla, n=60,
     resultado = semilla
     
     for i in range(n):
-        ctx = tokens[-CTX:]   # SIN relleno: longitud real (ver 9.3)
+        ctx = tokens[-CTX:]   # SIN relleno: se usa la longitud real
         logits = modelo_forward(ctx)[-1]
         
         # Estrategia adaptativa segun la posicion
