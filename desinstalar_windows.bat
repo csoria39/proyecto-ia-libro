@@ -14,7 +14,7 @@ set "PYV="
 for %%V in (3.13 3.12 3.11) do (
     if not defined PYV (
         winget list --id Python.Python.%%V --exact --accept-source-agreements >nul 2>&1
-        if not errorlevel 1 set "PYV=%%V"
+        if !errorlevel! equ 0 set "PYV=%%V"
     )
 )
 

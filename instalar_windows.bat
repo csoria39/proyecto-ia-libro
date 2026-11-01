@@ -182,12 +182,20 @@ echo  ================================================================
 echo    VERIFICACION FINAL
 echo  ================================================================
 echo.
-"!VPY!" -c "import sys; print('  [OK] Python      ', sys.version.split()[0])"
-"!VPY!" -c "import numpy as np; assert tuple(int(x) for x in np.__version__.split('.')[:2]) >= (2, 3); print('  [OK] NumPy       ', np.__version__)"
-"!VPY!" -c "import matplotlib as m; print('  [OK] Matplotlib  ', m.__version__)"
-"!VPY!" -c "import torch; print('  [OK] PyTorch     ', torch.__version__)"
-"!VPY!" -c "import transformers; print('  [OK] Transformers', transformers.__version__)"
-"!VPY!" -c "import requests; print('  [OK] Requests    ', requests.__version__)"
+set "FALLO="
+"!VPY!" -c "import sys; print('  [OK] Python       ', sys.version.split()[0])"
+rem Que librerias hay y en que version (sin importarlas: un fallo de una no oculta las demas)
+"!VPY!" -c "import importlib.util as u, importlib.metadata as md; [print('  [OK]' if u.find_spec(m) else '  [--]', m.ljust(13), md.version(m) if u.find_spec(m) else 'no instalada') for m in ('numpy', 'matplotlib', 'torch', 'transformers', 'requests')]"
+rem NumPy es imprescindible: tiene que importarse, ser 2.3 o posterior y calcular
+"!VPY!" -c "import numpy as np; assert tuple(int(x) for x in np.__version__.split('.')[:2]) >= (2, 3); print('  [OK] NumPy funciona:', np.array([1, 2, 3]) * 2)"
+if !errorlevel! neq 0 set "FALLO=1"
+if defined FALLO (
+    echo.
+    echo  [ERROR] NumPy no funciona en el entorno. Vuelve a ejecutar el script;
+    echo          si el error se repite, consulta la FASE 13 de la guia del entorno.
+    pause
+    exit /b 1
+)
 
 echo.
 echo  ================================================================
