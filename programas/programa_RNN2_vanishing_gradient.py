@@ -75,14 +75,39 @@ for dist in range(0, T+1, 5):
     arrow = '<-- el gradiente es casi NULO' if v < 1e-4 else ''
     print(f'  Distancia {dist:>3}: {v:.2e}  {barra} {arrow}')
  
+# Contraste: la derivada REAL de tanh, 1 - h^2, en una secuencia de verdad
+# (entradas al azar ya proyectadas; mismo W_hh que arriba)
+np.random.seed(1)
+X_in = np.random.randn(T, H) * 0.5
+ 
+def gradiente_real(W_hh):
+    h, hs = np.zeros(H), []
+    for t in range(T):                                # forward real
+        h = np.tanh(W_hh @ h + X_in[t]); hs.append(h)
+    grad, normas, dts = np.ones(H) / np.sqrt(H), [1.0], []
+    for t in reversed(range(T)):                      # backward real
+        d_tanh = 1 - hs[t]**2
+        dts.append(d_tanh.mean())
+        grad = W_hh.T @ (grad * d_tanh)
+        normas.append(float(np.linalg.norm(grad)))
+    return normas, float(np.mean(dts))
+ 
+print('\nContraste con la derivada real de tanh (1 - h^2):')
+print(f"{'Configuracion':>18}  {'media 1-h^2':>11}  {'dist 10 (0.5)':>14}  {'dist 10 (real)':>14}  {'dist 30 (real)':>14}")
+for nombre, W in configs.items():
+    reales, media = gradiente_real(W)
+    print(f"{nombre.split('(')[0].strip():>18}  {media:>11.3f}  {historicos[nombre][10]:>14.2e}  {reales[10]:>14.2e}  {reales[30]:>14.2e}")
+ 
 print()
 print('Conclusion:')
-print('  Con W_hh pequena: el gradiente desaparece rapidamente.')
-print('  Los tokens lejanos NO contribuyen al aprendizaje.')
-print('  El RNN solo puede aprender dependencias de corto alcance.')
+print('  Con W_hh pequena o moderada, el gradiente desaparece en pocos pasos,')
+print('  tanto con la derivada fija (0.5) como con la real (1 - h^2):')
+print('  los tokens lejanos apenas contribuyen al aprendizaje.')
 print()
-print('  Con W_hh grande (escala 0.3): el gradiente decae mas despacio, pero decae.')
-print('  Con W_hh muy grande (escala 0.5): el gradiente EXPLOTA.')
+print('  Con escalas mayores, la derivada importa: con 0.5 fijo, el gradiente')
+print('  decae (0.3) o EXPLOTA (0.5); con la real, que baja cuando tanh se')
+print('  satura, se mantiene en el mismo orden de magnitud a distancia 30.')
+print('  Una RNN simple vive en un equilibrio fragil entre ambos extremos.')
 print()
 print('  Esta es la razon fundamental por la que el Transformer')
 print('  supero a los RNNs: la atencion conecta directamente')

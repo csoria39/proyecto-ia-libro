@@ -1,12 +1,9 @@
-Similitudes coseno respecto a v_ref = [1, 0, 0]
+¿Cuántas neuronas ocultas necesita XOR?
 
-                          Vector   Sim. coseno  Interpretación
------------------------------------------------------------------
-              referencia [1,0,0]        1.0000  muy similares
-          parecido [0.9,0.4,0.1]        0.9091  muy similares
-           perpendicular [0,1,0]        0.0000  perpendiculares
-                opuesto [-1,0,0]       -1.0000  opuestos
-         misma dirección [3,0,0]        1.0000  muy similares
-
-Observa: la similitud coseno NO depende de la magnitud,
-solo de la dirección. [1,0,0] y [3,0,0] son identicos.
+   N ocultas   Éxitos/10    Pérdida media
+------------------------------------------
+           1           0/10          0.20005
+           2           0/10          0.18766
+           3           5/10          0.10488
+           4           8/10          0.03839
+           8          10/10          0.00087

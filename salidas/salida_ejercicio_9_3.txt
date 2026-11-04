@@ -1,16 +1,15 @@
-Vocabulario: 46 caracteres
-Total de parámetros: 60,000
-Texto de entrenamiento: 5076 tokens, 93 líneas
+Tipo INGLES (palabras cortas):
+  Caracteres: 73  Tokens: 36  Fertilidad: 1.57 tokens/palabra
 
-Pérdida media en el texto de entrenamiento: 0.2835
-Perplejidad: e^0.2835 = 1.33
+Tipo ALEMAN (compuestos largos):
+  Caracteres: 104  Tokens: 59  Fertilidad: 11.80 tokens/palabra
 
- Pérdida     PPL  Interpretación
-----------------------------------------------------------
-  3.8286   46.00  La pérdida de la uniforme (al azar)
-  3.0000   20.09  Algo de estructura local
-  2.0000    7.39  Patrones de carácter bien aprendidos
-  1.5000    4.48  Patrones de carácter bien aprendidos
-  1.0000    2.72  Buen modelo: captura el estilo
-  0.5000    1.65  Excelente... o sobreajuste (ver Capítulo 15)
-  0.2835    1.33  Excelente... o sobreajuste (ver Capítulo 15)
+El corpus con compuestos largos necesita MAS tokens por palabra
+porque las palabras unicas son mas dificiles de comprimir:
+cada compuesto aparece pocas veces, asi que BPE no puede
+asignarle un token unico tan facilmente.
+
+Es una ilustracion con dos corpus inventados, no una medida de
+tokenizadores reales; pero apunta en la misma direccion que el fenomeno
+real: idiomas de morfologia rica (aleman, finlandes, turco) gastan mas
+tokens por palabra en tokenizadores entrenados sobre todo en ingles.

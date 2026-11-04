@@ -1,7 +1,20 @@
-                            Arquitectura    Parámetros
---------------------------------------------------------
-                 Una neurona (1 entrada)             2
-                Neurona AND (2 entradas)             3
-                         MLP XOR (2-8-1)            33
-                MLP mediano (10-64-32-1)         2,817
-FFN de un bloque de GPT-2 (768-3072-768)     4,722,432
+=== TRAYECTORIA DE ADAM ===
+f(x,y) = x^2 + 10y^2   (gradiente en y es 10x mayor que en x)
+
+ Paso         x         y    grad_x    grad_y    paso_x    paso_y
+-----------------------------------------------------------------
+    1    4.7000    4.7000    10.000   100.000    0.3000    0.3000
+    2    4.4006    4.4006     9.400    94.000    0.2994    0.2994
+    3    4.1024    4.1024     8.801    88.013    0.2983    0.2983
+    4    3.8057    3.8057     8.205    82.047    0.2966    0.2966
+    5    3.5113    3.5113     7.611    76.114    0.2944    0.2944
+    6    3.2197    3.2197     7.023    70.226    0.2916    0.2916
+    7    2.9317    2.9317     6.439    64.395    0.2880    0.2880
+    8    2.6480    2.6480     5.863    58.634    0.2837    0.2837
+    9    2.3693    2.3693     5.296    52.959    0.2786    0.2786
+   10    2.0966    2.0966     4.739    47.386    0.2727    0.2727
+   15    0.8556    0.8556     2.168    21.684    0.2286    0.2286
+
+Observa: aunque grad_y es ~10x mayor que grad_x al principio,
+los PASOS en x e y son de magnitud similar.
+Adam normaliza por la magnitud historica de cada gradiente.

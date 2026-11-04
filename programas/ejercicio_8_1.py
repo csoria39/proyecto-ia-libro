@@ -1,24 +1,29 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-def params_transformer(d, d_ff=None, n_heads=1):
-    d_ff = d_ff or d * 4
-    """Cuenta parámetros de un bloque transformer"""
-    aten  = 4 * d * d + 4 * d      # Wq, Wk, Wv, Wo y sus sesgos
-    ffn   = d*d_ff + d_ff + d_ff*d + d  # W1+b1 + W2+b2
-    lnorm = 2 * 2 * d              # 2 LayerNorm x (gamma + beta)
-    total = aten + ffn + lnorm
-    return {'atención': aten, 'FFN': ffn, 'LayerNorm': lnorm, 'total': total}
+import numpy as np
  
-configs = [
-    ('Nuestro bloque (d=16)',     16,   64,  1),
-    ('Nano-LLM completo (2 bl.)', 48,  192,  2),   # 28 272 por bloque, como el Programa 8
-    ('GPT-2 small (d=768, 12bl)',768, 3072, 12),
-    ('GPT-3 (d=12288, 96bl)',  12288,49152, 96),
-]
+class TokenizadorCaracter:
+    def __init__(self, texto):
+        self.vocab = sorted(set(texto))
+        self.V     = len(self.vocab)
+        self.c2i   = {c:i for i,c in enumerate(self.vocab)}
+        self.i2c   = dict(enumerate(self.vocab))
+    def codificar(self, t):  return [self.c2i[c] for c in t if c in self.c2i]
+    def decodificar(self, l): return ''.join(self.i2c[i] for i in l)
  
-for nombre, d, d_ff, n_bl in configs:
-    r = params_transformer(d, d_ff)
-    total_modelo = r['total'] * n_bl
-    print(f'{nombre}')
-    print(f'  Atención: {r["atención"]:>10,}  FFN: {r["FFN"]:>10,}  LN: {r["LayerNorm"]:>6,}')
-    print(f'  Por bloque: {r["total"]:>10,}   x {n_bl} bloques = {total_modelo:>15,} total')
-    print()
+# Cambia por tu propio nombre
+nombre = 'Alan Turing'
+ 
+tok = TokenizadorCaracter(nombre)
+print(f'Nombre: "{nombre}"')
+print(f'Vocabulario ({tok.V} caracteres): {tok.vocab}')
+print()
+ 
+cod = tok.codificar(nombre)
+dec = tok.decodificar(cod)
+print(f'Codificado:   {cod}')
+print(f'Decodificado: "{dec}"')
+print(f'Reversible:   {nombre == dec}')
+print()
+print('Índice de cada carácter:')
+for c, i in tok.c2i.items():
+    print(f'  {repr(c):>6}  ->  índice {i}')

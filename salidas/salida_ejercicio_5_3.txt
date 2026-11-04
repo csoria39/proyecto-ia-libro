@@ -1,9 +1,9 @@
-¿Cuántas neuronas ocultas necesita XOR?
+=== EFECTO DEL WEIGHT DECAY EN ADAMW ===
 
-   N ocultas   Éxitos/10    Pérdida media
-------------------------------------------
-           1           0/10          0.20005
-           2           0/10          0.18766
-           3           5/10          0.10488
-           4           8/10          0.03839
-           8          10/10          0.00087
+  weight_decay    Loss train     Acc val  Diagnostico
+-------------------------------------------------------
+         0.000       0.06289       96.7%  sin regularizar
+         0.001       0.06301       96.7%  optimo
+         0.010       0.06485       96.7%  optimo
+         0.100       0.08245       96.7%  optimo
+         1.000       0.26526       88.3%  underfitting

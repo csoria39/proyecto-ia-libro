@@ -1,18 +1,7 @@
-Texto: "la red neuronal aprende del texto de entrenamiento"
-Total de bigramas: 49
-
-Top 10 bigramas:
-   Bigrama     Frec.     Prob.  Barra
----------------------------------------------
-      'en'         4    0.0816  ████████████████
-      're'         3    0.0612  ████████████
-      'de'         3    0.0612  ████████████
-      'na'         2    0.0408  ████████
-      'l '         2    0.0408  ████████
-      'e '         2    0.0408  ████████
-      ' d'         2    0.0408  ████████
-      'to'         2    0.0408  ████████
-      'nt'         2    0.0408  ████████
-      'la'         1    0.0204  ████
-Probabilidad de que despues de a venga p:
-  P("p" | "a") = 0.2500
+                            Arquitectura    Parámetros
+--------------------------------------------------------
+                 Una neurona (1 entrada)             2
+                Neurona AND (2 entradas)             3
+                         MLP XOR (2-8-1)            33
+                MLP mediano (10-64-32-1)         2,817
+FFN de un bloque de GPT-2 (768-3072-768)     4,722,432

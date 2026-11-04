@@ -1,32 +1,41 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-# =======================================================
-# EJERCICIO 13.1 — Entrenar el Nano-LLM con otro texto
-# Reutiliza el Programa 8 tal cual: solo sustituye TEXTO,
-# reduce PASOS y guarda los pesos con otro nombre.
-# =======================================================
-import numpy as np
-
-NUEVO_TEXTO = """
-python es el lenguaje de la inteligencia artificial.
-las listas se crean con corchetes: [1, 2, 3].
-los diccionarios usan llaves y pares clave valor.
-las funciones se definen con la palabra reservada def.
-los bucles for recorren secuencias de elementos.
-las clases permiten crear objetos con metodos y atributos.
-importa numpy para operaciones numericas eficientes.
-las redes neuronales aprenden de los datos de entrenamiento.
-"""
-
-# Análisis del nuevo vocabulario (antes de entrenar)
-vocab = sorted(set(NUEVO_TEXTO))
-V = len(vocab)
-print(f'Texto: {len(NUEVO_TEXTO)} caracteres | vocabulario: {V} caracteres únicos')
-print(f'Pérdida inicial esperada: ln({V}) = {np.log(V):.4f}\n')
-
-# Programa 8 con tres cambios: TEXTO, PASOS y nombre del archivo de pesos
-fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
-viejo = fuente.split('TEXTO = """')[1].split('"""')[0]
-fuente = fuente.replace(viejo, NUEVO_TEXTO)
-fuente = fuente.replace('PASOS  = 12000', 'PASOS  = 3000')
-fuente = fuente.replace('nano_llm_pesos.npz', 'pesos_ejercicio_9_1.npz')
-exec(fuente)
+from collections import Counter
+ 
+def texto_a_vocab(palabras_freq):
+    return {tuple(list(p) + ['</w>']): f for p, f in palabras_freq.items()}
+ 
+def contar_pares(vocab):
+    pares = Counter()
+    for palabra, freq in vocab.items():
+        for i in range(len(palabra)-1):
+            pares[(palabra[i], palabra[i+1])] += freq
+    return pares
+ 
+def fusionar(vocab, par):
+    a, b = par; nuevo = {}
+    for palabra, freq in vocab.items():
+        nueva_pal, i = [], 0
+        while i < len(palabra):
+            if i<len(palabra)-1 and palabra[i]==a and palabra[i+1]==b:
+                nueva_pal.append(a+b); i += 2
+            else:
+                nueva_pal.append(palabra[i]); i += 1
+        nuevo[tuple(nueva_pal)] = freq
+    return nuevo
+ 
+corpus = {'bajo': 6, 'bajar': 3, 'caja': 4, 'cajon': 2}
+vocab  = texto_a_vocab(corpus)
+ 
+print('=== BPE A MANO: 2 ITERACIONES ===\n')
+print('Vocabulario inicial:')
+for p, f in vocab.items(): print(f'  {p} x{f}')
+ 
+for it in range(1, 3):
+    pares = contar_pares(vocab)
+    mejor = max(pares, key=pares.get)
+    print(f'\n--- Iteracion {it} ---')
+    print(f'Pares mas frecuentes: {pares.most_common(3)}')
+    print(f'Fusionando: {mejor} (frecuencia {pares[mejor]})')
+    vocab = fusionar(vocab, mejor)
+    print('Vocabulario tras fusion:')
+    for p, f in vocab.items(): print(f'  {p} x{f}')

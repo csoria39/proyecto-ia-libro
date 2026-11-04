@@ -31,13 +31,22 @@ Norma del gradiente al retropropagar hacia atras:
   Distancia  55: 2.29e-46   <-- el gradiente es casi NULO
   Distancia  60: 1.88e-50   <-- el gradiente es casi NULO
 
-Conclusion:
-  Con W_hh pequena: el gradiente desaparece rapidamente.
-  Los tokens lejanos NO contribuyen al aprendizaje.
-  El RNN solo puede aprender dependencias de corto alcance.
+Contraste con la derivada real de tanh (1 - h^2):
+     Configuracion  media 1-h^2   dist 10 (0.5)  dist 10 (real)  dist 30 (real)
+      W_hh pequena        0.818        4.94e-09        5.45e-07        1.85e-19
+     W_hh moderada        0.727        4.82e-04        3.58e-02        4.23e-05
+       W_hh grande        0.559        5.39e-02        8.38e-01        5.72e-01
+   W_hh muy grande        0.311        3.81e+01        1.73e+01        7.73e+01
 
-  Con W_hh grande (escala 0.3): el gradiente decae mas despacio, pero decae.
-  Con W_hh muy grande (escala 0.5): el gradiente EXPLOTA.
+Conclusion:
+  Con W_hh pequena o moderada, el gradiente desaparece en pocos pasos,
+  tanto con la derivada fija (0.5) como con la real (1 - h^2):
+  los tokens lejanos apenas contribuyen al aprendizaje.
+
+  Con escalas mayores, la derivada importa: con 0.5 fijo, el gradiente
+  decae (0.3) o EXPLOTA (0.5); con la real, que baja cuando tanh se
+  satura, se mantiene en el mismo orden de magnitud a distancia 30.
+  Una RNN simple vive en un equilibrio fragil entre ambos extremos.
 
   Esta es la razon fundamental por la que el Transformer
   supero a los RNNs: la atencion conecta directamente

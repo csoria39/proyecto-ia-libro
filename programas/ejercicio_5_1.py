@@ -1,27 +1,34 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 import numpy as np
-from programa_3_mlp import CapaDensa, ReLU, Sigmoid, RedNeuronal   # Programa 3
  
-np.random.seed(0)
+def f(p):      return (1-p[0])**2 + 100*(p[1]-p[0]**2)**2
+def grad_f(p):
+    dx = -2*(1-p[0]) - 400*p[0]*(p[1]-p[0]**2)
+    dy = 200*(p[1]-p[0]**2)
+    return np.array([dx, dy])
  
-X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
-y_xor  = np.array([0, 1, 1, 0], dtype=float)  # XOR
-y_xnor = np.array([1, 0, 0, 1], dtype=float)  # XNOR = NOT XOR
+P0, N, LR, BETA = np.array([-0.5, 0.8]), 2000, 0.001, 0.9
  
-for nombre, y in [('XOR', y_xor), ('XNOR', y_xnor)]:
-    np.random.seed(42)
-    red = RedNeuronal([
-        CapaDensa(2, 8), ReLU(),
-        CapaDensa(8, 1), Sigmoid()
-    ])
-    hist = red.entrenar(X, y, epocas=5000, lr=0.1, verbose=False)
-    pred = red.predecir(X).ravel()   # CORRECCION: aplanar para NumPy 2.x
-    correcto = sum(round(float(p))==int(e) for p,e in zip(pred,y))
-    print(f'{nombre}: pérdida={hist[-1]:.5f}  precision={correcto}/4  ', end='')
-    preds_str = str([round(float(p)) for p in pred])
-    print(f'preds={preds_str}')
+# --- Momentum estandar ---
+p_mom = P0.copy(); v = np.zeros(2)
+for _ in range(N):
+    g = grad_f(p_mom)
+    v = BETA*v + g
+    p_mom -= LR*v
  
+# --- Nesterov Momentum ---
+p_nes = P0.copy(); v = np.zeros(2)
+for _ in range(N):
+    # Evaluar el gradiente en la posicion 'adelantada'
+    p_adelantado = p_nes - LR * BETA * v
+    g = grad_f(p_adelantado)
+    v = BETA*v + g
+    p_nes -= LR*v
+ 
+print('=== MOMENTUM vs NESTEROV ===')
+print(f'Momentum: f={f(p_mom):.6f}  pos={p_mom.round(4)}')
+print(f'Nesterov: f={f(p_nes):.6f}  pos={p_nes.round(4)}')
+print(f'Optimo:   f=0.0  pos=[1.0, 1.0]')
 print()
-print('Observación: XNOR = NOT XOR.')
-print('La misma arquitectura resuelve ambos porque ambos son')
-print('no linealmente separables y tienen la misma complejidad.')
+print('Nesterov suele converger algo mas rapido porque "corrige"')
+print('su trayectoria antes de comprometerse con el paso completo.')

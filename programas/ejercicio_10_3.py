@@ -1,26 +1,24 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-def costo_atencion(T, d, n_heads, bytes_por=2):
-    """Memoria en GB y GFLOPs de la atención"""
-    mem_gb = T * T * n_heads * bytes_por / (1024**3)
-    gflops = 4 * T * T * d / 1e9
-    return mem_gb, gflops
+T = 1000   # longitud de la secuencia
  
-d, n_heads = 768, 12  # GPT-2 / BERT configuración
+print('=== PASOS SECUENCIALES: RNN vs TRANSFORMER ===\n')
  
-print(f'd={d}, n_heads={n_heads} (estilo GPT-2 small)\n')
-print(f"{'Contexto T':>12}  {'Mem. aten. (GB)':>17}  {'GFLOPs':>10}  Factor vs ant.")
-print('-' * 60)
- 
-T_vals = [512, 2048, 8192, 32768, 131072]
-prev_mem = None
-for T in T_vals:
-    mem, gflops = costo_atencion(T, d, n_heads)
-    factor = f'{mem/prev_mem:.1f}x' if prev_mem else '—'
-    print(f'{T:>12,}  {mem:>17.3f}  {gflops:>10.2f}  {factor:>13}')
-    prev_mem = mem
- 
+print('RNN:')
+print(f'  Pasos secuenciales necesarios: {T}')
+print(f'  (cada paso DEBE esperar al anterior, sin excepcion)')
+print(f'  Camino mas largo entre token 1 y token {T}: {T} pasos')
 print()
-print('Al doblar T, el costo se CUADRUPLICA (x4).')
-print('Por eso ampliar la ventana de contexto es tan caro.')
-print('Flash Attention: evita materializar la matriz TxT completa,')
-print('calculándola por bloques. Mismo resultado, mucha menos memoria.')
+ 
+print('Transformer (con self-attention):')
+print(f'  Pasos secuenciales necesarios: 1 (todos los tokens en paralelo)')
+print(f'  Camino mas largo entre cualquier par de tokens: 1 paso')
+print(f'  (la atencion conecta directamente cualquier par)')
+print()
+ 
+# El tiempo real no se deduce de aqui: depende del hardware y del modelo
+print('Lo que cambia es la profundidad del camino secuencial, no un tiempo fijo:')
+print(f'la RNN encadena {T} pasos que no pueden solaparse; el Transformer')
+print('procesa las T posiciones a la vez, a cambio de una atencion que cuesta')
+print('O(T^2) en calculo y memoria. Cuanto se gana en tiempo hay que medirlo')
+print('en cada maquina, pero el paralelismo es la razon fundamental por la que')
+print('se puede entrenar con billones de tokens.')

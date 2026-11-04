@@ -1,37 +1,26 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 import numpy as np
+from programa_3_mlp import CapaDensa, ReLU, Sigmoid, RedNeuronal   # Programa 3
  
-def sim_coseno(u, v):
-    nu = np.linalg.norm(u) + 1e-10
-    nv = np.linalg.norm(v) + 1e-10
-    return float(np.dot(u, v) / (nu * nv))
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+y = np.array([0, 1, 1, 0], dtype=float)
  
-# Vectores de demostración (en 3D para visualizar)
-v_ref    = np.array([1.0, 0.0, 0.0])         # referencia
-v_parec  = np.array([0.9, 0.4, 0.1])          # muy similar
-v_perp   = np.array([0.0, 1.0, 0.0])          # perpendicular
-v_opuest = np.array([-1.0, 0.0, 0.0])         # opuesto
-v_igual  = np.array([3.0, 0.0, 0.0])          # misma dirección, distinta magnitud
+print('¿Cuántas neuronas ocultas necesita XOR?\n')
+print(f"{'N ocultas':>12}  {'Éxitos/10':>10}  {'Pérdida media':>15}")
+print('-' * 42)
  
-vectores = [
-    (v_ref, 'referencia [1,0,0]'),
-    (v_parec, 'parecido [0.9,0.4,0.1]'),
-    (v_perp, 'perpendicular [0,1,0]'),
-    (v_opuest, 'opuesto [-1,0,0]'),
-    (v_igual, 'misma dirección [3,0,0]'),
-]
- 
-print('Similitudes coseno respecto a v_ref = [1, 0, 0]\n')
-print(f"{'Vector':>32}  {'Sim. coseno':>12}  Interpretación")
-print('-' * 65)
-for v, nombre in vectores:
-    sim = sim_coseno(v_ref, v)
-    if sim > 0.9:   interp = 'muy similares'
-    elif sim > 0.5: interp = 'bastante similares'
-    elif sim > 0.1: interp = 'algo similares'
-    elif sim > -0.1: interp = 'perpendiculares'
-    else:            interp = 'opuestos'
-    print(f'{nombre:>32}  {sim:>12.4f}  {interp}')
- 
-print('\nObserva: la similitud coseno NO depende de la magnitud,')
-print('solo de la dirección. [1,0,0] y [3,0,0] son identicos.')
+for n_ocultas in [1, 2, 3, 4, 8]:
+    exitos = 0
+    perdidas = []
+    for semilla in range(10):
+        np.random.seed(semilla)
+        red = RedNeuronal([
+            CapaDensa(2, n_ocultas), ReLU(),
+            CapaDensa(n_ocultas, 1), Sigmoid()
+        ])
+        hist = red.entrenar(X, y, epocas=3000, lr=0.2, verbose=False)
+        pred = red.predecir(X).ravel()   # CORRECCION: aplanar para NumPy 2.x
+        ok = all(round(float(p))==int(e) for p,e in zip(pred,y))
+        if ok: exitos += 1
+        perdidas.append(hist[-1])
+    print(f'{n_ocultas:>12}  {exitos:>10}/10  {np.mean(perdidas):>15.5f}')

@@ -1,36 +1,13 @@
-Vocabulario: 46 caracteres
-Total de parámetros: 60,000
-Texto de entrenamiento: 5076 tokens, 93 líneas
+Caracteres totales en el corpus: 164
 
-Probabilidad del carácter más probable tras «un modelo »:
-  τ = 0.2: 0.810  («g»)
-  τ = 0.5: 0.445  («g»)
-  τ = 0.8: 0.311  («g»)
-  τ = 1.2: 0.234  («g»)
-  τ = 2.0: 0.167  («g»)
+ N fusiones   Tokens BPE   Compresion   Mejora vs anterior
+------------------------------------------------------------
+          5          146        1.12x                11.0%
+         10          126        1.30x                13.7%
+         20          103        1.59x                18.3%
+         40           77        2.13x                25.2%
+         80           37        4.43x                51.9%
 
-Texto generado (semilla «un modelo», top_p = 1.0):
-
---- τ = 0.2 ---
-un modelo generativo produce contenido nuevo y original.
-un modelo discriminativo distingue entre c
-
---- τ = 0.5 ---
-un modelo generativo produce contenido nuevo y original.
-un modelo discriminativo distingue entre c
-
---- τ = 0.8 ---
-un modelo injusto.
-la ética en la ia estudia el impacto social de los modelos.
-la precisión permite
-
---- τ = 1.2 ---
-un modelo injusto.
-la ética en la ia estudia el impacto social de los modelos.
-la precisión permite
-
---- τ = 2.0 ---
-un modelo memoriza dembed.
-unconteniperapo a ortepar todo.
-una camina la entoriónal.
-ediccial de lo
+La compresion mejora con cada fusion, pero la GANANCIA marginal
+decrece: las primeras fusiones (patrones frecuentes) aportan
+mucho mas que las ultimas (casos cada vez mas raros).

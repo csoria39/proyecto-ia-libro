@@ -1,29 +1,31 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-# =======================================================
-# EJERCICIO 13.2 — El efecto de la temperatura, con el modelo real
-# Carga los pesos que guardó el Programa 8 y genera desde la
-# misma semilla con cinco temperaturas (top_p = 1.0 para aislar
-# el efecto de la temperatura).
-# =======================================================
 import numpy as np
-
-fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
-exec(fuente.split('# -- Learning rate')[0])              # datos, parámetros, forward
-exec('def greedy' + fuente.split('def greedy')[1]
-                     .split("print('\\n=== TEXTO")[0])   # generar() y filtros
-params.update(np.load('nano_llm_pesos.npz'))             # el modelo ya entrenado
-
-# Cuánto se concentra la probabilidad del siguiente carácter
-contexto = [C2I[c] for c in 'un modelo ']
-logits = forward(np.array([contexto]))[0][0, -1]   # lote de 1; última posición
-print('\nProbabilidad del carácter más probable tras «un modelo »:')
-for tau in [0.2, 0.5, 0.8, 1.2, 2.0]:
-    p = softmax(logits / tau)
-    print(f'  τ = {tau:.1f}: {p.max():.3f}  («{I2C[int(p.argmax())]}»)')
-
-print('\nTexto generado (semilla «un modelo», top_p = 1.0):')
-for tau in [0.2, 0.5, 0.8, 1.2, 2.0]:
-    np.random.seed(0)
-    texto = generar('un modelo', n_chars=90, temperatura=tau, top_p=1.0)
-    print(f'\n--- τ = {tau} ---')
-    print(texto)
+fuente = open('programa_BPE2_codificador.py', encoding='utf-8').read()
+exec(fuente.split('# Entrenar con nuestro corpus')[0])   # BPE-1 y BPE-2
+ 
+CORPUS = '''
+la inteligencia artificial aprende de los datos de entrenamiento.
+los modelos de lenguaje aprenden a predecir el siguiente token.
+las redes neuronales aprenden representaciones de los datos.
+'''
+ 
+n_fusiones_lista = [5, 10, 20, 40, 80]
+n_chars = sum(len(w) for w in CORPUS.split())
+ 
+print(f'Caracteres totales en el corpus: {n_chars}\n')
+print(f"{'N fusiones':>11}  {'Tokens BPE':>11}  {'Compresion':>11}  {'Mejora vs anterior':>19}")
+print('-' * 60)
+ 
+anterior = n_chars
+for nf in n_fusiones_lista:
+    reglas, vocab = entrenar_bpe(CORPUS, num_fusiones=nf, verbose=False)
+    n_tokens = len(codificar_bpe(CORPUS, reglas))
+    compresion = n_chars / n_tokens
+    mejora = (anterior - n_tokens) / anterior * 100
+    print(f'{nf:>11}  {n_tokens:>11}  {compresion:>10.2f}x  {mejora:>18.1f}%')
+    anterior = n_tokens
+ 
+print()
+print('La compresion mejora con cada fusion, pero la GANANCIA marginal')
+print('decrece: las primeras fusiones (patrones frecuentes) aportan')
+print('mucho mas que las ultimas (casos cada vez mas raros).')

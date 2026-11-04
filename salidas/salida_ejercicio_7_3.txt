@@ -1,4 +1,11 @@
-Multi-Head Attention: 4 cabezas x d_head=4
-Entrada:  (6, 16) -> Salida: (6, 16)
-(la forma se mantiene — condición del bloque transformer)
-Parámetros: 4x3x16x4 + 16x16 = 1024
+=== COMBINANDO DROPOUT Y EARLY STOPPING ===
+
+               Configuracion   Err Val Final   Mejor Err Val   Epoca parada
+---------------------------------------------------------------------------
+        Solo Dropout (p=0.3)         0.08048         0.07408           5000
+         Solo Early Stopping         0.19727         0.19727           1194
+    Dropout + Early Stopping         0.07408         0.07408           4258
+
+Mejor en esta ejecucion: Dropout + Early Stopping (err_val=0.07408).
+Que la combinacion gane depende del problema y de la semilla: con 20 puntos
+hay que repetir con varias semillas antes de sacar conclusiones.

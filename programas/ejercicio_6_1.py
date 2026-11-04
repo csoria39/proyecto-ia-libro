@@ -1,29 +1,27 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 import numpy as np
+from programa_3_mlp import CapaDensa, ReLU, Sigmoid, RedNeuronal   # Programa 3
  
-class TokenizadorCaracter:
-    def __init__(self, texto):
-        self.vocab = sorted(set(texto))
-        self.V     = len(self.vocab)
-        self.c2i   = {c:i for i,c in enumerate(self.vocab)}
-        self.i2c   = dict(enumerate(self.vocab))
-    def codificar(self, t):  return [self.c2i[c] for c in t if c in self.c2i]
-    def decodificar(self, l): return ''.join(self.i2c[i] for i in l)
+np.random.seed(0)
  
-# Cambia por tu propio nombre
-nombre = 'Alan Turing'
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+y_xor  = np.array([0, 1, 1, 0], dtype=float)  # XOR
+y_xnor = np.array([1, 0, 0, 1], dtype=float)  # XNOR = NOT XOR
  
-tok = TokenizadorCaracter(nombre)
-print(f'Nombre: "{nombre}"')
-print(f'Vocabulario ({tok.V} caracteres): {tok.vocab}')
+for nombre, y in [('XOR', y_xor), ('XNOR', y_xnor)]:
+    np.random.seed(42)
+    red = RedNeuronal([
+        CapaDensa(2, 8), ReLU(),
+        CapaDensa(8, 1), Sigmoid()
+    ])
+    hist = red.entrenar(X, y, epocas=5000, lr=0.1, verbose=False)
+    pred = red.predecir(X).ravel()   # CORRECCION: aplanar para NumPy 2.x
+    correcto = sum(round(float(p))==int(e) for p,e in zip(pred,y))
+    print(f'{nombre}: pérdida={hist[-1]:.5f}  precision={correcto}/4  ', end='')
+    preds_str = str([round(float(p)) for p in pred])
+    print(f'preds={preds_str}')
+ 
 print()
- 
-cod = tok.codificar(nombre)
-dec = tok.decodificar(cod)
-print(f'Codificado:   {cod}')
-print(f'Decodificado: "{dec}"')
-print(f'Reversible:   {nombre == dec}')
-print()
-print('Índice de cada carácter:')
-for c, i in tok.c2i.items():
-    print(f'  {repr(c):>6}  ->  índice {i}')
+print('Observación: XNOR = NOT XOR.')
+print('La misma arquitectura resuelve ambos porque ambos son')
+print('no linealmente separables y tienen la misma complejidad.')

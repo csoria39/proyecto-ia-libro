@@ -1,43 +1,35 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 import numpy as np
-
-def softmax(x):
-    e = np.exp(x - x.max()); return e / e.sum()
-
-def generar_3_clases(n=80):
-    X, y = [], []
-    np.random.seed(1)
-    for _ in range(n):
-        for clase in range(3):
-            img = np.zeros((10,10))
-            ruido = np.random.randn(10,10)*0.1
-            if clase == 0:   # horizontal
-                f = np.random.randint(2, 7)
-                img[f:f+2, 1:9] = 1.0
-            elif clase == 1: # vertical
-                c = np.random.randint(2, 7)
-                img[1:9, c:c+2] = 1.0
-            else:            # diagonal
-                for i in range(8): img[i,i] = 1.0
-            X.append(np.clip(img+ruido, 0, 1))
-            y.append(clase)
-    idx = np.random.permutation(len(X))
-    return np.array(X)[idx], np.array(y)[idx]
-
-X, y = generar_3_clases()
-print(f'Dataset: {len(X)} imágenes, 3 clases')
-print(f'Clase 0 (horiz): {sum(y==0)}  Clase 1 (vert): {sum(y==1)}  Clase 2 (diag): {sum(y==2)}')
-print()
-print('Cambios respecto al Programa 9B (clasificación binaria):')
-print('  ANTES: Dense(16->1) + Sigmoid + BCE loss')
-print('  AHORA: Dense(16->3) + Softmax + CE multiclase')
-print()
-print('Función de pérdida multiclase:')
-print('  logits = red.forward(img)  # (3,)')
-print('  probs  = softmax(logits)   # (3,) suman 1')
-print('  loss   = -log(probs[clase_correcta])')
-print()
-logits_ej = np.array([2.0, 0.5, -0.3])
-probs_ej  = softmax(logits_ej)
-for i, (nombre, p) in enumerate(zip(['horiz','vert','diag'], probs_ej)):
-    print(f'  P({nombre}) = {p:.4f}  {"<- clase predicha" if i==np.argmax(probs_ej) else ""}')
+ 
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    return np.exp(x) / np.exp(x).sum(axis=axis, keepdims=True)
+ 
+np.random.seed(3)
+T, d, n_heads = 6, 16, 4
+d_head = d // n_heads   # 4
+X = np.random.randn(T, d)
+ 
+salidas_cabezas = []
+for h in range(n_heads):
+    Wq_h = np.random.randn(d, d_head) * 0.02
+    Wk_h = np.random.randn(d, d_head) * 0.02
+    Wv_h = np.random.randn(d, d_head) * 0.02
+    Q = X @ Wq_h; K = X @ Wk_h; V = X @ Wv_h
+    scores = Q @ K.T / np.sqrt(d_head)
+    msk    = np.triu(np.full((T,T), -1e9), k=1)
+    pesos  = softmax(scores + msk)
+    sal_h  = pesos @ V              # (T, d_head)
+    salidas_cabezas.append(sal_h)
+ 
+# Concatenar cabezas: (T, n_heads*d_head) = (T, d)
+concat = np.concatenate(salidas_cabezas, axis=-1)   # (6, 16)
+# Proyección final
+Wo     = np.random.randn(d, d) * 0.02
+salida = concat @ Wo                                 # (6, 16)
+ 
+print(f'Multi-Head Attention: {n_heads} cabezas x d_head={d_head}')
+print(f'Entrada:  {X.shape} -> Salida: {salida.shape}')
+print(f'(la forma se mantiene — condición del bloque transformer)')
+params_atencion = n_heads * 3*d*d_head + d*d
+print(f'Parámetros: {n_heads}x3x{d}x{d_head} + {d}x{d} = {params_atencion}')

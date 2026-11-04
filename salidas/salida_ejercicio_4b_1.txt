@@ -1,7 +1,0 @@
-=== MOMENTUM vs NESTEROV ===
-Momentum: f=0.000000  pos=[0.9999 0.9999]
-Nesterov: f=0.000000  pos=[0.9999 0.9998]
-Optimo:   f=0.0  pos=[1.0, 1.0]
-
-Nesterov suele converger algo mas rapido porque "corrige"
-su trayectoria antes de comprometerse con el paso completo.

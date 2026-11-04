@@ -1,6 +1,7 @@
-XOR: pérdida=0.00081  precision=4/4  preds=[0, 1, 1, 0]
-XNOR: pérdida=0.00066  precision=4/4  preds=[1, 0, 0, 1]
+=== MOMENTUM vs NESTEROV ===
+Momentum: f=0.000000  pos=[0.9999 0.9999]
+Nesterov: f=0.000000  pos=[0.9999 0.9998]
+Optimo:   f=0.0  pos=[1.0, 1.0]
 
-Observación: XNOR = NOT XOR.
-La misma arquitectura resuelve ambos porque ambos son
-no linealmente separables y tienen la misma complejidad.
+Nesterov suele converger algo mas rapido porque "corrige"
+su trayectoria antes de comprometerse con el paso completo.

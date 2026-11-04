@@ -1,14 +1,14 @@
-Similitudes coseno entre posición 0 y otras posiciones
+Similitudes coseno respecto a v_ref = [1, 0, 0]
 
- Distancia   Pos A   Pos B     Similitud  Barra
--------------------------------------------------------
-         1       0       1        0.9571  ████████████████████████████
-         2       0       2        0.8581  █████████████████████████
-         4       0       4        0.7288  █████████████████████
-         8       0       8        0.6576  ███████████████████
-        16       0      16        0.4953  ██████████████
-        32       0      32        0.6016  ██████████████████
+                          Vector   Sim. coseno  Interpretación
+-----------------------------------------------------------------
+              referencia [1,0,0]        1.0000  muy similares
+            parecido [0.9,0.4,0]        0.9138  muy similares
+           perpendicular [0,0,1]        0.0000  perpendiculares
+                opuesto [-1,0,0]       -1.0000  opuestos
+         misma dirección [3,0,0]        1.0000  muy similares
 
-Observación: la similitud decrece al aumentar la distancia.
-Esto permite al transformer aprender que tokens cercanos
-están más relacionados que tokens lejanos.
+Y entre los otros dos: sim(parecido, perpendicular) = 0.0000
+
+Observa: la similitud coseno NO depende de la magnitud,
+solo de la dirección. [1,0,0] y [3,0,0] son identicos.

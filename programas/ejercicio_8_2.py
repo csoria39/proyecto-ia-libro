@@ -1,31 +1,30 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-import numpy as np
+from collections import Counter
  
-def layer_norm(X, eps=1e-5):
-    """Normaliza cada fila a media 0, std 1."""
-    mu    = X.mean(axis=-1, keepdims=True)   # media por fila
-    sigma = X.std(axis=-1,  keepdims=True)   # std por fila
-    return (X - mu) / (sigma + eps)
+texto = 'la red neuronal aprende'
  
-np.random.seed(5)
-T, d = 5, 8
+# Contar todos los bigramas
+bigramas = Counter(texto[i:i+2] for i in range(len(texto)-1))
+total    = sum(bigramas.values())
  
-# Crear datos con distribución no estándar
-X = np.random.randn(T, d) * 3 + 5   # media≈5, std≈3
+print(f'Texto: "{texto}"')
+print(f'Total de bigramas: {total}\n')
+print('Top 10 bigramas:')
+print(f"{'Bigrama':>10}  {'Frec.':>8}  {'Prob.':>8}  Barra")
+print('-' * 45)
  
-print('ANTES de LayerNorm:')
-print(f'  Media global:    {X.mean():.4f}  (≈5)')
-print(f'  Std global:      {X.std():.4f}   (≈3)')
-print(f'  Media por fila:  {X.mean(axis=1).round(3)}')
+for bg, freq in bigramas.most_common(10):
+    prob  = freq / total
+    barra = '█' * int(prob * 200)
+    print(f'{repr(bg):>10}  {freq:>8}  {prob:>8.4f}  {barra}')
  
-X_norm = layer_norm(X)
+bg_max, f_max = bigramas.most_common(1)[0]
+empates = [bg for bg, f in bigramas.items() if f == f_max]
+print(f'\nBigrama mas frecuente: {bg_max!r} ({f_max} veces)'
+      + (f'; empatan {len(empates)}: {empates}' if len(empates) > 1 else ''))
 print()
-print('DESPUÉS de LayerNorm:')
-print(f'  Media global:    {X_norm.mean():.8f}  (≈0)')
-print(f'  Std global:      {X_norm.std():.8f}   (≈1)')
-print(f'  Media por fila:  {X_norm.mean(axis=1).round(6)}')
-print(f'  Std por fila:    {X_norm.std(axis=1).round(6)}')
  
-print()
-print('LayerNorm garantiza activaciones bien escaladas,')
-print('lo cual es crucial para entrenar redes muy profundas.')
+# Probabilidad condicional: P(siguiente | actual)
+print('Probabilidad de que despues de a venga p:')
+p_ap = bigramas.get('ap', 0) / sum(v for k,v in bigramas.items() if k[0]=='a')
+print(f'  P("p" | "a") = {p_ap:.4f}')

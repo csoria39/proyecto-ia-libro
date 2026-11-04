@@ -1,24 +1,30 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-from collections import Counter
- 
-texto = 'la red neuronal aprende del texto de entrenamiento'
- 
-# Contar todos los bigramas
-bigramas = Counter(texto[i:i+2] for i in range(len(texto)-1))
-total    = sum(bigramas.values())
- 
-print(f'Texto: "{texto}"')
-print(f'Total de bigramas: {total}\n')
-print('Top 10 bigramas:')
-print(f"{'Bigrama':>10}  {'Frec.':>8}  {'Prob.':>8}  Barra")
-print('-' * 45)
- 
-for bg, freq in bigramas.most_common(10):
-    prob  = freq / total
-    barra = '█' * int(prob * 200)
-    print(f'{repr(bg):>10}  {freq:>8}  {prob:>8.4f}  {barra}')
- 
-# Probabilidad condicional: P(siguiente | actual)
-print('Probabilidad de que despues de a venga p:')
-p_ap = bigramas.get('ap', 0) / sum(v for k,v in bigramas.items() if k[0]=='a')
-print(f'  P("p" | "a") = {p_ap:.4f}')
+def contar_params(arquitectura):
+    """Cuenta pesos + sesgos de una red densa."""
+    total = 0
+    for i in range(len(arquitectura) - 1):
+        n_ent = arquitectura[i]
+        n_sal = arquitectura[i+1]
+        pesos  = n_ent * n_sal
+        sesgos = n_sal
+        total += pesos + sesgos
+    return total
+
+# Verificar con casos conocidos
+casos = {
+    'Una neurona (1 entrada)': [1, 1],
+    'Neurona AND (2 entradas)': [2, 1],
+    'MLP XOR (2-8-1)':         [2, 8, 1],
+    'MLP mediano (10-64-32-1)':[10, 64, 32, 1],
+    'FFN de un bloque de GPT-2 (768-3072-768)': [768, 3072, 768],
+}
+
+print(f"{'Arquitectura':>40}  {'Parámetros':>12}")
+print('-' * 56)
+for nombre, arq in casos.items():
+    print(f'{nombre:>40}  {contar_params(arq):>12,}')
+
+# Cálculo manual para verificar [2, 8, 1]:
+# Capa 1: 2*8 + 8 = 16 + 8 = 24
+# Capa 2: 8*1 + 1 =  8 + 1 =  9
+# Total: 24 + 9 = 33, que coincide con el Programa 4 (8 ocultas): 2*8+8 + 8*1+1 = 33

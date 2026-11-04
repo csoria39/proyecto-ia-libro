@@ -1,14 +1,18 @@
-d=768, n_heads=12 (estilo GPT-2 small)
+=== PASOS SECUENCIALES: RNN vs TRANSFORMER ===
 
-  Contexto T    Mem. aten. (GB)      GFLOPs  Factor vs ant.
-------------------------------------------------------------
-         512              0.006        0.81              —
-       2,048              0.094       12.88          16.0x
-       8,192              1.500      206.16          16.0x
-      32,768             24.000     3298.53          16.0x
-     131,072            384.000    52776.56          16.0x
+RNN:
+  Pasos secuenciales necesarios: 1000
+  (cada paso DEBE esperar al anterior, sin excepcion)
+  Camino mas largo entre token 1 y token 1000: 1000 pasos
 
-Al doblar T, el costo se CUADRUPLICA (x4).
-Por eso ampliar la ventana de contexto es tan caro.
-Flash Attention: evita materializar la matriz TxT completa,
-calculándola por bloques. Mismo resultado, mucha menos memoria.
+Transformer (con self-attention):
+  Pasos secuenciales necesarios: 1 (todos los tokens en paralelo)
+  Camino mas largo entre cualquier par de tokens: 1 paso
+  (la atencion conecta directamente cualquier par)
+
+Lo que cambia es la profundidad del camino secuencial, no un tiempo fijo:
+la RNN encadena 1000 pasos que no pueden solaparse; el Transformer
+procesa las T posiciones a la vez, a cambio de una atencion que cuesta
+O(T^2) en calculo y memoria. Cuanto se gana en tiempo hay que medirlo
+en cada maquina, pero el paralelismo es la razon fundamental por la que
+se puede entrenar con billones de tokens.

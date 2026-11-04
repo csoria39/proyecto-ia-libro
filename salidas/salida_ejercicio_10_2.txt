@@ -1,13 +1,17 @@
-Tokens óptimos según Chinchilla (Hoffmann et al., 2022)
+=== RNN CON PUERTA DE OLVIDO ===
 
-              Modelo    Tokens óptimos    Libros equiv.
-----------------------------------------------------------
-            LLaMA-7B   140,000,000,000        1,076,923
-           LLaMA-13B   260,000,000,000        2,000,000
-           LLaMA-70B  1,400,000,000,000       10,769,231
-     Hipotético-700B  14,000,000,000,000      107,692,308
+Valor medio de la puerta a lo largo de la secuencia:
+  paso  0: 0.502  ###############
+  paso  1: 0.500  ###############
+  paso  2: 0.502  ###############
+  paso  3: 0.500  ###############
+  paso  4: 0.499  ##############
+  paso  5: 0.499  ##############
+  paso  6: 0.501  ###############
+  paso  7: 0.501  ###############
+  paso  8: 0.499  ##############
+  paso  9: 0.499  ##############
 
-Comparación: GPT-3 fue entrenado con ~300B tokens
-pero tiene 175B params -> solo 1.7x (infraentrenado)
-LLaMA-2-7B fue entrenado con 2T tokens -> 285x (sobreentrenado
-para tamaño, pero mejor en inference!)
+f cercano a 1: el modelo conserva mucho el estado anterior
+f cercano a 0: el modelo prioriza la nueva informacion
+Esta puerta, ENTRENADA, aprenderia cuando "olvidar" el contexto.

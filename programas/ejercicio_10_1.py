@@ -1,25 +1,32 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-def memoria_gb(n_params, precision='float16'):
-    bytes_por = {'float32':4, 'float16':2, 'int8':1, 'int4':0.5}
-    return n_params * bytes_por[precision] / (1024**3)
+import numpy as np
  
-modelos = [
-    ('Nano-LLM (nuestro)',     60_000),
-    ('GPT-2 small',       124_000_000),
-    ('GPT-2 XL',        1_558_000_000),
-    ('LLaMA-7B',        7_000_000_000),
-    ('LLaMA-13B',      13_000_000_000),
-    ('GPT-3 175B',    175_000_000_000),
-]
+def simular_gradiente(W_hh, T, H):
+    grad = np.ones(H) / np.sqrt(H)
+    normas = [float(np.linalg.norm(grad))]
+    for t in range(T):
+        d_tanh = 0.5 * np.ones(H)
+        grad = (W_hh.T @ grad) * d_tanh
+        normas.append(float(np.linalg.norm(grad)))
+    return normas
  
-print(f"{'Modelo':>25}  {'FP32 (GB)':>10}  {'FP16 (GB)':>10}  {'INT4 (GB)':>10}")
-print('-' * 60)
-for nombre, n in modelos:
-    g32 = memoria_gb(n, 'float32')
-    g16 = memoria_gb(n, 'float16')
-    g4  = memoria_gb(n, 'int4')
-    print(f'{nombre:>25}  {g32:>10.3f}  {g16:>10.3f}  {g4:>10.3f}')
+np.random.seed(0)
+T = 60
+UMBRAL = 1e-6
+ 
+print('=== HORIZONTE DE MEMORIA SEGUN TAMAÑO DEL ESTADO OCULTO ===\n')
+print(f"{'H (estado oculto)':>18}  {'Horizonte (pasos)':>18}")
+print('-' * 40)
+ 
+for H in [8, 32, 128]:
+    W_hh = np.random.randn(H, H) * 0.05   # misma escala para todos
+    normas = simular_gradiente(W_hh, T, H)
+    horizonte = next((i for i,v in enumerate(normas) if v < UMBRAL), T)
+    print(f'{H:>18}  {horizonte:>18}')
  
 print()
-print('Una GPU A100: 80 GB  |  RTX 4090 (gaming): 24 GB')
-print('INT4 permite ejecutar LLaMA-7B en una GPU de 4 GB!')
+print('El horizonte de memoria es similar entre tamaños de H')
+print('porque depende de la ESCALA de los pesos (eigenvalues de W_hh),')
+print('no tanto del numero de neuronas del estado oculto.')
+print('Esto es justamente lo que motivo el diseño de LSTM/GRU:')
+print('controlar explicitamente esa escala con puertas aprendidas.')

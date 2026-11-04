@@ -43,7 +43,7 @@ Solo NumPy es imprescindible. Las gráficas usan matplotlib, y el Apéndice D y 
 | `verificaciones/` | Comprobaciones que no van en el libro: el gradiente de los programas con diferencias finitas, y el Programa 8 bis frente a `transformers` (mismos logits y mismo tokenizador). |
 | `diagramas/` | Las 19 ilustraciones del libro, con la numeración por capítulo (Diagrama 2.1 … 20.2 y G.1); en `scripts/`, los programas que corrigieron sus erratas y su numeración, y en `originales/`, las versiones del autor antes de corregirlas. |
 
-Los nombres de archivo son los que cita el libro. Algunos conservan la numeración de los capítulos de una versión anterior; por ejemplo, `ejercicio_9t_2.py` es la solución del Ejercicio 15.2. La tabla siguiente indica a qué capítulo pertenece cada uno.
+Los nombres de archivo son los que cita el libro. Cada ejercicio se llama `ejercicio_<capítulo>_<número>.py`: por ejemplo, `ejercicio_15_2.py` es la solución del Ejercicio 15.2, y `ejercicio_G_1.py`, la del Ejercicio G.1. La tabla siguiente indica a qué capítulo pertenece cada archivo.
 
 Cada archivo es idéntico al impreso en el libro, salvo la primera línea, que indica su licencia (`# SPDX-License-Identifier: MIT`).
 
@@ -57,24 +57,24 @@ Sigue el orden del libro. El **Programa 8** (`programa_8_nano_llm.py`, Capítulo
 | Capítulo 2 | `ejercicio_2_1.py`, `ejercicio_2_2.py`, `ejercicio_2_3.py` |
 | Capítulo 3 | `programa_1a_activaciones.py`, `programa_1b_neurona.py`, `ejercicio_3_1.py`, `ejercicio_3_2.py`, `ejercicio_3_3.py` |
 | Capítulo 4 | `programa_2_neurona_aprende.py`, `ejercicio_4_1.py`, `ejercicio_4_2.py`, `ejercicio_4_3.py` |
-| Capítulo 5 | `programa_O1_momentum.py`, `programa_O2_optimizadores.py`, `programa_O3_comparativa.py`, `programa_O4_lr_scheduling.py`, `ejercicio_4b_1.py`, `ejercicio_4b_2.py`, `ejercicio_4b_3.py` |
-| Capítulo 6 | `programa_3_mlp.py`, `programa_4_xor.py`, `ejercicio_5_1.py`, `ejercicio_5_2.py`, `ejercicio_5_3.py` |
-| Capítulo 7 | `programa_R1_overfitting.py`, `programa_R2_regularizacion.py`, `programa_R3_dropout.py`, `programa_R4_early_stopping.py`, `ejercicio_5b_1.py`, `ejercicio_5b_2.py`, `ejercicio_5b_3.py` |
-| Capítulo 8 | `programa_5_embeddings.py`, `ejercicio_6_1.py`, `ejercicio_6_2.py`, `ejercicio_6_3.py` |
-| Capítulo 9 | `programa_BPE1_entrenador.py`, `programa_BPE2_codificador.py`, `ejercicio_6b_1.py`, `ejercicio_6b_2.py`, `ejercicio_6b_3.py` |
-| Capítulo 10 | `programa_RNN1_rnn_basico.py`, `programa_RNN2_vanishing_gradient.py`, `ejercicio_6t_1.py`, `ejercicio_6t_2.py`, `ejercicio_6t_3.py` |
-| Capítulo 11 | `programa_6_atencion.py`, `ejercicio_7_1.py`, `ejercicio_7_2.py`, `ejercicio_7_3.py`, `ejercicio_7_4.py`, `figura_7_atencion_nano_llm.py` |
-| Capítulo 12 | `programa_7_transformer_bloque.py`, `ejercicio_8_1.py`, `ejercicio_8_2.py`, `ejercicio_8_3.py` |
-| Capítulo 13 | `programa_8_nano_llm.py`, `programa_8_nano_llm_documentado.py`, `ejercicio_9_1.py`, `ejercicio_9_2.py`, `ejercicio_9_3.py`, `ejercicio_9_4.py`, `ejercicio_9_5.py`, `ejercicio_9_6.py`, `ejercicio_9_7.py` |
-| Capítulo 14 | `programa_S1_visualizacion.py`, `programa_S2_generacion_completa.py`, `ejercicio_9b_1.py`, `ejercicio_9b_2.py`, `ejercicio_9b_3.py` |
-| Capítulo 15 | `programa_RZ1_memoriza.py`, `programa_RZ2_suma.py`, `programa_RZ3_deduce_letras.py`, `programa_RZ4_deduce_frases.py`, `ejercicio_9t_1.py`, `ejercicio_9t_2.py`, `ejercicio_9t_3.py`, `ejercicio_9t_4.py`, `ejercicio_9t_5.py` |
-| Capítulo 16 | `programa_8bis_gpt2_real.py`, `programa_G1_lente_logits.py`, `programa_G2_induccion.py`, `programa_G3_kvcache.py`, `programa_G4_ajuste_fino.py`, `ejercicio_9q_1.py`, `ejercicio_9q_2.py`, `ejercicio_9q_3.py`, `ejercicio_9q_4.py`, `ejercicio_9q_5.py`, `fragmento_9q3_bits.py`, `fragmento_9q4_repeticion.py` |
-| Capítulo 17 | `ejercicio_10_1.py`, `ejercicio_10_2.py`, `ejercicio_10_3.py` |
-| Capítulo 18 | `programa_EVAL1_perplexity.py`, `programa_EVAL2_bleu_benchmark.py`, `ejercicio_10b_1.py`, `ejercicio_10b_2.py`, `ejercicio_10b_3.py` |
+| Capítulo 5 | `programa_O1_momentum.py`, `programa_O2_optimizadores.py`, `programa_O3_comparativa.py`, `programa_O4_lr_scheduling.py`, `ejercicio_5_1.py`, `ejercicio_5_2.py`, `ejercicio_5_3.py` |
+| Capítulo 6 | `programa_3_mlp.py`, `programa_4_xor.py`, `ejercicio_6_1.py`, `ejercicio_6_2.py`, `ejercicio_6_3.py` |
+| Capítulo 7 | `programa_R1_overfitting.py`, `programa_R2_regularizacion.py`, `programa_R3_dropout.py`, `programa_R4_early_stopping.py`, `ejercicio_7_1.py`, `ejercicio_7_2.py`, `ejercicio_7_3.py` |
+| Capítulo 8 | `programa_5_embeddings.py`, `ejercicio_8_1.py`, `ejercicio_8_2.py`, `ejercicio_8_3.py` |
+| Capítulo 9 | `programa_BPE1_entrenador.py`, `programa_BPE2_codificador.py`, `ejercicio_9_1.py`, `ejercicio_9_2.py`, `ejercicio_9_3.py` |
+| Capítulo 10 | `programa_RNN1_rnn_basico.py`, `programa_RNN2_vanishing_gradient.py`, `ejercicio_10_1.py`, `ejercicio_10_2.py`, `ejercicio_10_3.py` |
+| Capítulo 11 | `programa_6_atencion.py`, `ejercicio_11_1.py`, `ejercicio_11_2.py`, `ejercicio_11_3.py`, `ejercicio_11_4.py`, `figura_7_atencion_nano_llm.py` |
+| Capítulo 12 | `programa_7_transformer_bloque.py`, `ejercicio_12_1.py`, `ejercicio_12_2.py`, `ejercicio_12_3.py` |
+| Capítulo 13 | `programa_8_nano_llm.py`, `programa_8_nano_llm_documentado.py`, `ejercicio_13_1.py`, `ejercicio_13_2.py`, `ejercicio_13_3.py`, `ejercicio_13_4.py`, `ejercicio_13_5.py`, `ejercicio_13_6.py`, `ejercicio_13_7.py` |
+| Capítulo 14 | `programa_S1_visualizacion.py`, `programa_S2_generacion_completa.py`, `ejercicio_14_1.py`, `ejercicio_14_2.py`, `ejercicio_14_3.py` |
+| Capítulo 15 | `programa_RZ1_memoriza.py`, `programa_RZ2_suma.py`, `programa_RZ3_deduce_letras.py`, `programa_RZ4_deduce_frases.py`, `ejercicio_15_1.py`, `ejercicio_15_2.py`, `ejercicio_15_3.py`, `ejercicio_15_4.py`, `ejercicio_15_5.py` |
+| Capítulo 16 | `programa_8bis_gpt2_real.py`, `programa_G1_lente_logits.py`, `programa_G2_induccion.py`, `programa_G3_kvcache.py`, `programa_G4_ajuste_fino.py`, `ejercicio_16_1.py`, `ejercicio_16_2.py`, `ejercicio_16_3.py`, `ejercicio_16_4.py`, `ejercicio_16_5.py`, `fragmento_9q3_bits.py`, `fragmento_9q4_repeticion.py` |
+| Capítulo 17 | `ejercicio_17_1.py`, `ejercicio_17_2.py`, `ejercicio_17_3.py` |
+| Capítulo 18 | `programa_EVAL1_perplexity.py`, `programa_EVAL2_bleu_benchmark.py`, `ejercicio_18_1.py`, `ejercicio_18_2.py`, `ejercicio_18_3.py` |
 | Capítulo 19 | `programa_E1_sesgo.py`, `programa_E2_fairness.py` |
-| Capítulo 20 | `ejercicio_11b_1.py`, `ejercicio_11b_2.py` |
+| Capítulo 20 | `ejercicio_20_1.py`, `ejercicio_20_2.py` |
 | Apéndice D | `programa_PT1_tensores_activaciones.py`, `programa_PT2_neurona_and.py`, `programa_PT3_mlp_xor.py`, `programa_PT4_embeddings.py`, `programa_PT5_self_attention.py`, `programa_PT6_transformer_bloque.py`, `programa_PT7_nano_llm.py` |
-| Apéndice G | `programa_9a_convolucion.py`, `programa_9b_cnn.py`, `ejercicio_11_1.py`, `ejercicio_11_2.py`, `ejercicio_11_3.py` |
+| Apéndice G | `programa_9a_convolucion.py`, `programa_9b_cnn.py`, `ejercicio_G_1.py`, `ejercicio_G_2.py`, `ejercicio_G_3.py` |
 
 ## Los pesos de GPT-2 (Capítulo 16)
 
@@ -96,7 +96,7 @@ OpenAI publicó GPT-2 con licencia MIT.
 - **Código** (`programas/`, `verificaciones/`, scripts de `diagramas/`): licencia MIT, © 2026 Carlos Soria Martínez. Archivo [`LICENSE`](LICENSE).
 - **Libro** (texto, ilustraciones y diagramas, PDF y DOCX): Creative Commons Atribución–NoComercial–SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0). Archivo [`LICENSE-LIBRO.md`](LICENSE-LIBRO.md).
 - **Pesos de GPT-2:** de OpenAI, con licencia MIT. No se incluyen.
-- **Código de terceros:** en `programas/programa_8bis_gpt2_real.py` (y en `ejercicio_9q_1.py`, que lo reutiliza), la función `bytes_a_unicode()` y la expresión regular `TROCEO` reproducen las del tokenizador de GPT-2, `src/encoder.py` del repositorio [openai/gpt-2](https://github.com/openai/gpt-2) (© 2019 OpenAI, licencia MIT): tienen que ser idénticas para obtener los mismos tokens que el modelo.
+- **Código de terceros:** en `programas/programa_8bis_gpt2_real.py` (y en `ejercicio_16_1.py`, que lo reutiliza), la función `bytes_a_unicode()` y la expresión regular `TROCEO` reproducen las del tokenizador de GPT-2, `src/encoder.py` del repositorio [openai/gpt-2](https://github.com/openai/gpt-2) (© 2019 OpenAI, licencia MIT): tienen que ser idénticas para obtener los mismos tokens que el modelo.
 
 ## Apoya el proyecto
 

@@ -1,0 +1,16 @@
+Similitudes coseno entre posición 0 y otras posiciones
+
+ Distancia   Pos A   Pos B     Similitud  Barra
+-------------------------------------------------------
+         1       0       1        0.9571  ████████████████████████████
+         2       0       2        0.8581  █████████████████████████
+         4       0       4        0.7288  █████████████████████
+         8       0       8        0.6576  ███████████████████
+        16       0      16        0.4953  ██████████████
+        32       0      32        0.6016  ██████████████████
+
+De la distancia 1 a la 4, la similitud cae de 0.96 a 0.73.
+Pero no decrece siempre: entre las distancias 1 y 63 vuelve a subir
+29 veces (por ejemplo, de la 16 a la 32: 0.50 -> 0.60).
+Las posiciones cercanas se parecen mas que la mayoria de las lejanas,
+pero es una tendencia, no una ley: el modelo aprende a usarla.

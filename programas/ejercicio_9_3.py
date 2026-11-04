@@ -1,37 +1,36 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
-# =======================================================
-# EJERCICIO 13.3 — La perplejidad del Nano-LLM
-# PPL = exp(pérdida media por carácter). Se calcula con el
-# modelo entrenado sobre TODO el texto de entrenamiento.
-# =======================================================
 import numpy as np
-
-
-
-
-
-
-fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
-exec(fuente.split('# -- Learning rate')[0])
-params.update(np.load('nano_llm_pesos.npz'))
-
-# Pérdida media en ventanas consecutivas de CTX caracteres
-perdidas = []
-for i in range(0, len(DATOS) - CTX - 1, CTX):
-    x, y = DATOS[i:i + CTX], DATOS[i + 1:i + CTX + 1]
-    p = softmax(forward(np.array([x]))[0][0])        # lote de 1 ventana
-    perdidas.extend(-np.log(p[np.arange(CTX), y] + 1e-10))
-L = np.mean(perdidas)
-print(f'\nPérdida media en el texto de entrenamiento: {L:.4f}')
-print(f'Perplejidad: e^{L:.4f} = {np.exp(L):.2f}\n')
-
-print(f"{'Pérdida':>8}  {'PPL':>6}  Interpretación")
-print('-' * 58)
-for perd in [np.log(V), 3.0, 2.0, 1.5, 1.0, 0.5, L]:
-    ppl = np.exp(perd)
-    if ppl >= V - 0.5: interp = 'La pérdida de la uniforme (al azar)'
-    elif ppl > 15:     interp = 'Algo de estructura local'
-    elif ppl > 4:      interp = 'Patrones de carácter bien aprendidos'
-    elif ppl > 1.8:    interp = 'Buen modelo: captura el estilo'
-    else:              interp = 'Excelente... o sobreajuste (ver Capítulo 15)'
-    print(f'{perd:8.4f}  {ppl:6.2f}  {interp}')
+fuente = open('programa_BPE2_codificador.py', encoding='utf-8').read()
+exec(fuente.split('# Entrenar con nuestro corpus')[0])   # BPE-1 y BPE-2
+ 
+# Simulamos las dos situaciones lingüísticas
+CORPUS_TIPO_INGLES = '''
+la red es buena la red aprende el dato es bueno
+el dato fluye la red usa el dato la red es util
+'''
+ 
+CORPUS_TIPO_ALEMAN = '''
+lareduronal esbuenaparaaprender eldatoesimportanteparalared
+elflujodedatos esutilparalaredneuronalartificial
+'''
+ 
+for nombre, corpus in [('Tipo INGLES (palabras cortas)', CORPUS_TIPO_INGLES),
+                       ('Tipo ALEMAN (compuestos largos)', CORPUS_TIPO_ALEMAN)]:
+    reglas, vocab = entrenar_bpe(corpus, num_fusiones=20, verbose=False)
+    n_chars  = len(corpus.replace(chr(10), '').replace(' ', ''))
+    n_tokens = len(codificar_bpe(corpus, reglas))
+    fertilidad = n_tokens / len(corpus.split())
+    print(f'{nombre}:')
+    print(f'  Caracteres: {n_chars}  Tokens: {n_tokens}  '
+          f'Fertilidad: {fertilidad:.2f} tokens/palabra')
+    print()
+ 
+print('El corpus con compuestos largos necesita MAS tokens por palabra')
+print('porque las palabras unicas son mas dificiles de comprimir:')
+print('cada compuesto aparece pocas veces, asi que BPE no puede')
+print('asignarle un token unico tan facilmente.')
+print()
+print('Es una ilustracion con dos corpus inventados, no una medida de')
+print('tokenizadores reales; pero apunta en la misma direccion que el fenomeno')
+print('real: idiomas de morfologia rica (aleman, finlandes, turco) gastan mas')
+print('tokens por palabra en tokenizadores entrenados sobre todo en ingles.')

@@ -1,0 +1,26 @@
+Texto: 427 caracteres | vocabulario: 31 caracteres únicos
+Pérdida inicial esperada: ln(31) = 3.4340
+
+Vocabulario: 31 caracteres
+Total de parámetros: 59,280
+Texto de entrenamiento: 427 tokens, 8 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=48 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.4565   lr = 0.00002   (bits/char = 4.99)
+Paso  1000: pérdida = 0.1853   lr = 0.00241   (bits/char = 0.27)
+Paso  2000: pérdida = 0.1503   lr = 0.00090   (bits/char = 0.22)
+Paso  2999: pérdida = 0.0953   lr = 0.00010   (bits/char = 0.14)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia artificial.
+las listas se crean con corchetes: [1, 2, 3].
+los diccionarios usan llaves y pares clave valor.
+las funcion
+
+los modelos dene entos.
+las clases permiten crear objetos con metodos y atributos.
+importa numpy para operaciones numericas eficientes
+
+Pesos guardados en pesos_ejercicio_13_1.npz
