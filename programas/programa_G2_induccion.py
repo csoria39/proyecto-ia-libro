@@ -54,16 +54,19 @@ print(f'Media de las {N_BLQ * H} cabezas: inducción {induccion.mean():.2f}, '
 
 # Figura: pérdida por posición y mapa de la mejor cabeza de inducción
 kb, hb = np.unravel_index(induccion.argmax(), induccion.shape)
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(13, 5.2), dpi=120, layout='constrained')
+# Letra grande y negra: la figura se imprime a 17 cm de ancho
+plt.rcParams.update({'font.size': 17, 'axes.titlesize': 18, 'text.color': 'black', 'axes.labelcolor': 'black',
+                     'xtick.color': 'black', 'ytick.color': 'black', 'axes.edgecolor': 'black'})
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(13, 5.8), dpi=150, layout='constrained')
 a1.plot(np.arange(1, 2 * N + 1), perdida, color='#1A3A6B', lw=1.5)
 a1.axvline(N + 0.5, color='#D97706', ls='--', lw=1.5)
 a1.set_ylim(-0.5, perdida.max() * 1.15)
-a1.text(N * 0.5, perdida.max() * 1.07, '1.ª copia', ha='center', color='#555')
-a1.text(N * 1.5, perdida.max() * 1.07, '2.ª copia', ha='center', color='#555')
+a1.text(N * 0.5, perdida.max() * 1.07, '1.ª copia', ha='center')
+a1.text(N * 1.5, perdida.max() * 1.07, '2.ª copia', ha='center')
 a1.set_xlabel('posición del token predicho'); a1.set_ylabel('pérdida (nats)')
-a1.set_title('GPT-2 ante 50 tokens al azar, repetidos', color='#1A3A6B', fontweight='bold')
+a1.set_title('GPT-2 ante 50 tokens al azar, repetidos', fontweight='bold')
 im = a2.imshow(cache[kb]['pesos'][0, hb], cmap='Blues', vmin=0, vmax=1)
-a2.set_title(f'Atención del bloque {kb + 1}, cabeza {hb + 1}', color='#1A3A6B', fontweight='bold')
+a2.set_title(f'Atención del bloque {kb + 1}, cabeza {hb + 1}', fontweight='bold')
 a2.set_xlabel('key: posición a la que se mira'); a2.set_ylabel('query: posición que pregunta')
 fig.colorbar(im, ax=a2, shrink=0.8, label='peso de atención')
 plt.savefig('figura_9q_induccion.png')
