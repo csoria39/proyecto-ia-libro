@@ -23,7 +23,13 @@
 --- Manejo de palabras desconocidas ---
   Palabra rara: "supercalifragilistico"
   BPE la descompone: ['s', 'u', 'p', 'e', 'r', 'c', 'a', 'l', 'i', 'f', 'r', 'a', 'g', 'i', 'l', 'i', 's', 'ti', 'c', 'o', '+']
-  Nunca hay OOV: siempre cae hasta nivel caracter si es necesario
+  Sin OOV mientras sus letras esten en el corpus: cae hasta nivel caracter
+
+--- Ida y vuelta (texto normalizado) ---
+  'hola mundo' -> 'hola mundo'
+  'El niño aprende, 2026.' -> 'el niño aprende'
+  Se recuperan las palabras normalizadas, no el texto literal:
+  mayusculas, cifras y puntuacion se pierden (GPT-2 lo evita con BPE por bytes).
 
 --- Compresion del corpus completo ---
   Chars en corpus:  517

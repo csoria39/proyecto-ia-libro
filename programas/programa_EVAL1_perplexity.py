@@ -32,13 +32,13 @@ def calcular_perplexity(modelo_forward, tokens, CTX, nombre=''):
     
     perdida_media = np.mean(perdidas)
     ppl           = np.exp(perdida_media)
-    bits_por_char = perdida_media / np.log(2)   # conversion a bits
+    bits_por_tok  = perdida_media / np.log(2)   # nats -> bits (aqui cada token es un caracter)
     
     print(f'  {nombre or "Modelo"}')
     print(f'    Tokens evaluados:  {n_tokens}')
     print(f'    Perdida media:     {perdida_media:.4f}')
     print(f'    Perplejidad:       {ppl:.2f}')
-    print(f'    Bits por caracter: {bits_por_char:.3f}')
+    print(f'    Bits por token:    {bits_por_tok:.3f}')
     return ppl, perdida_media
  
  
@@ -125,5 +125,6 @@ print('CASO 3 — Overfitting grave (memorizacion):')
 print('  PPL train = 1.0,  PPL test = 45.2 -> test 45x peor: el modelo')
 print('  memorizo el corpus de entrenamiento pero no generaliza.')
 print()
-print('Regla practica: PPL_test / PPL_train < 2 es aceptable.')
-print('Si la ratio supera 3-4, hay overfitting significativo.')
+print('Una pista, no una regla: un cociente PPL_test / PPL_train alto avisa de')
+print('sobreajuste, pero no hay umbrales universales (un modelo que no aprende')
+print('nada tiene cociente 1). Compara siempre con una linea base.')

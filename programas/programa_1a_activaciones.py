@@ -21,7 +21,7 @@ def relu(z):
 
 def derivada_relu(z):
     """Derivada de ReLU: 1 donde z>0, 0 donde z≤0"""
-    return (z > 0).astype(float)
+    return (np.asarray(z) > 0).astype(float)   # asarray: funciona también con un número suelto
 
 def tanh_act(z):
     """Tangente hiperbólica — rango (-1, 1)"""

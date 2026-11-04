@@ -16,7 +16,7 @@ def codificar_bpe(texto, reglas):
     '''
     tokens_totales = []
     for palabra in texto.lower().split():
-        palabra = re.sub(r'[^a-z]', '', palabra)
+        palabra = re.sub(r'[^a-záéíóúüñ]', '', palabra)   # la misma normalización que BPE-1
         if not palabra:
             continue
         # Empezar con caracteres individuales
@@ -38,12 +38,11 @@ def codificar_bpe(texto, reglas):
  
  
 def decodificar_bpe(tokens):
-    '''Convierte tokens BPE de vuelta a texto.'''
-    texto = ' '.join(tokens)
-    texto = texto.replace(' </w>', '')
-    texto = texto.replace('</w>', '')
-    # Reconstruir palabras uniendo tokens sin espacio entre ellos
-    return re.sub(r' (?!(?:y |el |la |de |en |a |los |las ))', '', texto)
+    '''Convierte tokens BPE de vuelta a texto (normalizado).
+    Se unen los tokens tal cual y cada </w> marca el final de una palabra.
+    Recupera las palabras normalizadas (minúsculas, sin cifras ni puntuación),
+    no el texto original letra a letra.'''
+    return ''.join(tokens).replace('</w>', ' ').strip()
  
  
 def comparar_tokenizaciones(frase, reglas):
@@ -82,7 +81,14 @@ frase_oov = 'supercalifragilistico'
 tokens_oov = codificar_bpe(frase_oov, reglas)
 print(f'  Palabra rara: "{frase_oov}"')
 print(f'  BPE la descompone: {[t.replace("</w>","+") for t in tokens_oov]}')
-print(f'  Nunca hay OOV: siempre cae hasta nivel caracter si es necesario')
+print(f'  Sin OOV mientras sus letras esten en el corpus: cae hasta nivel caracter')
+
+# Ida y vuelta: codificar y decodificar
+print('\n--- Ida y vuelta (texto normalizado) ---')
+for f in ['hola mundo', 'El niño aprende, 2026.']:
+    print(f'  {f!r} -> {decodificar_bpe(codificar_bpe(f, reglas))!r}')
+print('  Se recuperan las palabras normalizadas, no el texto literal:')
+print('  mayusculas, cifras y puntuacion se pierden (GPT-2 lo evita con BPE por bytes).')
  
 # Estadisticas de compresion
 print('\n--- Compresion del corpus completo ---')

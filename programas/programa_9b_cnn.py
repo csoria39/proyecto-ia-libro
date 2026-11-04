@@ -142,9 +142,9 @@ def backward_completo(pred, target, cache):
     img, conv, relu_c, mask, pool, flat, z1, a1, z2 = cache
     # -- Pérdida BCE y su gradiente ---------------------
     loss = -(target*np.log(pred+1e-10) + (1-target)*np.log(1-pred+1e-10))
-    dpred = (pred - target)                   # dL/d(pred)
+    # BCE + sigmoide: dL/dz2 = pred - target (la derivada de la sigmoide se cancela)
     # -- Capa 2 -----------------------------------------
-    dz2  = dpred * pred * (1-pred)            # sigmoid
+    dz2  = pred - target                      # gradiente respecto al logit z2
     dW2  = a1[:, None] * dz2[None, :]
     db2  = dz2
     da1  = dz2 @ W2.T                         # (16,)
@@ -177,7 +177,8 @@ def backward_completo(pred, target, cache):
  
 # -- Bucle de entrenamiento -----------------------------
 print('\nEntrenando CNN...')
-print(f'Parámetros: filtros={filtros.size}, dense={W1.size+b1.size+W2.size+b2.size}')
+print(f'Parámetros: filtros={filtros.size}+{sesgos.size} sesgos, dense={W1.size+b1.size+W2.size+b2.size}, '
+      f'total={filtros.size+sesgos.size+W1.size+b1.size+W2.size+b2.size}')
 print()
 EPOCAS = 15
 for epoca in range(EPOCAS):

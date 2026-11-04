@@ -45,13 +45,12 @@ class MLPRegresion:
         return self.Z2
     
     def backward(self, dZ2, lr, beta1=0.9, beta2=0.999, eps=1e-8):
-        m   = self.X.shape[0]
-        dW2 = self.A1.T @ dZ2 / m
-        db2 = dZ2.mean(axis=0)
+        dW2 = self.A1.T @ dZ2            # dZ2 ya trae el 1/N de la pérdida media
+        db2 = dZ2.sum(axis=0)
         dA1 = dZ2 @ self.W2.T
         dZ1 = dA1 * d_relu(self.Z1)
-        dW1 = self.X.T @ dZ1 / m
-        db1 = dZ1.mean(axis=0)
+        dW1 = self.X.T @ dZ1
+        db1 = dZ1.sum(axis=0)
         self.t += 1
         for nombre, grad in [('W1',dW1),('b1',db1),('W2',dW2),('b2',db2)]:
             self.m[nombre] = beta1*self.m[nombre] + (1-beta1)*grad

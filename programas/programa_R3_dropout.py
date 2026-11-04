@@ -67,14 +67,13 @@ class MLPConDropout:
     def backward(self, dZ2, lr, beta1=0.9, beta2=0.999, eps=1e-8):
         # el gradiente tambien pasa por la mascara: el gradiente de una
         # neurona apagada es 0 (se multiplica por la misma mascara del forward)
-        m = self.X.shape[0]
-        dW2 = self.D1.T @ dZ2 / m
-        db2 = dZ2.mean(axis=0)
+        dW2 = self.D1.T @ dZ2            # dZ2 ya trae el 1/N de la pérdida media
+        db2 = dZ2.sum(axis=0)
         dD1 = dZ2 @ self.W2.T
         dA1 = dD1 * self.mask if self.mask is not None else dD1
         dZ1 = dA1 * d_relu(self.Z1)
-        dW1 = self.X.T @ dZ1 / m
-        db1 = dZ1.mean(axis=0)
+        dW1 = self.X.T @ dZ1
+        db1 = dZ1.sum(axis=0)
  
         self.t += 1
         for nombre, grad in [('W1', dW1), ('b1', db1), ('W2', dW2), ('b2', db2)]:

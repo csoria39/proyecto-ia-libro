@@ -10,19 +10,19 @@ Modelo aleatorio (baseline):
     Tokens evaluados:  96
     Perdida media:     3.3322
     Perplejidad:       28.00
-    Bits por caracter: 4.807
+    Bits por token:    4.807
 
 Modelo bigrama (aprende pares de caracteres):
   Train
     Tokens evaluados:  407
     Perdida media:     1.7835
     Perplejidad:       5.95
-    Bits por caracter: 2.573
+    Bits por token:    2.573
   Test 
     Tokens evaluados:  96
     Perdida media:     4.5798
     Perplejidad:       97.50
-    Bits por caracter: 6.607
+    Bits por token:    6.607
 
 === DIAGNOSTICO DE OVERFITTING VIA PERPLEJIDAD ===
 
@@ -36,5 +36,6 @@ CASO 3 — Overfitting grave (memorizacion):
   PPL train = 1.0,  PPL test = 45.2 -> test 45x peor: el modelo
   memorizo el corpus de entrenamiento pero no generaliza.
 
-Regla practica: PPL_test / PPL_train < 2 es aceptable.
-Si la ratio supera 3-4, hay overfitting significativo.
+Una pista, no una regla: un cociente PPL_test / PPL_train alto avisa de
+sobreajuste, pero no hay umbrales universales (un modelo que no aprende
+nada tiene cociente 1). Compara siempre con una linea base.

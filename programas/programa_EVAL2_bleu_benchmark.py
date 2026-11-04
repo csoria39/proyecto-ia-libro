@@ -96,7 +96,7 @@ BENCHMARK = [
         'opciones': ['a) El modelo es excelente', 'b) El modelo no ha aprendido nada',
                     'c) El modelo tiene overfitting', 'd) El modelo necesita mas capas'],
         'correcta': 'b',
-        'explicacion': 'PPL = V significa distribucion uniforme, equivalente a adivinar al azar'
+        'explicacion': 'PPL = V es la del azar uniforme: el modelo no mejora a adivinar entre V'
     },
     {
         'pregunta': 'Que optimizador usa weight decay desacoplado?',
@@ -155,20 +155,18 @@ modelos = [
     ('Modelo experto',    1.00),
 ]
  
-print(f"{'Modelo':>20}  {'Aciertos':>10}  {'Precision':>12}  Interpretacion")
+print(f"{'Modelo':>20}  {'Aciertos':>10}  {'Precision':>12}  Tasa simulada")
 print('-' * 68)
 for nombre, tasa in modelos:
     res = evaluar_modelo_simulado(BENCHMARK, tasa_acierto=tasa)
     n_ok = sum(r['correcto'] for r in res)
     prec = n_ok / len(BENCHMARK)
-    if prec <= 0.25:   interp = 'Equivale a adivinar al azar (4 opciones)'
-    elif prec <= 0.50: interp = 'Por debajo del azar corregido'
-    elif prec <= 0.75: interp = 'Conocimiento basico'
-    elif prec < 1.0:   interp = 'Buen dominio del tema'
-    else:              interp = 'Dominio completo'
-    print(f'{nombre:>20}  {n_ok:>4}/{len(BENCHMARK):>4}  {prec:>12.1%}  {interp}')
+    print(f'{nombre:>20}  {n_ok:>4}/{len(BENCHMARK):>4}  {prec:>12.1%}  {tasa:.0%}')
  
 print()
-print('En benchmarks reales como MMLU (57 materias, 14.000 preguntas):')
-print('  GPT-3.5: ~70%   GPT-4: ~86%   Claude 3 Opus: ~87%')
-print('  Humano experto: ~90%  Humano promedio: ~57%')
+print('Con 5 preguntas el azar pesa mucho: el modelo que acierta el 25 % de las')
+print('veces ha sacado 3 de 5. Para estimar una tasa hacen falta cientos de preguntas.')
+print()
+print('En MMLU (57 materias; 14 042 preguntas de test), segun cada informe:')
+print('  GPT-3.5 (2023): ~70%   GPT-4 (2023): ~86%   Claude 3 Opus (2024): ~87%')
+print('  Experto humano (estimacion): ~90%   Humano no especialista: ~35%')

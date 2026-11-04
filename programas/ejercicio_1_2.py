@@ -21,5 +21,6 @@ for v in vectores:
     s = softmax(v)
     print(f'{str(v):>28}  {str(s.round(4)):>26}  {s.sum():.8f}')
  
-# Sin el truco del máximo, np.exp([100,200,300]) -> overflow
+# Sin el truco del máximo, np.exp(300) ≈ 2e130 aún cabe en float64, pero
+# np.exp(1000) -> inf (overflow): z - z.max() lo evita en cualquier caso
 # Con el truco: exp([100-300, 200-300, 300-300]) = exp([-200,-100,0])

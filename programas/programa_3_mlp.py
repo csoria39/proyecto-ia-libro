@@ -22,9 +22,8 @@ class CapaDensa:
         return X @ self.W + self.b
     
     def backward(self, dZ, lr):
-        m   = self._X.shape[0]           # tamaño del lote
-        dW  = self._X.T @ dZ / m         # gradiente de W
-        db  = dZ.mean(axis=0)            # gradiente de b
+        dW  = self._X.T @ dZ             # gradiente de W (dZ ya trae el 1/N de la pérdida media)
+        db  = dZ.sum(axis=0)             # gradiente de b
         dX  = dZ @ self.W.T              # gradiente hacia atrás
         self.W -= lr * dW                # actualizar W
         self.b -= lr * db                # actualizar b

@@ -57,8 +57,8 @@ class MLP:
     def cargar(self, d): self.W1=d['W1'].copy();self.b1=d['b1'].copy();self.W2=d['W2'].copy();self.b2=d['b2'].copy()
     def forward(self, X): self.X=X; self.Z1=X@self.W1+self.b1; self.A1=relu(self.Z1); return self.A1@self.W2+self.b2
     def backward(self, g, lr, b1=0.9, b2=0.999, eps=1e-8):
-        m=self.X.shape[0]; dW2=self.A1.T@g/m; db2=g.mean(0); dA1=g@self.W2.T
-        dZ1=dA1*d_relu(self.Z1); dW1=self.X.T@dZ1/m; db1=dZ1.mean(0)
+        dW2=self.A1.T@g; db2=g.sum(0); dA1=g@self.W2.T          # g ya trae el 1/N del MSE
+        dZ1=dA1*d_relu(self.Z1); dW1=self.X.T@dZ1; db1=dZ1.sum(0)
         self.t+=1
         for n_,g_ in [('W1',dW1),('b1',db1),('W2',dW2),('b2',db2)]:
             self.m[n_]=b1*self.m[n_]+(1-b1)*g_; self.v[n_]=b2*self.v[n_]+(1-b2)*g_**2

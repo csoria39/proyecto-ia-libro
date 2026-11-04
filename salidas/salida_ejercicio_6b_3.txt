@@ -9,6 +9,7 @@ porque las palabras unicas son mas dificiles de comprimir:
 cada compuesto aparece pocas veces, asi que BPE no puede
 asignarle un token unico tan facilmente.
 
-Esto replica el fenomeno real: idiomas con composicion morfologica
-rica (aleman, finlandes, turco) tienen mayor fertilidad de token
-en tokenizadores entrenados principalmente en ingles.
+Es una ilustracion con dos corpus inventados, no una medida de
+tokenizadores reales; pero apunta en la misma direccion que el fenomeno
+real: idiomas de morfologia rica (aleman, finlandes, turco) gastan mas
+tokens por palabra en tokenizadores entrenados sobre todo en ingles.

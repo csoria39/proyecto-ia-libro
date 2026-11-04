@@ -10,16 +10,16 @@ Modelo simple  (4 neuronas)
      3332        0.18143      0.21462  aun aprendiendo
      4998        0.18145      0.21472  aun aprendiendo
      6664        0.18142      0.21472  aun aprendiendo
-     8330        0.18144      0.21474  aun aprendiendo
-     9996        0.18143      0.21482  aun aprendiendo
-    11662        0.18143      0.21451  aun aprendiendo
-    13328        0.09009      0.10278  convergido
-    14994        0.09009      0.10283  convergido
-    16660        0.09010      0.10313  convergido
-    18326        0.09009      0.10294  convergido
-  -> Error train final:  0.09009
-  -> Error val final:    0.10285
-  -> Mejor val (epoca 12936): 0.09964
+     8330        0.18143      0.21462  aun aprendiendo
+     9996        0.18142      0.21484  aun aprendiendo
+    11662        0.18143      0.21453  aun aprendiendo
+    13328        0.09008      0.10292  convergido
+    14994        0.09008      0.10292  convergido
+    16660        0.09009      0.10301  convergido
+    18326        0.09008      0.10292  convergido
+  -> Error train final:  0.09008
+  -> Error val final:    0.10292
+  -> Mejor val (epoca 13127): 0.10068
   -> DIAGNOSTICO: Buen ajuste
 
 Modelo adecuado (16 neuronas)
@@ -31,33 +31,33 @@ Modelo adecuado (16 neuronas)
      4998        0.14232      0.19816  convergido
      6664        0.14240      0.19828  convergido
      8330        0.14234      0.19826  convergido
-     9996        0.14237      0.19796  convergido
-    11662        0.14233      0.19842  convergido
-    13328        0.14232      0.19802  convergido
-    14994        0.14235      0.19811  convergido
-    16660        0.14239      0.19837  convergido
-    18326        0.14233      0.19840  convergido
-  -> Error train final:  0.14230
-  -> Error val final:    0.19802
+     9996        0.14235      0.19808  convergido
+    11662        0.14239      0.19827  convergido
+    13328        0.14235      0.19839  convergido
+    14994        0.14236      0.19855  convergido
+    16660        0.14236      0.19770  convergido
+    18326        0.14239      0.19809  convergido
+  -> Error train final:  0.14240
+  -> Error val final:    0.19800
   -> Mejor val (epoca 306): 0.19635
   -> DIAGNOSTICO: UNDERFITTING (error train alto)
 
 Modelo grande  (256 neuronas)
     Epoca    Error train    Error val  Divergencia
   -------------------------------------------------------
-        0        0.59756      0.80695  aun aprendiendo
-     1666        0.14055      0.19776  convergido
-     3332        0.13884      0.19784  convergido
-     4998        0.03968      0.08003  !!! OVERFITTING (val=2.0x train)
-     6664        0.03807      0.08422  !!! OVERFITTING (val=2.2x train)
-     8330        0.03609      0.08340  !!! OVERFITTING (val=2.3x train)
-     9996        0.03572      0.08251  !!! OVERFITTING (val=2.3x train)
-    11662        0.03362      0.08383  !!! OVERFITTING (val=2.5x train)
-    13328        0.03670      0.08370  !!! OVERFITTING (val=2.3x train)
-    14994        0.03388      0.08384  !!! OVERFITTING (val=2.5x train)
-    16660        0.03197      0.08764  !!! OVERFITTING (val=2.7x train)
-    18326        0.03430      0.08464  !!! OVERFITTING (val=2.5x train)
-  -> Error train final:  0.03327
-  -> Error val final:    0.09202
-  -> Mejor val (epoca 4261): 0.07861
+        0        0.59756      0.80696  aun aprendiendo
+     1666        0.14099      0.19911  convergido
+     3332        0.08161      0.13848  convergido
+     4998        0.04024      0.08005  convergido
+     6664        0.03729      0.08267  !!! OVERFITTING (val=2.2x train)
+     8330        0.03626      0.08351  !!! OVERFITTING (val=2.3x train)
+     9996        0.03570      0.08377  !!! OVERFITTING (val=2.3x train)
+    11662        0.03961      0.09508  !!! OVERFITTING (val=2.4x train)
+    13328        0.03493      0.08453  !!! OVERFITTING (val=2.4x train)
+    14994        0.03427      0.09049  !!! OVERFITTING (val=2.6x train)
+    16660        0.03286      0.08725  !!! OVERFITTING (val=2.7x train)
+    18326        0.04032      0.10471  !!! OVERFITTING (val=2.6x train)
+  -> Error train final:  0.03226
+  -> Error val final:    0.09107
+  -> Mejor val (epoca 3655): 0.07874
   -> DIAGNOSTICO: OVERFITTING grave (val es 2.8x train)

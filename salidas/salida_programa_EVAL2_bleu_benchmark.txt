@@ -24,13 +24,16 @@
 
 Mini-benchmark de IA (5 preguntas):
 
-              Modelo    Aciertos     Precision  Interpretacion
+              Modelo    Aciertos     Precision  Tasa simulada
 --------------------------------------------------------------------
-    Modelo aleatorio     3/   5         60.0%  Conocimiento basico
-       Modelo basico     3/   5         60.0%  Conocimiento basico
-     Modelo avanzado     4/   5         80.0%  Buen dominio del tema
-      Modelo experto     5/   5        100.0%  Dominio completo
+    Modelo aleatorio     3/   5         60.0%  25%
+       Modelo basico     3/   5         60.0%  60%
+     Modelo avanzado     4/   5         80.0%  80%
+      Modelo experto     5/   5        100.0%  100%
 
-En benchmarks reales como MMLU (57 materias, 14.000 preguntas):
-  GPT-3.5: ~70%   GPT-4: ~86%   Claude 3 Opus: ~87%
-  Humano experto: ~90%  Humano promedio: ~57%
+Con 5 preguntas el azar pesa mucho: el modelo que acierta el 25 % de las
+veces ha sacado 3 de 5. Para estimar una tasa hacen falta cientos de preguntas.
+
+En MMLU (57 materias; 14 042 preguntas de test), segun cada informe:
+  GPT-3.5 (2023): ~70%   GPT-4 (2023): ~86%   Claude 3 Opus (2024): ~87%
+  Experto humano (estimacion): ~90%   Humano no especialista: ~35%

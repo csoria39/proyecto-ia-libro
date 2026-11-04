@@ -41,13 +41,12 @@ class MLPConL2:
         return self.A1 @ self.W2 + self.b2
     
     def backward(self, dZ2, lr, beta1=0.9, beta2=0.999, eps=1e-8):
-        m   = self.X.shape[0]
-        dW2 = self.A1.T @ dZ2 / m + 2*self.lam*self.W2  # <-- L2
-        db2 = dZ2.mean(axis=0)
+        dW2 = self.A1.T @ dZ2 + 2*self.lam*self.W2  # <-- L2 (dZ2 ya trae el 1/N del MSE)
+        db2 = dZ2.sum(axis=0)
         dA1 = dZ2 @ self.W2.T
         dZ1 = dA1 * d_relu(self.Z1)
-        dW1 = self.X.T @ dZ1 / m + 2*self.lam*self.W1  # <-- L2
-        db1 = dZ1.mean(axis=0)
+        dW1 = self.X.T @ dZ1 + 2*self.lam*self.W1  # <-- L2
+        db1 = dZ1.sum(axis=0)
         self.t += 1
         for nombre, grad in [('W1',dW1),('b1',db1),('W2',dW2),('b2',db2)]:
             self.m[nombre] = beta1*self.m[nombre] + (1-beta1)*grad
@@ -73,8 +72,8 @@ class MLPConL2:
 # Comparamos tres configuraciones del mismo modelo (256 neuronas)
 configs = [
     ('Sin regularizacion  (lambda=0)',    0.0),
-    ('L2 moderada         (lambda=0.0001)', 0.0001),
-    ('L2 fuerte           (lambda=0.001)',  0.001),
+    ('L2 moderada         (lambda=0.001)',  0.001),
+    ('L2 fuerte           (lambda=0.01)',   0.01),
 ]
  
 print('=== EFECTO DE LA REGULARIZACION L2 ===')

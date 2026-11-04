@@ -1,33 +1,33 @@
 Dataset: 240 entrenamiento, 60 validación
 
 Entrenando CNN...
-Parámetros: filtros=36, dense=1633
+Parámetros: filtros=36+4 sesgos, dense=1633, total=1673
 
-Época  1: pérdida=0.3789  precisión validación=100.0%
-Época  2: pérdida=0.2445  precisión validación=100.0%
-Época  3: pérdida=0.1816  precisión validación=100.0%
-Época  4: pérdida=0.1415  precisión validación=100.0%
-Época  5: pérdida=0.1156  precisión validación=100.0%
-Época  6: pérdida=0.0973  precisión validación=100.0%
-Época  7: pérdida=0.0852  precisión validación=100.0%
-Época  8: pérdida=0.0755  precisión validación=100.0%
-Época  9: pérdida=0.0679  precisión validación=100.0%
-Época 10: pérdida=0.0618  precisión validación=100.0%
-Época 11: pérdida=0.0569  precisión validación=100.0%
-Época 12: pérdida=0.0527  precisión validación=100.0%
-Época 13: pérdida=0.0493  precisión validación=100.0%
-Época 14: pérdida=0.0462  precisión validación=100.0%
-Época 15: pérdida=0.0437  precisión validación=100.0%
+Época  1: pérdida=0.2088  precisión validación=100.0%
+Época  2: pérdida=0.0466  precisión validación=100.0%
+Época  3: pérdida=0.0207  precisión validación=100.0%
+Época  4: pérdida=0.0119  precisión validación=100.0%
+Época  5: pérdida=0.0081  precisión validación=100.0%
+Época  6: pérdida=0.0059  precisión validación=100.0%
+Época  7: pérdida=0.0047  precisión validación=100.0%
+Época  8: pérdida=0.0038  precisión validación=100.0%
+Época  9: pérdida=0.0032  precisión validación=100.0%
+Época 10: pérdida=0.0027  precisión validación=100.0%
+Época 11: pérdida=0.0024  precisión validación=100.0%
+Época 12: pérdida=0.0021  precisión validación=100.0%
+Época 13: pérdida=0.0019  precisión validación=100.0%
+Época 14: pérdida=0.0017  precisión validación=100.0%
+Época 15: pérdida=0.0015  precisión validación=100.0%
 
 === PRUEBA VISUAL ===
 Imagen 1: barra horizontal
-  Predicción: 0.0149  -> HORIZONTAL ✓
+  Predicción: 0.0002  -> HORIZONTAL ✓
 Imagen 2: barra vertical
-  Predicción: 0.9961  -> VERTICAL ✓
+  Predicción: 1.0000  -> VERTICAL ✓
 
 === FILTROS APRENDIDOS (3x3) ===
 (valores positivos █, neutros ., negativos ▽)
   Filtro 1: ...  ▽..  █▽.  
-  Filtro 2: .██  .██  █..  
+  Filtro 2: .██  .██  ...  
   Filtro 3: ...  ███  █..  
   Filtro 4: ▽█.  ▽▽▽  ...  
