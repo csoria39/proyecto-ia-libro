@@ -25,6 +25,8 @@ Si prefieres hacerlo a mano (Apéndice E), necesitas Python 3.11 o posterior:
 ```bash
 python3 -m venv ~/entorno_ia            # Windows (CMD): python -m venv %USERPROFILE%\entorno_ia
 source ~/entorno_ia/bin/activate        # Windows (CMD): %USERPROFILE%\entorno_ia\Scripts\activate.bat
+# Solo en Linux: PyTorch en versión CPU antes (si no, pip instala la de CUDA, de varios GB)
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
 cd programas
 python programa_1a_activaciones.py
