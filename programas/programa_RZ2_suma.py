@@ -6,7 +6,7 @@
 # El modelo del Programa 8 (GPT-2 en miniatura, NumPy puro)
 # entrenado con sumas de dos cifras.
 # Se examina con 2 000 sumas que NUNCA ha visto: si acierta,
-# no puede haberlas memorizado; ha extraído la regla.
+# no le basta con memorizar: tiene que aplicar la regla.
 #
 # Cambios respecto al Programa 8:
 #   1. Datos: sumas «47+85=» en lugar de frases. De las 10 000
