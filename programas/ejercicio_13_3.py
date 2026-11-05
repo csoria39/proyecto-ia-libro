@@ -29,7 +29,8 @@ print(f"{'Pérdida':>8}  {'PPL':>6}  Interpretación")
 print('-' * 58)
 for perd in [np.log(V), 3.0, 2.0, 1.5, 1.0, 0.5, L]:
     ppl = np.exp(perd)
-    if ppl >= V - 0.5: interp = 'La pérdida de la uniforme (al azar)'
+    if np.isclose(perd, np.log(V)): interp = 'Referencia: la uniforme (al azar)'
+    elif ppl > V:      interp = f'Peor que el azar ({ppl - V:+.1f} sobre V)'
     elif ppl > 15:     interp = 'Algo de estructura local'
     elif ppl > 4:      interp = 'Patrones de carácter bien aprendidos'
     elif ppl > 1.8:    interp = 'Buen modelo: captura el estilo'

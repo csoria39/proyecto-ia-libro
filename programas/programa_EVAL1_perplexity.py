@@ -76,7 +76,7 @@ print()
 np.random.seed(42)
  
 def modelo_aleatorio(ctx):
-    """Distribucion uniforme: no ha aprendido nada"""
+    """Distribucion uniforme: la referencia del azar (PPL = V)"""
     return np.zeros(V)    # logits uniformes -> prob 1/V cada token
  
 def modelo_bigrama(ctx, tokens_ref=tok_train):

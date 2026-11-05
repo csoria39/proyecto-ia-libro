@@ -141,7 +141,8 @@ def backward_completo(pred, target, cache):
     global filtros, sesgos, W1, b1, W2, b2
     img, conv, relu_c, mask, pool, flat, z1, a1, z2 = cache
     # -- Pérdida BCE y su gradiente ---------------------
-    loss = -(target*np.log(pred+1e-10) + (1-target)*np.log(1-pred+1e-10))
+    # BCE calculada desde el logit (estable): log(1 + e^z) - target·z
+    loss = np.logaddexp(0, z2) - target * z2
     # BCE + sigmoide: dL/dz2 = pred - target (la derivada de la sigmoide se cancela)
     # -- Capa 2 -----------------------------------------
     dz2  = pred - target                      # gradiente respecto al logit z2

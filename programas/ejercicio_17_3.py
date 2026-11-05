@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT  (© 2026 Carlos Soria Martínez; ver LICENSE)
 def costo_atencion(T, d, n_heads, bytes_por=2):
-    """Memoria en GB y GFLOPs de la atención"""
+    """Memoria en GiB (1024³ bytes) y GFLOPs de la atención"""
     mem_gb = T * T * n_heads * bytes_por / (1024**3)
     gflops = 4 * T * T * d / 1e9
     return mem_gb, gflops
@@ -8,7 +8,7 @@ def costo_atencion(T, d, n_heads, bytes_por=2):
 d, n_heads = 768, 12  # GPT-2 / BERT configuración
  
 print(f'd={d}, n_heads={n_heads} (estilo GPT-2 small)\n')
-print(f"{'Contexto T':>12}  {'Mem. aten. (GB)':>17}  {'GFLOPs':>10}  Factor vs ant.")
+print(f"{'Contexto T':>12}  {'Mem. aten. (GiB)':>17}  {'GFLOPs':>10}  Factor vs ant.")
 print('-' * 60)
  
 T_vals = [512, 2048, 8192, 32768, 131072]

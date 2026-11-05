@@ -17,7 +17,8 @@ class TokenizadorCaracter:
         print(f'Vocabulario: {self.V} caracteres únicos')
     
     def codificar(self, texto):
-        """Texto -> lista de enteros"""
+        """Texto -> lista de enteros. OJO: un carácter que no esté en el
+        vocabulario se descarta sin avisar (el BPE del Capítulo 9 lo evita)."""
         return [self.c2i[c] for c in texto if c in self.c2i]
     
     def decodificar(self, indices):

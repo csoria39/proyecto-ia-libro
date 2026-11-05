@@ -93,7 +93,7 @@ BENCHMARK = [
     },
     {
         'pregunta': 'Que significa PPL = 37 si el vocabulario tiene 37 caracteres?',
-        'opciones': ['a) El modelo es excelente', 'b) El modelo no ha aprendido nada',
+        'opciones': ['a) El modelo es excelente', 'b) Pierde lo mismo que repartir la probabilidad por igual',
                     'c) El modelo tiene overfitting', 'd) El modelo necesita mas capas'],
         'correcta': 'b',
         'explicacion': 'PPL = V es la del azar uniforme: el modelo no mejora a adivinar entre V'

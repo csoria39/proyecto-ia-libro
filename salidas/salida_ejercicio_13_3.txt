@@ -7,7 +7,7 @@ Perplejidad: e^0.2835 = 1.33
 
  Pérdida     PPL  Interpretación
 ----------------------------------------------------------
-  3.8286   46.00  La pérdida de la uniforme (al azar)
+  3.8286   46.00  Referencia: la uniforme (al azar)
   3.0000   20.09  Algo de estructura local
   2.0000    7.39  Patrones de carácter bien aprendidos
   1.5000    4.48  Patrones de carácter bien aprendidos

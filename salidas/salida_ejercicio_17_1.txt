@@ -1,4 +1,4 @@
-                   Modelo   FP32 (GB)   FP16 (GB)   INT4 (GB)
+                   Modelo  FP32 (GiB)  FP16 (GiB)  INT4 (GiB)
 ------------------------------------------------------------
        Nano-LLM (nuestro)       0.000       0.000       0.000
               GPT-2 small       0.462       0.231       0.058

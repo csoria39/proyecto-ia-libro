@@ -1,6 +1,6 @@
 d=768, n_heads=12 (estilo GPT-2 small)
 
-  Contexto T    Mem. aten. (GB)      GFLOPs  Factor vs ant.
+  Contexto T   Mem. aten. (GiB)      GFLOPs  Factor vs ant.
 ------------------------------------------------------------
          512              0.006        0.81              —
        2,048              0.094       12.88          16.0x

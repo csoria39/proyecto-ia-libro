@@ -71,11 +71,14 @@ def generar_sin_cache(ids, n_tokens):
 
 def generar_con_cache(ids, n_tokens):
     """Greedy con KV-cache: prefill de la semilla y después un token cada vez."""
+    if len(ids) + n_tokens > CTX:                 # el cache tiene CTX posiciones
+        raise ValueError(f'semilla + tokens nuevos = {len(ids) + n_tokens} > {CTX}')
     ids, kv = list(ids), nuevo_cache()
     logits = prefill(ids, kv)
-    for _ in range(n_tokens):
+    for k in range(n_tokens):
         ids.append(int(np.argmax(logits)))
-        logits = forward_un_token(ids[-1], len(ids) - 1, kv)
+        if k < n_tokens - 1:                      # el último token no necesita otro paso
+            logits = forward_un_token(ids[-1], len(ids) - 1, kv)
     return ids
 
 

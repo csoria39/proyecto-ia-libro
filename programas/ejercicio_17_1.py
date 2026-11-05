@@ -12,7 +12,7 @@ modelos = [
     ('GPT-3 175B',    175_000_000_000),
 ]
  
-print(f"{'Modelo':>25}  {'FP32 (GB)':>10}  {'FP16 (GB)':>10}  {'INT4 (GB)':>10}")
+print(f"{'Modelo':>25}  {'FP32 (GiB)':>10}  {'FP16 (GiB)':>10}  {'INT4 (GiB)':>10}")
 print('-' * 60)
 for nombre, n in modelos:
     g32 = memoria_gb(n, 'float32')

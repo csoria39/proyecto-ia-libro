@@ -7,7 +7,7 @@ class TokenizadorCaracter:
         self.V     = len(self.vocab)
         self.c2i   = {c:i for i,c in enumerate(self.vocab)}
         self.i2c   = dict(enumerate(self.vocab))
-    def codificar(self, t):  return [self.c2i[c] for c in t if c in self.c2i]
+    def codificar(self, t):  return [self.c2i[c] for c in t if c in self.c2i]   # descarta lo desconocido
     def decodificar(self, l): return ''.join(self.i2c[i] for i in l)
  
 # Cambia por tu propio nombre

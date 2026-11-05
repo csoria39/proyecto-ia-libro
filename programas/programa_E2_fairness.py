@@ -13,9 +13,10 @@ def metricas_equidad(y_real, y_pred, grupo):
         fn = ((yp==0)&(yr==1)).sum()  # falso negativo
         resultados[g] = {
             'tasa_seleccion': yp.mean(),
-            'TPR (sensibil.)': vp/(vp+fn) if (vp+fn) else 0,
-            'FPR (1-espec.)':  fp/(fp+vn) if (fp+vn) else 0,
-            'precision_PPV':   vp/(vp+fp) if (vp+fp) else 0,
+            # sin casos en el denominador la métrica no está definida: nan, no 0
+            'TPR (sensibil.)': vp/(vp+fn) if (vp+fn) else float('nan'),
+            'FPR (1-espec.)':  fp/(fp+vn) if (fp+vn) else float('nan'),
+            'precision_PPV':   vp/(vp+fp) if (vp+fp) else float('nan'),
             'exactitud':       (vp+vn)/len(yr),
         }
     return resultados

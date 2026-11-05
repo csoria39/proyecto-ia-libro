@@ -66,4 +66,4 @@ capa_rapida = nn.TransformerEncoderLayer(
     dropout=0.0, batch_first=True, norm_first=True
 )
 n_p2 = sum(p.numel() for p in capa_rapida.parameters())
-print(f'\nTransformerEncoderLayer: {n_p2:,} params (equivalente)')
+print(f'\nTransformerEncoderLayer: {n_p2:,} params (mismo numero de parametros)')
