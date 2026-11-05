@@ -18,21 +18,22 @@ _, (_, _, cache) = forward(tok)
 P = [cache[k]['pesos'][0] for k in range(N_BLQ)]      # cada uno: (H, T, T)
 
 etiq = [c if c != ' ' else '␣' for c in frase]
-fig, axes = plt.subplots(N_BLQ, H, figsize=(16, 8.4), dpi=110, layout='constrained')
+fig, axes = plt.subplots(H, N_BLQ, figsize=(8, 11.5), dpi=300, layout='constrained')   # una columna por bloque
 for k in range(N_BLQ):
     for c in range(H):
-        ax = axes[k, c]
+        ax = axes[c, k]
         im = ax.imshow(P[k][c], cmap='Blues', vmin=0, vmax=1)
-        ax.set_xticks(range(T)); ax.set_xticklabels(etiq, fontsize=7)
-        ax.set_yticks(range(T)); ax.set_yticklabels(etiq, fontsize=7)
-        ax.set_title(f'Bloque {k + 1} · cabeza {c + 1}', fontsize=12, color='#1A3A6B', fontweight='bold')
-        if k == N_BLQ - 1:
-            ax.set_xlabel('key: carácter al que se mira', fontsize=10)
-        if c == 0:
-            ax.set_ylabel('query: carácter que pregunta', fontsize=10)
-fig.suptitle('Pesos de atención del Nano-LLM entrenado (Programa 8) — «' + frase + '»',
-             fontsize=14, color='#1A3A6B', fontweight='bold')
-fig.colorbar(im, ax=axes, shrink=0.6, label='peso de atención')
+        ax.set_xticks(range(T)); ax.set_xticklabels(etiq if c == H - 1 else [], fontsize=8)
+        ax.set_yticks(range(T)); ax.set_yticklabels(etiq, fontsize=8)
+        ax.set_title(f'Bloque {k + 1} · cabeza {c + 1}', fontsize=13, color='#1A3A6B', fontweight='bold')
+        if c == H - 1:
+            ax.set_xlabel('key: carácter al que se mira', fontsize=12)
+        if k == 0:
+            ax.set_ylabel('query: carácter que pregunta', fontsize=12)
+fig.suptitle('Pesos de atención del Nano-LLM entrenado (Programa 8)\n«' + frase + '»',
+             fontsize=15, color='#1A3A6B', fontweight='bold')
+cb = fig.colorbar(im, ax=axes, shrink=0.5)
+cb.set_label('peso de atención', fontsize=12); cb.ax.tick_params(labelsize=10)
 plt.savefig('figura_7_atencion.png', bbox_inches='tight')
 
 # Resumen numérico para el texto
