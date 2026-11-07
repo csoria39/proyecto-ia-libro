@@ -44,6 +44,7 @@ El mapa completo, archivo por archivo, está en [ESTRUCTURA.md](ESTRUCTURA.md).
 | `salidas/` | La salida real de cada programa, tal como aparece en el libro. `experimentos_capitulo_15/` contiene todas las ejecuciones de las tablas del Capítulo 15. |
 | `verificaciones/` | Comprobaciones que no van en el libro: el gradiente de los programas con diferencias finitas, y el Programa 8 bis frente a `transformers` (mismos logits y mismo tokenizador). |
 | `libro/` | La edición final del libro: interior para Amazon KDP (377 páginas, PDF), el .docx con y sin control de cambios, y las cubiertas. |
+| `docs/` | Guías complementarias: la guía del entorno de desarrollo (instalación paso a paso en Windows, macOS y Linux, en .docx limpio y con control de cambios) y la guía para el profesor (plan de un cuatrimestre, prácticas evaluables y rúbrica, en .md y .docx). |
 | `diagramas/` | Las 19 ilustraciones del libro, con la numeración por capítulo (Diagrama 2.1 … 20.2 y G.1); en `scripts/`, los programas que corrigieron sus erratas y su numeración, y en `originales/`, las versiones del autor antes de corregirlas. |
 
 Los nombres de archivo son los que cita el libro. Cada ejercicio se llama `ejercicio_<capítulo>_<número>.py`: por ejemplo, `ejercicio_15_2.py` es la solución del Ejercicio 15.2, y `ejercicio_G_1.py`, la del Ejercicio G.1. La tabla siguiente indica a qué capítulo pertenece cada archivo.

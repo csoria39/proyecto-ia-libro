@@ -25,6 +25,12 @@ proyecto-ia-libro/
 │   ├── Cubierta_KDP_377p_color_contraportada_larga.pdf
 │   └── Cubierta_KDP_377p_color_contraportada_corta.pdf
 │
+├── docs/                         ← GUÍAS COMPLEMENTARIAS
+│   ├── Guia_entorno_desarrollo.docx                     · instalación y organización del entorno
+│   ├── Guia_entorno_desarrollo_con_control_de_cambios.docx
+│   ├── Guia_profesor.md                                 · plan docente, prácticas y rúbrica (se lee en GitHub)
+│   └── Guia_profesor.docx
+│
 ├── programas/                    ← 117 archivos .py, idénticos a los listados del libro
 │   ├── programa_1a_activaciones.py … programa_9b_cnn.py     (programas numerados 1–9, con el 8, el 8 documentado y el 8bis)
 │   ├── programa_O1 … O4          · optimizadores (Cap. 5)
