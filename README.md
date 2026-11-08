@@ -42,7 +42,7 @@ El mapa completo, archivo por archivo, está en [ESTRUCTURA.md](ESTRUCTURA.md).
 |---|---|
 | `programas/` | Los 117 programas y soluciones de ejercicios del libro, en una sola carpeta. Así funcionan las dependencias entre ellos: por ejemplo, RZ-1 lee `programa_8_nano_llm.py` y varios ejercicios ejecutan el programa de su capítulo. |
 | `salidas/` | La salida real de cada programa, tal como aparece en el libro. `experimentos_capitulo_15/` contiene todas las ejecuciones de las tablas del Capítulo 15. |
-| `verificaciones/` | Comprobaciones que no van en el libro: el gradiente de los programas con diferencias finitas, y el Programa 8 bis frente a `transformers` (mismos logits y mismo tokenizador). |
+| `verificaciones/` | La ejecución completa de los 117 listados del libro, en orden y con su salida (`Ejecucion_completa_programas`, en .md y .txt), y comprobaciones que no van en el libro: el gradiente de los programas con diferencias finitas, y el Programa 8 bis frente a `transformers` (mismos logits y mismo tokenizador). |
 | `libro/` | La edición final del libro: interior para Amazon KDP (377 páginas, PDF), el .docx con y sin control de cambios, y las cubiertas. |
 | `docs/` | Guías complementarias: la guía del entorno de desarrollo (instalación paso a paso en Windows, macOS y Linux, en .docx limpio y con control de cambios) y la guía para el profesor (plan de un cuatrimestre, prácticas evaluables y rúbrica, en .md y .docx). |
 | `diagramas/` | Las 19 ilustraciones del libro, con la numeración por capítulo (Diagrama 2.1 … 20.2 y G.1); en `scripts/`, los programas que corrigieron sus erratas y su numeración, y en `originales/`, las versiones del autor antes de corregirlas. |

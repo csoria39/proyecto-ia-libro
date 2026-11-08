@@ -2,6 +2,8 @@
 
 Comprobaciones que respaldan las cifras del libro. No se imprimen en él.
 
+- `Ejecucion_completa_programas.md` (y la misma en `.txt`): los 117 listados del libro ejecutados en el orden en que aparecen, desde una copia limpia sacada del propio libro, con la salida completa de cada uno y su comparación con la que imprime el libro. 118 ejecuciones (el Ejercicio 13.7 se ejecuta en sus dos modos), todas correctas. Los 12 listados que cambiaron en la segunda evaluación se ejecutaron de nuevo el 8-11-2026.
+
 - `verificar_gradientes_float64.py`: el backward del Programa 8, aplicado a los pesos de GPT-2, frente al de PyTorch (autograd), en float64. Salida en `salida_verificar_gradientes_float64.txt`.
 - `verificar_8bis_contra_transformers.py`: el forward y el tokenizador del Programa 8 bis frente a `GPT2LMHeadModel` y `GPT2TokenizerFast` de Hugging Face. Salida en `salida_verificar_8bis_contra_transformers.txt`.
 - `verificar_gradientes_RZ.py`: el backward de los Programas RZ-2, RZ-3 y RZ-4 frente a diferencias finitas en todos sus tensores. Se usa así:

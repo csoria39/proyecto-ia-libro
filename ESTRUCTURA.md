@@ -63,8 +63,9 @@ proyecto-ia-libro/
 │   ├── originales/  (8)          · versiones antes de los retoques (13.1, 17.1, 5.1, G.1…)
 │   └── scripts/  (9)             · los scripts que hicieron cada retoque (fix_d7_4_g1.py, fix_d13_1_d17_1.py…)
 │
-└── verificaciones/               ← 8 archivos
+└── verificaciones/               ← 10 archivos
     ├── LEEME.md
+    ├── Ejecucion_completa_programas.md · .txt   · los 117 listados ejecutados en orden, con su salida y la comparación con el libro
     ├── verificar_entorno.py                      · versiones, BLAS, hilos y SHA-256 de GPT-2
     ├── verificar_8bis_contra_transformers.py     + su salida .txt
     ├── verificar_gradientes_float64.py           + su salida .txt
