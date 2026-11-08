@@ -75,6 +75,8 @@ for t, q, s, col in etiquetas:
     escribir(d, 962, y + 24, [R(s, 'monob', col)], ss)
     y += 38
 
+d.rectangle((1103, 448, 1106, 460), fill=FONDO)   # resto de la comilla final de la versión anterior
+
 # 3. código del paso I
 f = fondo_de(im, (392, 783, 704, 818))
 d.rectangle((392, 783, 704, 818), fill=f)
