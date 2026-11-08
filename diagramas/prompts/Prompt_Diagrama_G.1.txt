@@ -1,0 +1,175 @@
+DIAGRAMA G.1 — CNN: ARQUITECTURA Y FLUJO DE DATOS
+Prompt de regeneración (v18, 8-11-2026)
+
+Ubicación en el libro: Apéndice G (Visión por Computador y Redes Convolucionales), al final de G.9 «CNN y LLM: el
+mismo ADN». Página 369 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
+Imagen de referencia: diagramas/Diagrama_G.1.png (1672 × 941 px). Coincide con la del libro una vez girada (las
+diferencias son de compresión). scripts/fix_d7_4_g1.py corrigió el recuadro de parámetros (hallazgo H29); el original
+está en originales/dG_1_orig.png.
+Cifras:
+  · Programa 9B (salidas/salida_programa_9b_cnn.txt): entrada 10 × 10 × 1; 4 filtros 3 × 3 con relleno 1; max
+    pooling 2 × 2 → 4 × 5 × 5 = 100; densa 100 → 16 → 1. «Parámetros: filtros=36+4 sesgos, dense=1633, total=1673».
+    Barra horizontal → 0.0002 (HORIZONTAL); barra vertical → 1.0000 (VERTICAL): la salida sigmoide es P(vertical).
+  · Programa 9A: filtros Sobel-X, Sobel-Y, «Detector de esquinas (Laplaciano)» y «Suavizado (Gaussiano 3x3)» con
+    pesos 1/16·[1 2 1; 2 4 2; 1 2 1]; convolución con relleno=1 (conserva el tamaño).
+  · Ejemplo de convolución: calculos/diagrama_G_1_convolucion.py, con la función convolucion_2d del Programa 9A
+    (salida en calculos/salida_diagrama_G_1_convolucion.txt). Imagen 6 × 6 con Sobel-X, sin relleno:
+    mapa 4 × 4 = [[4, 0, −4, 0], [4, −1, −4, 0], [4, −2, −4, −1], [3, −1, −3, −2]]; posición (1,1) = 4.
+  · Apéndice G (texto): «En una CNN entrenada, los filtros de las primeras capas aprenden automáticamente detectores
+    similares a Sobel y Laplaciano»; y sobre el Programa 9B: «la red no necesita converger a los filtros “canónicos”
+    que un ingeniero diseñaría a mano (un Sobel-X limpio, por ejemplo)».
+
+Diferencias con la imagen publicada (este prompt las corrige):
+  1. Ejemplo de convolución: la «Imagen (6×6)» tiene solo 5 columnas; el «Mapa de características (4×4)» tiene 3
+     columnas y sus valores no salen de esa imagen; el pie «relleno=1 conserva H×W original» contradice un mapa más
+     pequeño; y el «Cálculo en posición (1,1)» da 0 con términos que no son los de la ventana. Aquí: imagen 6 × 6, mapa
+     4 × 4 calculado, pie «sin relleno: 6×6 → 4×4 (con relleno=1, como el Programa 9A, sería 6×6)» y el cálculo real
+     (= 4, borde vertical detectado).
+  2. «QUÉ APRENDEN LOS FILTROS» presentaba filtros dibujados a mano como aprendidos («La CNN descubrió detectores …»,
+     «La CNN redescubrió el filtro Sobel de 1968»), justo lo que el Apéndice G matiza. Además, los filtros 1 y 2 no
+     son los del libro y el «Gaussiano» era un promedio 1/9. Aquí, los cuatro filtros clásicos del Programa 9A, y una
+     nota fiel sobre lo que aprende el Programa 9B.
+  3. «Predicción final … Ej: P(horizontal) = 0.97»: la salida del Programa 9B es P(vertical); con la barra vertical
+     da 1.0000. Aquí: «Ej: barra vertical → P(vertical) = 1.0000».
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1672 × 941 px, white background,
+flat vector style. Four tall panels side by side, joined by dark-navy "arrow tags", plus a dark-navy bottom bar.
+Panels: rounded cards (radius ≈ 10 px, border #2A3F7A), dark-navy header (#14295E), white bold uppercase 15 px.
+Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; monospace for formulas and code. Matrices are
+drawn as grids with one number per cell. Render every string exactly as written; add no other text.
+
+Color code: Blue #1F5FAD = Imagen de entrada / píxeles · Teal #138A82 = Filtros convolucionales / mapas · Green
+#2E7D32 = ReLU / respuestas positivas · Orange #F57C00 = Max Pooling / reducción · Purple #6A1B9A = Capas densas /
+predicción · Gold #E3A21A = Pesos del filtro / parámetros.
+
+---------------------------------------------------------------------
+HEADER (y = 0–105), centered
+---------------------------------------------------------------------
+"DIAGRAMA G.1 — CNN: ARQUITECTURA Y FLUJO DE DATOS"   44 px bold condensed black-navy
+"Resumen visual del Apéndice G — Redes Convolucionales"   20 px bold gray
+"Filtro → Conv → ReLU → MaxPool → Flatten → Dense → Predicción"   22 px bold navy
+"El mismo ADN que el Transformer: operaciones locales reutilizadas, apiladas en profundidad"   15 px bold gray
+
+---------------------------------------------------------------------
+PANEL 1 — "ARQUITECTURA CNN COMPLETA"   (x ≈ 8–365, y ≈ 108–860)
+---------------------------------------------------------------------
+"Flujo de una imagen de entrada a la predicción". Seven numbered steps (colored ring numbers) joined by down-arrows:
+ ① blue "Imagen de entrada" / "(H × W × C)" / "10 × 10 × 1 (escala de grises)"; at the right a small 5×5 dot grid
+   with a vertical bar of black squares.
+ ② teal "Capa Convolucional" / "F filtros de tamaño f×f" / "→ F mapas de características" / monospace "salida =
+   conv2d(imagen, filtros)"; orange at the right "parámetros:" / "F × f² + F".
+ ③ green "Activación ReLU" / monospace "max(0, mapa)" / "Suprime respuestas negativas"
+ ④ orange "Max Pooling 2×2" / "Toma el máximo de cada bloque 2×2" / "H×W → H/2 × W/2" / "Reduce dimensión, gana invarianza"
+ ⑤ gray dashed "Repetir Conv → ReLU → Pool" / "× N bloques" / "Cada bloque aprende patrones más abstractos"
+ ⑥ purple "Flatten → vector 1D" / "Capa Densa (fully connected)" / "Combina todas las características"
+ ⑦ green filled, white text: "Predicción final" / "sigmoid → P(vertical)" / "Ej: barra vertical → P(vertical) = 1.0000"
+Gold-bordered monospace box:
+  "filtros 4×3×3 + 4 sesgos:   40 params"
+  "capa densa:               1633 params"
+  "------------------------------------"
+  "TOTAL CNN:                1673 params"
+Green: "vs Transformer: misma idea, diferente dominio"
+
+Arrow tag: "cómo" / "funciona" / "la" / "convolución".
+
+---------------------------------------------------------------------
+PANEL 2 — "LA CONVOLUCIÓN — CÓMO FUNCIONA"   (x ≈ 372–735, y ≈ 108–860)
+---------------------------------------------------------------------
+"Un filtro 3×3 desliza sobre la imagen calculando productos escalares"
+Blue grid "Imagen (6×6)", 6 rows × 6 columns (the top-left 3×3 window outlined in dark teal):
+  0 0 1 0 0 0
+  0 0 1 0 0 0
+  0 0 1 0 0 0
+  0 1 1 0 0 0
+  0 1 1 1 0 0
+  0 0 0 0 0 0
+→ orange grid "Filtro Sobel-X":  −1 0 +1 / −2 0 +2 / −1 0 +1 ; orange caption "detector de" / "bordes verticales"
+→ teal grid "Mapa de" / "características" / "(4×4)", 4 rows × 4 columns:
+   4  0 −4  0
+   4 −1 −4  0
+   4 −2 −4 −1
+   3 −1 −3 −2
+  teal caption: "sin relleno: 6×6 → 4×4" / "(con relleno=1, como el" / "Programa 9A, sería 6×6)"
+Teal-bordered box "Cálculo en posición (1,1):" with monospace:
+  "suma = Σ imagen[i,j] × filtro[i,j]"
+  "     = 0×(−1) + 0×0 + 1×(+1)"
+  "     + 0×(−2) + 0×0 + 1×(+2)"
+  "     + 0×(−1) + 0×0 + 1×(+1)"
+  "resultado = 4 → borde vertical detectado"
+Orange-bordered cream card: light-bulb + bold orange "Parameter Sharing — la clave de las CNNs:" / "El MISMO filtro 3×3 se
+  aplica en TODAS las posiciones." / "Una imagen 10×10 tiene 100 posiciones pero solo 9 parámetros." / "→ El modelo
+  aprende UN detector de borde válido para toda la imagen." / "→ Si aprende 'borde vertical' en esquina, lo reconoce en
+  el centro." / bold orange "Esto se llama " + italic "invarianza translacional."
+Gray box, monospace: "output[i,j] = Σ_m Σ_n imagen[i+m, j+n] × filtro[m,n] + sesgo" / "Complejidad: O(H × W × f² × F)
+  por capa convolucional"
+
+Arrow tag: "los" / "filtros" / "clásicos".
+
+---------------------------------------------------------------------
+PANEL 3 — "LOS FILTROS CLÁSICOS (PROGRAMA 9A)"   (x ≈ 742–1105, y ≈ 108–860)
+---------------------------------------------------------------------
+"Diseñados a mano; una CNN aprende detectores parecidos"
+Four cards, each with a 3×3 grid of weights, an arrow, and a small dot-pattern response:
+  teal "Filtro 1 — Bordes HORIZONTALES (Sobel-Y)":  −1 −2 −1 / 0 0 0 / +1 +2 +1   → a horizontal row of dark squares;
+       caption "activa en cambios de arriba a abajo"
+  orange "Filtro 2 — Bordes VERTICALES (Sobel-X)":   −1 0 +1 / −2 0 +2 / −1 0 +1   → a vertical column of dark squares;
+       caption "activa en cambios de izquierda a derecha"
+  purple "Filtro 3 — Detector de ESQUINAS (Laplaciano)":  0 −1 0 / −1 +4 −1 / 0 −1 0   → a few isolated dark squares;
+       caption "activa en cruces y esquinas"
+  blue "Filtro 4 — SUAVIZADO (Gaussiano)":  1/16 2/16 1/16 / 2/16 4/16 2/16 / 1/16 2/16 1/16   → evenly gray squares;
+       caption "elimina ruido, borra bordes finos"
+Orange-bordered cream card, bold orange "¿Y qué aprende la CNN?":
+  "La CNN NO recibe instrucciones sobre bordes." / "Solo ve: imagen → etiqueta (horizontal/vertical)." / "El
+  backpropagation ajusta los 9 valores de cada filtro" / "hasta que separan las dos clases." / bold green "En redes
+  grandes, las primeras capas aprenden" / "detectores parecidos a Sobel y Laplaciano." / gray "El Programa 9B no
+  necesita llegar a un Sobel limpio: le basta" / "cualquier filtro que distinga la orientación."
+
+Arrow tag: "conexión" / "con el" / "Transformer".
+
+---------------------------------------------------------------------
+PANEL 4 — "CNN ↔ TRANSFORMER: EL MISMO ADN"   (x ≈ 1112–1665, y ≈ 108–860)
+---------------------------------------------------------------------
+"Dos arquitecturas distintas, un principio compartido"; bold navy "Analogía estructural:" and a table ("Concepto" |
+"CNN" | "Transformer"):
+  Operación base | Convolución 3×3 | Self-Attention
+  Dónde opera    | Ventana local f×f | Todos los tokens
+  Reutilización  | Mismo filtro en toda la img | Mismos W_Q,K,V por bloque
+  Apila          | Conv → ReLU → Pool | MHA → Add&Norm → FFN
+  Aprende        | Detectores de borde | Relaciones entre tokens
+  Comparte pesos | Sí (spatial) | Sí (por bloque)
+Two side-by-side cards with a double arrow "misma idea" between them:
+  teal "CNN sobre imagen" / "Misma operación 3×3" / "aplicada N veces": a 7×7 grid with an outlined 3×3 window and a
+  dashed curved arrow to another window; caption "→ detecta patrón LOCAL"
+  purple "Transformer sobre texto" / "Misma Q/K/V aplicada" / "a cada token": boxes t1 t2 t3 t4 t5 ··· t_n with purple
+  arcs between all of them; caption "→ captura relación GLOBAL"
+Yellow card: light-bulb + bold orange "El principio unificador del Deep Learning:" / "1. Define una operación
+  PARAMETRIZADA pequeña" / "(un filtro 3×3 / una cabeza de atención)" / "2. REUTILÍZALA en toda la secuencia/imagen" /
+  "(parameter sharing)" / "3. APILA múltiples capas" / "(jerarquía de representaciones)" / "4. Entrena con
+  backpropagation" / bold green "CNN = Transformer de imágenes" / "Transformer = CNN de secuencias"
+Light-blue card: bold navy "El futuro: modelos multimodales" / "GPT-4V, Gemini, LLaMA-3.2V combina:" / ✓ "Un encoder
+  CNN (o ViT) para imágenes" / ✓ "Un Transformer para texto" / ✓ "Un mecanismo de fusión entre ambos" / "Con el
+  Capítulo 12 y el Apéndice G tienes las bases" / "de AMBOS paradigmas del Deep Learning moderno."
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 870–935, dark navy)
+---------------------------------------------------------------------
+Left, white monospace:
+  "output[i,j] = Σ imagen[i+m,j+n] × filtro[m,n] + b"
+  "ReLU(x) = max(0, x)      MaxPool = max de bloque 2×2"
+  "params = F × (f² + 1) + n_dense × n_flat + n_dense"
+Three rounded boxes, white bold: teal "Convolución:" / "filtro deslizante" · orange "Pooling:" / "invarianza + reducción"
+· purple "ADN común" / "con el Transformer".
+Right: legend with the six colors listed above.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA G.1 — CNN: ARQUITECTURA Y FLUJO DE DATOS"; subtitle mentions "Apéndice G".
+✓ Image grid 6 × 6; feature map 4 × 4 = [[4,0,−4,0],[4,−1,−4,0],[4,−2,−4,−1],[3,−1,−3,−2]]; position (1,1) = 4.
+✓ Filters = the four of Programa 9A (Sobel-Y, Sobel-X, Laplaciano, Gaussiano 1/16). No "redescubrió el filtro Sobel".
+✓ Parameters 40 + 1633 = 1673; prediction "P(vertical) = 1.0000".
+✓ Accents: "CONVOLUCIÓN", "características", "Predicción", "dimensión", "Analogía", "Operación", "Dónde", "fusión".

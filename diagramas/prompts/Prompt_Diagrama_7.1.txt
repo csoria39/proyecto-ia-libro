@@ -1,0 +1,146 @@
+DIAGRAMA 7.1 — RED NEURONAL MULTICAPA (MLP)
+Prompt de regeneración (v18, 8-11-2026)
+
+Ubicación en el libro: Capítulo 7 (Sobreajuste y Regularización), apartado 7.2 «El espectro completo: underfitting,
+buen ajuste y overfitting». Página 66 del PDF de KDP, girada 90° (en el .docx va como 941 × 1672).
+Imagen de referencia: diagramas/Diagrama_7.1.png (1672 × 941 px), idéntica a la del libro una vez girada.
+Cifras: las curvas y barras son esquemáticas (no reproducen ningún programa). Las convenciones sí son las del libro:
+pérdida BCE con salida sigmoide, ReLU en las capas ocultas, y dropout INVERTIDO como en el Programa R-3 y el texto
+de 7.7 («al entrenar se multiplican por 1/(1 − p) las neuronas que siguen activas … y en inferencia no hay que tocar
+nada»).
+
+Diferencias con la imagen publicada (este prompt las corrige):
+  1. Panel «Regularización», apartado 2 (Dropout): la imagen dice «Inferencia: todas activas, pesos × (1−p)» y, bajo
+     el dibujo de inferencia, «× (1−p) en pesos». Eso es el dropout clásico, no el del libro. Aquí:
+       «Train: desactiva neuronas aleatoriamente (p=0.5) y multiplica las activas × 1/(1−p).»
+       «Inferencia: todas activas, sin escalar.»   y bajo el dibujo: «sin escalado».
+Observaciones (no cambian el dibujo):
+  a. La curva de early stopping (parada hacia la época 34 de 100) es ilustrativa. El Programa R-4 real para en la
+     época 4655 con la mejor en la 3655 (paciencia 1000); el diagrama no pretende reproducirlo.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1672 × 941 px, white background,
+flat vector style. Four tall panels side by side, connected by small dark-navy "arrow tags", plus a dark-navy bottom
+bar. Each panel: rounded card (radius ≈ 10 px) with a dark-navy header bar (#14295E) and white bold uppercase text
+(15 px). Fonts: bold condensed sans-serif (Oswald-like) for the title; Inter/Roboto for text; monospace (Courier New)
+for code-like formulas; serif italic for math symbols. Render every string exactly as written; add no other text.
+
+Color code (also shown in the legend): Blue #1F5FAD = entrada / forward pass · Teal #138A82 = capas ocultas ·
+Green #2E7D32 = ajuste correcto / output · Orange #F26B1D = pérdida / backprop / val loss · Purple #6A1B9A =
+underfitting · Red #D32F2F = overfitting · Gold #E3A21A = pesos W · Gray #9E9E9E = neuronas inactivas (dropout).
+
+---------------------------------------------------------------------
+HEADER (y = 0–110), centered
+---------------------------------------------------------------------
+"DIAGRAMA 7.1 — RED NEURONAL MULTICAPA (MLP)"   44 px bold condensed navy #14295E
+"Arquitectura, flujo de datos y los tres estados de aprendizaje"   22 px bold dark gray
+"Underfitting → Ajuste correcto → Overfitting"   24 px bold dark navy
+"El objetivo no es rendir bien en entrenamiento — es generalizar a datos nuevos"   16 px bold dark gray
+
+---------------------------------------------------------------------
+PANEL 1 — "ARQUITECTURA DE LA RED (MLP)"   (x ≈ 10–365, y ≈ 130–815)
+---------------------------------------------------------------------
+Network drawn top to bottom:
+  "CAPA DE ENTRADA" (bold blue): four blue-ringed circles x₁ x₂ x₃ x₄; at their left a list "Temperatura",
+    "Humedad", "Presión", "Viento"; at their right "n_entrada = 4" (italic, small).
+  Dense orange/gold links (#E3A21A) to "CAPA OCULTA 1" (bold teal): five teal circles h¹₁ … h¹₅ (superscript 1).
+    Small gold labels on the links: "w₁₁" at the left, "w₂₃" at the right. Teal label "ReLU(z)" at the right.
+  Dense gold links to "CAPA OCULTA 2" (bold teal): five teal circles h²₁ … h²₅.
+  Gold links converging to "CAPA DE SALIDA" (bold green): one large green circle with ŷ; green italic "Sigmoid(z)"
+    at its right; below it "Predicción: P(lluvia)" (italic gray).
+  A small dashed orange arrow from the left labelled "pesos W —" / "parámetros" / "aprendibles".
+Left margin: a thick orange vertical arrow pointing UP with vertical text "BACKPROP↑" (bold orange) and
+"gradientes ←" (small). Right margin: a thick blue vertical arrow pointing DOWN with vertical text
+"FORWARD PASS↓" (bold blue) and "datos fluyen ↓" (small).
+Bottom gray box, monospace 14 px, three lines aligned:
+  "z  =  X · W + b"
+  "a  =  ReLU(z)        [capas ocultas]"
+  "ŷ  =  σ(z)           [capa salida]"
+
+Arrow tag between panels 1 and 2 (dark navy rounded label above a navy arrow): "ciclo de" / "entrenamiento".
+
+---------------------------------------------------------------------
+PANEL 2 — "ENTRENAMIENTO Y PÉRDIDA"   (x ≈ 395–725, y ≈ 130–815)
+---------------------------------------------------------------------
+A four-box cycle around the word "ÉPOCA" (bold, center):
+  top-left blue box "① FORWARD" / "X → red → ŷ"   → blue arrow →
+  top-right orange box "② PÉRDIDA" / "L = BCE(ŷ, y)"   → orange arrow down →
+  bottom-right red box "③ GRADIENTE" / "∂L/∂W"   → red arrow left →
+  bottom-left green box "④ ACTUALIZAR" / "W ← W − η·∂L/∂W"   → green arrow up to ①.
+Dashed separator, then a plot titled "CURVA DE PÉRDIDA EN ENTRENAMIENTO" (bold): y-axis "Pérdida" ticks 0.0, 0.2, 0.4,
+0.6, 0.8, 1.0; x-axis "Épocas" ticks 0, 20, 40, 60, 80, 100. One smooth blue decreasing curve labelled "Train",
+from 1.0 at epoch 0 to ≈ 0.05 at epoch 100 (exponential decay).
+Below: italic gray "Cada época: 1 pasada completa por los datos"; italic green "Pérdida baja = red aprende... ¿pero generaliza?"
+Yellow warning card (#FFF4CC, orange border) with a ⚠ triangle: bold "El problema:" then
+  "Pérdida baja en train ≠ modelo útil" ("train" in italic) / "Necesitamos validar en datos NO vistos".
+
+Arrow tag: "diagnóstico" / "con curvas".
+
+---------------------------------------------------------------------
+PANEL 3 — "LOS TRES ESTADOS DE APRENDIZAJE"   (x ≈ 740–1200, y ≈ 130–815)
+---------------------------------------------------------------------
+Three stacked cards:
+ ① purple card (#F3E8FA fill, purple border): title "① UNDERFITTING" (bold purple) + "(Subajuste)" (smaller);
+    italic purple "Modelo demasiado simple — alto sesgo (bias)". Plot: black dots on an inverted-U arc and a FLAT
+    purple horizontal line through them. Two boxes: "Train error:  ALTO ↗" and "Val error:  ALTO ↗" (red arrows).
+    Lines: 🔍 "Ambas curvas altas y paralelas → modelo demasiado simple"; 💊 "Solución: añadir neuronas, capas o
+    reducir regularización".
+ ② green card (#EAF5E8, green border): "② AJUSTE CORRECTO" + "(Good Fit)"; italic green "Complejidad justa —
+    equilibrio sesgo-varianza". Plot: black dots on an arc and a smooth green curve that follows them. Boxes:
+    "Train error:  BAJO ✓" and "Val error:  BAJO ✓". Lines: 🔍 "Ambas curvas convergentes y bajas → generaliza bien";
+    ☑ "El modelo captura el patrón sin memorizar el ruido".
+ ③ red card (#FDECEA, red border): "③ OVERFITTING" + "(Sobreajuste)"; italic red "Modelo memoriza los datos — alta
+    varianza". Plot: black dots and a wildly oscillating red curve passing through every dot. Boxes (green border)
+    "Train error:  MUY BAJO ↘" and (red border) "Val error:  ALTO ✕". Lines in red italic: ⚠ "Señal de alarma: train
+    sigue bajando, val sube o se estanca"; 💊 "Solución: L2, Dropout, Early Stopping, más datos".
+
+Arrow tag: "técnicas de" / "corrección".
+
+---------------------------------------------------------------------
+PANEL 4 — "REGULARIZACIÓN — CÓMO CORREGIR EL OVERFITTING"   (x ≈ 1240–1665, y ≈ 130–815)
+---------------------------------------------------------------------
+"1. REGULARIZACIÓN L2 (Weight Decay)" (bold navy). "Penaliza pesos grandes añadiéndolos a la pérdida."
+Gray box, monospace: "L_total = L + λ · Σ wᵢ²" / "donde λ controla la penalización".
+Two mini bar charts (y-axis "|peso|", ticks 0.0, 0.5, 1.0):
+  "Sin L2" (bold red): three red bars 0.92, 0.48, 0.25 (dark, mid, light red) — caption red "pesos dispares".
+  "Con L2" (bold green): three green bars 0.46, 0.44, 0.41 — caption green "pesos equilibrados".
+Dashed blue separator.
+"2. DROPOUT" (bold navy). Two lines:
+  "Train: desactiva neuronas aleatoriamente (p=0.5) y multiplica las activas × 1/(1−p)."
+  "Inferencia: todas activas, sin escalar."
+Two mini drawings: left, orange italic "p=0.5, train": three teal nodes with the middle one gray with an "X", dashed
+links below; right, green "inferencia": three teal nodes all active, links below, caption "sin escalado".
+Line: "Cada ejemplo ve una red diferente → más robusto".
+Dashed blue separator.
+"3. EARLY STOPPING" (bold navy). "Monitoriza val loss. Si no mejora en" / "'paciencia' épocas → detener y usar" /
+"los mejores pesos guardados."
+Plot: y "Pérdida" ticks 0.0, 0.5, 1.0; x "Épocas" ticks 0, 20, 40, 60, 80, 100. Blue curve "Train loss" decreasing
+from ≈0.85 to ≈0.03; orange curve "Val loss" decreasing to a minimum ≈0.28 at epoch ≈34, then rising to ≈0.9 at
+epoch 100 with an arrowhead. A green dashed vertical line at epoch 34 with label "← STOP aquí" (green bold), a green
+dot at the minimum labelled "mejores pesos". A light-red shaded region from epoch ≈78 to 105 with red italic text
+"overfitting" / "crece".
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 828–930, dark navy #14295E)
+---------------------------------------------------------------------
+Left, white monospace 17 px: "Error total  =  Sesgo² + Varianza + Ruido irreducible"
+Three rounded boxes with white bold text:
+  purple "Sesgo alto → Underfitting →" / "modelo muy simple"
+  green "Equilibrio → Buen ajuste →" / "generaliza bien"
+  red "Varianza alta → Overfitting →" / "modelo memoriza"
+Right, legend box titled "Color" (white), two columns of colored squares with white text:
+  Blue = Entrada / Forward pass · Teal = Capas ocultas (activas) · Green = Ajuste correcto / Output ·
+  Orange = Pérdida / Backprop / Val loss · Purple = Underfitting (sesgo alto) · Red = Overfitting (varianza alta) ·
+  Gold = Pesos W · Gray = Neuronas inactivas (Dropout)
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 7.1 — RED NEURONAL MULTICAPA (MLP)".
+✓ Dropout text is INVERTED dropout: × 1/(1−p) during training; nothing at inference ("sin escalar", "sin escalado").
+  The string "× (1−p)" must NOT appear.
+✓ Loss L = BCE(ŷ, y); output sigmoid; hidden ReLU.
+✓ Accents: "PÉRDIDA", "ÉPOCA", "Épocas", "Predicción", "REGULARIZACIÓN", "Presión", "diagnóstico", "corrección".

@@ -59,11 +59,13 @@ proyecto-ia-libro/
 │       ├── rz4_*.txt  (5)
 │       └── sinprev_*.txt  (4)
 │
-├── diagramas/                    ← 36 archivos
+├── diagramas/                    ← 67 archivos
 │   ├── Diagrama_2.1 · 3.1 · 4.1 · 4.2 · 7.1 · 7.2 · 7.3 · 7.4 · 9.1 · 10.1 · 10.2
 │   ├── Diagrama_11.1 · 11.2 · 12.1 · 13.1 · 17.1 · 20.1 · 20.2 · G.1          (19 en total, .png)
 │   ├── originales/  (8)          · versiones antes de los retoques (13.1, 17.1, 5.1, G.1…)
-│   └── scripts/  (9)             · los scripts que hicieron cada retoque (fix_d7_4_g1.py, fix_d13_1_d17_1.py…)
+│   ├── scripts/  (9)             · los scripts que hicieron cada retoque (fix_d7_4_g1.py, fix_d13_1_d17_1.py…)
+│   └── prompts/  (20 + calculos/) · un prompt por diagrama, para regenerarlo, y LEEME.md con las correcciones;
+│                                   en calculos/, los scripts y salidas de las cifras que no imprime el libro
 │
 └── verificaciones/               ← 10 archivos
     ├── LEEME.md

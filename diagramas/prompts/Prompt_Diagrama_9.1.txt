@@ -1,0 +1,171 @@
+DIAGRAMA 9.1 — ESTRATEGIAS DE TOKENIZACIÓN
+Prompt de regeneración (v18, 8-11-2026)
+
+Ubicación en el libro: Capítulo 9 (Tokenización BPE — Del Texto al Token), apartado 9.1 «El problema que BPE
+resuelve». Página 98 del PDF de KDP, girada 90° (969 × 1624 en el .docx).
+Imagen de referencia: diagramas/Diagrama_9.1.png (1624 × 969 px), idéntica a la del libro una vez girada.
+Cifras, todas comprobadas:
+  · Algoritmo BPE con el corpus del diagrama {'bajo': 6, 'bajar': 3, 'caja': 4}, usando las funciones del Programa
+    BPE-1: calculos/diagrama_9_1_bpe_ejemplo.py → calculos/salida_diagrama_9_1_bpe_ejemplo.txt.
+    Pares iniciales: (a, j) 13 · (b, a) 9 · (j, a) 7 · (j, o) 6. Fusión 1: a + j → aj. Fusión 2: b + aj → baj (9).
+    Tras 5 fusiones: bajo → [bajo</w>] · bajar → [baj][a][r][</w>] · caja → [caj][a][</w>].
+  · Tokens de GPT-2 por palabra, con el tokenizador del Programa 8 bis (como el Ejercicio 16.1):
+    calculos/diagrama_9_1_fertilidad.py → calculos/salida_diagrama_9_1_fertilidad.txt.
+    ' intelligence' 1 · ' inteligencia' 3 ([intel][igen][cia]) · ' Künstliche Intelligenz' 9 · ' evlerinizden'
+    (turco, «de vuestras casas») 5 · ' supercalifragilistico' 7 ([super][cal][if][rag][il][istic][o]).
+    Ejercicio 16.1 (salidas/salida_ejercicio_16_1.txt): la misma frase gasta 12 tokens en inglés y 24 en español.
+  · Vocabularios: GPT-2 50 257 (Programa 8 bis); GPT-4, cl100k_base de tiktoken: tokens 0–100 276, es decir
+    100 277 (el 100 257 es el identificador de <|endoftext|>, no el tamaño); LLaMA 2 32 000; LLaMA 3 128 256 (el
+    libro cita los tres en el Capítulo 9); BERT 30 522; T5 32 100.
+
+Diferencias con la imagen publicada (este prompt las corrige):
+  1. «Resultado tras N fusiones»: la imagen da bajar → [baj][ar</w>] y caja → [caj][a</w>], segmentaciones que el
+     algoritmo no produce con ese corpus en ningún número de fusiones. Aquí, «tras 5 fusiones», el resultado real.
+  2. Fertilidad: «Alemán 'Künstliche Intelligenz' → 5 tokens» y «Turco: compuestos → 6-8 tokens» no salen de
+     ninguna medición; «Español 'inteligencia' → 2-3 tokens» es en realidad 3. Aquí, las cifras medidas con GPT-2.
+     La nota «Inglés es ~30% más 'barato' que español» se sustituye por la medición del Ejercicio 16.1 (12 frente a 24).
+  3. OOV: la segmentación de 'supercalifragilistico' ['super','cali','fragi','listico'] era inventada. Aquí, la real
+     de GPT-2.
+  4. Tabla «¿Quién usa qué tokenizador?»: «GPT-3/4 … 100.257» mezcla GPT-3 (50 257) con GPT-4 y da el id de un
+     token especial como tamaño; «LLaMA 2/3 … 32.000» es solo LLaMA 2 (LLaMA 3 usa 128 256, como dice el libro);
+     «T5/mT5 … 32.100» es solo T5 (mT5 usa 250 112). Aquí, una fila por modelo. Lo mismo en la barra «GPT-4 usa …».
+Observación (no se cambia): la imagen separa los miles con punto («50.257»); el resto del libro usa espacio
+(«50 257»). Se respeta el punto para no cambiar el aspecto del diagrama.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1624 × 969 px, white background,
+flat vector style. Four tall panels side by side, joined by small dark-navy "arrow tags", plus a dark-navy bottom
+bar. Panels: rounded cards (radius ≈ 10 px, border #2A3F7A), dark-navy header (#14295E), white bold uppercase text
+15 px. Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; monospace for tokens and code. Tokens
+are drawn as small rounded boxes (monospace text). Render every string exactly as written; add no other text.
+
+Color code: Red #D32F2F = nivel carácter / problemas · Green #2E7D32 = BPE / solución óptima · Purple #6A1B9A = nivel
+palabra / OOV · Teal #138A82 = pasos del algoritmo BPE · Blue #1F4FB0 = tokens / vocabulario / inferencia ·
+Orange #F57C00 = fertilidad / advertencias · Gold #E3A21A = métricas de vocabulario.
+
+---------------------------------------------------------------------
+HEADER (y = 0–110), centered
+---------------------------------------------------------------------
+"DIAGRAMA 9.1 — ESTRATEGIAS DE TOKENIZACIÓN"   44 px bold condensed navy
+"El espectro desde carácter hasta palabra — y por qué BPE es el punto justo"   20 px bold gray
+"Carácter → Subpalabra (BPE) → Palabra  |  El puente real entre texto y LLM"   22 px bold navy
+"BPE: Philip Gage (1994, compresión) · Rico Sennrich (2016, NLP)"   15 px monospace gray
+
+---------------------------------------------------------------------
+PANEL 1 — "EL ESPECTRO DE TOKENIZACIÓN"   (x ≈ 10–436, y ≈ 113–809)
+---------------------------------------------------------------------
+A horizontal black arrow with three dots: red dot "CARÁCTER" (bold red, left), a large green dot with a glowing
+dashed ring "SUBPALABRA (BPE)" (bold green, center), purple dot "PALABRA" (bold purple, right).
+Three columns:
+  red "Nivel carácter": "Frase: 'la IA'" → five red-outlined boxes [l][a][ ][I][A] → "5 tokens"; "inteligencia →" →
+    boxes [i][n][t][e][l][i][g][…]; bullets: ✗ "Tokens por frase: ~40" · ✗ "Secuencias muy largas" · ✓ "Vocab pequeño
+    (~256)" · ✓ "Sin OOV nunca".
+  green "Subpalabra BPE ← ÓPTIMO": "Frase: 'IA'" → boxes [la][I][A] → "3 tokens"; "inteligencia →" → boxes [intel]
+    [igencia] → "2 tokens"; bullets ✓ "Vocab controlable (~50k)" · ✓ "Secuencias razonables" · ✓ "Sin OOV
+    (descompone)" · ✓ "Captura morfología".
+  purple "Nivel palabra": "Frase: 'la IA'" → boxes [la][IA] → "2 tokens"; "supercalifragilístico →" → red box [OOV] →
+    "1 token (inútil)"; bullets ✓ "Tokens por frase: ~4" · ✗ "Vocab enorme (>1M)" · ✗ "OOV: palabras nuevas" ·
+    ✗ "No escala".
+Scatter plot: y-axis "Longitud de" / "secuencia" with "Largo" (top) and "Corto" (bottom); x-axis "Tamaño de
+vocabulario" with "Pequeño" (left) and "Grande" (right). Red dot top-left "Carácter"; green dot in the middle inside a
+dashed circle "BPE ★"; purple dot bottom-right "Palabra". Caption bold green "BPE: el punto de Goldilocks".
+
+Arrow tag: "cómo funciona BPE".
+
+---------------------------------------------------------------------
+PANEL 2 — "EL ALGORITMO BPE — PASO A PASO"   (x ≈ 445–845, y ≈ 113–809)
+---------------------------------------------------------------------
+"Ejemplo: corpus ['bajo':6, 'bajar':3, 'caja':4]" (monospace).
+Teal card "① Inicio: caracteres + marcador </w>":
+  'bajo' (6):  [b][a][j][o][</w>]
+  'bajar' (3): [b][a][j][a][r][</w>]
+  'caja' (4):  [c][a][j][a][</w>]
+  "Vocab inicial: {b, a, j, o, r, c, </w>}"
+Teal card "② Contar pares — fusionar el más frecuente": a small table (navy header "Par" | "Frecuencia"):
+  ('a','j') | 13  ← EL MÁS FRECUENTE (green, highlighted row)
+  ('b','a') | 9
+  ('j','a') | 7
+  ('j','o') | 6
+  At the right: green arrow → "Fusionar:" / "a + j → aj".
+  Then: 'bajo': [b][aj][o][</w>] · 'bajar': [b][aj][a][r][</w>] · 'caja': [c][aj][a][</w>]
+  Green text: "aj aparece ahora como un token único"
+Teal card "③ Siguiente par más frecuente": "('b','aj') → frecuencia 9 → fusionar: b + aj → baj"
+  'bajo': [baj][o][</w>] · 'bajar': [baj][a][r][</w>]
+  Green text: "El algoritmo descubre raíces automáticamente"
+Cream card (orange border) with a light-bulb: bold orange "Resultado tras 5 fusiones:" and monospace lines:
+  'bajo'  → [bajo</w>]           ← 1 token
+  'bajar' → [baj][a][r][</w>]    ← 4 tokens
+  'caja'  → [caj][a][</w>]       ← 3 tokens
+  ("baj" and "caj" in red inside their boxes)
+  Green: "BPE descubrió la raíz 'baj' sin conocimiento lingüístico" / italic gray "Sin saber nada de morfología,
+  gramática ni idioma"
+
+---------------------------------------------------------------------
+PANEL 3 — "VOCABULARIO, OOV Y FERTILIDAD"   (x ≈ 855–1250, y ≈ 113–809)
+---------------------------------------------------------------------
+Bold navy "Tamaño del vocabulario (aprox.):" and three horizontal bars:
+  red short bar "Carácter" → red "~256 tokens"
+  green medium bar "BPE" → green "~50.000 tokens" and below "★ GPT-4 usa 100.277"
+  purple long bar "Palabra" → purple ">1.000.000 tokens" and below "inmanejable"
+Orange-bordered card "El problema OOV (Out-Of-Vocabulary):" with two sub-cards:
+  red ✗ "Nivel palabra:": "'supercalifragilistico' → [OOV]" · "'ChatGPT' (2022) → [OOV]" · "Palabras nuevas =
+    invisibles"
+  green ✓ "BPE:": "'supercalifragilistico' →" / monospace "['super','cal','if','rag','il','istic','o']" /
+    green bold "Nunca hay OOV —" / "siempre descompone"
+Blue-bordered card: bold navy "Fertilidad: ¿cuántos tokens por palabra?" / small "Tokenizador de GPT-2 (entrenado
+casi todo en inglés)". Four rows with a small flag, language, word and a horizontal bar proportional to the count:
+  🇬🇧 "Inglés:"  'intelligence'           → 1 token     (short green bar)
+  🇪🇸 "Español:" 'inteligencia'           → 3 tokens    (orange bar, 3 units)
+  🇩🇪 "Alemán:"  'Künstliche Intelligenz' → 9 tokens    (red bar, 9 units)
+  🇹🇷 "Turco:"   'evlerinizden'           → 5 tokens    (red bar, 5 units)
+  Italic gray: "La misma frase: 12 tokens en inglés, 24 en español (Ejercicio 16.1)"
+Cream card with ⚠: bold "Implicación: los LLMs modernos razonan" / "más eficientemente en inglés que en otros" /
+"idiomas — consecuencia del corpus de entrenamiento."
+
+Arrow tag: "quién lo usa hoy".
+
+---------------------------------------------------------------------
+PANEL 4 — "BPE EN EL ECOSISTEMA MODERNO"   (x ≈ 1255–1615, y ≈ 113–809)
+---------------------------------------------------------------------
+Bold blue "¿Quién usa qué tokenizador?" and a table (navy header "Modelo" | "Tokenizador" | "Vocab."), alternating
+row tints:
+  GPT-2        | Byte-level BPE          | 50.257
+  GPT-4        | Byte-level BPE (cl100k) | 100.277   (light-blue highlighted row)
+  LLaMA 2      | SentencePiece BPE       | 32.000
+  LLaMA 3      | Byte-level BPE          | 128.256
+  BERT         | WordPiece               | 30.522
+  T5           | SentencePiece Unigram   | 32.100
+Bold blue "Las tres familias de tokenización subpalabra:" and three cards:
+  green border "BPE (Byte Pair Encoding)": "Fusiona el par más FRECUENTE en cada paso." / "Greedy, simple, muy
+    efectivo." / "Usado por: GPT-2, GPT-3, GPT-4, LLaMA"
+  blue border "WordPiece": "Fusiona el par que más aumenta la" / "PROBABILIDAD del corpus (variante BERT)." /
+    "Usado por: BERT, Google models"
+  purple border "Unigram Language Model": "Empieza con vocab grande y PODA tokens." / "Criterio: mínimo impacto en la
+    perplejidad." / "Usado por: SentencePiece (T5, mT5)"
+Blue-bordered card with a small grid icon: bold blue "Byte-level BPE — La variante de GPT": "En lugar de caracteres
+Unicode," / "empieza con los 256 bytes posibles." / "Garantiza tokenización de CUALQUIER texto," / "idioma o código —
+sin excepción." / "Vocab inicial: bytes 0x00 → 0xFF"; gray monospace box "# GPT-4 tokeniza cualquier byte" / "# →
+nunca hay OOV absoluto".
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 828–930, dark navy)
+---------------------------------------------------------------------
+Left, white monospace, three rows:
+  "Carácter:  vocab ~256    · secuencias largas  · sin OOV"
+  "BPE:       vocab ~50k    · secuencias medias  · sin OOV  ★"
+  "Palabra:   vocab >1M     · secuencias cortas  · OOV grave"
+Three rounded boxes, white bold: red "Carácter: granular" · green "BPE: equilibrio ★" · purple "Palabra: semántico".
+Right: legend "Color" with the seven entries above.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 9.1 — ESTRATEGIAS DE TOKENIZACIÓN".
+✓ BPE counts 13 / 9 / 7 / 6; merges a+j → aj, then b+aj → baj (9).
+✓ "Resultado tras 5 fusiones": [bajo</w>] 1 token · [baj][a][r][</w>] 4 tokens · [caj][a][</w>] 3 tokens.
+✓ Fertility 1 / 3 / 9 / 5 tokens with GPT-2; note "12 tokens en inglés, 24 en español".
+✓ Table: GPT-4 100.277, LLaMA 3 128.256, T5 32.100 (no "GPT-3/4", no "LLaMA 2/3", no "T5/mT5" rows).
+✓ Accents: "TOKENIZACIÓN", "CARÁCTER", "ÓPTIMO", "morfología", "raíces", "compresión", "Implicación".

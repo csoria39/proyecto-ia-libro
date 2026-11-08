@@ -1,0 +1,171 @@
+DIAGRAMA 7.3 — DROPOUT
+Prompt de regeneración (v18, 8-11-2026)
+
+Ubicación en el libro: Capítulo 7, apartado 7.7 «Dropout — Apagar neuronas para generalizar mejor». Página 76 del
+PDF de KDP, girada 90° (968 × 1625 en el .docx).
+Imagen de referencia: diagramas/Diagrama_7.3.png (1625 × 968 px), idéntica a la del libro una vez girada.
+Cifras: las del Programa R-3 (salidas/salida_programa_R3_dropout.txt), red de 256 neuronas:
+   Sin Dropout (p=0.00): train 0.03237 · val 0.09107 · ratio 2.81x
+   Dropout p=0.30:       train 0.05535 · val 0.08764 · ratio 1.58x
+   Dropout p=0.50:       train 0.08372 · val 0.11701 · ratio 1.40x
+   Media de activación con máscara 0.9855 frente a 1.0000 sin máscara («inverted dropout»).
+Convención: dropout INVERTIDO, como el Programa R-3, el texto de 7.7 y nn.Dropout de PyTorch: al entrenar, las
+neuronas activas se multiplican por 1/(1 − p); en inferencia no se escala nada.
+
+Diferencias con la imagen publicada (este prompt las corrige):
+  1. Toda la imagen explica el dropout clásico («Inferencia: todas activas, pesos escalados»,
+     W_inferencia = W_entrenamiento × (1 − p), «Implementado automáticamente en PyTorch/Keras»). El libro y PyTorch
+     usan dropout invertido: se escala al entrenar y la inferencia no se toca. Se cambian el subtítulo, la caja
+     «Corrección de escala» y la fila «Pesos» de la tabla «Comportamiento por fase».
+  2. «Sin corrección, la salida sería p veces mayor»: con todas las neuronas encendidas, la suma sería 1/(1 − p) veces
+     mayor (el doble con p = 0.5), no p veces.
+  3. Resultados «Sin Dropout vs. Con Dropout»: la imagen da 0.02/0.89 y 0.15/0.20, cifras que no salen del
+     Programa R-3, y presenta p = 0.5 como «Buena generalización» cuando en el libro p = 0.5 EMPEORA la validación
+     (0.117 frente a 0.091). Aquí: Sin Dropout 0.032 / 0.091 y Con Dropout (p=0.3) 0.055 / 0.088, con una nota para
+     p = 0.5.
+  4. Los tres «Pasos» tienen las neuronas mal rotuladas (en el Paso 2 las entradas se llaman h₁, h₂, h₄; en el
+     Paso 1 aparece h₄ activa cuando el pie dice «h₂, h₄ desactivadas»; en el Paso 3, h₃ activa con «h₃, h₄
+     desactivadas»). Aquí las entradas son siempre x₁, x₂, x₃, las ocultas h₁…h₄ en el mismo orden, y las tachadas
+     coinciden con el pie.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1625 × 968 px, white background,
+flat vector style. Four tall panels side by side, joined by small dark-navy "arrow tags", plus a dark-navy bottom
+bar. Panels: rounded cards (radius ≈ 10 px, border #2A3F7A) with dark-navy headers (#14295E), white bold uppercase
+text 15 px. Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; monospace for code; serif italic
+for math. Render every string exactly as written; add no other text.
+
+Node style: active neurons teal (#138A82 fill, white italic labels) with teal links; inactive neurons gray (#C9C9C9
+fill) with a black "X" and dashed gray links; input nodes white with teal border; output node teal.
+Color code (legend): Teal = neurona activa / conexiones activas · Gray = neurona inactiva (dropout) · Red =
+overfitting / sin dropout · Green = buenas prácticas / generalización · Orange = probabilidad p / advertencias ·
+Purple = ensemble / sub-redes · Blue = inferencia.
+
+---------------------------------------------------------------------
+HEADER (y = 0–110), centered
+---------------------------------------------------------------------
+"DIAGRAMA 7.3 — DROPOUT"   46 px bold condensed navy
+"Apagar neuronas aleatoriamente para generalizar mejor"   22 px bold gray
+"Entrenamiento: neuronas desactivadas aleatoriamente  |  Inferencia: todas activas, sin escalar"   22 px bold navy
+"Propuesto por Geoffrey Hinton et al. (2012) — la técnica de regularización más influyente del Deep Learning"
+   15 px bold gray ("et al." in italic)
+
+---------------------------------------------------------------------
+PANEL 1 — "¿POR QUÉ DROPOUT?"   (x ≈ 10–310, y ≈ 118–810)
+---------------------------------------------------------------------
+Orange-bordered cream card: running-figure icon + bold orange-red "ANALOGÍA: EL EQUIPO DE FÚTBOL"; text:
+  "Un equipo que siempre juega con los mismos" / "titulares aprende a depender de sus estrellas." /
+  "Si en los entrenos se rotan jugadores" / "aleatoriamente, cada uno aprende a ser" / "útil independientemente."
+  dashed rule — "Las neuronas hacen exactamente lo mismo."
+Orange-bordered cream card: ⚠ + bold red "El problema que resuelve:"; text: "Sin Dropout, ciertas neuronas se
+  especializan" / "en memorizar patrones específicos del train." / "Si una neurona falla → toda la red falla."
+  Two red-arrow lines in bold red: "➜ Co-adaptación de neuronas" · "➜ Overfitting estructural"
+Green card: ☑ + bold "La solución Dropout:"; text: "En cada paso de entrenamiento:" / "Cada neurona se desactiva con
+  probabilidad p." / "La red aprende a funcionar sin ella." / "Resultado: representaciones distribuidas" / "y robustas
+  → mejor generalización."
+Gray monospace box:
+  "p = 0.5  →  50% neuronas desactivadas" / "            por ejemplo en cada paso"
+  "p = 0.2  →  20% desactivadas" / "            (capas cercanas a salida)"
+  "p = 0.0  →  sin Dropout" / "            (modelos pequeños)"
+Italic gray: "p es un hiperparámetro a ajustar"
+
+Arrow tag: "cómo funciona" / "el dropout".
+
+---------------------------------------------------------------------
+PANEL 2 — "DURANTE EL ENTRENAMIENTO (p = 0.5)"   (x ≈ 327–845, y ≈ 118–810)
+---------------------------------------------------------------------
+Italic gray: "Tres pasos distintos — máscaras aleatorias diferentes"
+Three side-by-side mini networks separated by thin vertical rules, headed "Paso 1", "Paso 2", "Paso 3" (bold blue),
+each with column labels "Entrada", "Oculta (4)", "Salida". Every network: inputs x₁, x₂, x₃ (top to bottom); hidden
+column h₁, h₂, h₃, h₄ (top to bottom, always this order); one teal output node. Deactivated hidden nodes are gray
+with an X (their label hidden under the X) and dashed links; active ones teal with solid links.
+  Paso 1: h₂ and h₄ deactivated (h₁, h₃ teal) — caption "h₂, h₄ desactivadas"
+  Paso 2: h₁ and h₃ deactivated (h₂, h₄ teal) — caption "h₁, h₃ desactivadas"
+  Paso 3: h₃ and h₄ deactivated (h₁, h₂ teal) — caption "h₃, h₄ desactivadas"
+(captions in serif italic).
+Purple-bordered card: light-bulb icon + bold purple "Por qué funciona — la idea del ensemble:"; text (serif math):
+  "Con p=0.5 y N neuronas, el modelo entrena" / "implícitamente 2^N sub-redes distintas." / "En inferencia usa el
+  promedio de todas ellas." / "Es como un comité de expertos:" / "cada uno entrenado en condiciones distintas."
+  Inner box: "N=4 neuronas → 2⁴ = 16 sub-redes distintas"
+
+Arrow tag: "de entreno a" / "inferencia".
+
+---------------------------------------------------------------------
+PANEL 3 — "DURANTE LA INFERENCIA"   (x ≈ 855–1190, y ≈ 118–810)
+---------------------------------------------------------------------
+Bold green: "TODAS las neuronas activas". Network x₁, x₂, x₃ → h₁, h₂, h₃, h₄ (all teal) → one teal output; all
+links solid teal.
+Orange-bordered cream card: balance-scale icon + bold orange-red "Corrección de escala — CRÍTICO"; text:
+  "Durante el entrenamiento, solo (1−p) neuronas" / "estaban activas en promedio." / "En inferencia TODAS están
+  activas." / "Sin corrección, la salida sería 1/(1−p) veces mayor" / "(el doble con p = 0.5)."
+  dashed rule — bold "SOLUCIÓN (dropout invertido): escalar AL ENTRENAR"
+  Blue-bordered monospace box:
+    "h_train = h · máscara / (1 − p)"
+    "Con p=0.5:  h_train = h · máscara × 2"
+    "Inferencia: h sin tocar"
+  Green: "Así lo hacen nn.Dropout (PyTorch) y el Programa R-3"
+Bold blue "Comportamiento por fase:" and a table (navy header "", "Train", "Inferencia"):
+  "Neuronas activas" | "~(1 − p) × N" | "N (todas)"
+  "Escalado"         | "activas × 1/(1 − p)" | "ninguno"
+  "Aleatoriedad"     | "sí (máscara)" | "no (determinista)"
+  "Resultado"        | "sub-red aleatoria" | "promedio implícito"
+
+Arrow tag: "resultados y" / "mejores prácticas".
+
+---------------------------------------------------------------------
+PANEL 4 — "RESULTADOS Y CONFIGURACIÓN PRÁCTICA"   (x ≈ 1210–1618, y ≈ 118–810)
+---------------------------------------------------------------------
+Bold navy: "Sin Dropout vs. Con Dropout (Programa R-3, 256 neuronas):"
+Two cards side by side, each with a mini plot (y "Pérdida" ticks 0.0, 0.1, 0.2, 0.3; x "Épocas"; blue "Train loss",
+orange "Val loss"):
+  Red card: red ✗ "Sin Dropout". Plot: train falls to ≈0.03; val falls, reaches its minimum and rises a little,
+    ending at ≈0.09, clearly above train. Bold red "Overfitting (val = 2.8 × train)". Monospace:
+    "train_loss → 0.032" / "val_loss   → 0.091 ✗"
+  Green card: green ✓ "Con Dropout (p=0.3)". Plot: train ≈0.055 and val ≈0.088 at the end, close to each other.
+    Bold green "Mejor validación (val = 1.6 × train)". Monospace:
+    "train_loss → 0.055" / "val_loss   → 0.088 ✓"
+Small gray note under the cards: "Con p = 0.5 el ratio baja a 1.4×, pero la validación empeora: 0.117."
+Bold blue "¿Qué valor de p elegir?" and three rows (colored label cell + text):
+  orange "p = 0.5"      "Capas ocultas profundas — el valor clásico." / "Propuesto por Hinton en el paper original."
+  light orange "p = 0.2–0.3"  "Capas cercanas a entrada/salida." / "Dropout agresivo cerca de la salida puede" /
+                               "dificultar el aprendizaje."
+  gray "p = 0.0"      "Sin Dropout — modelos pequeños o" / "datasets grandes."
+Light-blue card "Implementación en PyTorch:" (bold blue) with monospace code:
+  import torch.nn as nn
+
+  class MiRed(nn.Module):
+      def __init__(self):
+          super().__init__()
+          self.fc1 = nn.Linear(4, 8)
+          self.drop = nn.Dropout(p=0.5)
+          self.fc2 = nn.Linear(8, 1)
+
+      def forward(self, x):
+          x = torch.relu(self.fc1(x))
+          x = self.drop(x)   # solo en train
+          return self.fc2(x)
+  Green italic: "nn.Dropout se desactiva automáticamente en inferencia" / "al llamar model.eval()"
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 828–930, dark navy)
+---------------------------------------------------------------------
+Left, white monospace, three rows (green ↓, red ↑):
+  "train_loss ↓  val_loss ↓  → Buen ajuste" · "train_loss ↓  val_loss ↑  → Overfitting" ·
+  "train_loss ↑  val_loss ↑  → Underfitting"
+Three rounded boxes, white bold, underlined first line: teal "Entrenamiento:" / "Dropout ACTIVO" · blue
+"Inferencia:" / "Dropout INACTIVO" · purple "Ensemble:" / "2^N sub-redes implícitas".
+Right: legend titled "Color" with the seven entries listed above.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 7.3 — DROPOUT".
+✓ Inverted dropout everywhere: scale × 1/(1−p) at TRAINING time; inference untouched. The strings
+  "pesos escalados", "W_inferencia = W_entrenamiento × (1 − p)" and "× (1−p)" must NOT appear.
+✓ "1/(1−p) veces mayor (el doble con p = 0.5)", not "p veces mayor".
+✓ Results: 0.032 / 0.091 (sin dropout) and 0.055 / 0.088 (p = 0.3); note 0.117 for p = 0.5.
+✓ Steps 1–3: inputs x₁–x₃, hidden h₁–h₄ in order, crossed nodes = captions.
+✓ Accents: "ANALOGÍA", "FÚTBOL", "Corrección", "CRÍTICO", "CONFIGURACIÓN", "PRÁCTICA", "Implementación".

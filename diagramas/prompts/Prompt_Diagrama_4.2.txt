@@ -1,0 +1,180 @@
+DIAGRAMA 4.2 — BACKPROPAGATION
+Prompt de regeneración (v18, 8-11-2026)
+
+Ubicación en el libro: Capítulo 4 (El Aprendizaje — Gradientes y Backpropagation), justo después del Diagrama 4.1,
+al final del capítulo. Página 37 del PDF de KDP, vertical.
+Imagen de referencia: diagramas/Diagrama_4.2.png (1024 × 1536 px), idéntica a la del libro.
+Cifras: las del panel 5 (red 1-2-1) salen de calculos/diagrama_4_2_ejemplo_1_2_1.py, ejecutado el 8-11-2026
+(salida en calculos/salida_diagrama_4_2_ejemplo_1_2_1.txt): sigmoide en las dos capas, como el Programa 2, y
+pérdida L = ½(ŷ − y)². Los gradientes se han comprobado con diferencias finitas (error máximo 1.1·10⁻¹¹).
+
+Diferencias con la imagen publicada (este prompt las corrige):
+  1. Panel 5: las cifras de la imagen no salen de ninguna activación coherente. a⁽¹⁾ = [0.5498, −0.3799] mezcla la
+     sigmoide (σ(0.2) = 0.5498) con la tangente hiperbólica (tanh(−0.4) = −0.3799); z⁽²⁾ = 0.4833 no es
+     W²a⁽¹⁾ + b² con esos valores (daría 0.5988); y δ⁽²⁾ = −0.0439 y δ⁽¹⁾ = [−0.0067, 0.0043] no corresponden a
+     ninguna de las dos. Con sigmoide en las dos capas:
+        a⁽¹⁾ = [0.5498, 0.4013] · z⁽²⁾ = 0.3645 · ŷ = 0.5901 · L = 0.0220 · δ⁽²⁾ = −0.0508 · δ⁽¹⁾ = [−0.0088, 0.0037]
+  2. Panel 6: el rótulo junto a h_m está deformado («δ₁ₘ»). Es δ_m⁽¹⁾.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a clean, professional educational infographic in Spanish, PORTRAIT, exactly 1024 × 1536 px, white
+background, flat vector style. Seven numbered panels in rounded cards (radius ≈ 14 px, 1.5 px border #A9BDE0), each
+with a header tab (rounded dark-blue bar #1F4E9A → #003C88, white bold uppercase 17 px text "N. TITLE"), plus two
+footer bands. Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; ALL math in LaTeX-style serif
+italic (Computer Modern look), with proper superscripts, subscripts, fractions and column vectors in square
+brackets. Render every string exactly as written; add no other text.
+
+Node colors (used everywhere): input nodes light blue (#CFE0F7 fill, #2F6DB5 border) · hidden nodes light green
+(#DDF0D8, #4E9A4E) · output nodes light red (#F9D0D0, #D9534F) · loss node lavender (#E3DAF5, #7A5BB5).
+Forward = blue #1F5FAD; backward / error = red #D32F2F. Title navy #00082C, subtitle purple #482088.
+
+---------------------------------------------------------------------
+HEADER (y = 0–115)
+---------------------------------------------------------------------
+Line 1, 44 px bold condensed navy, centered: "DIAGRAMA 4.2 — BACKPROPAGATION"
+Line 2, 34 px bold condensed purple, centered: "¿CÓMO ENCUENTRA LA RED CÓMO AJUSTAR CADA PESO?"
+Line 3, 20 px dark gray, centered: "El algoritmo que propaga el error hacia atrás para calcular los gradientes."
+
+---------------------------------------------------------------------
+PANEL 1 — "1. IDEA PRINCIPAL"   (x ≈ 15–515, y ≈ 120–560)
+---------------------------------------------------------------------
+Text (15 px), four lines:
+  "Backpropagation calcula cuánto contribuye cada peso al error final"
+  "para poder actualizarlo."
+  "El error se propaga desde la salida hacia las capas anteriores,"
+  "usando la regla de la cadena."
+Left card "INTUICIÓN" (lavender, 14 px bold purple title), 13 px text:
+  "Si empujar aquí ↑" / "aumenta mucho el error," / "entonces el gradiente" / "dirá: “mueve menos" /
+  "en esa dirección”." — gap — "La información viaja" / "hacia atrás para decidir" / "a cada peso" / "qué hacer."
+  and a light-bulb icon.
+Network: column headers "ENTRADA", "CAPA OCULTA", "SALIDA" (13 px bold dark). Input nodes x₁, x₂, ⋮, xₙ; hidden
+nodes h₁, h₂, ⋮, h_m; output nodes y₁, ⋮, y_K; all inputs fully connected to all hidden nodes (thin gray lines) with
+the label W¹; hidden fully connected to outputs with the label W². Dashed curved arrows from y₁ and y_K into a
+lavender node L, labelled "Pérdida" / "(Loss)".
+Under the network two braces: blue brace under ENTRADA→CAPA OCULTA with blue "Paso hacia adelante" / "(Forward)";
+red brace under CAPA OCULTA→SALIDA with red "Paso hacia atrás" / "(Backward)".
+Legend strip at the bottom of the panel (four items, circle + bold colored title + 12 px gray text):
+  blue "Entrada" / "Datos del" / "problema" · green "Neurona oculta" / "Detecta características" / "intermedias" ·
+  red "Salida" / "Predicción" / "de la red" · purple "Pérdida (L)" / "Mide qué tan mala" / "fue la predicción".
+
+---------------------------------------------------------------------
+PANEL 2 — "2. ¿CÓMO FLUYE LA INFORMACIÓN?"   (x ≈ 520–1010, y ≈ 120–560)
+---------------------------------------------------------------------
+Two columns separated by a thin vertical rule.
+Left, heading blue "FORWARD (hacia adelante)", numbered lines (bold numerals, 14 px):
+  "1. Las entradas x pasan por la red" / "usando los pesos (W¹, W², ...)."
+  "2. Se obtiene la predicción ŷ."
+  "3. Se calcula la pérdida L" / "comparando ŷ con el valor real y."
+  Small network (3 blue → 3 green with ⋮ → 2 red → dashed into lavender L) with gray links;
+  a thick blue arrow pointing RIGHT under it, caption blue bold "Dirección del cálculo".
+Right, heading red "BACKWARD (hacia atrás)":
+  "4. Se calcula el gradiente de la pérdida" / "respecto a la salida: ∂L/∂ŷ."
+  "5. Ese error se propaga hacia atrás" / "usando la regla de la cadena."
+  "6. Se obtienen los gradientes respecto" / "a cada peso (∂L/∂W¹, ∂L/∂W², ...)."
+  "7. Con esos gradientes, se actualizan" / "los pesos."
+  Same small network but the links are red/orange with arrowheads pointing LEFT and small dashed orange arrows
+  between layers; a thick red arrow pointing LEFT under it, caption red bold
+  "Dirección de la propagación del error".
+
+---------------------------------------------------------------------
+PANEL 3 — "3. CÁLCULO DE GRADIENTES: REGLA DE LA CADENA"   (x ≈ 15–1010, y ≈ 570–880)
+---------------------------------------------------------------------
+Left block, heading red "CAPA DE SALIDA", text "Para cada neurona de salida k:", three numbered purple discs:
+  ① "Error en la salida k:"            δ_k = ∂L / ∂z_k
+  ② "Gradiente de los pesos que vienen" / "de la neurona oculta j:"     ∂L / ∂W²_{j,k} = δ_k · h_j
+  ③ "Gradiente del sesgo de la neurona k:"                              ∂L / ∂b²_k = δ_k
+Middle sketch between two vertical rules: hidden column h₁, ⋮, h_j, ⋮, h_m (green) and output column y₁, y_k, y_K
+(red), label W²_{j,k} above; crossing gray links; ONE red arrow from h_j to y_k (highlighted).
+Right block, heading green "CAPA OCULTA (capa l)", text "Para cada neurona oculta j en la capa l:", discs:
+  ① "Error propagado a la neurona j:"   δ_j^{(l)} = f′(z_j^{(l)}) Σ_k W_{j,k}^{(l+1)} δ_k^{(l+1)}
+  ② "Gradiente de los pesos que vienen" / "de la capa anterior i:"   ∂L / ∂W^{(l)}_{i,j} = δ_j^{(l)} · a_i^{(l−1)}
+  ③ "Gradiente del sesgo:"                                           ∂L / ∂b_j^{(l)} = δ_j^{(l)}
+Far right, card "NOTACIÓN" (14 px bold navy title), two-column list (symbol in serif : text 13 px):
+  z:  "entrada neta a una neurona" / "(antes de la activación)"
+  a = f(z):  "activación (salida de la neurona)"
+  L:  "pérdida total (loss)"
+  δ:  "término de error de una neurona"
+  W^{(l)}:  "matriz de pesos de la capa l"
+  b^{(l)}:  "vector de sesgos de la capa l"
+  f′(z):  "derivada de la función de activación"
+Below it, card "IDEA CLAVE" (bold purple) with a key icon, 13 px:
+  "Cada δ mide “cuánto le importa” a esa" / "neurona reducir el error. Backpropagation" /
+  "usa la regla de la cadena para repartir" / "ese error hacia atrás, capa por capa."
+
+---------------------------------------------------------------------
+PANEL 4 — "4. ACTUALIZACIÓN DE PARÁMETROS"   (x ≈ 15–370, y ≈ 890–1175)
+---------------------------------------------------------------------
+Text: "Con los gradientes calculados, actualizamos cada peso y sesgo" / "mediante descenso por gradiente."
+Light-blue box titled "Regla de actualización" (bold blue), formulas side by side:
+  W^{(l)} ← W^{(l)} − η ∂L/∂W^{(l)}          b^{(l)} ← b^{(l)} − η ∂L/∂b^{(l)}
+Below: η:  "learning rate (tasa de aprendizaje)" / "Controla el tamaño del paso."  and a two-gear icon (gray).
+
+---------------------------------------------------------------------
+PANEL 5 — "5. EJEMPLO NUMÉRICO SIMPLE (1–2–1)"   (x ≈ 375–1010, y ≈ 890–1175)
+---------------------------------------------------------------------
+Text: "Una entrada, dos neuronas ocultas y una salida."
+Left column: small box "Datos" (bold blue) with  x = 1.0,  y (real) = 0.8 ; then "Pesos iniciales:" and
+  W¹ = [0.2 ; −0.4] (column vector)   W² = [0.7  −0.3] (row)   b¹ = [0.0  0.0]   b² = [0.1]
+Middle column, heading blue "Forward":
+  z⁽¹⁾ = W¹ x + b¹ = [0.2 ; −0.4]
+  a⁽¹⁾ = f(z⁽¹⁾) = [0.5498 ; 0.4013]
+  z⁽²⁾ = W² a⁽¹⁾ + b² = 0.3645
+  ŷ = f(z⁽²⁾) = 0.5901
+  L = ½ (ŷ − y)² = 0.0220
+Right column, heading red "Backward (resumen)":
+  δ⁽²⁾ = (ŷ − y) f′(z⁽²⁾) = −0.0508
+  δ⁽¹⁾ = (W²)ᵀ δ⁽²⁾ ⊙ f′(z⁽¹⁾) = [−0.0088 ; 0.0037]
+  "Gradientes de pesos y sesgos" / "(se calculan con las fórmulas anteriores)"
+  Pink box: "Con estos gradientes, actualizamos" / "W¹, W², b¹, b² y repetimos."
+Use exactly these numbers (four decimals, decimal point). f is the sigmoid in both layers.
+
+---------------------------------------------------------------------
+PANEL 6 — "6. VISUALIZACIÓN DE LA PROPAGACIÓN DEL ERROR"   (x ≈ 15–515, y ≈ 1185–1415)
+---------------------------------------------------------------------
+Text: "El error (δ) se origina en la salida y se distribuye hacia atrás."
+Network: x₁, x₂, ⋮, xₙ (blue) → h₁, h₂, ⋮, h_m (green) → y₁, ⋮, y_K (red) → L (lavender). Black solid arrows for the
+forward links; red dashed arrows going backward from L to y₁ and y_K and from the outputs to the hidden nodes; one
+green dashed arrow and one green solid arrow near h_m. Red labels δ₁⁽²⁾ above y₁ and δ_K⁽²⁾ below y_K; green labels
+δ₁⁽¹⁾ above h₁ and δ_m⁽¹⁾ next to h_m.
+Legend below: black solid arrow "Flujo de activaciones (forward)"   red dashed arrow "Flujo de error (backward)".
+Right card (light green), title "¿QUÉ INDICA δ?" (bold dark green), 13 px:
+  "Señala en qué dirección" / "cambiar la neurona" / "(o sus entradas)" / "para reducir el error." — gap —
+  "Es la “culpa” asignada" / "a cada componente."   and a target icon.
+
+---------------------------------------------------------------------
+PANEL 7 — "7. BACKPROPAGATION EN RESUMEN (ALGORITMO)"   (x ≈ 520–1010, y ≈ 1185–1415)
+---------------------------------------------------------------------
+Seven lines, each with a filled purple numbered disc (14 px):
+  ① "Inicializar pesos y sesgos aleatoriamente."
+  ② "Forward: calcular la salida de la red y la pérdida L."
+  ③ "Calcular δ en la capa de salida."
+  ④ "Propagar δ hacia atrás, capa por capa (regla de la cadena)."
+  ⑤ "Calcular gradientes ∂L/∂W^{(l)} y ∂L/∂b^{(l)}."
+  ⑥ "Actualizar pesos y sesgos (descenso por gradiente)."
+  ⑦ "Repetir para muchas muestras (épocas) hasta converger."
+Right card (light blue), title "¿POR QUÉ FUNCIONA?" (bold navy), 13 px:
+  "Porque evalúa la" / "influencia de cada" / "peso en el error final" / "a través de todas" / "las rutas posibles" /
+  "en la red."   and a small blue network with a red output node and a green check mark.
+
+---------------------------------------------------------------------
+FOOTER BANDS
+---------------------------------------------------------------------
+Band 1 (y ≈ 1425–1470, light yellow #FFF6D6, golden border): trophy icon; bold navy "MENSAJE CLAVE:"; 15 px text:
+  "Backpropagation no prueba millones de combinaciones. Usa cálculo eficiente (regla de la cadena)"
+  "para saber exactamente cómo cambiar cada peso y reducir el error."
+Band 2 (y ≈ 1480–1525, lavender): purple square with white target icon; bold navy "EN UNA FRASE:"; 15 px text:
+  "Backpropagation hace que el error viaje hacia atrás, para que el aprendizaje avance hacia adelante."
+  At the right: small purple node network → arrow → green concentric target.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 4.2 — BACKPROPAGATION".
+✓ Panel 5 numbers exactly: a⁽¹⁾ = [0.5498; 0.4013], z⁽²⁾ = 0.3645, ŷ = 0.5901, L = 0.0220, δ⁽²⁾ = −0.0508,
+  δ⁽¹⁾ = [−0.0088; 0.0037].
+✓ Chain-rule formulas exactly as listed (δ_k, δ_j^{(l)}, ∂L/∂W, ∂L/∂b).
+✓ Panel 6 labels δ₁⁽¹⁾, δ_m⁽¹⁾, δ₁⁽²⁾, δ_K⁽²⁾ (no "δ₁ₘ").
+✓ Accents: "¿CÓMO", "INFORMACIÓN", "CÁLCULO", "ACTUALIZACIÓN", "NUMÉRICO", "PROPAGACIÓN", "NOTACIÓN", "épocas".

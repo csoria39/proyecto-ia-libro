@@ -1,0 +1,8 @@
+Inglés   intelligence                             1 tokens  ['␣intelligence']
+Español  inteligencia                             3 tokens  ['␣intel', 'igen', 'cia']
+Alemán   Künstliche Intelligenz                   9 tokens  ['␣K', 'Ã¼', 'n', 'st', 'lic', 'he', '␣Int', 'ellig', 'enz']
+Turco    Çekoslovakyalılaştıramadıklarımızdan    21 tokens  ['␣Ã', 'ĩ', 'ek', 'oslov', 'aky', 'al', 'Ä±', 'la', 'ÅŁ', 't', 'Ä±', 'ram', 'ad', 'Ä±', 'k', 'lar', 'Ä±', 'm', 'Ä±', 'z', 'dan']
+Turco    evlerinizden                             5 tokens  ['␣ev', 'ler', 'in', 'iz', 'den']
+Turco    gelemeyecekmişsiniz                     10 tokens  ['␣ge', 'le', 'me', 'ye', 'ce', 'k', 'mi', 'ÅŁ', 'sin', 'iz']
+Español  supercalifragilistico                    7 tokens  ['␣super', 'cal', 'if', 'rag', 'il', 'istic', 'o']
+Inglés   ChatGPT                                  3 tokens  ['␣Chat', 'G', 'PT']
