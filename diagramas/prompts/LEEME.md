@@ -27,27 +27,33 @@ Al transcribir cada imagen y cotejarla con el capítulo y con las salidas de los
 16 de los 19 diagramas publicados. Cada prompt describe la imagen **corregida** y explica en su cabecera qué cambia y
 por qué. Si se quiere la imagen tal como está publicada, basta con no aplicar esas correcciones.
 
-| Diagrama | Pág. | Correcciones | Las más importantes |
-|---|---|---|---|
-| 2.1 La neurona artificial | 19 | 2 | Barras de softmax que no suman 1 |
-| 3.1 Funciones de activación | 27 | 1 | Barras de softmax que no suman 1 |
-| 4.1 Gradiente descendente | 36 | 3 | −∇L no es la opuesta de ∇L |
-| 4.2 Backpropagation | 37 | 2 | Ejemplo 1-2-1 con cifras incoherentes (mezcla sigmoide y tanh) |
-| 7.1 Red multicapa (MLP) | 66 | 1 | Dropout clásico en vez del invertido del libro |
-| 7.2 Train / Validación / Test | 71 | 2 | 0.001 / 0.847 inventados; ahora 0.032 / 0.091 del Programa R-1 |
-| 7.3 Dropout | 76 | 4 | Dropout clásico; resultados que no son los del Programa R-3 |
-| 7.4 Overfitting y regularización | 84 | 4 | Curva de prueba por debajo de la de entrenamiento |
-| 9.1 Tokenización | 98 | 4 | Fusiones BPE imposibles; fertilidad y vocabularios inexactos |
-| 10.1 Redes recurrentes | 111 | 3 | h₃ repetido; fórmula del gradiente sin la derivada de tanh |
-| 10.2 LSTM | 118 | 6 | «Cuatro puertas» (son tres y un candidato); «solo sumas» |
-| 11.1 Self-attention | 127 | 5 | Matriz causal incoherente con la bidireccional |
-| 11.2 Self-attention: referencia | 135 | 2 | Coma decimal; matiz de las cabezas en el Capítulo 15 |
-| 12.1 El bloque Transformer | 144 | 1 | Separador de miles y coma decimal |
-| 13.1 El Nano-LLM | 181 | 1 | Curva de aprendizaje: ahora reproducible |
-| 17.1 De nano a gigante | 285 | 0 | — |
-| 20.1 RAG | 313 | 4 | «Privacidad total»; gráfico y tabla no coinciden |
-| 20.2 Multimodales | 315 | 4 | El mapa del libro omite los Capítulos 13-16 |
-| G.1 CNN | 369 | 3 | Ejemplo de convolución incoherente; filtros «aprendidos» que son clásicos |
+El 8-11-2026 se corrigieron en el libro los ocho diagramas que cambian de contenido (4.2, 7.3, 9.1, 10.2, 11.1, 20.1,
+20.2 y G.1). Se repintaron por código las zonas afectadas sobre la imagen original, con los scripts de
+`diagramas/scripts/repintado_2026-11-08/`; las versiones anteriores están en `diagramas/originales/`. Sus prompts
+describen exactamente la imagen corregida. Los otros diez con correcciones (2.1, 3.1, 4.1, 7.1, 7.2, 7.4, 10.1, 11.2, 12.1 y 13.1) siguen como estaban
+en el libro; sus correcciones pueden aplicarse igual, con el mismo método.
+
+| Diagrama | Pág. | Correcciones | Las más importantes | Estado |
+|---|---|---|---|---|
+| 2.1 La neurona artificial | 19 | 2 | Barras de softmax que no suman 1 | Pendiente |
+| 3.1 Funciones de activación | 27 | 1 | Barras de softmax que no suman 1 | Pendiente |
+| 4.1 Gradiente descendente | 36 | 3 | −∇L no es la opuesta de ∇L | Pendiente |
+| 4.2 Backpropagation | 37 | 2 | Ejemplo 1-2-1 con cifras incoherentes (mezcla sigmoide y tanh) | Corregido en el libro (8-11-2026) |
+| 7.1 Red multicapa (MLP) | 66 | 1 | Dropout clásico en vez del invertido del libro | Pendiente |
+| 7.2 Train / Validación / Test | 71 | 2 | 0.001 / 0.847 inventados; ahora 0.032 / 0.091 del Programa R-1 | Pendiente |
+| 7.3 Dropout | 76 | 4 | Dropout clásico; resultados que no son los del Programa R-3 | Corregido en el libro (8-11-2026) |
+| 7.4 Overfitting y regularización | 84 | 4 | Curva de prueba por debajo de la de entrenamiento | Pendiente |
+| 9.1 Tokenización | 98 | 4 | Fusiones BPE imposibles; fertilidad y vocabularios inexactos | Corregido en el libro (8-11-2026) |
+| 10.1 Redes recurrentes | 111 | 3 | h₃ repetido; fórmula del gradiente sin la derivada de tanh | Pendiente |
+| 10.2 LSTM | 118 | 6 | «Cuatro puertas» (son tres y un candidato); «solo sumas» | Corregido en el libro (8-11-2026) |
+| 11.1 Self-attention | 127 | 5 | Matriz causal incoherente con la bidireccional | Corregido en el libro (8-11-2026) |
+| 11.2 Self-attention: referencia | 135 | 2 | Coma decimal; matiz de las cabezas en el Capítulo 15 | Pendiente |
+| 12.1 El bloque Transformer | 144 | 1 | Separador de miles y coma decimal | Pendiente |
+| 13.1 El Nano-LLM | 181 | 1 | Curva de aprendizaje: ahora reproducible | Pendiente |
+| 17.1 De nano a gigante | 285 | 0 | — | — |
+| 20.1 RAG | 313 | 4 | «Privacidad total»; gráfico y tabla no coinciden | Corregido en el libro (8-11-2026) |
+| 20.2 Multimodales | 315 | 4 | El mapa del libro omite los Capítulos 13-16 | Corregido en el libro (8-11-2026) |
+| G.1 CNN | 369 | 3 | Ejemplo de convolución incoherente; filtros «aprendidos» que son clásicos | Corregido en el libro (8-11-2026) |
 
 ## Cálculos
 

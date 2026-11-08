@@ -11,8 +11,10 @@ descargado y sin usar sus funciones en la nube, tus textos no salen» del equipo
 Ejercicio 20.1 (embeddings simulados, búsqueda por similitud coseno, k fragmentos). El ejemplo del contrato y sus
 similitudes (0.87, 0.74, 0.61, 0.12) es ilustrativo, como en la imagen publicada.
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. «Privacidad total — datos en tu máquina»: el libro lo matizó (hallazgo H38). Aquí: «Privacidad: con un modelo
+Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
+del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
+originales/Diagrama_20.1_antes_repintado_2026-11-08.png.
+  1. «Privacidad total — datos en tu máquina»: el libro lo matizó (hallazgo H38). Aquí: «Privacidad: modelo descargado, sin funciones en la nube» (versión corta de «con un modelo
      descargado y sin funciones en la nube, los datos no salen de tu máquina».
   2. El gráfico de vectores no cuadra con la tabla «Top-3»: el gráfico dibuja la «política de cambios» como chunk 2
      (0.61) y no muestra el «Artículo 3: garantías» (0.74) que la tabla pone en segundo lugar. Aquí el gráfico dibuja
@@ -69,7 +71,7 @@ Green-bordered card: llama icon + bold green "Ollama — LLMs locales"; dark cod
     r = ollama.chat('llama3',
           messages=[{'role':'user',
                      'content':'Hola'}])
-  green: "Privacidad: con un modelo descargado y sin" / "funciones en la nube, los datos no salen de tu máquina"
+  green: "Privacidad: modelo descargado, sin funciones en la nube"
   Three green checks: "✓ Privacidad   ✓ Sin coste API   ✓ Offline"
 
 Arrow tag: "el pipeline" / "RAG" / "completo".
@@ -95,11 +97,9 @@ Orange-bordered block "② FASE DE CONSULTA (en tiempo real)" with six boxes and
      monospace "resultados = store.search(q_vec, k=3)"
   H  doc "TOP-K CHUNKS RECUPERADOS" / "Los 3 fragmentos más similares" / "k=3 es configurable"
   I  brain "CONTEXTO AUMENTADO → LLM" / "System prompt + chunks + pregunta" / monospace, clean:
-       "Usa solo esta información:"
-       "{chunk_1}"
-       "{chunk_2}"
-       "{chunk_3}"
-       "Pregunta: {pregunta}"
+       "prompt = f'''Usa solo esta información:"
+       "{chunk_1}  {chunk_2}  {chunk_3}"
+       "Pregunta: {pregunta}'''"
   J  green check "RESPUESTA FUNDAMENTADA" / "“Según la cláusula 7 del contrato, las" / "devoluciones deben solicitarse
      en 30 días.”" / "cita la fuente, no alucina"
 

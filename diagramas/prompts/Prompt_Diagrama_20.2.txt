@@ -11,11 +11,14 @@ convierte cada parche en un vector …»; resumen del capítulo: «Los modelos m
 (CNN/ViT) con un Transformer compartido; los modelos de difusión usan una arquitectura y objetivo distintos».
 Las tablas de modelos (2024–2025) son una foto de ese momento; no se toman de ningún programa.
 
-Diferencias con la imagen publicada (este prompt las corrige):
+Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
+del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
+originales/Diagrama_20.2_antes_repintado_2026-11-08.png.
   1. «Todo el libro en una figura» salta del Capítulo 12 al 20 y omite los Capítulos 13–16, el núcleo del libro
-     (el Nano-LLM y GPT-2 con tu propio código). Aquí se añade la caja «Caps. 13-16: NANO-LLM → GPT-2 REAL».
+     (el Nano-LLM y GPT-2 con tu propio código). Aquí la caja de los Caps. 10-12 pasa a cubrir
+     los Caps. 10-16: «Caps. 10-16: RNN → TRANSFORMER → NANO-LLM → GPT-2».
   2. CLIP: «sim=0.92» y «sim=0.18» se presentan como medidas, pero son ilustrativas (en CLIP real, una pareja
-     imagen-texto correcta suele dar similitudes coseno en torno a 0.3). Se rotulan «(ilustrativo)».
+     imagen-texto correcta suele dar similitudes coseno en torno a 0.3). Se rotulan «(similitudes ilustrativas)».
   3. «Con lo que sabes aquí, puedes entender cualquier paper de IA de los últimos 10 años» promete demasiado. Aquí:
      «tienes las bases para leer los artículos de IA de la última década».
   4. «Conv → Pool × N» lleva un subrayado suelto bajo la N; «Claude Visión» → «Claude».
@@ -96,7 +99,7 @@ Green-bordered card: image+speech icons + bold green "Visión → Lenguaje"; tab
 Blue-bordered card: link icon + bold blue "CLIP — Conectar imagen y texto" / "OpenAI (2021) — base de muchos modelos";
   flow: "Imagen" (photo) → "Image Encoder" → "Vector imagen 512D"; "Texto" (doc) → "Text Encoder" → "Vector texto 512D";
   a vertical double arrow between the two vectors "similitud coseno". Gray box: "“un gato naranja” ↔ foto de gato:
-  sim=0.92" / "“un perro blanco” ↔ foto de gato: sim=0.18" / small "(ilustrativo)". Bold green "Conecta espacio visual
+  sim=0.92" / "“un perro blanco” ↔ foto de gato: sim=0.18" / small italic gray "(similitudes ilustrativas)". Bold green "Conecta espacio visual
   y textual." / "Base de: DALL-E, Stable Diffusion, búsqueda visual"
 Purple-bordered card: palette + bold purple "Lenguaje → Imagen (Difusión)" / "Dirección inversa: texto → imagen";
   flow "prompt" → "Text Encoder" → "U-Net + Attention" → "imagen"; table ("Modelo" | "Organización" | "Características"):
@@ -110,14 +113,12 @@ Arrow tag: "todo el libro" / "conectado".
 PANEL 4 — "TODO EL LIBRO EN UNA FIGURA"   (x ≈ 1105–1528, y ≈ 108–910)
 ---------------------------------------------------------------------
 "De la neurona al modelo multimodal"; a vertical teal arrow at the left labelled "progresión del libro" (rotated).
-Six stacked boxes joined by down-arrows with short captions:
+Five stacked boxes joined by down-arrows with short captions:
   green "Caps. 2-3: LA NEURONA" / "σ(w·x + b) — la unidad básica" (neuron sketch)        ↓ "combinar en redes"
   green "Cap. 6: MLP" / "Capas de neuronas → clasificación" (small network)              ↓ "necesitamos más capacidad"
   blue  "Apéndice G: CNN" / "Filtros que detectan bordes → imágenes" (grid → edge image)  ↓ "¿cómo procesar texto largo?"
-  orange "Caps. 10-11-12: RNN → ATTENTION → TRANSFORMER" / "Memoria secuencial → atención global" (chain of boxes)
-                                                                                         ↓ "construir un LLM"
-  teal "Caps. 13-16: NANO-LLM → GPT-2 REAL" / "Tu Nano-LLM de 60 000 parámetros y, con el mismo" / "código, GPT-2 con sus
-       pesos reales (124 M)"                                                             ↓ "¿cómo combinar?"
+  orange "Caps. 10-16: RNN → TRANSFORMER → NANO-LLM → GPT-2" / "Atención global → tu LLM y GPT-2 con tu código"
+       (chain of boxes)                                                                  ↓ "¿cómo combinar?"
   purple (larger) "Cap. 20: MULTIMODAL" / "CNN encoder + Transformer decoder" / "= GPT-4V, Gemini, Claude" (photo + speech
        icons → grid → purple speech bubble)
 Orange-bordered cream card: light-bulb + bold orange "El principio que une todo:" / "Una red neuronal transforma" /
@@ -142,7 +143,7 @@ Right: legend with the six colors listed above.
 FINAL CHECK
 ---------------------------------------------------------------------
 ✓ Title "DIAGRAMA 20.2 — MODELOS MULTIMODALES"; subtitle mentions "Capítulo 20".
-✓ Panel 4 includes "Caps. 13-16: NANO-LLM → GPT-2 REAL" between "Caps. 10-11-12" and "Cap. 20".
-✓ CLIP similarities marked "(ilustrativo)".
+✓ Panel 4 box "Caps. 10-16: RNN → TRANSFORMER → NANO-LLM → GPT-2" (covers the Nano-LLM and GPT-2 chapters).
+✓ CLIP similarities marked "(similitudes ilustrativas)".
 ✓ Final card: "tienes las bases para leer los artículos de IA de la última década" (not "cualquier paper").
 ✓ Accents: "Visión", "FUSIÓN", "características", "Dirección", "Organización", "progresión", "fotorrealismo".

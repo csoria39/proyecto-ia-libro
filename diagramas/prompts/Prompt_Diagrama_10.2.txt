@@ -11,7 +11,9 @@ gradientes pueden viajar por esta “autopista de gradiente” durante decenas d
 Curva «RNN: gradiente se desvanece»: Programa RNN-2, columna «W_hh moderada» (salidas/salida_programa_RNN2_
 vanishing_gradient.txt): 1 → 0.455 (1) → 0.209 (2) → 0.018 (5) → 0.00048 (10) → < 10⁻⁶ (20).
 
-Diferencias con la imagen publicada (este prompt las corrige):
+Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
+del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
+originales/Diagrama_10.2_antes_repintado_2026-11-08.png.
   1. «Cuatro puertas», «LAS CUATRO PUERTAS DE LA LSTM», «Las 4 puertas deciden», «LSTM estándar: 4 puertas»: la LSTM
      tiene tres puertas (olvido, entrada, salida) y un candidato g_t, que no es una puerta (usa tanh, no sigmoide).
      Así lo dice el libro. Aquí: «Tres puertas y un candidato».
@@ -52,7 +54,7 @@ PANEL 1 — "¿POR QUÉ LSTM?"   (x ≈ 8–340, y ≈ 103–915)
 Red-bordered card: red ✗ + bold red "La RNN clásica falla:"; framed formula h_t = tanh(W_h · h_{t−1} + W_x · x_t + b_h);
   "Un solo estado h_t carga con TODO:" / "– la memoria a largo plazo" / "– el contexto inmediato" / "– la predicción
   actual"; two red lines: "→ Vanishing gradient: gradiente → 0 en pocos pasos" · "→ El modelo olvida lo que ocurrió
-  hace >20 pasos".
+  hace >20 tokens".
 Orange-bordered cream card: light-bulb + bold orange "La idea clave de LSTM:" / "Separar la memoria en DOS canales:"
   teal C_t + bold teal "— Estado de celda" / "Memoria a LARGO PLAZO." / "Fluye con mínima interferencia." / "Es la
   autopista del gradiente."
@@ -61,15 +63,15 @@ Orange-bordered cream card: light-bulb + bold orange "La idea clave de LSTM:" / 
 Orange-bordered card: brain icon + bold orange "Analogía:" / "C_t: el "disco duro" de la celda." / "Guarda información
   durante mucho tiempo." / "h_t: lo que dices en voz alta." / "La respuesta inmediata." / "Las 3 puertas deciden:" /
   bold "¿qué borrar? ¿qué añadir? ¿qué emitir?"
-Green card: ☑ + bold green "LSTM resuelve vanishing gradient:" / "C_{t−1} solo se multiplica por f_t, sin pasar por" /
-  "pesos ni tanh: el gradiente decae mucho menos." / "→ Puede aprender dependencias muy largas."
+Green card: ☑ + bold green "LSTM resuelve vanishing gradient:" / "C_{t−1} solo se multiplica por f_t, sin pasar" /
+  "por pesos ni tanh: el gradiente decae menos." / "→ Puede aprender dependencias muy largas."
 
 Arrow tag: "las tres" / "puertas".
 
 ---------------------------------------------------------------------
 PANEL 2 — "TRES PUERTAS Y UN CANDIDATO"   (x ≈ 348–752, y ≈ 103–915)
 ---------------------------------------------------------------------
-"Las puertas son capas pequeñas con σ (sigmoid); el candidato g_t usa tanh"
+"Las puertas usan σ (sigmoid); el candidato g_t usa tanh"
 Four stacked cards:
  ① red border: bold red "① PUERTA DE OLVIDO (Forget Gate)" / italic red "¿Qué olvidar del pasado?"
     f_t = σ(W_f · [h_{t−1}, x_t] + b_f)
@@ -83,7 +85,7 @@ Four stacked cards:
     C_t = f_t ⊙ C_{t−1} + i_t ⊙ g_t
     "Donde ⊙ = multiplicación elemento a elemento (Hadamard)" / "f_t ⊙ C_{t−1}  ← parte del pasado que se conserva" /
     "i_t ⊙ g_t  ← información nueva que se añade"
-    Yellow strip: "C_{t−1} solo se multiplica por f_t → el gradiente decae mucho menos"
+    Yellow strip: "C_{t−1} solo se multiplica por f_t → el gradiente decae menos"
  ④ purple border: bold purple "④ PUERTA DE SALIDA (Output Gate)" / italic purple "¿Qué emitir como h_t?"
     o_t = σ(W_o · [h_{t−1}, x_t] + b_o)
     h_t = o_t ⊙ tanh(C_t)
@@ -108,8 +110,7 @@ Classic LSTM cell diagram:
 Two small comparison cards under the cell:
   red border "RNN clásica:" / h_t = tanh(W·h_{t−1} + W·x_t + b) / "Un solo estado — todo mezclado" / "Gradiente: se
   atenúa en cada paso"
-  green border "LSTM:" / C_t = f_t ⊙ C_{t−1} + i_t ⊙ g_t / "Dos estados — separación de roles" / "Gradiente: fluye
-  por C_t, solo escalado por f_t"
+  green border "LSTM:" / C_t = f_t ⊙ C_{t−1} + i_t ⊙ g_t / "Dos estados — separación de roles" / "Gradiente: fluye por C_t (solo × f_t)"
 
 ---------------------------------------------------------------------
 PANEL 4 — "LSTM EN CONTEXTO"   (x ≈ 1108–1528, y ≈ 103–915)
@@ -122,7 +123,7 @@ Bold blue "Solución al vanishing gradient:" and two small log plots (y-axis "Ma
   right, green title "LSTM: gradiente" / "fluye": a nearly flat green line just below 1 across all 20 steps; green
   text "C_t protege" / "el gradiente".
 Bold blue "Variantes de LSTM:" and three rows (colored label cell + text):
-  teal "LSTM estándar"  "3 puertas y un candidato." / "La forma habitual hoy."
+  teal "LSTM estándar"  "3 puertas y un candidato."
   blue "GRU (2014)"     "2 puertas, más simple" / "y casi igual de buena."
   gray "Peephole LSTM"  "Las puertas también ven" / "C_{t−1} directamente."
   "GRU ≈ LSTM en la práctica, con menos parámetros."

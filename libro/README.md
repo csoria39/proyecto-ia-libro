@@ -20,12 +20,19 @@ Comprobaciones de esta versión:
 - no hay páginas en blanco;
 - las 118 ejecuciones de los programas y ejercicios terminan sin errores.
 
+## Diagramas repintados (8-11-2026)
+
+Ocho diagramas cambian de contenido para corregir errores detectados al escribir sus prompts (ver
+`diagramas/prompts/LEEME.md`): 4.2, 7.3, 9.1, 10.2, 11.1, 20.1, 20.2 y G.1. Se repintaron por código solo las
+zonas afectadas (`diagramas/scripts/repintado_2026-11-08/`). El texto del libro no cambia: el PDF tiene las mismas
+377 páginas y el mismo texto, página a página, que la versión anterior.
+
 ## SHA-256
 
 ```
 097ef3f2b4b7cf11327092e3c08eb98cddf159bb95635114a827832ba2e91931  Cubierta_KDP_377p_color_contraportada_corta.pdf
 9d9b52a0400c8b490590c7807a4e02d2f1d9167951bbe839aaeefc67532d8bc2  Cubierta_KDP_377p_color_contraportada_larga.pdf
-6244422f579a6bcabe4a23769e19303d83cf06d23722adae3188aae758addf7b  Libro_v18_interior_KDP.pdf
-781e8e043f715430a691a773de64c491ecefe7a324021e877fcc960c04cee5c8  Libro_v18_sin_recortes_con_control_de_cambios.docx
-620985642423c9722617a50df187c686f887c786d0d5146c619d80346ae561e7  Libro_v18_sin_recortes_limpio.docx
+696f3eb00c2d1cb3dab220d4ad7d882c9f918d8d25060ee9f785cbadb45f2c2e  Libro_v18_interior_KDP.pdf
+4311e70599dc04a3f41358d967054ea875f5ec34c8a6494da4076d30cf8721ba  Libro_v18_sin_recortes_con_control_de_cambios.docx
+32876a51368b736fc62d7ac4d6c934fafd97e472703ed89fed94812acc6aeea1  Libro_v18_sin_recortes_limpio.docx
 ```

@@ -19,7 +19,9 @@ Cifras:
     similares a Sobel y Laplaciano»; y sobre el Programa 9B: «la red no necesita converger a los filtros “canónicos”
     que un ingeniero diseñaría a mano (un Sobel-X limpio, por ejemplo)».
 
-Diferencias con la imagen publicada (este prompt las corrige):
+Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
+del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
+originales/Diagrama_G.1_antes_repintado_2026-11-08.png.
   1. Ejemplo de convolución: la «Imagen (6×6)» tiene solo 5 columnas; el «Mapa de características (4×4)» tiene 3
      columnas y sus valores no salen de esa imagen; el pie «relleno=1 conserva H×W original» contradice un mapa más
      pequeño; y el «Cálculo en posición (1,1)» da 0 con términos que no son los de la ventana. Aquí: imagen 6 × 6, mapa
@@ -120,13 +122,12 @@ Four cards, each with a 3×3 grid of weights, an arrow, and a small dot-pattern 
        caption "activa en cambios de izquierda a derecha"
   purple "Filtro 3 — Detector de ESQUINAS (Laplaciano)":  0 −1 0 / −1 +4 −1 / 0 −1 0   → a few isolated dark squares;
        caption "activa en cruces y esquinas"
-  blue "Filtro 4 — SUAVIZADO (Gaussiano)":  1/16 2/16 1/16 / 2/16 4/16 2/16 / 1/16 2/16 1/16   → evenly gray squares;
+  blue "Filtro 4 — SUAVIZADO (Gaussiano 1/16)":  1/16 2/16 1/16 / 2/16 4/16 2/16 / 1/16 2/16 1/16   → evenly gray squares;
        caption "elimina ruido, borra bordes finos"
 Orange-bordered cream card, bold orange "¿Y qué aprende la CNN?":
   "La CNN NO recibe instrucciones sobre bordes." / "Solo ve: imagen → etiqueta (horizontal/vertical)." / "El
   backpropagation ajusta los 9 valores de cada filtro" / "hasta que separan las dos clases." / bold green "En redes
-  grandes, las primeras capas aprenden" / "detectores parecidos a Sobel y Laplaciano." / gray "El Programa 9B no
-  necesita llegar a un Sobel limpio: le basta" / "cualquier filtro que distinga la orientación."
+  grandes: detectores parecidos a Sobel."
 
 Arrow tag: "conexión" / "con el" / "Transformer".
 

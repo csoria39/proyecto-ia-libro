@@ -8,7 +8,9 @@ Cifras: las del panel 5 (red 1-2-1) salen de calculos/diagrama_4_2_ejemplo_1_2_1
 (salida en calculos/salida_diagrama_4_2_ejemplo_1_2_1.txt): sigmoide en las dos capas, como el Programa 2, y
 pérdida L = ½(ŷ − y)². Los gradientes se han comprobado con diferencias finitas (error máximo 1.1·10⁻¹¹).
 
-Diferencias con la imagen publicada (este prompt las corrige):
+Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
+del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
+originales/Diagrama_4.2_antes_repintado_2026-11-08.png.
   1. Panel 5: las cifras de la imagen no salen de ninguna activación coherente. a⁽¹⁾ = [0.5498, −0.3799] mezcla la
      sigmoide (σ(0.2) = 0.5498) con la tangente hiperbólica (tanh(−0.4) = −0.3799); z⁽²⁾ = 0.4833 no es
      W²a⁽¹⁾ + b² con esos valores (daría 0.5988); y δ⁽²⁾ = −0.0439 y δ⁽¹⁾ = [−0.0067, 0.0043] no corresponden a

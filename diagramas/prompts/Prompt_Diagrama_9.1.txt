@@ -18,7 +18,9 @@ Cifras, todas comprobadas:
     100 277 (el 100 257 es el identificador de <|endoftext|>, no el tamaño); LLaMA 2 32 000; LLaMA 3 128 256 (el
     libro cita los tres en el Capítulo 9); BERT 30 522; T5 32 100.
 
-Diferencias con la imagen publicada (este prompt las corrige):
+Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
+del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
+originales/Diagrama_9.1_antes_repintado_2026-11-08.png.
   1. «Resultado tras N fusiones»: la imagen da bajar → [baj][ar</w>] y caja → [caj][a</w>], segmentaciones que el
      algoritmo no produce con ese corpus en ningún número de fusiones. Aquí, «tras 5 fusiones», el resultado real.
   2. Fertilidad: «Alemán 'Künstliche Intelligenz' → 5 tokens» y «Turco: compuestos → 6-8 tokens» no salen de
@@ -121,7 +123,7 @@ casi todo en inglés)". Four rows with a small flag, language, word and a horizo
   🇪🇸 "Español:" 'inteligencia'           → 3 tokens    (orange bar, 3 units)
   🇩🇪 "Alemán:"  'Künstliche Intelligenz' → 9 tokens    (red bar, 9 units)
   🇹🇷 "Turco:"   'evlerinizden'           → 5 tokens    (red bar, 5 units)
-  Italic gray: "La misma frase: 12 tokens en inglés, 24 en español (Ejercicio 16.1)"
+  Italic gray: "La misma frase: 12 tokens en inglés, 24 en español (Ej. 16.1)"
 Cream card with ⚠: bold "Implicación: los LLMs modernos razonan" / "más eficientemente en inglés que en otros" /
 "idiomas — consecuencia del corpus de entrenamiento."
 

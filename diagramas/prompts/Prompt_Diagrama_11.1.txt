@@ -11,10 +11,12 @@ varianza de q·k es casi exactamente d. Sin escalar, el peso máximo medio sube 
 Con el escalado, se mantiene en torno al 35 %» (la tabla de 11.5 da 0.356–0.361; el Diagrama 11.2 dice 36 %, y aquí
 se usa la misma cifra).
 
-Diferencias con la imagen publicada (este prompt las corrige):
+Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
+del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
+originales/Diagrama_11.1_antes_repintado_2026-11-08.png.
   1. La matriz causal no corresponde a la bidireccional de al lado: la fila 2 era [0.42, 0.58] y la 3 [0.32, 0.29,
      0.39]. Con las mismas puntuaciones, enmascarar y renormalizar da [0.25, 0.75] y [0.21, 0.35, 0.44].
-  2. «Con escalar: varianza ÷ d_k»: tras dividir entre √d_k la varianza queda ≈ 1. Se añaden las cifras del 11.5.
+  2. «Con escalar: varianza ÷ d_k»: tras dividir entre √d_k la varianza queda ≈ 1.
   3. Fórmula de multi-head deformada (W_iQ, «/√d,k»). Aquí: head_i = Attention(Q·W_i^Q, K·W_i^K, V·W_i^V).
   4. Título con la tilde mal puesta («AUTOATENCÍON»): «AUTOATENCIÓN».
   5. «Pesos causal» → «Pesos (causal)».
@@ -64,8 +66,6 @@ Gray box, large monospace: "scores = Q @ Kᵀ". Below, very large: "÷ √d_k".
 Orange-bordered cream card: ⚠ + bold red "Por qué es CRÍTICO el escalado:"; bullets:
   "Sin escalar: varianza(QKᵀ) ≈ d_k → softmax saturada"
   "Con escalar: varianza ≈ 1 → gradientes estables"
-  "Peso máximo medio sin escalar: 52 % (d = 4) → 97 % (d = 1024)"
-  "Con escalado: en torno al 36 %"
   "Ejemplo: d_k = 64 → dividir por 8 (√64 = 8)"
   framed: "scores = (Q @ Kᵀ) / √d_k"
 
@@ -87,7 +87,6 @@ Table (green cells; masked cells solid red with white "0"), headers K₁ K₂ K�
   Q₁ | 1.00 | 0    | 0    | = 1.0 ✓ | "Q₁ → ve solo K₁"
   Q₂ | 0.25 | 0.75 | 0    | = 1.0 ✓ | "Q₂ → ve K₁, K₂"
   Q₃ | 0.21 | 0.35 | 0.44 | = 1.0 ✓ | "Q₃ → ve K₁, K₂, K₃"
-Small gray line: "Misma fila, renormalizada: 0.19 y 0.56 pasan a 0.25 y 0.75"
 Orange-bordered card ⚠: "Los LLMs generativos (GPT, LLaMA, Nano-LLM)" / bold "SIEMPRE usan atención causal. Sin
   ella," / "el modelo vería tokens futuros → haría trampa."
 Gray code box (monospace):
@@ -133,6 +132,6 @@ FINAL CHECK
 ✓ Title "DIAGRAMA 11.1 — MECANISMO DE SELF-ATTENTION (AUTOATENCIÓN)" (accent on the Ó).
 ✓ Bidirectional rows 0.24/0.38/0.38 · 0.19/0.56/0.25 · 0.21/0.35/0.44.
 ✓ Causal rows 1.00/0/0 · 0.25/0.75/0 · 0.21/0.35/0.44 (consistent with the bidirectional matrix).
-✓ "Con escalar: varianza ≈ 1"; 52 % → 97 % without scaling, ~36 % with scaling.
+✓ "Con escalar: varianza ≈ 1".
 ✓ head_i = Attention(Q·W_i^Q, K·W_i^K, V·W_i^V).
 ✓ Accents: "río", "ATENCIÓN", "MÁSCARA", "ANALOGÍA", "Proyección", "información", "CRÍTICO".
