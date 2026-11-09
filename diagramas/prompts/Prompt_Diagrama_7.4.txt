@@ -121,16 +121,16 @@ Table (light-blue header): "Situación" | "Error entrenamiento" | "Error prueba"
                                                                           Menos" / "épocas / Simplicidad"
 
 ---------------------------------------------------------------------
-PANEL 5 — "5. INTUICIÓN: BIAS–VARIANZA"   (x ≈ 524–1009, y ≈ 918–1273)
+PANEL 5 — "5. INTUICIÓN: SESGO–VARIANZA"   (x ≈ 524–1009, y ≈ 918–1273)
 ---------------------------------------------------------------------
 "El error total se puede descomponer en:"
-Boxed formula: "Error total  =  Bias²  +  Variance  +  Ruido irreducible" with "(ruido de los datos)" under the last
-term (Bias and Variance in serif italic).
-Three cards: blue "Bias (sesgo):" / "Error por suposiciones" / "demasiado simples." / bold "Alta bias →" /
-"subajuste." · green "Variance (varianza):" / "Sensibilidad a pequeñas" / "variaciones en los datos." / bold "Alta
+Boxed formula: "Error total  =  Sesgo²  +  Varianza  +  Ruido irreducible" with "(ruido de los datos)" under the last
+term (Sesgo and Varianza in serif italic).
+Three cards: blue "Sesgo (bias):" / "Error por suposiciones" / "demasiado simples." / bold "Alto sesgo →" /
+"subajuste." · green "Varianza (variance):" / "Sensibilidad a pequeñas" / "variaciones en los datos." / bold "Alta
 varianza →" / "sobreajuste." · purple "Ruido irreducible:" / "Error debido al ruido" / "inherente en los datos." /
 "No se puede eliminar."
-A horizontal double arrow with three labels under it: blue "Modelo muy simple" / "(alto bias)" · green "Complejidad
+A horizontal double arrow with three labels under it: blue "Modelo muy simple" / "(alto sesgo)" · green "Complejidad
 adecuada" / "(mejor generalización)" · red "Modelo muy complejo" / "(alta varianza)".
 
 ---------------------------------------------------------------------
@@ -161,5 +161,5 @@ FINAL CHECK
 ✓ Panel 2 and early stopping: the test/validation curve is always ABOVE the training curve; its minimum marks the
   best point.
 ✓ L1 solution on the w₂ axis (w₁ = 0). No stray "w₁" next to "Épocas". No stray "+".
-✓ Formulas L_total = L + λ Σ w_i² and L_total = L + λ Σ |w_i|; Error total = Bias² + Variance + Ruido irreducible.
+✓ Formulas L_total = L + λ Σ w_i² and L_total = L + λ Σ |w_i|; Error total = Sesgo² + Varianza + Ruido irreducible.
 ✓ Accents: "REGULARIZACIÓN", "¿CÓMO", "TÉCNICAS", "Rotación", "INTUICIÓN", "PRÁCTICAS", "Situación", "Diagnóstico".

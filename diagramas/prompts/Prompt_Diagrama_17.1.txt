@@ -129,7 +129,7 @@ LOG SCALE VISUALIZATION (upper two thirds of the panel):
   GPT-3 · 175 000 M (dark purple): "2020 · 96 bloques"
   DeepSeek-V3 · 671 000 M (red bar; every label of this bar in black): "2024 · abierto · MoE: 37 000 M activos por token"
   Thin red dashed line at 10¹² with black 13px label: "modelos abiertos de 2025-2026 ya superan el billón (p. ej., Kimi K2: 1 billón)"
-  Double-headed gold arrow from Nano-LLM to DeepSeek-V3: "×10 millones (7 órdenes)" — gold bold 16px.
+  Bars drawn on the TRUE log scale (10^4 … 10^13, ~28 px per decade): Nano-LLM 10^4.78, GPT-2 small 10^8.09, GPT-2 XL 10^9.18, LLaMA-7B 10^9.85, GPT-3 10^11.24, DeepSeek-V3 10^11.83 (just under the 10^12 dashed line). Values of GPT-3 and DeepSeek-V3 written vertically in white inside their bars. Vertical double-headed gold arrow above the Nano-LLM bar, from its top to the DeepSeek-V3 level (dotted gold guide at that level), with "×10 millones" (gold bold 17px) and "(7 órdenes de magnitud)" to its right.
 
 THREE DIMENSIONS (bottom, three columns):
   Title: "Lo que separa al Nano-LLM de un modelo grande:" — navy bold 15px.

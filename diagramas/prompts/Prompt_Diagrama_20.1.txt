@@ -116,10 +116,10 @@ Orange-bordered cream card: light-bulb + bold orange "El puente entre capítulos
   pregunta sobre “devoluciones”" · "La similitud coseno los conecta"
   green "→ Semántica, no palabras clave exactas"
 Blue-bordered card "Similitud coseno en acción:" — a 2-D plot from a common origin with five arrows:
-  blue "q_vec" (pregunta: "devolucion contrato");
-  green "v1_vec (chunk 1)" "'clausula devolucion 30 dias'" "sim = 0.87 ✓ RECUPERADO" — the closest to q_vec;
-  teal "v2_vec (chunk 2)" "'articulo 3: garantias'" "sim = 0.74 ✓"
-  orange "v3_vec (chunk 3)" "'politica de cambios'" "sim = 0.61 ✓"
+  blue "q_vec" (pregunta: "devolución contrato");
+  green "v1_vec (chunk 1)" "'cláusula devolución 30 días'" "sim = 0.87 ✓ RECUPERADO" — the closest to q_vec;
+  teal "v2_vec (chunk 2)" "'artículo 3: garantías'" "sim = 0.74 ✓"
+  orange "v3_vec (chunk 3)" "'política de cambios'" "sim = 0.61 ✓"
   red "v4_vec (chunk 4)" "'historia de la empresa'" "sim = 0.12 ✗ descartado" — almost perpendicular to q_vec.
   Dashed arcs mark the angles; caption "El ángulo entre vectores determina la relevancia".
 Teal-bordered card "Top-3 resultados del Vector Store:" with a table ("Rank" | "Similitud" | "Fragmento"):

@@ -320,7 +320,7 @@ Header: navy bg, white bold 14px. Nano-LLM column with light green tint.
 "Contexto"         | "24 caracteres"  | "1024 tokens"
 "Vocabulario"      | "46 caracteres"  | "50 257 tokens BPE"
 "Datos"            | "5 KB (93 frases)" | "40 GB (WebText)"
-"Pesos en disco"   | "0.24 MB"        | "548 MB"
+"Pesos en disco"   | "0.49 MB"        | "548 MB"
 Below the table, black bold 17px on a pale gold tint #FFF3D6: "≈ 2000 veces más parámetros"
 
 SHARED PIECES (teal border):

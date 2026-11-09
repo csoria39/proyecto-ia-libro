@@ -138,10 +138,10 @@ PANEL 4 — "CNN ↔ TRANSFORMER: EL MISMO ADN"   (x ≈ 1112–1665, y ≈ 108�
 "CNN" | "Transformer"):
   Operación base | Convolución 3×3 | Self-Attention
   Dónde opera    | Ventana local f×f | Todos los tokens
-  Reutilización  | Mismo filtro en toda la img | Mismos W_Q,K,V por bloque
-  Apila          | Conv → ReLU → Pool | MHA → Add&Norm → FFN
+  Reutilización  | Mismo filtro en toda la img | Mismas W_Q, W_K, W_V por bloque
+  Apila          | Conv → ReLU → Pool | LN → MHA → LN → FFN
   Aprende        | Detectores de borde | Relaciones entre tokens
-  Comparte pesos | Sí (spatial) | Sí (por bloque)
+  Comparte pesos | Sí (espacial) | Sí (por bloque)
 Two side-by-side cards with a double arrow "misma idea" between them:
   teal "CNN sobre imagen" / "Misma operación 3×3" / "aplicada N veces": a 7×7 grid with an outlined 3×3 window and a
   dashed curved arrow to another window; caption "→ detecta patrón LOCAL"
@@ -150,8 +150,8 @@ Two side-by-side cards with a double arrow "misma idea" between them:
 Yellow card: light-bulb + bold orange "El principio unificador del Deep Learning:" / "1. Define una operación
   PARAMETRIZADA pequeña" / "(un filtro 3×3 / una cabeza de atención)" / "2. REUTILÍZALA en toda la secuencia/imagen" /
   "(parameter sharing)" / "3. APILA múltiples capas" / "(jerarquía de representaciones)" / "4. Entrena con
-  backpropagation" / bold green "CNN = Transformer de imágenes" / "Transformer = CNN de secuencias"
-Light-blue card: bold navy "El futuro: modelos multimodales" / "GPT-4V, Gemini, LLaMA-3.2V combina:" / ✓ "Un encoder
+  backpropagation" / bold green "Misma receta, distinto dominio:" / "imágenes (CNN) y secuencias (Transformer)"
+Light-blue card: bold navy "El futuro: modelos multimodales" / "GPT-4V, Gemini, LLaMA-3.2V combinan:" / ✓ "Un encoder
   CNN (o ViT) para imágenes" / ✓ "Un Transformer para texto" / ✓ "Un mecanismo de fusión entre ambos" / "Con el
   Capítulo 12 y el Apéndice G tienes las bases" / "de AMBOS paradigmas del Deep Learning moderno."
 
@@ -161,7 +161,7 @@ BOTTOM BAR (y ≈ 870–935, dark navy)
 Left, white monospace:
   "output[i,j] = Σ imagen[i+m,j+n] × filtro[m,n] + b"
   "ReLU(x) = max(0, x)      MaxPool = max de bloque 2×2"
-  "params = F × (f² + 1) + n_dense × n_flat + n_dense"
+  "params = F·(f²+1) + 16·(n_flat+1) + (16+1)"
 Three rounded boxes, white bold: teal "Convolución:" / "filtro deslizante" · orange "Pooling:" / "invarianza + reducción"
 · purple "ADN común" / "con el Transformer".
 Right: legend with the six colors listed above.

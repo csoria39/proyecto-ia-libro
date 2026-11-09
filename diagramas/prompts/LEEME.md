@@ -32,7 +32,12 @@ El 8-11-2026 se corrigieron en el libro los ocho diagramas que cambian de conten
 `diagramas/scripts/repintado_2026-11-08/`; las versiones anteriores están en `diagramas/originales/`. Sus prompts
 describen exactamente la imagen corregida. El 9-11-2026 se corrigieron también los otros diez (2.1, 3.1, 4.1, 7.1, 7.2, 7.4, 10.1, 11.2, 12.1 y 13.1), a partir
 de una versión verificada externamente y revisada aquí; sus versiones anteriores están en
-`diagramas/originales/Diagrama_<n>_antes_2026-11-09.png`. El 17.1 no necesitaba cambios.
+`diagramas/originales/Diagrama_<n>_antes_2026-11-09.png`.
+
+El mismo 9-11-2026 se revisaron los 19 diagramas enteros, sin dar nada por supuesto, y se corrigieron 16 (todos menos
+7.1, 11.2 y 12.1). Lo más grave: las barras del 17.1 estaban 2-3 décadas por debajo en la escala logarítmica. Scripts en
+`diagramas/scripts/repintado_2026-11-09b/`; versiones anteriores en `diagramas/originales/Diagrama_<n>_antes_2026-11-09b.png`.
+Los prompts se han actualizado para describir la imagen corregida.
 
 | Diagrama | Pág. | Correcciones | Las más importantes | Estado |
 |---|---|---|---|---|
@@ -51,7 +56,7 @@ de una versión verificada externamente y revisada aquí; sus versiones anterior
 | 11.2 Self-attention: referencia | 135 | 2 | Coma decimal; matiz de las cabezas en el Capítulo 15 | Corregido en el libro (9-11-2026) |
 | 12.1 El bloque Transformer | 144 | 1 | Separador de miles y coma decimal | Corregido en el libro (9-11-2026) |
 | 13.1 El Nano-LLM | 181 | 1 | Curva de aprendizaje: ahora reproducible | Corregido en el libro (9-11-2026) |
-| 17.1 De nano a gigante | 285 | 0 | — | — |
+| 17.1 De nano a gigante | 285 | 1 | Barras de la escala log 2-3 décadas por debajo | Corregido en el libro (9-11-2026) |
 | 20.1 RAG | 313 | 4 | «Privacidad total»; gráfico y tabla no coinciden | Corregido en el libro (8-11-2026) |
 | 20.2 Multimodales | 315 | 4 | El mapa del libro omite los Capítulos 13-16 | Corregido en el libro (8-11-2026) |
 | G.1 CNN | 369 | 3 | Ejemplo de convolución incoherente; filtros «aprendidos» que son clásicos | Corregido en el libro (8-11-2026) |

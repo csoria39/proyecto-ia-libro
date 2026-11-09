@@ -80,7 +80,7 @@ Four stacked cards:
  ② green border: bold green "② PUERTA DE ENTRADA Y CANDIDATO" / italic green "¿Qué información nueva añadir?"
     i_t = σ(W_i · [h_{t−1}, x_t] + b_i)   "← cuánto añadir (puerta)"
     g_t = tanh(W_g · [h_{t−1}, x_t] + b_g)   "← qué añadir (candidato)"
-    "i_t controla la cantidad (0-1)" · "g_t controla el contenido (−1, 1)"
+    "i_t controla la cantidad (0, 1)" · "g_t controla el contenido (−1, 1)"
  ③ teal border: bold teal "③ ESTADO DE CELDA (Cell State Update)" / bold teal "La autopista del gradiente"
     C_t = f_t ⊙ C_{t−1} + i_t ⊙ g_t
     "Donde ⊙ = multiplicación elemento a elemento (Hadamard)" / "f_t ⊙ C_{t−1}  ← parte del pasado que se conserva" /

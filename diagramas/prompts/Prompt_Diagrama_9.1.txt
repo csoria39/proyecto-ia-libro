@@ -65,8 +65,8 @@ Three columns:
   red "Nivel carácter": "Frase: 'la IA'" → five red-outlined boxes [l][a][ ][I][A] → "5 tokens"; "inteligencia →" →
     boxes [i][n][t][e][l][i][g][…]; bullets: ✗ "Tokens por frase: ~40" · ✗ "Secuencias muy largas" · ✓ "Vocab pequeño
     (~256)" · ✓ "Sin OOV nunca".
-  green "Subpalabra BPE ← ÓPTIMO": "Frase: 'IA'" → boxes [la][I][A] → "3 tokens"; "inteligencia →" → boxes [intel]
-    [igencia] → "2 tokens"; bullets ✓ "Vocab controlable (~50k)" · ✓ "Secuencias razonables" · ✓ "Sin OOV
+  green "Subpalabra BPE ← ÓPTIMO": "Frase: 'la IA'" → boxes [la][I][A] → "3 tokens"; "inteligencia →" → boxes [intel]
+    [igen][cia] → "3 tokens"; bullets ✓ "Vocab controlable (~50k)" · ✓ "Secuencias razonables" · ✓ "Sin OOV
     (descompone)" · ✓ "Captura morfología".
   purple "Nivel palabra": "Frase: 'la IA'" → boxes [la][IA] → "2 tokens"; "supercalifragilístico →" → red box [OOV] →
     "1 token (inútil)"; bullets ✓ "Tokens por frase: ~4" · ✗ "Vocab enorme (>1M)" · ✗ "OOV: palabras nuevas" ·
@@ -124,8 +124,8 @@ casi todo en inglés)". Four rows with a small flag, language, word and a horizo
   🇩🇪 "Alemán:"  'Künstliche Intelligenz' → 9 tokens    (red bar, 9 units)
   🇹🇷 "Turco:"   'evlerinizden'           → 5 tokens    (red bar, 5 units)
   Italic gray: "La misma frase: 12 tokens en inglés, 24 en español (Ej. 16.1)"
-Cream card with ⚠: bold "Implicación: los LLMs modernos razonan" / "más eficientemente en inglés que en otros" /
-"idiomas — consecuencia del corpus de entrenamiento."
+Cream card with ⚠: bold "Implicación: el mismo texto ocupa más tokens" / "fuera del inglés: más coste y menos contexto" /
+"útil — consecuencia del corpus de entrenamiento."
 
 Arrow tag: "quién lo usa hoy".
 

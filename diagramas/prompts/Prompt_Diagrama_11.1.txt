@@ -111,7 +111,7 @@ correferencias" · "Cabeza 3 — relaciones semánticas" · "Cabeza 4 — posici
 Gray box (serif):
   MultiHead(Q,K,V) = Concat(head₁, …, head_h) · W^O
   head_i = Attention(Q·W_i^Q, K·W_i^K, V·W_i^V)
-         = softmax(QKᵀ/√d_k + Mask) · V
+         = softmax(Q_i K_iᵀ/√d_k + M) · V_i
 Monospace: "d_head = d_model / n_heads" / "Ej: d=512, n_heads=8 → d_head=64"
 
 ---------------------------------------------------------------------

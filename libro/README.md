@@ -34,12 +34,22 @@ revisadas una a una, y la fila de LLaMA 3 en la tabla del 9.1. En 4.1, 7.4 y 13.
 verificada (scripts en `diagramas/scripts/repintado_2026-11-09/`). Los 19 diagramas siguen en su capítulo y página;
 el PDF mantiene 377 páginas y el mismo texto.
 
+## Revisión completa de los diagramas (9-11-2026, tarde)
+
+Se revisaron los 19 diagramas enteros, no solo las zonas cambiadas, y se corrigieron 16: barras de 2.1 y 17.1 (escala
+logarítmica desplazada 2-3 décadas), ReLU, tanh, rangos y árbol de 3.1, curva de pérdida de 4.1, δ y b¹ de 4.2,
+tildes de los títulos (3.1, 7.2, 7.4, 9.1), código PyTorch y textos de 7.3, L2 y sesgo/varianza de 7.4, BPE, OOV e
+implicación de 9.1, h₄ e y₁-y₃ de 10.1, eje y notación de 10.2, caja multi-head y d_k de 11.1, pesos en disco de 13.1
+(0.49 MB: el Programa 8 guarda float64), tildes de 20.1, cuatro detalles de 20.2 y tabla, lema y fórmula de G.1.
+Scripts en `diagramas/scripts/repintado_2026-11-09b/`; versiones anteriores en
+`diagramas/originales/Diagrama_<n>_antes_2026-11-09b.png`. El PDF mantiene 377 páginas y el mismo texto.
+
 ## SHA-256
 
 ```
 097ef3f2b4b7cf11327092e3c08eb98cddf159bb95635114a827832ba2e91931  Cubierta_KDP_377p_color_contraportada_corta.pdf
 9d9b52a0400c8b490590c7807a4e02d2f1d9167951bbe839aaeefc67532d8bc2  Cubierta_KDP_377p_color_contraportada_larga.pdf
-886673e82c00ef9eae422eea00d74862e508215ca399ab68ed0de3f4ab2662e9  Libro_v18_interior_KDP.pdf
-1bb3e08bb263afc2c5cf98d3281e568bcb6c8d16f6a3ec8bd7162e4677db5609  Libro_v18_sin_recortes_con_control_de_cambios.docx
-0427d98d95c5e63886a0b26a961a953adc7abc891d90f971d549bab9da151d80  Libro_v18_sin_recortes_limpio.docx
+4de5e2f75b7e423b1f5e46ef4066296f7030acbdcd135684256178d8f8cfac8a  Libro_v18_interior_KDP.pdf
+bf29d6462c3c061d1256c230a39ace4a27f6b567e648b8150a0ef86af135cfc9  Libro_v18_sin_recortes_con_control_de_cambios.docx
+70d9434e7725eea9e0bda323e7e74028c0772f45b80e9f0ed936cb77412e52a8  Libro_v18_sin_recortes_limpio.docx
 ```
