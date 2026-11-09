@@ -77,9 +77,9 @@ proyecto-ia-libro/
 │       │                           y LEEME.md con la tabla de estado
 │       └── calculos/  (11)       · scripts y salidas de las cifras que no imprime el libro
 │
-├── scripts/                      ← 2 archivos
+├── scripts/                      ← 3 archivos
 │   └── paginacion_2026-11-09/    · conservar_con_siguiente.py (títulos que no quedan solos al pie, saltos de
-│                                   página sin páginas en blanco) e indice_alfabetico.py
+│                                   página sin páginas en blanco) , indice_alfabetico.py e indice_alfabetico_2.py
 │
 └── verificaciones/               ← 10 archivos
     ├── LEEME.md

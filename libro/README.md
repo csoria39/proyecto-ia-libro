@@ -69,12 +69,27 @@ Se corrigió:
 El texto del libro no cambia; el PDF sigue con 377 páginas, todos los capítulos, partes y apéndices empiezan en la
 misma página que indica el índice, y los diagramas siguen en sus páginas.
 
+## Índice alfabético (9-11-2026, tarde)
+
+Comprobación completa de las 143 entradas: orden alfabético, letra de cada grupo, páginas ordenadas y sin repetir,
+como mucho ocho por término, rangos válidos y, para cada una de las 844+ referencias, que el término aparece en esa
+página. Además se buscaron los títulos de sección que tratan un término cuya página no estaba en su entrada. Cambios
+(`scripts/paginacion_2026-11-09/indice_alfabetico_2.py`):
+
+- Forward pass: se añade la 58 (6.3 Forward propagation en una red) y sale la 158 (solo nombra la función forward()).
+- Gradiente que desaparece: se añade la 117 (10.5 LSTM, con la medida del gradiente que decae).
+- Evaluación de modelos: 296 → 296-297 (18.9 Guía práctica para evaluar tu propio modelo).
+- Función de pérdida: 340 → 342 (donde se define la pérdida en PyTorch, nn.BCEWithLogitsLoss; en la 340 solo
+  aparece loss.backward()).
+
+Ninguna otra referencia cambia, ni el texto ni la paginación (377 páginas).
+
 ## SHA-256
 
 ```
 097ef3f2b4b7cf11327092e3c08eb98cddf159bb95635114a827832ba2e91931  Cubierta_KDP_377p_color_contraportada_corta.pdf
 9d9b52a0400c8b490590c7807a4e02d2f1d9167951bbe839aaeefc67532d8bc2  Cubierta_KDP_377p_color_contraportada_larga.pdf
-68ac0f1f94710cb2d9a5880aadc5170a5671b425bbd0b278eb9e482c25c05b36  Libro_v18_interior_KDP.pdf
-f1e02a19e356968a611ab2fc030d091124f61a51e70a2906a7a31ab1b2fbf1a9  Libro_v18_sin_recortes_con_control_de_cambios.docx
-0ce2fd593357a54be73086d0c2e912dc7f31bf59436968d187497b64bf099ee8  Libro_v18_sin_recortes_limpio.docx
+a6e6869bbaffa411045381c564ce363aa593af2dea2e28bbe0d7fcecc032ff54  Libro_v18_interior_KDP.pdf
+128e257280c5effe95d63564ba204737b3b19c0bd4f73676a2a8b28efb8b5cc5  Libro_v18_sin_recortes_con_control_de_cambios.docx
+c9c2d2fbe91fdf8635d1eee66be700a4dfd332ce58dfe87acbb53fd81d808c39  Libro_v18_sin_recortes_limpio.docx
 ```
