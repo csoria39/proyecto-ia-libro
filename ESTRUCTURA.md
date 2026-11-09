@@ -79,7 +79,7 @@ proyecto-ia-libro/
 │
 ├── scripts/                      ← 3 archivos
 │   └── paginacion_2026-11-09/    · conservar_con_siguiente.py (títulos que no quedan solos al pie, saltos de
-│                                   página sin páginas en blanco) , indice_alfabetico.py e indice_alfabetico_2.py
+│                                   página sin páginas en blanco), indice_alfabetico.py e indice_alfabetico_2.py
 │
 └── verificaciones/               ← 10 archivos
     ├── LEEME.md
