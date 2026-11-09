@@ -4,9 +4,9 @@ Versión elegida por el autor el 7 de noviembre de 2026 para la edición impresa
 
 | Archivo | Qué es |
 |---|---|
-| `Libro_v18_interior_KDP.pdf` | Interior para Amazon KDP: A4, color, 377 páginas |
-| `Libro_v18_sin_recortes_limpio.docx` | El mismo libro en Word, sin marcas de revisión |
-| `Libro_v18_sin_recortes_con_control_de_cambios.docx` | El mismo, con todos los cambios de la revisión v18 marcados |
+| `De_la_Neurona_al_LLM_interior_KDP.pdf` | Interior para Amazon KDP: A4, color, 377 páginas |
+| `De_la_Neurona_al_LLM_sin_recortes_limpio.docx` | El mismo libro en Word, sin marcas de revisión |
+| `De_la_Neurona_al_LLM_sin_recortes_con_control_de_cambios.docx` | El mismo, con todos los cambios de la revisión v18 marcados |
 | `Cubierta_KDP_377p_color_contraportada_larga.pdf` | Cubierta completa (contraportada, lomo y portada) para 377 páginas en papel Premium Color |
 | `Cubierta_KDP_377p_color_contraportada_corta.pdf` | La misma cubierta, con la contraportada corta |
 
@@ -89,7 +89,7 @@ Ninguna otra referencia cambia, ni el texto ni la paginación (377 páginas).
 ```
 097ef3f2b4b7cf11327092e3c08eb98cddf159bb95635114a827832ba2e91931  Cubierta_KDP_377p_color_contraportada_corta.pdf
 9d9b52a0400c8b490590c7807a4e02d2f1d9167951bbe839aaeefc67532d8bc2  Cubierta_KDP_377p_color_contraportada_larga.pdf
-a6e6869bbaffa411045381c564ce363aa593af2dea2e28bbe0d7fcecc032ff54  Libro_v18_interior_KDP.pdf
-128e257280c5effe95d63564ba204737b3b19c0bd4f73676a2a8b28efb8b5cc5  Libro_v18_sin_recortes_con_control_de_cambios.docx
-c9c2d2fbe91fdf8635d1eee66be700a4dfd332ce58dfe87acbb53fd81d808c39  Libro_v18_sin_recortes_limpio.docx
+a6e6869bbaffa411045381c564ce363aa593af2dea2e28bbe0d7fcecc032ff54  De_la_Neurona_al_LLM_interior_KDP.pdf
+128e257280c5effe95d63564ba204737b3b19c0bd4f73676a2a8b28efb8b5cc5  De_la_Neurona_al_LLM_sin_recortes_con_control_de_cambios.docx
+c9c2d2fbe91fdf8635d1eee66be700a4dfd332ce58dfe87acbb53fd81d808c39  De_la_Neurona_al_LLM_sin_recortes_limpio.docx
 ```

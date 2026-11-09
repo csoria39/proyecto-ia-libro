@@ -19,9 +19,9 @@ proyecto-ia-libro/
 │
 ├── libro/                        ← EDICIÓN FINAL
 │   ├── README.md                 · qué es cada archivo, ISBN, comprobaciones, cambios (diagramas, paginación) y SHA-256
-│   ├── Libro_v18_interior_KDP.pdf                       · 377 páginas
-│   ├── Libro_v18_sin_recortes_limpio.docx
-│   ├── Libro_v18_sin_recortes_con_control_de_cambios.docx
+│   ├── De_la_Neurona_al_LLM_interior_KDP.pdf   · 377 páginas
+│   ├── De_la_Neurona_al_LLM_sin_recortes_limpio.docx
+│   ├── De_la_Neurona_al_LLM_sin_recortes_con_control_de_cambios.docx
 │   ├── Cubierta_KDP_377p_color_contraportada_larga.pdf
 │   └── Cubierta_KDP_377p_color_contraportada_corta.pdf
 │
