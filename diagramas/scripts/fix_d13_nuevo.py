@@ -5,7 +5,7 @@
    en letra más pequeña). Valores de la salida impresa en 11.6.
 2) Recuadro Multi-Head: «W_Q las mezcla» y «· W_Q» → W_O (la matriz de salida); W_Q, W_K, W_V legibles."""
 import sys
-sys.path.insert(0, '/home/claude/diag/caps')
+sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 from PIL import Image, ImageDraw, ImageFont
 from fix_caps import cambiar, CR, MB
 

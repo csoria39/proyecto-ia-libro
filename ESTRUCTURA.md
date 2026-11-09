@@ -1,6 +1,6 @@
 # Estructura del repositorio
 
-Mapa de la ubicación de cada archivo, rama `revision-v18`, 7 de noviembre de 2026.
+Mapa de la ubicación de cada archivo, rama `revision-v18`, 9 de noviembre de 2026.
 La lista completa de programas y ejercicios, con el capítulo de cada uno, está en el [README](README.md).
 
 ```
@@ -18,7 +18,7 @@ proyecto-ia-libro/
 │   └── FUNDING.yml
 │
 ├── libro/                        ← EDICIÓN FINAL
-│   ├── README.md                 · qué es cada archivo, ISBN, comprobaciones y SHA-256
+│   ├── README.md                 · qué es cada archivo, ISBN, comprobaciones, cambios (diagramas, paginación) y SHA-256
 │   ├── Libro_v18_interior_KDP.pdf                       · 377 páginas
 │   ├── Libro_v18_sin_recortes_limpio.docx
 │   ├── Libro_v18_sin_recortes_con_control_de_cambios.docx
@@ -59,13 +59,27 @@ proyecto-ia-libro/
 │       ├── rz4_*.txt  (5)
 │       └── sinprev_*.txt  (4)
 │
-├── diagramas/                    ← 85 archivos
+├── diagramas/                    ← 418 archivos (19 diagramas + originales, scripts, fuentes y prompts)
 │   ├── Diagrama_2.1 · 3.1 · 4.1 · 4.2 · 7.1 · 7.2 · 7.3 · 7.4 · 9.1 · 10.1 · 10.2
-│   ├── Diagrama_11.1 · 11.2 · 12.1 · 13.1 · 17.1 · 20.1 · 20.2 · G.1          (19 en total, .png)
-│   ├── originales/  (16)         · versiones antes de los retoques (13.1, 17.1, 5.1, G.1… y las 8 repintadas el 8-11)
-│   ├── scripts/  (9 + repintado_2026-11-08/) · los scripts de cada retoque; en repintado_2026-11-08/, los de 8 diagramas
-│   └── prompts/  (20 + calculos/) · un prompt por diagrama, para regenerarlo, y LEEME.md con las correcciones;
-│                                   en calculos/, los scripts y salidas de las cifras que no imprime el libro
+│   ├── Diagrama_11.1 · 11.2 · 12.1 · 13.1 · 17.1 · 20.1 · 20.2 · G.1          (19 en total, .png; los del libro)
+│   ├── originales/  (45)         · cada versión anterior de cada diagrama:
+│   │                               d*_orig / d*_autor (retoques antiguos), *_antes_repintado_2026-11-08 (8),
+│   │                               *_antes_2026-11-09 (10), *_antes_2026-11-09b (16) y *_antes_2026-11-09c (2)
+│   ├── scripts/                  · cómo se hizo cada retoque, por orden:
+│   │   ├── fix_*.py, renumerar.py (9)    · retoques de octubre y principios de noviembre
+│   │   ├── repintado_2026-11-08/  (10)   · los 8 diagramas que cambian de contenido
+│   │   ├── repintado_2026-11-09/  (3)    · retoques de la versión verificada externamente (4.1, 7.4, 13.1)
+│   │   ├── repintado_2026-11-09b/ (24)   · revisión completa de los 19: un script por diagrama, LEEME.md,
+│   │   │                                   pintar.py (motor de texto), tilde.py e instalar.py
+│   │   └── fuentes/  (277)               · Fira Sans, Fira Sans Condensed y Fira Mono (.woff, SIL OFL 1.1, con
+│   │                                       sus licencias) que usan los scripts de repintado
+│   └── prompts/  (31)            · un prompt por diagrama que describe la imagen final y enumera cada corrección,
+│       │                           y LEEME.md con la tabla de estado
+│       └── calculos/  (11)       · scripts y salidas de las cifras que no imprime el libro
+│
+├── scripts/                      ← 2 archivos
+│   └── paginacion_2026-11-09/    · conservar_con_siguiente.py (títulos que no quedan solos al pie, saltos de
+│                                   página sin páginas en blanco) e indice_alfabetico.py
 │
 └── verificaciones/               ← 10 archivos
     ├── LEEME.md

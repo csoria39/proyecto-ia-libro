@@ -45,7 +45,8 @@ El mapa completo, archivo por archivo, está en [ESTRUCTURA.md](ESTRUCTURA.md).
 | `verificaciones/` | La ejecución completa de los 117 listados del libro, en orden y con su salida (`Ejecucion_completa_programas`, en .md y .txt), y comprobaciones que no van en el libro: el gradiente de los programas con diferencias finitas, y el Programa 8 bis frente a `transformers` (mismos logits y mismo tokenizador). |
 | `libro/` | La edición final del libro: interior para Amazon KDP (377 páginas, PDF), el .docx con y sin control de cambios, y las cubiertas. |
 | `docs/` | Guías complementarias: la guía del entorno de desarrollo (instalación paso a paso en Windows, macOS y Linux, en .docx limpio y con control de cambios) la guía para el profesor (plan de un cuatrimestre, prácticas evaluables y rúbrica) y las plantillas para lectores de prueba (un lector principiante y otro experto en ML), estas dos en .md y .docx. |
-| `diagramas/` | Las 19 ilustraciones del libro, con la numeración por capítulo (Diagrama 2.1 … 20.2 y G.1); en `scripts/`, los programas que corrigieron sus erratas y su numeración, en `originales/`, las versiones del autor antes de corregirlas, y en `prompts/`, un prompt por diagrama para regenerarlo, con las cifras comprobadas (ver `prompts/LEEME.md`). |
+| `diagramas/` | Las 19 ilustraciones del libro, con la numeración por capítulo (Diagrama 2.1 … 20.2 y G.1); en `scripts/`, los programas que corrigieron sus erratas y su numeración (con las fuentes Fira que usan, en `scripts/fuentes/`), en `originales/`, cada versión anterior de cada diagrama, y en `prompts/`, un prompt por diagrama que describe la imagen final y enumera sus correcciones, con las cifras comprobadas (ver `prompts/LEEME.md`). |
+| `scripts/` | Scripts de maquetación del libro: `paginacion_2026-11-09/` evita títulos solos al pie y páginas en blanco, y corrige el índice alfabético. |
 
 Los nombres de archivo son los que cita el libro. Cada ejercicio se llama `ejercicio_<capítulo>_<número>.py`: por ejemplo, `ejercicio_15_2.py` es la solución del Ejercicio 15.2, y `ejercicio_G_1.py`, la del Ejercicio G.1. La tabla siguiente indica a qué capítulo pertenece cada archivo.
 
@@ -97,8 +98,9 @@ OpenAI publicó GPT-2 con licencia MIT.
 
 ## Licencias
 
-- **Código** (`programas/`, `verificaciones/`, scripts de `diagramas/`): licencia MIT, © 2026 Carlos Soria Martínez. Archivo [`LICENSE`](LICENSE).
+- **Código** (`programas/`, `verificaciones/`, `scripts/` y scripts de `diagramas/`): licencia MIT, © 2026 Carlos Soria Martínez. Archivo [`LICENSE`](LICENSE).
 - **Libro** (texto, ilustraciones y diagramas, PDF y DOCX): Creative Commons Atribución–NoComercial–SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0). Archivo [`LICENSE-LIBRO.md`](LICENSE-LIBRO.md).
+- **Fuentes tipográficas** (`diagramas/scripts/fuentes/`): Fira Sans, Fira Sans Condensed y Fira Mono, SIL Open Font License 1.1 (licencias junto a las fuentes).
 - **Pesos de GPT-2:** de OpenAI, con licencia MIT. No se incluyen.
 - **Código de terceros:** en `programas/programa_8bis_gpt2_real.py` (y en `ejercicio_16_1.py`, que lo reutiliza), la función `bytes_a_unicode()` y la expresión regular `TROCEO` reproducen las del tokenizador de GPT-2, `src/encoder.py` del repositorio [openai/gpt-2](https://github.com/openai/gpt-2) (© 2019 OpenAI, licencia MIT): tienen que ser idénticas para obtener los mismos tokens que el modelo.
 

@@ -5,7 +5,7 @@
    es siempre ≤ ReLU(x), baja un poco por debajo de 0 (mínimo ≈ −0,17 en x ≈ −0,75) y ReLU es recta.
    Se redibuja con valores reales, x de −3 a 2 (GELU(2) = 1,95, dentro del eje de −1 a 2)."""
 import sys, math
-sys.path.insert(0, '/home/claude/diag/caps')
+sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 from PIL import Image, ImageDraw, ImageFont
 from fix_caps import cambiar, CB, MB
 

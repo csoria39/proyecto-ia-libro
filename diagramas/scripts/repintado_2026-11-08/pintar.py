@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 from fontTools.ttLib import TTFont
 import functools, os
 
-FD = os.environ.get('FIRA_DIR', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fuentes')) + '/'
+FD = os.environ.get('FIRA_DIR', os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'fuentes')) + '/'
 DJ = '/usr/share/fonts/truetype/dejavu/'
 LM = '/usr/share/texmf/fonts/opentype/public/lm/'
 SUBSETS = ['latin', 'latin-ext', 'greek', 'greek-ext', 'symbols2']
