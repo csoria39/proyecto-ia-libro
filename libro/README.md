@@ -44,12 +44,16 @@ implicación de 9.1, h₄ e y₁-y₃ de 10.1, eje y notación de 10.2, caja mul
 Scripts en `diagramas/scripts/repintado_2026-11-09b/`; versiones anteriores en
 `diagramas/originales/Diagrama_<n>_antes_2026-11-09b.png`. El PDF mantiene 377 páginas y el mismo texto.
 
+En el Capítulo 16, la tabla Nano-LLM / GPT-2 decía «Archivo de pesos 0.24 MB (float32)»; el Programa 8 guarda
+los 60 000 pesos en float64 (`nano_llm_pesos.npz` ocupa 488 646 B), así que ahora dice «0.49 MB (float64)». Es el
+único cambio de texto del PDF.
+
 ## SHA-256
 
 ```
 097ef3f2b4b7cf11327092e3c08eb98cddf159bb95635114a827832ba2e91931  Cubierta_KDP_377p_color_contraportada_corta.pdf
 9d9b52a0400c8b490590c7807a4e02d2f1d9167951bbe839aaeefc67532d8bc2  Cubierta_KDP_377p_color_contraportada_larga.pdf
-4de5e2f75b7e423b1f5e46ef4066296f7030acbdcd135684256178d8f8cfac8a  Libro_v18_interior_KDP.pdf
-bf29d6462c3c061d1256c230a39ace4a27f6b567e648b8150a0ef86af135cfc9  Libro_v18_sin_recortes_con_control_de_cambios.docx
-70d9434e7725eea9e0bda323e7e74028c0772f45b80e9f0ed936cb77412e52a8  Libro_v18_sin_recortes_limpio.docx
+95b41d375087267fcf1777851c0f40a8d6f16a4a85102fe990777ff0545fa11d  Libro_v18_interior_KDP.pdf
+f8642c54f5c6a82cfceed21191904e7a2a15032af52ff0c440fe0fe2f9205a12  Libro_v18_sin_recortes_con_control_de_cambios.docx
+e98a3d02ad7fd3861cde8b9c87dc765e1e185acb9eb1ef6c8fcc5a09bf212922  Libro_v18_sin_recortes_limpio.docx
 ```
