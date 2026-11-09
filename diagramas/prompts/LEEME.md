@@ -41,9 +41,9 @@ Las correcciones se hicieron en tres tandas:
    `diagramas/originales/Diagrama_<n>_antes_2026-11-09b.png`.
 
 Después de la tercera tanda, los 19 prompts se cotejaron uno a uno con la imagen final (textos, cifras, disposición,
-leyendas y posición de las flechas entre paneles) y se actualizaron. Dos defectos menores siguen en las imágenes y
-están anotados en sus prompts para que un generador no los repita: los descendentes recortados del título del 10.2 y
-un trazo suelto sobre la tabla del panel 3 del 11.2.
+leyendas y posición de las flechas entre paneles) y se actualizaron. Por último se limpiaron dos defectos menores:
+dos trazos sueltos bajo el título del 10.2 y uno sobre la tabla del panel 3 del 11.2 (versiones anteriores en
+`diagramas/originales/Diagrama_<n>_antes_2026-11-09c.png`).
 
 | Diagrama | Pág. | Correcciones | Las más importantes | Estado |
 |---|---|---|---|---|
@@ -57,9 +57,9 @@ un trazo suelto sobre la tabla del panel 3 del 11.2.
 | 7.4 Overfitting y regularización | 84 | 8 | Curva de prueba por debajo de la de entrenamiento; L2 no centrada en el origen | Corregido en el libro |
 | 9.1 Tokenización | 98 | 10 | Fusiones BPE imposibles; fertilidad y vocabularios inexactos | Corregido en el libro |
 | 10.1 Redes recurrentes | 111 | 5 | h₃ repetido; fórmula del gradiente sin la derivada de tanh | Corregido en el libro |
-| 10.2 LSTM | 118 | 8 | «Cuatro puertas» (son tres y un candidato); «solo sumas» | Corregido en el libro |
+| 10.2 LSTM | 118 | 9 | «Cuatro puertas» (son tres y un candidato); «solo sumas» | Corregido en el libro |
 | 11.1 Self-attention | 127 | 7 | Matriz causal incoherente con la bidireccional; caja multi-head deformada | Corregido en el libro |
-| 11.2 Self-attention: referencia | 135 | 2 | Coma decimal; matiz de las cabezas en el Capítulo 15 | Corregido en el libro |
+| 11.2 Self-attention: referencia | 135 | 3 | Coma decimal; matiz de las cabezas en el Capítulo 15 | Corregido en el libro |
 | 12.1 El bloque Transformer | 144 | 1 | Separador de miles y coma decimal | Corregido en el libro |
 | 13.1 El Nano-LLM | 181 | 2 | Curva de aprendizaje reproducible; pesos en disco 0.49 MB (float64) | Corregido en el libro |
 | 17.1 De nano a gigante | 285 | 3 | Barras de la escala log 2-3 décadas por debajo | Corregido en el libro |

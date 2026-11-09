@@ -19,16 +19,15 @@ Cifras, todas de ejecuciones impresas en el Capítulo 11:
   · Nano-LLM (programa_8_nano_llm.py): H = 4 cabezas, DH = 12, D = 48. Capítulo 15 (RZ-2): 1 cabeza aprende a
     sumar con 4 de 6 semillas; 2 cabezas, con 6 de 6.
 
-Correcciones respecto a la imagen publicada el 7-11-2026 (las dos ya están en diagramas/Diagrama_11.2.png y en el
-libro desde el 9-11-2026; este prompt describe esa imagen final, que en la revisión completa del 9-11-2026 no
-necesitó más cambios):
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_11.2.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
   1. Formato numérico: la imagen usaba coma decimal («0,164», «1,414», «16,3») y punto de miles («1.024»,
      «1.014,4»). El libro (texto, código y salidas) usa punto decimal: ahora «0.164», «1.414», «16.3», «1024»,
      «1014.4». En los vectores, coma entre componentes: [0.327, 1.509], [0.5, 0.5, 0].
   2. «En el Capítulo 15, pasar de 1 a 2 cabezas decide si aprende a sumar» era más rotundo que la medición: con
      1 cabeza aprende en 4 de 6 semillas. Ahora: «… con 1 cabeza aprende a sumar en 4 de 6 semillas; con 2, en 6 de 6».
-Detalle sin importancia que queda en la imagen: un trazo corto oscuro sobre el borde superior de la tabla del panel
-3, encima de «scores». Un generador no debe dibujarlo.
+  3. Un trazo corto oscuro pisaba el borde superior de la tabla del panel 3, encima de «scores». Borrado el
+     9-11-2026 (scripts/repintado_2026-11-09b/f11_2.py; versión anterior en originales/Diagrama_11.2_antes_2026-11-09c.png).
 Observación: «con √d_k se mantiene en torno al 36 %» coincide con la tabla (0.356–0.361); el texto de 11.5 dice
 «en torno al 35 %».
 

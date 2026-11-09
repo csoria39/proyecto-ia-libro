@@ -13,7 +13,7 @@ vanishing_gradient.txt): 1 → 0.455 (1) → 0.209 (2) → 0.018 (5) → 0.00048
 
 Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_10.2.png y en el
 libro; este prompt describe esa imagen final). Las 1-6 se repintaron el 8-11-2026 (scripts/repintado_2026-11-08/,
-versión anterior en originales/Diagrama_10.2_antes_repintado_2026-11-08.png); las 7-8, el 9-11-2026
+versión anterior en originales/Diagrama_10.2_antes_repintado_2026-11-08.png); las 7-9, el 9-11-2026
 (scripts/repintado_2026-11-09b/f10_2.py, versión anterior en originales/Diagrama_10.2_antes_2026-11-09b.png).
   1. «Cuatro puertas», «LAS CUATRO PUERTAS DE LA LSTM», «Las 4 puertas deciden», «LSTM estándar: 4 puertas»: la LSTM
      tiene tres puertas (olvido, entrada, salida) y un candidato g_t, que no es una puerta (usa tanh, no sigmoide).
@@ -30,9 +30,9 @@ versión anterior en originales/Diagrama_10.2_antes_repintado_2026-11-08.png); l
      Ahora «Magnitud del / gradiente», en dos líneas, girado.
   8. «i_t controla la cantidad (0-1)» y «g_t controla el contenido (-1,1)»: ahora con la notación de intervalo del
      libro, «(0, 1)» y «(−1, 1)».
-Defecto que queda en la imagen (es del generador y está igual en la versión de 7-11-2026): en el título, la cola de
-la «g» de «Long» y de la «y» de «Memory» sale recortada, y bajo ellas quedan dos trazos sueltos. Un generador debe
-dibujar el título completo, con los descendentes enteros.
+  9. Bajo el título quedaban dos trazos sueltos (restos del generador, ya en la imagen del 7-11-2026), bajo la «n»
+     de «Long» y bajo la «r» de «Memory». Borrados el 9-11-2026 (scripts/repintado_2026-11-09b/f10_2_titulo.py;
+     versión anterior en originales/Diagrama_10.2_antes_2026-11-09c.png).
 
 ======================================================================
 PROMPT
@@ -170,5 +170,5 @@ FINAL CHECK
 ✓ "gradiente → 0 en pocos pasos" (not épocas). Peephole sees C_{t−1}.
 ✓ RNN curve from Programa RNN-2 (0.455, 0.209, 0.018, 0.00048); its y-axis title "Magnitud del gradiente" legible.
 ✓ Intervals "(0, 1)" and "(−1, 1)", never "(0-1)".
-✓ Title rendered whole: the descenders of "g" and "y" not clipped, no stray marks under the title.
+✓ Title clean: no stray marks under it.
 ✓ Accents: "solución", "información", "Analogía", "multiplicación", "¿Qué", "Señales", "dominó", "parámetros".
