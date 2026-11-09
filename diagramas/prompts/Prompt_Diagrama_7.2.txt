@@ -1,0 +1,145 @@
+DIAGRAMA 7.2 — DIVISIÓN TRAIN / VALIDACIÓN / TEST
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
+
+Ubicación en el libro: Capítulo 7, apartado 7.5 «La división Train / Validación / Test» (el texto lo cita: «la
+división correcta de los datos (Diagrama 7.2)»). Página 71 del PDF de KDP, girada 90° (957 × 1643 en el .docx).
+Imagen de referencia: diagramas/Diagrama_7.2.png (1643 × 957 px), idéntica a la del libro una vez girada.
+Cifras: proporciones 70 / 15 / 15 (habituales; el texto no fija otras). El ejemplo de «El problema sin división» usa
+la ejecución real del Programa R-1 (salidas/salida_programa_R1_overfitting.txt), modelo de 256 neuronas:
+error de entrenamiento final 0.03226, de validación 0.09107, «OVERFITTING grave (val es 2.8x train)».
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_7.2.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. «El problema sin división» mostraba train_loss 0.001 y test_loss 0.847, cifras inventadas que no salen de
+     ningún programa del libro. Ahora van las del Programa R-1: 0.032 y 0.091 (2.8 veces más error fuera del
+     entrenamiento).
+  2. Junto a «¿Qué es el data leakage?» había un rectángulo amarillo vacío (icono que faltaba). Ahora, un icono de
+     gota cayendo de una tubería.
+  3. Tildes del título: en DIVISIÓN y VALIDACIÓN había una tilde suelta sobre la I, además de la de la Ó. Borradas.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1643 × 957 px, white background,
+flat vector style. Four tall panels side by side, joined by small dark-navy "arrow tags", plus a dark-navy bottom
+bar. Panels are rounded cards (radius ≈ 10 px, 1.5 px border #2A3F7A) with a dark-navy header (#14295E) and white
+bold uppercase text (15 px). Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; monospace for
+code. Render every string exactly as written; add no other text.
+
+Color code: Blue #1E4FB0 = conjunto de Train · Teal #0F7C6E = conjunto de Validación · Purple #5B2A9E = conjunto de
+Test · Green #2E7D32 = buenas prácticas / correcto · Red #D32F2F = data leakage / prohibido · Orange #F57C00 =
+advertencias / overfitting.
+
+---------------------------------------------------------------------
+HEADER (y = 0–125), centered
+---------------------------------------------------------------------
+"DIAGRAMA 7.2 — DIVISIÓN TRAIN / VALIDACIÓN / TEST"   44 px bold condensed navy
+"La evaluación honesta: cómo evitar que el modelo haga trampa"   22 px bold dark gray
+"Entrenamiento → Validación → Test  |  Cada conjunto tiene un rol único e irremplazable"   22 px bold navy
+"El error más costoso en ML: evaluar sobre datos que influyeron en el diseño del modelo"   15 px bold gray
+
+---------------------------------------------------------------------
+PANEL 1 — "¿POR QUÉ DIVIDIR LOS DATOS?"   (x ≈ 10–380, y ≈ 140–810)
+---------------------------------------------------------------------
+Card (cream #FFF8EC, orange border): books icon + title "ANALOGÍA: EL EXAMEN" (bold orange-red). Three rows with
+small icons:
+  open book "Estudias con los apuntes"        → "conjunto de TRAIN" (TRAIN in bold blue)
+  notepad "Haces ejercicios de práctica"     → "conjunto de VALIDACIÓN" (bold teal)
+  mortarboard "El examen final real"         → "conjunto de TEST" (bold purple)
+Dashed orange rule, then three lines: "Si estudias con las preguntas del examen," / "el resultado no refleja tu
+conocimiento real." / "Los modelos cometen exactamente el mismo error."
+Card (cream, orange border): ⚠ + bold red "El problema sin división:" then "Si evaluamos en los mismos datos con los
+que" / "entrenamos, el modelo SIEMPRE parecerá perfecto:". Gray monospace box:
+  "train_loss  →  0.032  ✓ (parece perfecto)"
+  "val_loss    →  0.091  ✗ (2.8 veces peor)"
+  and below in small gray italic: "Programa R-1, modelo de 256 neuronas"
+Bold red: "Error de train bajo ≠ modelo útil"
+Card (light green, green border): green check square + bold green "La solución: tres conjuntos", then "Separar los
+datos ANTES de cualquier decisión" / "de diseño. El test nunca se toca hasta el final." and a thick green arrow →.
+
+Arrow tag (at the height of the panel headers, between panels 1 and 2; dark-navy rounded label above a navy
+arrow): "tres conjuntos" / "con roles distintos".
+
+---------------------------------------------------------------------
+PANEL 2 — "LOS TRES CONJUNTOS Y SUS PROPORCIONES"   (x ≈ 415–830, y ≈ 140–810)
+---------------------------------------------------------------------
+A horizontal stacked bar: blue segment (70 % of width) "TRAIN  70%", teal segment "VAL" / "15%", purple segment
+"TEST" / "15%", white bold text. Under it, colored "70%", "15%", "15%"; italic gray "Proporciones típicas — pueden
+variar según el tamaño del dataset".
+Three cards:
+ Blue card: bar-chart icon, bold blue "CONJUNTO DE ENTRENAMIENTO", italic "El aula de clase", right "~70%".
+   Bullets: "El modelo AJUSTA SUS PESOS con estos datos." · "Backpropagation opera aquí en cada época." ·
+   "Cuantos más ejemplos, mejor generaliza."  Monospace box: "W ← W − η · ∂L_train/∂W"
+ Teal card: magnifier icon, bold teal "CONJUNTO DE VALIDACIÓN", italic "El simulacro del examen", right "~15%".
+   Bullets: "El modelo NUNCA aprende de estos datos." · "Se usa para DETECTAR overfitting en tiempo real." ·
+   "Guía decisiones de diseño: arquitectura, λ, dropout."  Yellow sub-box with ⚠: "Si val_loss sube mientras
+   train_loss baja" / "→ overfitting detectado → activar regularización"
+ Purple card: target icon, bold purple "◎ CONJUNTO DE TEST", italic "El veredicto final — usado UNA sola vez",
+   right "~15%". Bullets: "Se usa EXACTAMENTE UNA VEZ al final de todo." · "Nunca influye en ninguna decisión de
+   diseño." · "Su resultado es la métrica real del modelo."  Red sub-box with a padlock: bold red "REGLA DE ORO: no
+   mirar el test hasta terminar." / "Verlo antes contamina todas las decisiones."
+
+Arrow tag: "flujo secuencial" / "de uso".
+
+---------------------------------------------------------------------
+PANEL 3 — "FLUJO CORRECTO DE ENTRENAMIENTO"   (x ≈ 890–1275, y ≈ 140–810)
+---------------------------------------------------------------------
+Six stacked boxes joined by navy down-arrows:
+ ① blue border: "① RECOGER Y MEZCLAR DATOS" / "Aleatorizar el orden antes de dividir." / monospace "shuffle()" +
+   " primero — siempre"
+ ② gray border: "② DIVIDIR EN TRES CONJUNTOS" / "70% train / 15% val / 15% test" / "A partir de aquí: test = caja
+   sellada 🔒"
+ ③ blue border: "③ ENTRENAR CON TRAIN" / blue "Épocas, backprop, ajuste de pesos." / monospace box
+   "for epoca in range(N_EPOCAS):" / "    W = actualizar(W, train)"
+ ④ teal border: "④ EVALUAR EN VALIDACIÓN" / "Después de cada época (o cada N épocas)." / "Detectar overfitting,
+   ajustar hiperparámetros." / orange monospace "Si val_loss ↑ → revisar regularización"
+ An orange dashed arrow runs along the LEFT side of the column, from ④ back up to ③ (arrowhead pointing right into
+ ③), with the gray label "iterar" / "hasta" / "convergencia" to its left, in the gap between panels 2 and 3.
+ ⑤ green border: "⑤ MODELO FINAL LISTO" / "Entrenamiento terminado. Early stopping aplicado." / "Mejores pesos
+   guardados."
+ ⑥ thick purple border: "⑥ EVALUAR EN TEST — UNA VEZ" / "Resultado final. Métrica real publicable." / purple
+   monospace "test_accuracy = modelo.evaluar(X_test)" / green "→ Esta es la cifra que reportas en el paper / proyecto"
+Below a red dashed rule, red card: "🚫 NUNCA:" (bold) and bullets in red: "Usar test para elegir hiperparámetros" ·
+"Ver test más de una vez" · "Reentrenar con datos de test" / "Hacerlo invalida toda la evaluación" ("test" in bold).
+
+Arrow tag: "errores frecuentes" / "a evitar".
+
+---------------------------------------------------------------------
+PANEL 4 — "FUGA DE DATOS (DATA LEAKAGE)"   (x ≈ 1280–1635, y ≈ 140–810)
+---------------------------------------------------------------------
+Red bold: "El error más costoso y más difícil de detectar"
+Yellow card: a small icon of a drop falling from a pipe + bold "¿Qué es el data leakage?" then "Ocurre cuando
+información del conjunto de" / "validación o test se cuela en el entrenamiento." / "El modelo aprende a “hacer
+trampa”:" / "funciona en eval pero falla en producción."
+Three red cards, each with a red ✗ title, text, and a green sub-box "✓ CORRECTO: …":
+  "Normalizar ANTES de dividir" / "Calcular media y desviación sobre TODO" / "el dataset antes de separar train/test."
+     / "→ El test “contamina” la normalización."   ✓ "CORRECTO: calcular media/std SOLO en train," / "aplicar esa
+     misma transformación a val y test."
+  "Mirar el test para decidir" / "Evaluar en test, ajustar el modelo," / "volver a evaluar en test." / "→ El test se
+     convierte en validación implícita."   ✓ "CORRECTO: val para decisiones, test una sola vez."
+  "Datos duplicados entre conjuntos" / "El mismo ejemplo aparece en train Y test." / "→ El modelo ya ha visto ese
+     ejemplo."   ✓ "CORRECTO: verificar unicidad antes de dividir."
+Green card: ☑ bold "Regla de tres para evitar leakage:" and "1. Dividir primero, procesar después." /
+"2. Toda transformación se aprende en train." / "3. Test = caja sellada hasta el momento final."
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 828–940, dark navy)
+---------------------------------------------------------------------
+Left, white monospace 17 px, three rows with colored arrows (green ↓ = low, red ↑ = high):
+  "train_loss ↓  val_loss ↓  → Buen ajuste"
+  "train_loss ↓  val_loss ↑  → Overfitting"
+  "train_loss ↑  val_loss ↑  → Underfitting"
+Three rounded boxes with white bold text: blue "TRAIN: aprende" · teal "VAL: diagnostica" · purple "TEST: veredicto
+final (1 vez)".
+Right, legend titled "Color": Blue = Conjunto de Train · Teal = Conjunto de Validación · Purple = Conjunto de Test ·
+Green = Buenas prácticas / correcto · Red = Data leakage / prohibido · Orange = Advertencias / overfitting.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 7.2 — DIVISIÓN TRAIN / VALIDACIÓN / TEST" (one accent on each Ó, nothing over the I).
+✓ "El problema sin división" shows 0.032 and 0.091 (Programa R-1, 256 neuronas), NOT 0.001 / 0.847.
+✓ Split 70 / 15 / 15 everywhere.
+✓ No empty placeholder rectangles.
+✓ Accents: "DIVISIÓN", "VALIDACIÓN", "evaluación", "ANALOGÍA", "época", "Después", "información", "producción".

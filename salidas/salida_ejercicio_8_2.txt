@@ -1,0 +1,21 @@
+Texto: "la red neuronal aprende"
+Total de bigramas: 22
+
+Top 10 bigramas:
+   Bigrama     Frec.     Prob.  Barra
+---------------------------------------------
+      're'         2    0.0909  ██████████████████
+      'la'         1    0.0455  █████████
+      'a '         1    0.0455  █████████
+      ' r'         1    0.0455  █████████
+      'ed'         1    0.0455  █████████
+      'd '         1    0.0455  █████████
+      ' n'         1    0.0455  █████████
+      'ne'         1    0.0455  █████████
+      'eu'         1    0.0455  █████████
+      'ur'         1    0.0455  █████████
+
+Bigrama mas frecuente: 're' (2 veces)
+
+Probabilidad de que despues de a venga p:
+  P("p" | "a") = 0.3333

@@ -1,0 +1,21 @@
+Pasos: 12000  pérdida paso 0 = 3.8547  ln 46 = 3.8286  último paso = 0.2866
+Media móvil centrada de 200 pasos (paso 0: valor del propio paso):
+  paso      0: 3.85
+  paso   1000: 1.46
+  paso   2000: 0.93
+  paso   3000: 0.67
+  paso   4000: 0.52
+  paso   5000: 0.45
+  paso   6000: 0.40
+  paso   7000: 0.37
+  paso   8000: 0.34
+  paso   9000: 0.32
+  paso  10000: 0.30
+  paso  11000: 0.29
+  paso  12000: 0.28
+τ = 0.5: P('g')=0.45  P('e')=0.22  P('r')=0.10  P('i')=0.09
+τ = 0.8: P('g')=0.31  P('e')=0.20  P('r')=0.12  P('i')=0.11
+τ = 2.0: P('g')=0.17  P('e')=0.14  P('r')=0.12  P('i')=0.11
+top-p 0.9 con τ = 0.8 conserva 6 caracteres
+'la red' -> [23, 12, 1, 29, 16, 15]
+'un modelo ' -> [32, 25, 1, 24, 26, 15, 16, 23, 26, 1]

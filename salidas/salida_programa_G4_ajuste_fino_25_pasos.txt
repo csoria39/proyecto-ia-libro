@@ -1,0 +1,29 @@
+Pesos leídos en 1.1 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Entrenamiento: 83 frases = 1618 tokens BPE | validación: 10 frases
+
+Antes del ajuste:   entrenamiento 2.85 | validación 2.82 bits/carácter
+Muestra antes: la atención permite de la broix de la confluence des champs de la mesa, a los informaciones en vechas
+Paso    1: pérdida del lote = 4.676 nats/token   norma = 18.34   validación = 2.81 bits/carácter   (18 s)
+Paso   25: pérdida del lote = 3.392 nats/token   norma = 12.91   validación = 2.25 bits/carácter   (219 s)
+
+Después del ajuste: entrenamiento 1.96 | validación 2.25 bits/carácter
+Nano-LLM (Programa RZ-1), validación: mejor momento 1.923 nats = 2.77 bits; al final 4.175 nats = 6.02 bits
+
+--- 'la atención permite' ---
+la atención permite en español.
+la misma sumo entrena tener que la misma sumo entrena.
+la mism
+
+--- 'la función softmax' ---
+la función softmaxas una cronca de la mión.
+la cada función de la cuánta.
+la cada fun
+
+--- 'un modelo' ---
+un modelo.
+ere nuevos.
+e nuestros pergo.
+e una comprena el modelo.
+un prec

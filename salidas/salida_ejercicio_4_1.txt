@@ -1,0 +1,7 @@
+AND: w=[7.04, 7.04]  b=-10.65   preds=[0, 0, 0, 1]  ✓
+OR: w=[7.71, 7.71]  b=-3.62   preds=[0, 1, 1, 1]  ✓
+NAND: w=[-7.04, -7.04]  b=10.65   preds=[1, 1, 1, 0]  ✓
+
+Observación: NAND tiene pesos negativos y sesgo positivo.
+Esto tiene sentido: NAND activa la salida por defecto
+y la inhibe cuando recibe entradas positivas fuertes.

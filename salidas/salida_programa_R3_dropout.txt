@@ -1,0 +1,12 @@
+=== EFECTO DEL DROPOUT (red de 256 neuronas) ===
+
+               Configuracion      Train        Val    Ratio  Diagnostico
+------------------------------------------------------------------------------
+        Sin Dropout (p=0.00)    0.03237    0.09107    2.81x  OVERFITTING (val=2.8x train)
+   Dropout moderado (p=0.30)    0.05535    0.08764    1.58x  buen ajuste
+   Dropout estandar (p=0.50)    0.08372    0.11701    1.40x  buen ajuste
+
+--- Verificacion del escalado de Dropout ---
+Media activacion (entrenamiento, con mascara): 0.9855
+Media activacion (inferencia, sin mascara):    1.0000
+Las medias son similares gracias al escalado 1/(1-p) ("inverted dropout").

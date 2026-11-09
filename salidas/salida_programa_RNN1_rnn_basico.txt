@@ -1,0 +1,32 @@
+=== RNN: ESTADO OCULTO A TRAVES DEL TIEMPO ===
+Secuencia: "la inteligen"
+Vocab: 16 chars | Embedding: 8d | Estado oculto: 16d
+
+Cada columna es el estado oculto h_t (primeras 6 dims).
+Observa como cambia con cada nuevo caracter.
+
+ Paso   Char      h_t[:6] (estado oculto — la memoria)
+----------------------------------------------------------
+    0    '·'  [ 0.00  0.00  0.00  0.00  0.00  0.00]
+    1    'l'  [ 0.32 -0.67 -0.61  0.70 -0.96  0.06]
+    2    'a'  [ 0.97 -0.83 -0.92 -0.31 -0.02  0.10]
+    3    ' '  [-0.92  0.94 -0.25 -0.05  0.88  0.64]
+    4    'i'  [-0.72  0.03  0.06 -0.35 -0.03  0.66]
+    5    'n'  [ 0.72  0.47  0.61  0.22 -0.21 -0.22]
+    6    't'  [ 0.23  0.10 -0.16  0.89 -0.82  0.30]
+    7    'e'  [ 0.21 -0.96 -0.71  0.83 -0.79  0.50]
+    8    'l'  [ 0.71 -0.77 -0.85  0.61 -0.95  0.02]
+    9    'i'  [ 0.33 -0.22 -0.81 -0.39  0.47 -0.17]
+   10    'g'  [ 0.93  0.54 -0.59  0.19 -0.93  0.23]
+   11    'e'  [-0.12 -0.88 -0.79  0.85 -0.66  0.91]
+   12    'n'  [ 0.33 -0.30 -0.82  0.38  0.56  0.04]
+
+Perdida inicial (antes de entrenar): 2.7756
+Perdida aleatoria esperada: ln(16) = 2.7726
+
+=== DIFERENCIA CLAVE CON EL TRANSFORMER ===
+RNN: procesa 61 tokens de UNO EN UNO (secuencial).
+     Para procesar el token 50, necesita los pasos 1..49.
+     NO se puede paralelizar en GPUs.
+Transformer: procesa TODOS los tokens en PARALELO.
+     El entrenamiento es ordenes de magnitud mas rapido.

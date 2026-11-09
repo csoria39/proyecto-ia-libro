@@ -1,0 +1,10 @@
+idioma    caract.  palabras  tokens  tokens/palabra
+inglés         68        10      12             1.2
+español        79        12      24             2.0
+alemán         72        11      31             2.8
+griego         73        11      88             8.0
+chino          18        17      35             2.1
+
+Piezas del inglés: ['Art', 'ificial', '␣intelligence', '␣learns', '␣from', '␣data', '␣and', '␣predicts', '␣the', '␣next', '␣word', '.']
+
+Piezas del español: ['La', '␣intel', 'igen', 'cia', '␣artificial', '␣ap', 'rend', 'e', '␣de', '␣los', '␣dat', 'os', '␣y', '␣pred', 'ice', '␣la', '␣sig', 'u', 'ient', 'e', '␣pal', 'ab', 'ra', '.']

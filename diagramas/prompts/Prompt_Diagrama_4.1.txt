@@ -1,0 +1,161 @@
+DIAGRAMA 4.1 — GRADIENTE DESCENDENTE
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
+
+Ubicación en el libro: Capítulo 4 (El Aprendizaje — Gradientes y Backpropagation), tras el apartado 4.5
+«Programa 2 — Una neurona que aprende» y el resumen del capítulo. Página 36 del PDF de KDP, vertical.
+Imagen de referencia: diagramas/Diagrama_4.1.png (1024 × 1536 px), idéntica a la del libro.
+Cifras: el diagrama es conceptual; no muestra cifras de ningún programa. La regla de actualización es la del
+capítulo: w ← w − η·∇L(w) (Programa 2 usa lr = 0.5 en el ejemplo numérico de 4.4).
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_4.1.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. Panel 4: la flecha verde −∇L(w) no era la opuesta de la roja ∇L(w) y no apuntaba al centro de las curvas de
+     nivel. Ahora las dos son colineales y de sentido contrario: ∇L hacia fuera, −∇L hacia el mínimo.
+  2. Panel 1: las flechas entre los puntos del recorrido tenían doble punta (↔). Ahora una sola punta, cuesta abajo.
+  3. Panel 1: el rótulo naranja «(actualización de pesos)» estaba deformado. Ahora se lee bien.
+  4. Panel 7: la curva de pérdida empezaba por encima de L_inicial. Ahora arranca exactamente en L_inicial, baja
+     de forma exponencial, pasa por el punto azul y se aplana sobre L_mínimo sin cruzarlo.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a clean, professional educational infographic in Spanish, PORTRAIT, exactly 1024 × 1536 px, white
+background, flat vector style with one semi-realistic 3D surface and four small realistic illustrations (panel 6).
+Seven numbered panels in rounded cards (radius ≈ 14 px, 1.5 px border #A9BDE0), each with a header tab: a
+rounded dark-blue bar (#1F4E9A → #003C88) with white bold uppercase text (17 px) "N. TITLE". Fonts: bold condensed
+sans-serif for the title; Inter/Roboto for text; math in LaTeX-style serif italic. Render every string exactly as
+written; add no other text.
+
+Colors: title navy #00082C · subtitle purple #482088 · start red #C40000 · iteration orange #FC7C18 ·
+optimum green #1C5C1C · gradient red #D32F2F · descent green #2E7D32 · purple accents #5B3A9B.
+
+---------------------------------------------------------------------
+HEADER (y = 0–115)
+---------------------------------------------------------------------
+Line 1, 44 px bold condensed navy, centered: "DIAGRAMA 4.1 — GRADIENTE DESCENDENTE"
+Line 2, 36 px bold condensed purple, centered: "¿CÓMO APRENDE UNA RED NEURONAL?"
+Line 3, 20 px regular dark gray, centered: "Descenso por gradiente hacia el mínimo de error."
+
+---------------------------------------------------------------------
+PANEL 1 — "1. EL PAISAJE DEL ERROR (FUNCIÓN DE PÉRDIDA)"   (x ≈ 27–673, y ≈ 127–810)
+---------------------------------------------------------------------
+Intro line, 15 px: "La red neuronal busca los valores de los pesos que minimizan el error (pérdida)."
+A 3D loss surface in perspective: a smooth bowl with a raised ridge at the back and a high rim at the left; wireframe
+mesh lines; colored by height with a diverging map (deep blue #1E4FA0 at the bottom → light yellow in the middle →
+orange-red #E2603C on the highest parts). Under it, a flat floor plane in perspective with concentric elliptical
+contour lines (blue inside → green → yellow → orange → red outside) centered under the minimum. Thin dotted vertical
+guide lines at the floor corners.
+Axes: a vertical arrow on the left labelled "Error (Loss)" and L(w) (serif italic); floor axes labelled w₁ (front
+left) and w₂ (front right).
+Descent path: a red-ringed white dot at the top-left rim labelled in red "Inicio" and below "(pesos iniciales)";
+then five orange-ringed white dots going down the slope; then a green-ringed white dot at the very bottom labelled in
+green "Óptimo" and below "(mínimo de error)". Between consecutive dots, short white arrows with a dark outline and a
+SINGLE arrowhead pointing downhill (toward Óptimo).
+Orange label drawn on the surface itself, right of the middle of the path, 15 px bold "Iteraciones" and below, 13 px
+orange, "(actualización" / "de pesos)".
+Legend card (white, blue border, x ≈ 560–665, y ≈ 380–580): title "LEYENDA" (14 px bold blue) and three rows:
+  red dot "Inicio" / "(pesos iniciales)" · orange dot "Iteraciones" / "(pasos del" / "algoritmo)" ·
+  green dot "Óptimo" / "(mínimo de error)".
+Small note card (x ≈ 560–665, y ≈ 690–790), 13 px: "Cada punto es" / "un conjunto de" / "pesos w que" / "define la red."
+
+---------------------------------------------------------------------
+PANEL 2 — "2. ¿QUÉ OCURRE EN CADA PASO?"   (x ≈ 682–1000, y ≈ 127–810)
+---------------------------------------------------------------------
+Five steps stacked vertically, joined by thin gray down-arrows. Each: a white circle with a colored ring and a line
+icon on the left; on the right a numbered colored disc + bold uppercase title (15 px) + 2–3 lines of 14 px text.
+  ① blue ring, neural-network icon. Title (blue) "REALIZAR PREDICCIÓN".
+     "La red genera una salida ŷ" / "con los pesos actuales w."
+  ② orange ring, red bullseye with arrow. Title (orange-red) "CALCULAR ERROR (PÉRDIDA)".
+     "Se mide cuánto se equivoca" / "la predicción respecto al" / "valor real y."
+  ③ orange ring, mountain with an orange arrow going up-right. Title (orange) "CALCULAR GRADIENTE".
+     "Se calcula la dirección de" / "máxima subida del error" / "∇L(w)."
+  ④ green ring, three horizontal sliders. Title (green) "ACTUALIZAR PESOS".
+     "Se mueven los pesos en la" / "dirección opuesta (hacia" / "abajo) para reducir el error."
+  ⑤ purple ring, two circular arrows. Title (purple) "REPETIR".
+     "Se itera el proceso hasta" / "converger a un mínimo" / "(óptimo local o global)."
+Bottom box with dashed purple border: bold purple "Objetivo:" + " encontrar w* tal que" / "L(w*) sea mínima."
+
+---------------------------------------------------------------------
+PANEL 3 — "3. ACTUALIZACIÓN DE PESOS"   (x ≈ 27–327, y ≈ 836–1155)
+---------------------------------------------------------------------
+Light-blue rounded box: title "Regla de actualización (gradiente descendente)" (14 px bold blue) and the formula,
+26 px serif:  w^{(t+1)} = w^{(t)} − η ∇L( w^{(t)} )
+"Donde:" then three rows (symbol in serif on the left, 13 px text on the right):
+  w^{(t)} (green)         "Pesos en la iteración t"
+  η (green)               "Learning rate (tasa de aprendizaje)" / "Controla el tamaño del paso."
+  ∇L(w^{(t)})             "Gradiente de la función de pérdida" / "respecto a los pesos."
+Lavender box: bold purple "Interpretación:" then "Caminamos en la dirección opuesta al gradiente" /
+"para reducir lo más posible el error."
+
+---------------------------------------------------------------------
+PANEL 4 — "4. ¿QUÉ ES EL GRADIENTE?"   (x ≈ 330–655, y ≈ 836–1155)
+---------------------------------------------------------------------
+Text, 14 px: "El gradiente apunta hacia donde el error" / "aumenta más rápidamente."
+Plot with axes w₂ (vertical) and w₁ (horizontal). Six concentric circular contour lines (small orange circle at the
+center → yellow → green → blue outside), centered left of the middle. A black dot on the third contour, up-right of
+the center.
+From the dot: a red arrow pointing straight AWAY from the center, labelled in red "∇L(w)" and "(máxima subida)";
+and a green arrow of the same length in EXACTLY the opposite direction (toward the center), labelled in green
+"−∇L(w)" and "(dirección de" / "descenso)". Both arrows lie on one straight line, perpendicular to the contour.
+Caption under the plot, 14 px: "Nos movemos en −∇L(w) para bajar la colina."
+
+---------------------------------------------------------------------
+PANEL 5 — "5. EL PAPEL DEL LEARNING RATE (η)"   (x ≈ 658–1000, y ≈ 836–1155)
+---------------------------------------------------------------------
+Text, 14 px: "El tamaño del paso afecta la velocidad y estabilidad" / "del aprendizaje."
+Three rows, each a rounded box split in three cells: label | mini contour plot (light-blue ellipses) | description.
+  green border: "η muy pequeña" (green) | many small green dots in a straight line with tiny steps |
+                "Aprende muy lento." / "Muchos pasos para" / "llegar al óptimo."
+  orange border: "η adecuada" (orange) | a few orange dots zig-zagging gently to the center |
+                "Convergencia rápida" / "y estable hacia el" / "mínimo."
+  red border: "η muy grande" (red) | red dots jumping far across the valley in a large zig-zag |
+                "Puede saltarse el" / "mínimo o divergir" / "(oscilaciones)."
+Caption, 15 px: "Elegir un buen η es clave para un entrenamiento eficiente."
+
+---------------------------------------------------------------------
+PANEL 6 — "6. ANALOGÍA: EL MONTAÑISTA EN LA NIEBLA"   (x ≈ 27–520, y ≈ 1170–1435)
+---------------------------------------------------------------------
+Subtitle, 14 px: "No puede ver todo el valle, solo el terreno inmediato."
+Four realistic mountain-fog illustrations in a row with gray arrows between them, each with a numbered purple disc
+and 2–3 lines of 12 px caption above:
+  ① "Está en un punto" / "de la montaña."   — hiker standing on a rock, small red flag.
+  ② "Siente la pendiente" / "más pronunciada" / "a su alrededor."   — hiker with poles; red arrows around his feet.
+  ③ "Da un paso en esa" / "dirección (descenso" / "más pronunciado)."   — hiker stepping; a white arrow down-slope.
+  ④ "Repite el proceso" / "muchas veces hasta" / "llegar al fondo del valle."   — hiker in the valley; green flag.
+Lavender box with a light-bulb icon, bold purple 14 px, three lines:
+  "El gradiente descendente no busca adivinar la solución."
+  "La encuentra mediante miles o millones de pequeños ajustes"
+  "que reducen progresivamente el error del modelo."
+
+---------------------------------------------------------------------
+PANEL 7 — "7. PROCESO COMPLETO DE APRENDIZAJE"   (x ≈ 528–1000, y ≈ 1170–1435)
+---------------------------------------------------------------------
+Five circular icons in a row joined by arrows, with labels below:
+  database icon "Datos" → network icon "Red" / "(neurona)" → target icon "Predicción" / ŷ →
+  bar chart with red arrow "Pérdida" / L → gear icon "Actualización" / "de pesos";
+a return arrow runs underneath from the last icon back to "Red".
+Plot titled "Evolución del error durante el entrenamiento" (14 px bold blue): vertical axis L(w); tick labels
+L_inicial (near the top, dark) and L_mínimo (near the bottom, green), with a green dashed horizontal line only at
+L_mínimo; horizontal axis "Iteraciones". A purple decreasing curve that starts exactly at the height of L_inicial,
+drops fast (exponential decay) and flattens just above the L_mínimo line, never crossing it; a blue dot with a dark
+ring on the curve where it starts to flatten (about one fifth of the way along). Green-bordered note on the right: bold green "Convergencia:" / "el error se estabiliza" /
+"cerca de un mínimo."
+
+---------------------------------------------------------------------
+FOOTER (y ≈ 1445–1520, lavender band)
+---------------------------------------------------------------------
+Purple square with a white target icon; bold purple "IDEA CLAVE:"; then two lines, 15 px navy:
+  "El gradiente descendente es el motor de aprendizaje de las redes neuronales."
+  "Transforma el error en dirección y esa dirección en mejores predicciones."
+Right: small purple node network → arrow → green concentric target.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 4.1 — GRADIENTE DESCENDENTE".
+✓ Update rule exactly w^{(t+1)} = w^{(t)} − η ∇L(w^{(t)}).
+✓ Panel 4: −∇L(w) is the exact opposite of ∇L(w) and points to the center of the contours.
+✓ Panel 7: the curve starts at L_inicial and stays above L_mínimo.
+✓ Panel 1: single-headed arrows from Inicio down to Óptimo; "(actualización de pesos)" spelled correctly.
+✓ Accents: "DESCENDENTE", "¿CÓMO", "PÉRDIDA", "PREDICCIÓN", "Óptimo", "mínimo", "ANALOGÍA", "MONTAÑISTA".

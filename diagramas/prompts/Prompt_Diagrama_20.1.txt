@@ -1,0 +1,187 @@
+DIAGRAMA 20.1 — RAG: RETRIEVAL-AUGMENTED GENERATION
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
+
+Ubicación en el libro: Capítulo 20 (Herramientas y próximos pasos), apartado 20.4 «RAG — Retrieval-Augmented
+Generation». Página 313 del PDF de KDP, girada 90° (1024 × 1536 en el .docx).
+Imagen de referencia: diagramas/Diagrama_20.1.png (1536 × 1024 px). Es la del libro una vez girada, salvo el
+retoque del número del título (scripts/renumerar.py, «18» → «20.1»).
+Contenido según el libro: la similitud coseno del Capítulo 8 («rey» − «hombre» + «mujer» ≈ «reina», Mikolov et al.,
+2013; «los sistemas RAG (Capítulo 20) buscan documentos por similitud coseno»); 20.3 sobre Ollama («con un modelo
+descargado y sin usar sus funciones en la nube, tus textos no salen» del equipo); el programa de 20.4 y el
+Ejercicio 20.1 (embeddings simulados, búsqueda por similitud coseno, k fragmentos). El ejemplo del contrato y sus
+similitudes (0.87, 0.74, 0.61, 0.12) es ilustrativo, como en la imagen publicada.
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_20.1.png y en el
+libro; este prompt describe esa imagen final). Las 1-4 se repintaron el 8-11-2026 (scripts/repintado_2026-11-08/,
+versión anterior en originales/Diagrama_20.1_antes_repintado_2026-11-08.png); la 5, el 9-11-2026
+(scripts/repintado_2026-11-09b/f20_1.py, versión anterior en originales/Diagrama_20.1_antes_2026-11-09b.png).
+  1. «Privacidad total — datos en tu máquina»: el libro lo matizó (hallazgo H38). Aquí: «Privacidad: modelo descargado, sin funciones en la nube» (versión corta de «con un modelo
+     descargado y sin funciones en la nube, los datos no salen de tu máquina».
+  2. El gráfico de vectores no cuadra con la tabla «Top-3»: el gráfico dibuja la «política de cambios» como chunk 2
+     (0.61) y no muestra el «Artículo 3: garantías» (0.74) que la tabla pone en segundo lugar. Aquí el gráfico dibuja
+     los cuatro vectores de la tabla y uno descartado: chunk 1 (0.87), chunk 2 (0.74), chunk 3 (0.61) y chunk 4
+     (0.12, descartado).
+  3. La fase de indexación no tiene letras y la de consulta empieza en «E». Aquí, A–D y E–J.
+  4. El código del paso I está deformado (comillas y llaves sueltas). Aquí, un prompt limpio.
+  5. Las cadenas del gráfico de vectores iban sin tildes ('devolucion contrato', 'clausula devolucion 30 dias',
+     'articulo 3: garantias', 'politica de cambios'), al contrario que la tabla Top-3. Ahora con tildes.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1536 × 1024 px, white background,
+flat vector style. Four tall panels side by side, joined by dark-navy "arrow tags", plus a dark-navy bottom bar.
+Panels: rounded cards (radius ≈ 10 px, border #2A3F7A), dark-navy header (#14295E), white bold uppercase 15 px.
+Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; monospace for code. Render every string exactly
+as written; add no other text.
+
+Color code: Blue #1F5FAD = Query / HuggingFace / entrada · Teal #138A82 = Embeddings / Vector Store · Green #2E7D32 =
+Documentos recuperados · Orange #F57C00 = Contexto aumentado / LLM · Purple #6A1B9A = Respuesta final / multimodal ·
+Red #D32F2F = Limitaciones / alucinaciones.
+
+---------------------------------------------------------------------
+HEADER (y = 0–105), centered
+---------------------------------------------------------------------
+"DIAGRAMA 20.1 — RAG: RETRIEVAL-AUGMENTED GENERATION"   44 px bold condensed navy
+"Resumen visual del Capítulo 20 — El ecosistema práctico"   22 px bold gray
+"Documentos → Embeddings → Vector Store → Recuperar → Inyectar → Respuesta"   22 px bold navy
+"RAG soluciona dos limitaciones del LLM: fecha de corte y acceso a datos privados"   15 px bold gray
+
+---------------------------------------------------------------------
+PANEL 1 — "EL ECOSISTEMA PRÁCTICO"   (x ≈ 8–320, y ≈ 110–905)
+---------------------------------------------------------------------
+"De la teoría a la caja de herramientas"
+Red-bordered card: red ✗ + bold red "Dos limitaciones del LLM:"
+  "1. FECHA DE CORTE: su conocimiento" / "termina en la fecha de entrenamiento." / "Pregunta: “¿Qué pasó ayer?” → No sabe."
+  "2. DATOS PRIVADOS: no tiene acceso" / "a documentos de tu empresa." / "Pregunta: “¿Qué dice el contrato X?” → No sabe."
+  ("No sabe." in italic)
+Blue-bordered card: Hugging Face emoji face + bold blue "Hugging Face — modelos en 3 líneas"; dark code box
+  (syntax-colored):
+    from transformers import pipeline
+
+    gen = pipeline('text-generation',
+                   model='gpt2')
+    out = gen('Hola, me llamo')
+    print(out[0]['generated_text'])
+  green "Internamente: BPE → Transformer → softmax" / gray "→ exactamente lo que implementaste en el Programa 8"
+Green-bordered card: llama icon + bold green "Ollama — LLMs locales"; dark code box:
+    # Terminal:
+    ollama run llama3
+
+    # Python:
+    import ollama
+    r = ollama.chat('llama3',
+          messages=[{'role':'user',
+                     'content':'Hola'}])
+  green: "Privacidad: modelo descargado, sin funciones en la nube"
+  Three green checks: "✓ Privacidad   ✓ Sin coste API   ✓ Offline"
+
+Arrow tag between panels 1 and 2: a thick navy arrow at mid-height of the panels and, just below it, a dark-navy
+rounded label with white text "el pipeline" / "RAG" / "completo".
+
+---------------------------------------------------------------------
+PANEL 2 — "EL PIPELINE RAG — PASO A PASO"   (x ≈ 328–742, y ≈ 110–905)
+---------------------------------------------------------------------
+"Dos fases: INDEXACIÓN (offline) y CONSULTA (online)"
+Blue-bordered block "① FASE DE INDEXACIÓN (se hace UNA vez)" with four boxes joined by down-arrows, each with a
+letter on the left:
+  A  doc icon "DOCUMENTOS" / "Textos, PDFs, páginas web," / "contratos, manuales..."
+  B  scissors "CHUNKING" / "Dividir en fragmentos de ~500 palabras" / "con solapamiento para no perder contexto" /
+     monospace "chunk_size=500, overlap=50"
+  C  ruler "EMBEDDING" / "Cada chunk → vector de 768 dimensiones" / "usando un modelo de embedding" / monospace "vec =
+     embed_model.encode(chunk)"
+  D  database "VECTOR STORE" / "Índice de vectores para búsqueda rápida" / "FAISS, Chroma, Pinecone, Weaviate" /
+     "Almacena: (vector, texto_original, metadatos)"
+Gray dashed separator "tiempo después".
+Orange-bordered block "② FASE DE CONSULTA (en tiempo real)" with six boxes and letters:
+  E  speech bubble "PREGUNTA DEL USUARIO" / "“¿Qué dice el contrato sobre devoluciones?”"
+  F  ruler "EMBEDDING DE LA PREGUNTA" / "La pregunta también → vector 768D" / monospace "q_vec = embed_model.encode(pregunta)"
+  G  magnifier "BÚSQUEDA POR SIMILITUD COSENO" / "Comparar q_vec con TODOS los vectores" / "en el Vector Store" /
+     monospace "resultados = store.search(q_vec, k=3)"
+  H  doc "TOP-K CHUNKS RECUPERADOS" / "Los 3 fragmentos más similares" / "k=3 es configurable"
+  I  brain "CONTEXTO AUMENTADO → LLM" / "System prompt + chunks + pregunta" / monospace, clean:
+       "prompt = f'''Usa solo esta información:"
+       "{chunk_1}  {chunk_2}  {chunk_3}"
+       "Pregunta: {pregunta}'''"
+  J  green check "RESPUESTA FUNDAMENTADA" / "“Según la cláusula 7 del contrato, las" / "devoluciones deben solicitarse
+     en 30 días.”" / "cita la fuente, no alucina"
+
+Arrow tag between panels 2 and 3 (same style, mid-height): "por qué" / "funciona" / "(similitud" / "coseno)".
+
+---------------------------------------------------------------------
+PANEL 3 — "POR QUÉ FUNCIONA RAG"   (x ≈ 750–1105, y ≈ 110–905)
+---------------------------------------------------------------------
+"La similitud coseno del Capítulo 8 en acción"
+Orange-bordered cream card: light-bulb + bold orange "El puente entre capítulos:"
+  "En el Capítulo 8 aprendiste que:" / bullets "Las palabras similares tienen" / "vectores similares (alta sim.
+  coseno)" · "“rey” − “hombre” + “mujer” ≈ “reina”"
+  "RAG extiende esto a FRAGMENTOS completos:" / bullets "Chunk sobre “devoluciones” tiene vector" / "similar a
+  pregunta sobre “devoluciones”" · "La similitud coseno los conecta"
+  green "→ Semántica, no palabras clave exactas"
+Blue-bordered card "Similitud coseno en acción:" — a 2-D plot: a black vertical axis and a black dot as the common
+origin at the bottom left; five arrows leave the origin (the query almost vertical, at about 78°; each chunk at an
+angle from the query equal to arccos of its similarity); labels stacked in a column at the right, each with three
+lines: name (colored, bold) / text in small gray monospace with accents / "sim = …" in colored monospace:
+  blue "q_vec" (pregunta: "devolución contrato");
+  green "v1_vec (chunk 1)" "'cláusula devolución 30 días'" "sim = 0.87 ✓ RECUPERADO" — the closest to q_vec;
+  teal "v2_vec (chunk 2)" "'artículo 3: garantías'" "sim = 0.74 ✓"
+  orange "v3_vec (chunk 3)" "'política de cambios'" "sim = 0.61 ✓"
+  red "v4_vec (chunk 4)" "'historia de la empresa'" "sim = 0.12 ✗ descartado" — almost perpendicular to q_vec.
+  Two dashed gray arcs at the origin mark the angles to v1 (small) and to v4 (large); caption "El ángulo entre
+  vectores determina la relevancia".
+Teal-bordered card "Top-3 resultados del Vector Store:" with a table ("Rank" | "Similitud" | "Fragmento"):
+  1 | 0.87 | Cláusula 7: devoluciones...
+  2 | 0.74 | Artículo 3: garantías...
+  3 | 0.61 | Política de cambios...
+Red-bordered card: red ✗ "Sin RAG — el LLM alucina:" / "“Las devoluciones están permitidas" / "en los primeros 14
+  días.”" + red monospace "← INVENTADO"; separator; green ✓ "Con RAG — respuesta fundamentada:" / "“Según la cláusula 7,
+  las devoluciones" / "se solicitan en 30 días.”" + green monospace "← DEL DOCUMENTO".
+
+Arrow tag between panels 3 and 4 (same style, mid-height): "herramientas" / "y" / "multimodalidad".
+
+---------------------------------------------------------------------
+PANEL 4 — "ECOSISTEMA Y MULTIMODALIDAD"   (x ≈ 1113–1528, y ≈ 110–905)
+---------------------------------------------------------------------
+Bold navy "El ecosistema de herramientas LLM:" and a table ("Herramienta" | "Para qué" | "Nivel"):
+  HuggingFace | Modelos preentrenados | ★★★
+  Ollama      | LLMs locales          | ★★☆
+  LangChain   | Orquestar pipelines RAG | ★★★
+  FAISS       | Vector Store local    | ★★☆
+  Chroma      | Vector Store embebido | ★☆☆
+  OpenAI API  | GPT-4, embeddings     | ★★★
+Purple-bordered card: globe + bold purple "Modelos Multimodales" / "CNN + Transformer = visión + lenguaje"; a small flow:
+  "Imagen" (photo icon) → "Encoder CNN/ViT" → "Vector imagen" ↓ "fusión" ← "Tokenizer+ Embed" ← "Texto" (text icon);
+  "fusión" → "Transformer" → "Respuesta" (purple speech bubble).
+  Table ("Modelo" | "Capacidades"): GPT-4V | texto + imágenes · Gemini | texto + imágenes + audio · LLaMA-3.2V | texto +
+  imágenes (open) · CLIP | imagen ↔ texto (embeddings)
+  green: "Con los Caps. 12 y 20 y el Ap. G tienes" / "las bases de TODOS estos modelos."
+Orange-bordered cream card "RAG vs Fine-tuning — ¿cuándo usar cada uno?" with two columns:
+  RAG: "Datos cambian frecuentemente ✓" · "Documentos privados ✓" · "Sin re-entrenar ✓" · "Fuentes citables ✓" ·
+       "Alucinaciones reducidas ✓"
+  Fine-tuning: "Datos estables ✓" · "Cambiar el estilo ✓" · "Respuestas más fluidas ✓" · "Sin necesitar retrieval ✓" ·
+       "Caro en GPU ✗ si cambia"
+  bold orange: "RAG primero — fine-tune solo si no es suficiente."
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 918–1015, dark navy)
+---------------------------------------------------------------------
+Left, white text with monospace parts:
+  "INDEXAR:    docs → chunks → embed → vector store"
+  "CONSULTAR:  query → embed → search → retrieve → inject → LLM"
+  "            sim_coseno(q, doc) = (q·doc) / (|q|·|doc|)"
+Three rounded boxes, white bold: blue "HuggingFace + Ollama:" / "modelos listos" · teal "Vector Store:" / "búsqueda
+semántica" · orange "RAG: LLM +" / "conocimiento externo".
+Right: legend box with the six colors: Blue = Query / HuggingFace / entrada · Teal = Embeddings / Vector Store ·
+Green = Documentos recuperados · Orange = Contexto aumentado / LLM · Purple = Respuesta final / multimodal · Red =
+Limitaciones / alucinaciones.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 20.1 — RAG: RETRIEVAL-AUGMENTED GENERATION"; subtitle mentions "Capítulo 20".
+✓ No "Privacidad total"; the privacy line is conditional (modelo descargado, sin funciones en la nube).
+✓ Vector plot = table: 0.87, 0.74, 0.61 recovered; 0.12 discarded.
+✓ Steps lettered A–D (indexación) and E–J (consulta). Clean prompt code in step I.
+✓ Vector-plot strings with accents: "devolución", "cláusula", "días", "artículo", "garantías", "política".
+✓ Accents: "PRÁCTICO", "INDEXACIÓN", "BÚSQUEDA", "cláusula", "Artículo", "garantías", "Política", "teoría".

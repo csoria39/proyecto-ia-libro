@@ -1,0 +1,173 @@
+DIAGRAMA 2.1 — LA NEURONA ARTIFICIAL
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
+
+Ubicación en el libro: Capítulo 2 (La Neurona — Del Cerebro al Código), al final del apartado «Softmax», justo
+antes del recuadro «RESUMEN — LO ESENCIAL DE ESTE CAPÍTULO». Página 19 del PDF de KDP, girada 90° (en el .docx va
+como imagen vertical de 1024 × 1536; la original es horizontal).
+Imagen de referencia: diagramas/Diagrama_2.1.png (1536 × 1024 px), idéntica píxel a píxel a la del libro una vez
+girada.
+Cifras: el diagrama es conceptual. La única cifra con origen en el libro son las barras de softmax, que salen del
+ejemplo del propio capítulo: z = [2.0, 1.0, 0.5] → softmax = [0.628, 0.231, 0.140] (comprobado con NumPy:
+0.62853, 0.23122, 0.14024).
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (las dos ya están en diagramas/Diagrama_2.1.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. Las tres barras de la mini-gráfica de softmax medían ≈ 0.95, 0.55 y 0.25: sumaban ≈ 1.75, cuando la caja de al
+     lado dice «Probabilidades (0, 1) que suman 1». Ahora miden 0.628, 0.231 y 0.140, las del ejemplo del capítulo.
+  2. Sobre la flecha x₁ → w₁ había una «z» pequeña suelta (artefacto del generador). Eliminada.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a clean, professional educational infographic in Spanish, landscape, exactly 1536 × 1024 px, white background
+(#FFFFFF), flat vector style with soft rounded cards (corner radius ≈ 12 px, 1 px light-gray borders #D9DEE8), no
+shadows except a very subtle one on the big circles. Fonts: a bold condensed sans-serif (like Oswald / Bebas Neue
+Bold) for the main title; a clean sans-serif (like Inter / Roboto) for all other text; mathematical expressions in
+LaTeX-style serif italic (Computer Modern look). All text must be rendered exactly as written below, in Spanish,
+with accents. Do not add any text that is not listed.
+
+Main colors:
+  Title navy #0C0C28 · subtitle purple #582C94 · input blue #085CA8 (light fill #C0DCF8) ·
+  green #148028 · orange #F87C04 (sum circle fill: orange-yellow gradient #FDB54A → #F99A1C) ·
+  activation purple #543488 (light fill #DCD0EC) · output red #E82C30 (light fill #F4A4A4) ·
+  sigmoid curve blue #346CB0 · softmax bars purple #7854AC · "EN RESUMEN" pill purple #643898.
+
+---------------------------------------------------------------------
+ZONE A — HEADER (top band, y = 0–160 px)
+---------------------------------------------------------------------
+Left (x ≈ 35–650):
+  Title, 44 px, bold condensed, navy: "DIAGRAMA 2.1 — LA NEURONA ARTIFICIAL"
+  Subtitle, 26 px, semibold, purple #582C94, centered under the title: "De la información a la decisión"
+  Paragraph, 15 px, dark gray #333, centered, three lines:
+    "La neurona artificial es la unidad básica de procesamiento en las redes neuronales."
+    "Recibe entradas, las combina con pesos aprendidos, aplica una activación no lineal"
+    "y produce una salida o predicción."
+
+Right (x ≈ 690–1500): five numbered steps in a row, each = a filled circle (diameter 34 px, white bold digit),
+a bold uppercase label in the circle's color, and two centered lines of 14 px dark-gray text:
+  ① blue #085CA8    "ENTRADAS"              "Lo que percibimos" / "del entorno."
+  ② green #148028   "EVIDENCIA PONDERADA"   "Cada entrada tiene una" / "importancia (peso)."
+  ③ orange #F87C04  "COMBINACIÓN"           "Integramos la evidencia" / "y ajustamos el umbral (bias)."
+  ④ purple #543488  "ACTIVACIÓN"            "Introducimos no linealidad" / "para tomar la decisión."
+  ⑤ red #E82C30     "SALIDA"                "Nuestra predicción" / "o decisión."
+
+---------------------------------------------------------------------
+ZONE B — THE NEURON (y ≈ 175–505), left to right
+---------------------------------------------------------------------
+B1. Rounded card with blue border (x ≈ 30–235, y ≈ 180–505), header "VARIABLES DE ENTRADA" (14 px bold blue).
+    Four rows, each = a small colored icon + a label + a math symbol below it:
+      thermometer icon (red bulb)   "Temperatura"  x₁
+      water-drop icon (blue)        "Humedad"      x₂
+      pressure gauge icon (dial)    "Presión"      x₃
+      vertical ellipsis ⋮ (no label, no icon) between Presión and Viento
+      wind icon (blue lines)        "Viento"       xₙ
+B2. Next to each row, a light-blue circle (≈ 40 px, fill #C0DCF8, blue border) with the italic symbol x₁, x₂, x₃, xₙ,
+    and a ⋮ between x₃ and xₙ. A thin straight blue arrow (#286CB4) goes right from each xᵢ to its weight.
+    NOTHING is written on these arrows (no "z", no labels).
+B3. Column header above the weights: "PESOS" (14 px bold green) and below it "(importancia)" (13 px green).
+    Four light-green circles (≈ 46 px, fill #E3F2E3, green border) with the italic symbols w₁, w₂, w₃, wₙ, and a ⋮
+    between w₃ and wₙ.
+B4. From each weight, a thick curved ribbon arrow converges into the left side of the big sum circle. Ribbon colors
+    from top to bottom: w₁ green #6BAF6B, w₂ yellow #F7C64A, w₃ salmon-red #F28B82, wₙ purple #9C7FD0, each fading
+    slightly from pale at the weight to saturated at the arrowhead.
+B5. Above the sum circle: label "BIAS (umbral)" (14 px bold purple) and a lavender circle (≈ 50 px, fill #DCD0EC,
+    purple border) with the italic letter b; a short purple arrow goes down from b into the top of the sum circle.
+B6. Big sum circle (diameter ≈ 145 px, center ≈ (605, 345)), orange-yellow radial gradient, thin orange border.
+    Inside: a large Σ (≈ 60 px) and below it the formula  Σ_{i=1}^{n} x_i w_i  (serif italic, ≈ 24 px).
+B7. A thick navy arrow to the right, labelled above with a large italic z (≈ 30 px).
+B8. Card with purple border (x ≈ 795–995, y ≈ 205–440), header on two lines "FUNCIÓN DE" / "ACTIVACIÓN  f(z)"
+    (14 px bold purple, f(z) in serif italic). Inside, a small plot: vertical axis labelled f(z), horizontal axis
+    labelled z, tick "0" at the center, a purple S-shaped (sigmoid) curve, light gray dotted guide lines through the
+    center. Under the plot, four centered lines, 14 px dark gray:
+      "Introduce no linealidad" / "para que la red pueda" / "aprender patrones" / "complejos."
+B9. A thick navy arrow to the right into a red circle (diameter ≈ 110 px, fill #F4A4A4 → #F28B82 gradient, red border)
+    with a large italic ŷ.
+B10. Card with red border (x ≈ 1265–1490, y ≈ 255–500), header "DECISIÓN / PREDICCIÓN" (16 px bold red #E82C30).
+    Inside: "Ejemplo:" (14 px), then «“Lloverá”» in 20 px bold black (with typographic double quotes), then an icon
+    of a light-blue outlined cloud with blue raindrops (two rows of drops).
+
+---------------------------------------------------------------------
+ZONE C — LEGEND STRIP (one long rounded card, y ≈ 520–630), six cells separated by thin vertical rules
+---------------------------------------------------------------------
+Each cell = an icon circle (≈ 46 px) + a bold colored title + 2–3 lines of 13 px dark-gray text:
+  1. Blue ring icon (blue circle with white center).  Title (blue): "Entradas (x)"
+       "Características del" / "problema o del entorno."
+  2. Light-green circle with italic w.                Title (green): "Pesos (w)"
+       "Parámetros aprendidos que" / "indican la importancia de" / "cada entrada."
+  3. Lavender circle with italic b.                   Title (purple): "Bias (b)"
+       "Ajuste adicional que" / "desplaza el umbral de" / "activación."
+  4. Orange-yellow circle with Σ.                     Title (orange): "Combinación lineal"
+       "Suma ponderada de todas" / "las entradas más el bias."  and below, the formula  z = Σ_{i=1}^{n} x_i w_i + b
+  5. Lavender circle with italic f(z).                Title (purple): "Función de activación"
+       "Aplica no linealidad:" / "f(z) transforma z" / "en la salida."   (f(z) and z in serif italic)
+  6. Pink circle with italic ŷ.                       Title (red): "Salida (ŷ)"
+       "Resultado final:" / "predicción, probabilidad" / "o decisión."
+
+---------------------------------------------------------------------
+ZONE D — "FUNCIONES DE ACTIVACIÓN MÁS COMUNES" (y ≈ 645–935)
+---------------------------------------------------------------------
+Centered heading, 24 px bold navy: "FUNCIONES DE ACTIVACIÓN MÁS COMUNES", placed above columns ② and ③ (the headers
+of ①, ② and ④ sit on the same line as it; ③'s header sits just below it). Below, four columns separated by thin
+vertical rules, plus a fifth card on the right. Each column: numbered circle + colored name, the formula in serif,
+a small plot on the left, a tinted info box on the right ("Rango:" / value / "Uso:" / text, all centered, 13 px),
+and below a small white box with one ✓ (green check) line and one ✗ (red cross) line, 13 px.
+
+  ① blue "SIGMOID (σ)"   formula: σ(z) = 1 / (1 + e^{−z})   (written as a fraction)
+     Plot: y-axis label σ(z), ticks 0, 0.5, 1; x-axis ticks −4, −2, 0, 2 and label z; smooth blue S-curve from ≈0
+     at z = −4 to ≈1 at z = 4, crossing 0.5 at z = 0.
+     Info box (light blue #E6EEF9, blue border): "Rango:" "(0, 1)" "Uso:" "Clasificación" "binaria"
+     ✓ "Devuelve probabilidades."   ✗ "Saturación para valores extremos" / "(gradientes pequeños)."
+
+  ② green "ReLU"   formula: f(z) = max(0, z)
+     Plot: y-axis label f(z), ticks 0, 2, 4; x-axis ticks −4, −2, 0, 2, 4; green line flat at 0 for z < 0, then a
+     straight 45° line up to (4, 4).
+     Info box (light green #E8F5E9, green border): "Rango:" "[0, +∞)" "Uso:" "Capas ocultas" "profundas"
+     ✓ "Muy eficiente de calcular."   ✗ "Puede producir “neuronas muertas” (z ≤ 0)."
+
+  ③ orange "TANH"   formula: f(z) = tanh(z)
+     Plot: y-axis label f(z), ticks −1, 0, 1 with a thin horizontal line at 0; x-axis ticks −4, −2, 0, 2, 4; orange
+     S-curve from −1 to 1 through the origin.
+     Info box (light orange #FFF1E0, orange border): "Rango:" "(−1, 1)" "Uso:" "RNN y modelos" "que requieren"
+     "salidas centradas" "en cero"
+     ✓ "Salidas centradas en cero."   ✗ "Saturación para valores extremos."
+
+  ④ purple "SOFTMAX"   formula: softmax(z_i) = e^{z_i} / Σ_j e^{z_j}   (written as a fraction)
+     Plot: y-axis label "probabilidad", ticks 0, 0.5, 1; x-axis label "clases" and a small italic z at the right end.
+     EXACTLY three purple bars (#7854AC) with heights 0.628, 0.231 and 0.140 on that scale (the chapter's example
+     z = [2.0, 1.0, 0.5]); they must visibly add up to 1 (first bar a little above the 0.5 tick, the other two well
+     below it). No value labels on the bars.
+     Info box (lavender #EEE8F7, purple border): "Rango:" "Probabilidades" "(0, 1) que" "suman 1" "Uso:"
+     "Clasificación" "multiclase"
+     ✓ "Convierte en distribución de probabilidad."   ✗ "No se usa en capas ocultas (solo salida)."
+
+  Right card (x ≈ 1170–1505, cream fill #FCF8F0, golden border #E8C77A), heading "¿CÓMO ELEGIR?" (24 px bold
+  golden-orange #C8780A). Four rows, each with a dark line icon and two lines:
+     target/bullseye icon        bold "Problema binario"                         "→ Sigmoid"
+     node-network icon           bold "Capas ocultas profundas"                  "→ ReLU"
+     circular-arrows icon        bold "Redes recurrentes /" "Datos secuenciales" "→ Tanh"
+     group-of-people icon        bold "Clasificación multiclase"                 "→ Softmax"
+
+---------------------------------------------------------------------
+ZONE E — BOTTOM BAR (y ≈ 945–1010), light lavender rounded strip
+---------------------------------------------------------------------
+Left: purple pill (#643898) with white bold text "EN RESUMEN". Next to it a light-bulb line icon. Then a white
+rounded box with two lines (15 px):
+    "Cada neurona responde a una pregunta simple:"
+    bold: "“¿La evidencia combinada es suficiente para activar esta característica?”"
+A purple arrow → then a second white rounded box with two lines (15 px):
+    "Si la respuesta es sí, la activación lo permite"
+    "y la señal continúa hacia adelante en la red."
+At the far right, a small network of purple nodes and thin purple links converging to the right, then a pink circle
+with a red dot (output), echoing ŷ.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title exactly "DIAGRAMA 2.1 — LA NEURONA ARTIFICIAL".
+✓ Five steps ①–⑤ with the exact labels above.
+✓ No text on the arrows between xᵢ and wᵢ.
+✓ Softmax bars 0.628 / 0.231 / 0.140 (they add up to 1).
+✓ ReLU range "[0, +∞)", tanh range "(−1, 1)", sigmoid range "(0, 1)".
+✓ Every Spanish string spelled exactly as above (accents included: "ACTIVACIÓN", "PREDICCIÓN", "Lloverá",
+  "información", "decisión", "Clasificación", "característica").

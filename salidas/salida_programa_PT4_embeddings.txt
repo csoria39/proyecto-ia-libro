@@ -1,0 +1,18 @@
+Vocabulario: 18 caracteres
+Tabla de embeddings: torch.Size([18, 8])
+Parametros aprendibles: 144
+  (= 18 tokens x 8 dim = 144)
+
+Tokens de hola: [8, 13, 10, 2]
+Shape: torch.Size([4, 8])
+Embedding de h:
+  [-2.332 -0.005 -0.63   0.477 -0.683  0.406 -0.523 -0.137]
+
+Similitudes coseno (aleatorias antes de entrenar):
+  sim('h', 'o') = 0.3434
+  sim('h', 'h') = 1.0000
+  sim('h', ' ') = 0.3206
+
+Tras el entrenamiento, caracteres en contextos
+similares tendran similitudes mas altas.
+Esto emerge de loss.backward() + optimizer.step().

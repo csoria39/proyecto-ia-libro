@@ -1,0 +1,392 @@
+DIAGRAMA 13.1 — EL NANO-LLM DE EXTREMO A EXTREMO
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final). Sustituye a Prompt_Diagrama_15_v18.txt y Prompt_Diagrama_13.1_v18.txt.
+
+Ubicación en el libro: Capítulo 13 (El Nano-LLM), al final de 13.6.1 «Comprobación empírica — ¿arregla el ajuste de
+hiperparámetros el sobreajuste?». Página 181 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
+Imagen de referencia: diagramas/Diagrama_13.1.png (1672 × 941 px), idéntica a la del libro una vez girada. Se generó
+con este prompt (versión del 4-11-2026) y se retocó con scripts/fix_d13_1_d17_1.py; el original del autor está en
+originales/d13_1_autor_2026-11-04.png.
+Cifras: todas salen del Programa 8 (semilla 42) y de sus pesos entrenados. Se han vuelto a calcular el 8-11-2026 con
+calculos/diagrama_13_1_nano_llm.py, que ejecuta el Programa 8 sin cambiarlo y guarda la pérdida de cada paso
+(calculos/perdidas_programa_8.txt; salida en calculos/salida_diagrama_13_1_nano_llm.txt):
+  · Pérdida del paso 0 = 3.8547 (ln 46 = 3.8286); paso 11 999 = 0.2866 (0.41 bits/carácter).
+  · P('g' | 'un modelo ') = 0.45 (τ = 0.5), 0.31 (τ = 0.8), 0.17 (τ = 2.0); top-p 0.9 con τ = 0.8 conserva 6 caracteres.
+  · 'la red' = [23, 12, 1, 29, 16, 15]; 'un modelo ' = [32, 25, 1, 24, 26, 15, 16, 23, 26, 1].
+  · Texto generado (salidas/salida_programa_8_nano_llm.txt): «la inteligencia artificial aprende de los datos.» /
+    «los modelos de lenguaje predicen el siguiente token.»
+  · Parámetros: 60 000 = wte 2208 + wpe 1152 + 2 × 28 272 + LN final 96. GPT-2 small: 124 439 808.
+  · Pesos en disco: el Programa 8 guarda los 60 000 pesos con np.savez en float64; nano_llm_pesos.npz ocupa 488 646 B
+    = 0.49 MB. GPT-2 small: model.safetensors, 548 MB (float32).
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (las dos ya están en diagramas/Diagrama_13.1.png y en el
+libro; este prompt describe esa imagen final). La 1 venía en la versión verificada externamente (con retoques de
+scripts/repintado_2026-11-09/d13_1.py); la 2 se hizo en la revisión completa del 9-11-2026
+(scripts/repintado_2026-11-09b/f13_1.py; versión anterior en originales/Diagrama_13.1_antes_2026-11-09b.png).
+  1. Curva de aprendizaje: los puntos (1.39, 0.91, 0.66, 0.51 … 0.31) eran una media móvil cuyo tamaño de ventana
+     no quedó registrado, y no se podían reproducir. Ahora es una media móvil centrada de 200 pasos, reproducible con
+     el script: 1.46, 0.93, 0.67, 0.52, 0.45, 0.40, 0.37, 0.34, 0.32, 0.30, 0.29, 0.28.
+  2. Tabla del panel 4, «Pesos en disco»: decía 0.24 MB, que sería el tamaño en float32; el Programa 8 guarda en
+     float64 y el archivo ocupa 0.49 MB. Corregido (y también la misma cifra en la tabla del Capítulo 16 del libro).
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a professional technical educational diagram titled: "DIAGRAMA 13.1 — EL NANO-LLM DE EXTREMO A EXTREMO"
+
+╔══════════════════════════════════════════════════════════════════════╗
+║ CRITICAL — SUBTITLES                                                 ║
+║                                                                      ║
+║ SUBTITLE LINE 1 (18px dark gray):                                         ║
+║ "Resumen visual del Capítulo 13 — el Programa 8 de principio a fin"  ║
+║                                                                      ║
+║ SUBTITLE LINE 2 (16px #1A3A6B bold):                                 ║
+║ "Texto → Tokenizar → Embeber → 2 Bloques Transformer → Softmax       ║
+║  → Siguiente carácter"                                               ║
+║                                                                      ║
+║ SUBTITLE LINE 3 (13px black):                                         ║
+║ "La arquitectura de GPT-2, a escala nano: 60 000 parámetros"         ║
+║                                                                      ║
+║ STRICTLY FORBIDDEN in subtitles:                                     ║
+║ ✗ "Capítulo 9" or "Capítulo 8" (old numbering)                       ║
+║ ✗ "Capítulo 12" — that is Diagram 12.1                                 ║
+║ ✗ "la arquitectura que lo cambió todo" — that is Diagram 12.1          ║
+║ ✗ "Vaswani et al" as subtitle — that is Diagram 12.1                   ║
+║ ✗ "GPT-4" anywhere in the subtitles                                  ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+=== GENERAL SPECIFICATIONS ===
+Canvas: exactly 1672 × 941 px (16:9), horizontal layout, white background #FFFFFF. (The book image is 1672 × 941;
+all sizes in px below refer to a 1920 × 1080 layout and scale proportionally.)
+Four vertical panels connected by directional arrows.
+Panel header bars: dark navy #1A3A6B background, white Arial Bold 18px, 8px padding.
+ALL body text minimum 15px. ALL formula/code text: Courier New 15px minimum.
+NO text smaller than 13px anywhere.
+Number format: decimal point, as in Python and in the rest of the book: "0.673", "1.414", "3.85". Thousands are NOT separated with a point: four-digit numbers go together ("3280", "1024") and longer ones are grouped in threes with a thin space ("60 000", "124 439 808"). Lists of decimals are separated with commas: [0.327, 1.509].
+
+Color system:
+Navy #1A3A6B → panel headers
+Blue #0D47A1 → input text, tokenizer, embeddings
+Teal #004D40 → Transformer blocks
+Green #1B5E20 → output probabilities, generated text
+Orange #993300 → loss function, training loop
+Purple #6A1B9A → generation/inference, sampling
+Red #A00000 → loss value before training (random level)
+Gold #7A4A00 → parameters, dimensions, scale
+Dark gray #333333 → annotations (never lighter)
+Yellow #FFF9C4 → key insight boxes
+
+No 3D effects. No gradients. Clean academic style. 300dpi.
+
+=== CONTRAST (MANDATORY — the image is printed in a book, so every text must be easy to read) ===
+✓ Body text, numbers, table cells and code: pure black #000000. Annotations: dark gray #333333, never lighter.
+✓ Box and table backgrounds: white or very pale tints only (at most 10 % of the box colour: #EEF3FA blue, #E0F2F1 teal,
+  #E8F5E9 green, #FFF3E0 orange, #F3E5F5 purple, #FFEBEE red, #FFF9C4 yellow). Never a mid-tone fill under black text.
+✓ SMALL TEXT RULE (it overrides any colour given further down for a text): every text smaller than 15px — body text,
+  notes, labels, captions, table cells, code, axis and tick labels, bar labels, legends and highlighted notes — is
+  BLACK #000000 (bold where this prompt says bold), on a white or light-tinted background. The background tint may be
+  of any colour of the colour system. In small text, colour appears only as background tint, border, bullet, icon,
+  bar or line, never as the colour of the letters. Coloured letters are allowed only from 15px up (titles, box titles,
+  big numbers), always in the dark shades of the colour system.
+  Never light blue, light green, light teal, bright orange (#E65100, #F57C00), gold or gray letters.
+✓ White text only on dark fills: navy #1A3A6B, #0D47A1, #004D40, #1B5E20, #993300, #6A1B9A, #A00000. Never white text
+  on orange, gold, yellow, light teal or light green.
+✓ Every text/background pair must reach a contrast ratio of at least 7:1 (WCAG AAA).
+✓ Charts: axis lines, ticks and axis labels in black; data lines at least 3px; dashed reference lines at least 2px.
+✓ Box borders 2px, in the dark shade of their colour.
+
+
+=== PANEL 1 — ARQUITECTURA DEL NANO-LLM (leftmost, 26% width) ===
+HEADER: "ARQUITECTURA COMPLETA"
+Sub-label: "GPT-2 pieza a pieza, con tamaños diminutos" — black 14px.
+
+VERTICAL FLOW (top to bottom, 7 numbered steps, each box titled "1. …", "2. …" in bold). Steps 2–5 show their tensor
+shape in a separate cell at the right of the box, black Courier 14px.
+
+Step 1 (blue box): "Texto de entrenamiento"
+"93 frases · 5076 caracteres"
+Arrow down.
+
+Step 2 (blue box): "Tokenizador (nivel carácter)"
+"cada carácter → un número entero"
+Courier 14px: "'la red' → [23, 12, 1, 29, 16, 15]"
+"V = 46 caracteres"
+Shape: "(24,)"
+Arrow down.
+
+Step 3 (blue box): "Embedding de tokens + embedding posicional"
+Courier 14px:
+"x = wte[tokens] + wpe[0:24]"
+"wte: 46 × 48     wpe: 24 × 48"
+Shape: "(24 × 48)"
+Arrow down.
+
+Step 4 (TEAL box, large): "2 Bloques Transformer (Pre-LN, como GPT-2)"
+Courier 14px, two lines inside:
+"x = x + Atención(LN(x))   ← causal, 4 cabezas"
+"x = x + FFN(LN(x))        ← 48 → 192 → 48, GELU"
+"× 2 bloques"
+Shape: "(24 × 48)"
+Right cell of the same box (black, small, five short lines): "máscara" / "causal" / "cada" / "posición" / "solo ve" /
+"el pasado"
+
+Arrow down.
+
+Step 5 (green box): "LayerNorm final + capa de salida"
+Courier 14px: "logits = LN(x) · wteᵀ"
+Black 14px: "pesos compartidos: la misma tabla wte de la entrada"
+Shape: "(24 × 46)"
+Arrow down.
+
+Step 6 (green box): "Softmax → probabilidades"
+"P(siguiente carácter | contexto)"
+"46 probabilidades que suman 1"
+Arrow down.
+
+Step 7 (green filled, white text): "Siguiente carácter"
+"muestreo con temperatura 0.8 y top-p 0.9"
+
+NANO-LLM PARAMS (bottom, gold border), title "PARÁMETROS DEL NANO-LLM" (dark gold bold), Courier 14px, two columns:
+"V = 46        CTX = 24"
+"D = 48        D_FF = 192"
+"cabezas = 4   bloques = 2"
+"Total: 60 000 parámetros"
+Black 13px under it: "wte 2208 · wpe 1152 · 2 bloques × 28 272 · LN final 96"
+
+=== PANEL 2 — ENTRENAMIENTO AUTORREGRESIVO (center-left, 26% width) ===
+
+╔══════════════════════════════════════════════════════════════════════╗
+║ CRITICAL — PANEL 2 CONTENT                                           ║
+║                                                                      ║
+║ Panel 2 is about AUTOREGRESSIVE TRAINING of the Nano-LLM.            ║
+║                                                                      ║
+║ STRICTLY FORBIDDEN in Panel 2:                                       ║
+║ ✗ MHA / Add&Norm / FFN architecture boxes (that is Diagram 12.1)       ║
+║ ✗ Residual connection arrows (that is Diagram 12.1)                    ║
+║ ✗ LayerNorm formula γ·(x-μ)/σ+β (that is Diagram 12.1)                 ║
+║ ✗ d_ff = 4·d_model equations (that is Diagram 12.1)                    ║
+║ ✗ The word "bits" next to the value 3.83 or 3.85 (they are nats)     ║
+║                                                                      ║
+║ Panel 2 MUST contain ONLY:                                           ║
+║ 1. How to prepare a mini-batch (X and y, shifted by 1)               ║
+║ 2. The forward pass description                                      ║
+║ 3. Cross-entropy loss formula with the real values                   ║
+║ 4. Backprop + clipping + Adam with warm-up and cosine decay          ║
+║ 5. A learning curve chart with the real loss values                  ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+HEADER: "ENTRENAMIENTO AUTORREGRESIVO"
+Sub-label: "El modelo aprende a predecir el siguiente carácter" — black 14px.
+
+TRAINING DATA SETUP (blue border):
+Title: "① Preparar un mini-lote:" — blue bold 15px.
+Black 14px: "8 ventanas al azar del corpus, cada una de 25 caracteres (CTX + 1)"
+Text window (Courier 15px): "los modelos de lenguaje p"
+Two boxes stacked (so the 24-character strings fit):
+TOP (blue tint): "X = entrada = ventana[0:24]"
+Courier: "'los modelos de lenguaje '"
+BOTTOM (orange tint): "y = objetivo = ventana[1:25]"
+Courier: "'os modelos de lenguaje p'"
+Black note (bold): "en cada posición t, X[0..t] debe predecir y[t]"
+"objetivo desplazado 1 posición → 8 × 24 = 192 predicciones por paso"
+
+FORWARD PASS (teal border):
+Title: "② Forward pass:" — teal bold 15px.
+Courier 14px: "X (8 × 24) → Nano-LLM → logits (8 × 24 × 46)"
+"logits[t] → softmax → P sobre los 46 caracteres"
+
+LOSS (orange border):
+Title: "③ Pérdida — entropía cruzada:" — orange bold 15px.
+Courier 15px (red border):
+"L = −(1/192) · Σ ln P(y_t | x_1 … x_t)"
+"Paso 0:        L = 3.85 ≈ ln 46 = 3.83  (azar)"
+"Paso 11 999:   L = 0.29  (0.41 bits/carácter)"
+Black 13px: "bits/carácter = L / ln 2"
+Black bold: "→ la pérdida baja: el modelo aprende el texto"
+
+BACKPROP (orange border):
+Title: "④ Backprop + recorte + Adam:" — orange bold 15px.
+Courier 14px:
+"grads = backward(L)          ← regla de la cadena, exacta"
+"si ‖grads‖ > 1: recortar     ← CLIP = 1.0"
+"params = adam(params, grads, lr)"
+"lr: warm-up 150 pasos → coseno de 0.003 a 0.0001"
+"12 000 pasos · unos 2.5 min en un portátil"
+
+LEARNING CURVE (mini chart 220×110px, orange-bordered card titled "Curva de aprendizaje (pérdida en el
+entrenamiento)" in blue bold):
+X-axis: "Pasos" 0 → 12 000 (ticks 0, 4000, 8000, 12 000).
+Y-axis: "Pérdida" 0 → 4 (ticks 0, 1, 2, 3, 4).
+Blue curve through these exact points (centered 200-step moving average of the real run, seed 42):
+(0, 3.85) (1000, 1.46) (2000, 0.93) (3000, 0.67) (4000, 0.52) (5000, 0.45) (6000, 0.40)
+(7000, 0.37) (8000, 0.34) (9000, 0.32) (10 000, 0.30) (11 000, 0.29) (12 000, 0.28)
+Blue line with small round markers at those points.
+Red dashed horizontal at y = 3.83, labelled above it in dark red: "ln 46: no haber aprendido nada (3.83)"
+Green dashed horizontal at y = 0.29, labelled in dark green "final (0.29)" near the right end.
+Small legend inside the plot: blue line with marker "Pérdida (media móvil, 200 pasos)" · red dashed "ln 46: no haber
+aprendido nada" · green dashed "final: 0.29".
+Caption (black 13px): "Medida en el propio texto de entrenamiento: el modelo lo memoriza (13.6)"
+
+=== PANEL 3 — GENERACIÓN DE TEXTO (center-right, 24% width) ===
+
+╔══════════════════════════════════════════════════════════════════════╗
+║ CRITICAL — PANEL 3 CONTENT                                           ║
+║                                                                      ║
+║ Panel 3 is about TEXT GENERATION (inference) with the Nano-LLM.      ║
+║                                                                      ║
+║ STRICTLY FORBIDDEN in Panel 3:                                       ║
+║ ✗ LayerNorm details (that is Diagram 12.1)                             ║
+║ ✗ FFN architecture (Linear→GELU→Linear) (that is Diagram 12.1)         ║
+║ ✗ d_ff = 4 × d_model table (that is Diagram 12.1)                      ║
+║ ✗ "BatchNorm vs LayerNorm" comparison (that is Diagram 12.1)           ║
+║ ✗ "¿Por qué la FFN importa?" (that is Diagram 12.1)                    ║
+║ ✗ Invented example sentences: use ONLY the texts given below         ║
+║                                                                      ║
+║ Panel 3 MUST contain ONLY:                                           ║
+║ 1. The autoregressive generation loop (4 steps A→B→C→D→A)            ║
+║ 2. Temperature and top-p, with the real probabilities given below    ║
+║ 3. The real generated text, with the memorization warning            ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+HEADER: "GENERACIÓN DE TEXTO"
+Sub-label: "Autorregresiva: un carácter cada vez" — black 14px.
+
+GENERATION LOOP (top, purple):
+Title: "El bucle de generación:" — purple bold 15px.
+Four steps as a clockwise cycle:
+
+Step A (blue box): "① Contexto actual"
+"'un modelo '"
+Courier 13px: "[32, 25, 1, 24, 26, 15, 16, 23, 26, 1]"
+
+Step B (teal box): "② Forward pass"
+"contexto → Nano-LLM → logits"
+"nos quedamos con la última posición"
+
+Step C (purple box): "③ Elegir el siguiente carácter"
+Courier 13px: "P('g')=0.31  P('e')=0.20  P('r')=0.12  P('i')=0.11"
+"(con temperatura 0.8)"
+
+Step D (green box): "④ Añadirlo al contexto"
+"'un modelo g'"
+Black 13px: "si pasa de 24 caracteres, se usan los 24 últimos"
+
+Arrow from D back to A: "repetir para cada carácter nuevo"
+
+TEMPERATURE AND TOP-P (yellow #FFF9C4):
+Title: "🌡 Temperatura y top-p:" — orange bold 15px.
+Formula (Courier 14px): "P_i = exp(logit_i / τ) / Σ_j exp(logit_j / τ)"
+Small subtitle (black 14px): "Probabilidad de 'g' tras 'un modelo ' (valor real):"
+Three rows:
+"τ = 0.5" (label cell: dark blue fill, white text; the rest of the row in black on white): "P('g') = 0.45 — más concentrada, más predecible"
+"τ = 0.8" (label cell: dark green fill, white text; the rest of the row in black on white): "P('g') = 0.31 — la del Programa 8 ★"
+"τ = 2.0" (label cell: dark red fill, white text; the rest of the row in black on white): "P('g') = 0.17 — casi plana, errática"
+"τ → 0: siempre el más probable · τ → ∞: todos igual de probables"
+Black line (Courier 14px), on a pale purple tint #F3E5F5: "top-p = 0.9: se sortea solo entre los 6 más probables"
+Black 13px: "(los que juntos suman al menos el 90 %)"
+
+GENERATED EXAMPLE (purple border, light purple fill):
+Title: "Texto generado por el Nano-LLM (salida real):" — black bold 14px.
+Courier New 14px:
+"Semilla:  'la inteligencia'"
+"→ 'la inteligencia artificial aprende de los datos.'"
+"→ 'los modelos de lenguaje predicen el siguiente token.'"
+Black note (bold 14px), on a pale orange tint #FFF3E0: "⚠ Son frases del corpus, en el mismo orden: el modelo recita, no inventa."
+Black 13px: "Con 60 000 parámetros y 5076 caracteres, memoriza (13.6 y Capítulo 15)."
+
+=== PANEL 4 — TU NANO-LLM FRENTE A GPT-2 (rightmost, 24% width) ===
+
+╔══════════════════════════════════════════════════════════════════════╗
+║ CRITICAL — PANEL 4 CONTENT                                           ║
+║                                                                      ║
+║ Panel 4 connects the Nano-LLM with GPT-2 small, the model it copies  ║
+║ piece by piece (Chapter 13 table and Chapter 16).                    ║
+║                                                                      ║
+║ STRICTLY FORBIDDEN in Panel 4:                                       ║
+║ ✗ "N bloques idénticos apilados" visual (that is Diagram 12.1)         ║
+║ ✗ "Parámetros por bloque (d=512, H=8)" table (that is Diagram 12.1)    ║
+║ ✗ "La regla de los 12·N·d²" / params ≈ 12·N·d² (that is Diagram 12.1)  ║
+║ ✗ GPT-3, GPT-4 or any frontier model, log bar charts of model growth ║
+║   (scale to the giants is Diagram 17.1, Chapter 17)                    ║
+║ ✗ Any GPT-4 figure: its size is not public                           ║
+║ ✗ "~9000", "~9K", "<10 000", "vocab 65", "d = 64", "CTX = 64"       ║
+║                                                                      ║
+║ Panel 4 MUST contain ONLY:                                           ║
+║ 1. Comparison table Nano-LLM vs GPT-2 small (exact values below)     ║
+║ 2. The list of GPT-2 pieces that the Nano-LLM shares                 ║
+║ 3. Key insight box                                                   ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+HEADER: "TU NANO-LLM FRENTE A GPT-2"
+
+COMPARISON TABLE:
+Title: "La misma arquitectura, otra escala:" — navy bold 15px.
+3 columns: (concepto) | Tu Nano-LLM | GPT-2 small (2019)
+Header: navy bg, white bold 14px. Nano-LLM column with light green tint.
+"Parámetros"       | "60 000"         | "124 439 808"
+"Bloques"          | "2"              | "12"
+"Cabezas"          | "4 (de 12 dim.)" | "12 (de 64 dim.)"
+"Dimensión D"      | "48"             | "768"
+"FFN (D_FF)"       | "192"            | "3072"
+"Contexto"         | "24 caracteres"  | "1024 tokens"
+"Vocabulario"      | "46 caracteres"  | "50 257 tokens BPE"
+"Datos"            | "5 KB (93 frases)" | "40 GB (WebText)"
+"Pesos en disco"   | "0.49 MB"        | "548 MB"
+Below the table, black bold 17px on a pale gold tint #FFF3D6: "≈ 2000 veces más parámetros"
+
+SHARED PIECES (teal border):
+Title: "Piezas idénticas en los dos:" — teal bold 15px.
+" ✓ Embeddings de tokens y de posición aprendidos (wte, wpe)"
+" ✓ Bloques Pre-LN con atención causal multi-cabeza"
+" ✓ FFN con GELU"
+" ✓ LayerNorm final"
+" ✓ Salida con pesos compartidos (wte)"
+" ✓ Entrenamiento: predecir el siguiente token"
+" ✓ Generación: un token cada vez, con temperatura y top-p"
+Black 13px: "Solo cambian dos cosas fuera de la arquitectura: GPT-2 usa dropout y tokenizador BPE."
+
+KEY INSIGHT (yellow #FFF9C4):
+Title: "💡 Lo que demuestra el Programa 8:" — orange bold 15px.
+"La arquitectura funciona: atención, backward exacto y bucle de entrenamiento."
+Black bold: "En el Capítulo 16, el mismo forward() carga los pesos reales de GPT-2 small."
+Black bold: "Lo que aún no demuestra: generalizar. Para eso hacen falta muchos más datos."
+Black 13px: "Hacia los modelos actuales: Diagrama 17.1 (Capítulo 17)."
+
+=== BOTTOM BANNER (full width, navy #1A3A6B, height 96px) ===
+LEFT THIRD — white Courier New 14px:
+"x = wte[tokens] + wpe[0:24]          ← entrada"
+"x = Bloque(x)  × 2   (Pre-LN)        ← proceso"
+"P = softmax(LN(x) · wteᵀ)            ← salida"
+
+CENTER THIRD — three colored pills stacked vertically, one per line, between two thin white vertical rules:
+Blue pill #0D47A1: "Tokenizar → Embeber → Transformar"
+Orange pill #993300: "Entrenar: predecir el siguiente carácter"
+Purple pill #6A1B9A: "Generar: un carácter cada vez"
+
+RIGHT CORNER — legend in Spanish, Arial 13px white, white border 1px, small colored squares:
+■ Azul = Entrada / tokenizador / embeddings
+■ Verde azulado = Bloques Transformer
+■ Verde = Salida / texto generado
+■ Naranja = Pérdida / entrenamiento
+■ Morado = Generación / muestreo
+■ Dorado = Parámetros / formas
+
+=== INTER-PANEL ARROWS ===
+Navy #1A3A6B arrow-shaped tags (chevrons) in the gaps between panels, at mid-height, with white text inside
+(Arial 14px):
+Arrow 1→2: "cómo se entrena"
+Arrow 2→3: "cómo genera texto"
+Arrow 3→4: "conexión con GPT-2"
+
+=== ABSOLUTE CORRECTNESS REQUIREMENTS ===
+1. SUBTITLE 1: "Resumen visual del Capítulo 13", NOT Chapter 8, 9 or 12.
+2. EXACT NUMBERS, no others: pesos en disco 0.49 MB (float64) frente a 548 MB, V = 46, CTX = 24, D = 48, D_FF = 192, 4 cabezas, 2 bloques, 60 000 parámetros, 93 frases, 5076 caracteres, 8 ventanas por lote, 12 000 pasos, CLIP = 1.0, warm-up 150, lr 0.003 → 0.0001, temperatura 0.8, top-p 0.9.
+3. 'la red' = [23, 12, 1, 29, 16, 15]; 'un modelo ' = [32, 25, 1, 24, 26, 15, 16, 23, 26, 1].
+4. LOSS: 3.85 at step 0 (≈ ln 46 = 3.83, in nats, NOT bits); 0.29 at the end = 0.41 bits/carácter. Never "4.17", never "1.5-2.0", never "1.8".
+5. BLOCKS are Pre-LN: LayerNorm goes BEFORE attention and BEFORE the FFN, never after. There IS a final LayerNorm. The output layer reuses wte (shared weights).
+6. PANEL 2 contains ONLY training content. Zero architecture boxes.
+7. PANEL 3 contains ONLY generation content and uses ONLY the real texts above, with the memorization warning. Never "hola mundo", never "el gato duerme", never "Coherente con <10 000 parámetros".
+8. PANEL 4 compares ONLY with GPT-2 small. No GPT-3, no GPT-4, no growth chart.
+9. BANNER: three lines about wte/wpe, Bloque × 2 and softmax(LN(x)·wteᵀ). NOT Add&Norm equations or attention formulas.
+10. TEXT SIZE: nothing below 13px.
+11. NO PROMPT TEXT visible in the rendered image (no "CRITICAL", no "FORBIDDEN", no box-drawing frames).

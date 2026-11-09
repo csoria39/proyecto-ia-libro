@@ -1,0 +1,11 @@
+                   Modelo  FP32 (GiB)  FP16 (GiB)  INT4 (GiB)
+------------------------------------------------------------
+       Nano-LLM (nuestro)       0.000       0.000       0.000
+              GPT-2 small       0.462       0.231       0.058
+                 GPT-2 XL       5.804       2.902       0.726
+                 LLaMA-7B      26.077      13.039       3.260
+                LLaMA-13B      48.429      24.214       6.054
+               GPT-3 175B     651.926     325.963      81.491
+
+Una GPU A100: 80 GB  |  RTX 4090 (gaming): 24 GB
+INT4 permite ejecutar LLaMA-7B en una GPU de 4 GB!

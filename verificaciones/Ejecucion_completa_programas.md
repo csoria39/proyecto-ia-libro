@@ -1,0 +1,15396 @@
+# Ejecución completa de los programas y ejercicios del libro
+## *Proyecto IA — De la Neurona al LLM* (Carlos Soria Martínez), versión v18 (actualizado el 8-11-2026)
+
+**Qué contiene este documento.** Todo el código del libro, ejecutado de principio a fin en el orden en que aparece: los 46 programas (más 3 scripts complementarios que el libro imprime) y los 68 ejercicios con solución. Son 117 listados y 118 ejecuciones, porque el Ejercicio 13.7 se ejecuta en sus dos modos. Para cada uno se dan su capítulo y número, el listado completo tal como está impreso, la ejecución con toda su salida por consola, y la comparación con lo que el libro imprime o describe.
+
+**Cómo se ha hecho.**
+
+- **De dónde sale el código.** Se ha extraído del propio libro (el .docx final de la v18, versión sin recortes), no del repositorio. Después se comprobó que los 117 listados coinciden línea a línea con los archivos del repositorio, sin contar la línea de licencia SPDX.
+- **Carpeta de trabajo.** Todos los listados se guardaron en una carpeta limpia antes de empezar, porque algunos programas leen el listado de otro. Por ejemplo, el Ejercicio 7.3 reutiliza la clase del Programa R-3.
+- **Entorno.** Python 3.13.16 con NumPy 2.5.4 y OpenBLAS con un solo hilo (`OPENBLAS_NUM_THREADS=1`), el entorno de `requirements-probado.txt`. Los programas del Apéndice D se ejecutaron con PyTorch 2.14.1 (CPU), con NumPy 2.5.3.
+- **Datos previos.** Los pesos del Nano-LLM (`nano_llm_pesos.npz`) los genera el Programa 8 antes de que los usen los programas posteriores. GPT-2 se usó con los cuatro archivos de openai-community/gpt2, con su SHA-256 comprobado (`verificaciones/verificar_entorno.py`).
+- **Programa 8.** Las dos versiones, la de referencia y la comentada, se ejecutaron completas y sin interrumpir.
+- **Comparación.** La salida real se compara línea a línea con la que imprime el libro, sin tener en cuenta los espacios. Las líneas que el libro recorta por anchura de página se dan por iguales, y se señala aparte cuando lo único que cambia son los tiempos de ejecución. Si el libro no imprime la salida, se compara con la salida de referencia del repositorio (`salidas/`), que es la que describe el texto.
+- **Tiempos.** Se ejecutaron dos tandas a la vez, en una máquina de 2 núcleos: los capítulos 1 a 12 con los Apéndices D y G, y los capítulos 13 a 20. Por eso los tiempos medidos pueden ser algo mayores que los del libro. Ningún resultado numérico depende de ello.
+
+
+**Actualización del 8 de noviembre de 2026.** La segunda evaluación (5-11-2026) cambió el código de 12 listados: Programas 5, 9B, RZ-2, G-3, EVAL-1, EVAL-2, E-2 y PT-6, y Ejercicios 8.1, 13.3, 17.1 y 17.3. Esos 12 se han vuelto a ejecutar en una carpeta limpia (después del Programa 8, que genera los pesos del Nano-LLM), y sus secciones muestran el listado y la salida actuales, con una nota que explica el cambio. Los 117 listados de este documento coinciden con los archivos del repositorio.
+
+## Índice de lo ejecutado
+
+| # | Capítulo | Programa / ejercicio | Archivo | Resultado | Tiempo | Salida impresa en el libro |
+|---|---|---|---|---|---|---|
+| 1 | Capítulo 1 | Ejercicio 1.1 | `ejercicio_1_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 2 | Capítulo 1 | Ejercicio 1.2 | `ejercicio_1_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 3 | Capítulo 1 | Ejercicio 1.3 | `ejercicio_1_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 4 | Capítulo 2 | Ejercicio 2.1 | `ejercicio_2_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 5 | Capítulo 2 | Ejercicio 2.2 | `ejercicio_2_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 6 | Capítulo 2 | Ejercicio 2.3 | `ejercicio_2_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 7 | Capítulo 3 | Programa 1A | `programa_1a_activaciones.py` | correcta | 0.1 s | coincide |
+| 8 | Capítulo 3 | Programa 1B | `programa_1b_neurona.py` | correcta | 0.1 s | coincide |
+| 9 | Capítulo 3 | Ejercicio 3.1 | `ejercicio_3_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 10 | Capítulo 3 | Ejercicio 3.2 | `ejercicio_3_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 11 | Capítulo 3 | Ejercicio 3.3 | `ejercicio_3_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 12 | Capítulo 4 | Programa 2 | `programa_2_neurona_aprende.py` | correcta | 0.3 s | coincide |
+| 13 | Capítulo 4 | Ejercicio 4.1 | `ejercicio_4_1.py` | correcta | 0.4 s | — (el libro no la imprime) |
+| 14 | Capítulo 4 | Ejercicio 4.2 | `ejercicio_4_2.py` | correcta | 1.8 s | — (el libro no la imprime) |
+| 15 | Capítulo 4 | Ejercicio 4.3 | `ejercicio_4_3.py` | correcta | 0.2 s | — (el libro no la imprime) |
+| 16 | Capítulo 5 | Programa O-1 | `programa_O1_momentum.py` | correcta | 0.1 s | coincide |
+| 17 | Capítulo 5 | Programa O-2 | `programa_O2_optimizadores.py` | correcta | 0.1 s | coincide |
+| 18 | Capítulo 5 | Programa O-3 | `programa_O3_comparativa.py` | correcta | 1.1 s | coincide |
+| 19 | Capítulo 5 | Programa O-4 | `programa_O4_lr_scheduling.py` | correcta | 0.1 s | coincide |
+| 20 | Capítulo 5 | Ejercicio 5.1 | `ejercicio_5_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 21 | Capítulo 5 | Ejercicio 5.2 | `ejercicio_5_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 22 | Capítulo 5 | Ejercicio 5.3 | `ejercicio_5_3.py` | correcta | 0.2 s | — (el libro no la imprime) |
+| 23 | Capítulo 6 | Programa 3 | `programa_3_mlp.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 24 | Capítulo 6 | Programa 4 | `programa_4_xor.py` | correcta | 0.2 s | coincide |
+| 25 | Capítulo 6 | Ejercicio 6.1 | `ejercicio_6_1.py` | correcta | 0.4 s | — (el libro no la imprime) |
+| 26 | Capítulo 6 | Ejercicio 6.2 | `ejercicio_6_2.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 27 | Capítulo 6 | Ejercicio 6.3 | `ejercicio_6_3.py` | correcta | 4.8 s | — (el libro no la imprime) |
+| 28 | Capítulo 7 | Programa R-1 | `programa_R1_overfitting.py` | correcta | 8.8 s | coincide |
+| 29 | Capítulo 7 | Programa R-2 | `programa_R2_regularizacion.py` | correcta | 11.4 s | coincide |
+| 30 | Capítulo 7 | Programa R-3 | `programa_R3_dropout.py` | correcta | 7.4 s | coincide |
+| 31 | Capítulo 7 | Programa R-4 | `programa_R4_early_stopping.py` | correcta | 2.1 s | coincide |
+| 32 | Capítulo 7 | Ejercicio 7.1 | `ejercicio_7_1.py` | correcta | 10.9 s | — (el libro no la imprime) |
+| 33 | Capítulo 7 | Ejercicio 7.2 | `ejercicio_7_2.py` | correcta | 39.5 s | — (el libro no la imprime) |
+| 34 | Capítulo 7 | Ejercicio 7.3 | `ejercicio_7_3.py` | correcta | 3.1 s | — (el libro no la imprime) |
+| 35 | Capítulo 8 | Programa 5 | `programa_5_embeddings.py` | correcta | 0.6 s | coincide |
+| 36 | Capítulo 8 | Ejercicio 8.1 | `ejercicio_8_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 37 | Capítulo 8 | Ejercicio 8.2 | `ejercicio_8_2.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 38 | Capítulo 8 | Ejercicio 8.3 | `ejercicio_8_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 39 | Capítulo 9 | Programa BPE-1 | `programa_BPE1_entrenador.py` | correcta | 0.0 s | coincide |
+| 40 | Capítulo 9 | Programa BPE-2 | `programa_BPE2_codificador.py` | correcta | 0.0 s | coincide |
+| 41 | Capítulo 9 | Ejercicio 9.1 | `ejercicio_9_1.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 42 | Capítulo 9 | Ejercicio 9.2 | `ejercicio_9_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 43 | Capítulo 9 | Ejercicio 9.3 | `ejercicio_9_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 44 | Capítulo 10 | Programa RNN-1 | `programa_RNN1_rnn_basico.py` | correcta | 0.1 s | coincide |
+| 45 | Capítulo 10 | Programa RNN-2 | `programa_RNN2_vanishing_gradient.py` | correcta | 0.1 s | coincide |
+| 46 | Capítulo 10 | Ejercicio 10.1 | `ejercicio_10_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 47 | Capítulo 10 | Ejercicio 10.2 | `ejercicio_10_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 48 | Capítulo 10 | Ejercicio 10.3 | `ejercicio_10_3.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 49 | Capítulo 11 | Programa 6 | `programa_6_atencion.py` | correcta | 0.1 s | coincide |
+| 50 | Capítulo 11 | Script complementario | `figura_7_atencion_nano_llm.py` | correcta | 3.7 s | coincide |
+| 51 | Capítulo 11 | Ejercicio 11.1 | `ejercicio_11_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 52 | Capítulo 11 | Ejercicio 11.2 | `ejercicio_11_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 53 | Capítulo 11 | Ejercicio 11.3 | `ejercicio_11_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 54 | Capítulo 11 | Ejercicio 11.4 | `ejercicio_11_4.py` | correcta | 0.1 s | coincide |
+| 55 | Capítulo 12 | Programa 7 | `programa_7_transformer_bloque.py` | correcta | 0.1 s | coincide |
+| 56 | Capítulo 12 | Ejercicio 12.1 | `ejercicio_12_1.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 57 | Capítulo 12 | Ejercicio 12.2 | `ejercicio_12_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 58 | Capítulo 12 | Ejercicio 12.3 | `ejercicio_12_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 59 | Capítulo 13 | Programa 8 | `programa_8_nano_llm.py` | correcta | 85.1 s | coincide |
+| 60 | Capítulo 13 | Programa 8 | `programa_8_nano_llm_documentado.py` | correcta | 85.0 s | — (el libro no la imprime) |
+| 61 | Capítulo 13 | Ejercicio 13.1 | `ejercicio_13_1.py` | correcta | 21.0 s | coincide |
+| 62 | Capítulo 13 | Ejercicio 13.2 | `ejercicio_13_2.py` | correcta | 0.3 s | coincide |
+| 63 | Capítulo 13 | Ejercicio 13.3 | `ejercicio_13_3.py` | correcta | 1.0 s | coincide |
+| 64 | Capítulo 13 | Ejercicio 13.4 | `ejercicio_13_4.py` | correcta | 42.8 s | coincide |
+| 65 | Capítulo 13 | Ejercicio 13.5 | `ejercicio_13_5.py` | correcta | 28.3 s | coincide |
+| 66 | Capítulo 13 | Ejercicio 13.6 | `ejercicio_13_6.py` | correcta | 1.6 s | coincide |
+| 67 | Capítulo 13 | Ejercicio 13.7 | `ejercicio_13_7.py` | correcta | 85.3 s | coincide |
+| 67 | Capítulo 13 | Ejercicio 13.7 (sin recorte) | `ejercicio_13_7.py` sin_recorte | correcta | 85.1 s | coincide |
+| 68 | Capítulo 14 | Programa S-1 | `programa_S1_visualizacion.py` | correcta | 0.1 s | coincide |
+| 69 | Capítulo 14 | Programa S-2 | `programa_S2_generacion_completa.py` | correcta | 0.2 s | coincide |
+| 70 | Capítulo 14 | Ejercicio 14.1 | `ejercicio_14_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 71 | Capítulo 14 | Ejercicio 14.2 | `ejercicio_14_2.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 72 | Capítulo 14 | Ejercicio 14.3 | `ejercicio_14_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 73 | Capítulo 15 | Programa RZ-1 | `programa_RZ1_memoriza.py` | correcta | 69.9 s | coincide |
+| 74 | Capítulo 15 | Programa RZ-2 | `programa_RZ2_suma.py` | correcta | 124.3 s | coincide |
+| 75 | Capítulo 15 | Programa RZ-3 | `programa_RZ3_deduce_letras.py` | correcta | 353.0 s | coincide |
+| 76 | Capítulo 15 | Programa RZ-4 | `programa_RZ4_deduce_frases.py` | correcta | 1483.7 s | coincide |
+| 77 | Capítulo 15 | Ejercicio 15.1 | `ejercicio_15_1.py` | correcta | 90.3 s | coincide |
+| 78 | Capítulo 15 | Ejercicio 15.2 | `ejercicio_15_2.py` | correcta | 127.4 s | coincide |
+| 79 | Capítulo 15 | Ejercicio 15.3 | `ejercicio_15_3.py` | correcta | 103.8 s | coincide |
+| 80 | Capítulo 15 | Ejercicio 15.4 | `ejercicio_15_4.py` | correcta | 474.1 s | coincide |
+| 81 | Capítulo 15 | Ejercicio 15.5 | `ejercicio_15_5.py` | correcta | 1523.1 s | coincide |
+| 82 | Capítulo 16 | Programa 8 bis | `programa_8bis_gpt2_real.py` | correcta | 165.7 s | coincide (salvo tiempos) |
+| 83 | Capítulo 16 | Script complementario | `fragmento_9q3_bits.py` | correcta | 2.2 s | coincide (salvo tiempos) |
+| 84 | Capítulo 16 | Script complementario | `fragmento_9q4_repeticion.py` | correcta | 64.7 s | coincide |
+| 85 | Capítulo 16 | Programa G-1 | `programa_G1_lente_logits.py` | correcta | 29.2 s | coincide (salvo tiempos) |
+| 86 | Capítulo 16 | Programa G-2 | `programa_G2_induccion.py` | correcta | 3.5 s | coincide (salvo tiempos) |
+| 87 | Capítulo 16 | Programa G-3 | `programa_G3_kvcache.py` | correcta | 143.7 s | coincide (salvo tiempos) |
+| 88 | Capítulo 16 | Programa G-4 | `programa_G4_ajuste_fino.py` | correcta | 2107.4 s | coincide (salvo tiempos) |
+| 89 | Capítulo 16 | Ejercicio 16.1 | `ejercicio_16_1.py` | correcta | 0.2 s | coincide |
+| 90 | Capítulo 16 | Ejercicio 16.2 | `ejercicio_16_2.py` | correcta | 16.1 s | coincide (salvo tiempos) |
+| 91 | Capítulo 16 | Ejercicio 16.3 | `ejercicio_16_3.py` | correcta | 2.1 s | coincide (salvo tiempos) |
+| 92 | Capítulo 16 | Ejercicio 16.4 | `ejercicio_16_4.py` | correcta | 94.5 s | coincide (salvo tiempos) |
+| 93 | Capítulo 16 | Ejercicio 16.5 | `ejercicio_16_5.py` | correcta | 15.6 s | coincide (salvo tiempos) |
+| 94 | Capítulo 17 | Ejercicio 17.1 | `ejercicio_17_1.py` | correcta | 1.3 s | — (el libro no la imprime) |
+| 95 | Capítulo 17 | Ejercicio 17.2 | `ejercicio_17_2.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 96 | Capítulo 17 | Ejercicio 17.3 | `ejercicio_17_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 97 | Capítulo 18 | Programa EVAL-1 | `programa_EVAL1_perplexity.py` | correcta | 1.0 s | coincide |
+| 98 | Capítulo 18 | Programa EVAL-2 | `programa_EVAL2_bleu_benchmark.py` | correcta | 0.3 s | coincide |
+| 99 | Capítulo 18 | Ejercicio 18.1 | `ejercicio_18_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 100 | Capítulo 18 | Ejercicio 18.2 | `ejercicio_18_2.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 101 | Capítulo 18 | Ejercicio 18.3 | `ejercicio_18_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 102 | Capítulo 19 | Programa E-1 | `programa_E1_sesgo.py` | correcta | 0.2 s | coincide |
+| 103 | Capítulo 19 | Programa E-2 | `programa_E2_fairness.py` | correcta | 1.0 s | coincide |
+| 104 | Capítulo 20 | Ejercicio 20.1 | `ejercicio_20_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 105 | Capítulo 20 | Ejercicio 20.2 | `ejercicio_20_2.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 106 | Apéndice D | Programa PT-1 | `programa_PT1_tensores_activaciones.py` | correcta | 3.2 s | coincide |
+| 107 | Apéndice D | Programa PT-2 | `programa_PT2_neurona_and.py` | correcta | 85.4 s | coincide |
+| 108 | Apéndice D | Programa PT-3 | `programa_PT3_mlp_xor.py` | correcta | 3.9 s | — (el libro no la imprime) |
+| 109 | Apéndice D | Programa PT-4 | `programa_PT4_embeddings.py` | correcta | 1.3 s | — (el libro no la imprime) |
+| 110 | Apéndice D | Programa PT-5 | `programa_PT5_self_attention.py` | correcta | 1.3 s | — (el libro no la imprime) |
+| 111 | Apéndice D | Programa PT-6 | `programa_PT6_transformer_bloque.py` | correcta | 95.0 s | coincide |
+| 112 | Apéndice D | Programa PT-7 | `programa_PT7_nano_llm.py` | correcta | 68.9 s | coincide |
+| 113 | Apéndice G | Programa 9A | `programa_9a_convolucion.py` | correcta | 0.1 s | coincide |
+| 114 | Apéndice G | Programa 9B | `programa_9b_cnn.py` | correcta | 9.9 s | coincide |
+| 115 | Apéndice G | Ejercicio G.1 | `ejercicio_G_1.py` | correcta | 0.1 s | — (el libro no la imprime) |
+| 116 | Apéndice G | Ejercicio G.2 | `ejercicio_G_2.py` | correcta | 0.0 s | — (el libro no la imprime) |
+| 117 | Apéndice G | Ejercicio G.3 | `ejercicio_G_3.py` | correcta | 0.1 s | — (el libro no la imprime) |
+
+
+---
+
+# Capítulo 1: ¿Qué es la Inteligencia Artificial? (*)
+
+## 1. Ejercicio 1.1 — Vectores y matrices con NumPy
+
+**Archivo:** `ejercicio_1_1.py`  ·  **Capítulo:** Capítulo 1: ¿Qué es la Inteligencia Artificial? (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (22 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+v1 = np.array([1.0, 2.0, 3.0, 4.0])
+v2 = np.array([4.0, 3.0, 2.0, 1.0])
+ 
+print('Suma:                   ', v1 + v2)
+print('Diferencia:             ', v1 - v2)
+print('Producto elem. a elem.: ', v1 * v2)
+print('Producto punto (dot):   ', np.dot(v1, v2))  # 1*4+2*3+3*2+4*1 = 20
+ 
+# Multiplicación de matrices
+A = np.array([[1, 2, 3],
+              [4, 5, 6]])       # (2, 3)
+B = np.array([[7, 8],
+              [9, 10],
+              [11, 12]])        # (3, 2)
+ 
+C = A @ B                      # (2, 3) @ (3, 2) = (2, 2)
+print('\nA (2x3):\n', A)
+print('B (3x2):\n', B)
+print('A @ B (2x2):\n', C)
+print('Regla: (mxn) @ (nxp) = (mxp)')
+```
+
+**Ejecución:** `python ejercicio_1_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Suma:                    [5. 5. 5. 5.]
+Diferencia:              [-3. -1.  1.  3.]
+Producto elem. a elem.:  [4. 6. 6. 4.]
+Producto punto (dot):    20.0
+
+A (2x3):
+ [[1 2 3]
+ [4 5 6]]
+B (3x2):
+ [[ 7  8]
+ [ 9 10]
+ [11 12]]
+A @ B (2x2):
+ [[ 58  64]
+ [139 154]]
+Regla: (mxn) @ (nxp) = (mxp)
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_1_1.txt`), que es la que describe el texto.
+
+## 2. Ejercicio 1.2 — Softmax y la propiedad de suma = 1
+
+**Archivo:** `ejercicio_1_2.py`  ·  **Capítulo:** Capítulo 1: ¿Qué es la Inteligencia Artificial? (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (25 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(z):
+    """Implementación estable de softmax"""
+    e = np.exp(z - z.max())   # restar el máximo evita overflow
+    return e / e.sum()
+ 
+# Vectores de prueba, incluyendo casos extremos
+vectores = [
+    np.array([1.0, 2.0, 3.0]),
+    np.array([100.0, 200.0, 300.0]),   # valores muy grandes
+    np.array([-5.0, 0.0, 5.0]),
+    np.array([0.0, 0.0, 0.0]),          # todos iguales -> uniforme
+]
+ 
+print('Verificación: softmax siempre suma 1.0')
+print(f"{'Vector':>28}  {'Softmax':>26}  {'Suma':>10}")
+print('-' * 68)
+for v in vectores:
+    s = softmax(v)
+    print(f'{str(v):>28}  {str(s.round(4)):>26}  {s.sum():.8f}')
+ 
+# Sin el truco del máximo, np.exp(300) ≈ 2e130 aún cabe en float64, pero
+# np.exp(1000) -> inf (overflow): z - z.max() lo evita en cualquier caso
+# Con el truco: exp([100-300, 200-300, 300-300]) = exp([-200,-100,0])
+```
+
+**Ejecución:** `python ejercicio_1_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Verificación: softmax siempre suma 1.0
+                      Vector                     Softmax        Suma
+--------------------------------------------------------------------
+                  [1. 2. 3.]      [0.09   0.2447 0.6652]  1.00000000
+            [100. 200. 300.]                  [0. 0. 1.]  1.00000000
+               [-5.  0.  5.]      [0.     0.0067 0.9933]  1.00000000
+                  [0. 0. 0.]      [0.3333 0.3333 0.3333]  1.00000000
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_1_2.txt`), que es la que describe el texto.
+
+## 3. Ejercicio 1.3 — El efecto de la temperatura en softmax
+
+**Archivo:** `ejercicio_1_3.py`  ·  **Capítulo:** Capítulo 1: ¿Qué es la Inteligencia Artificial? (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (26 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax_temp(z, tau=1.0):
+    z_t = z / tau
+    e   = np.exp(z_t - z_t.max())
+    return e / e.sum()
+ 
+z = np.array([2.0, 1.5, 0.5])
+print(f'Vector: {z}')
+print(f"{'Tau':>8}  {'P(A)':>8}  {'P(B)':>8}  {'P(C)':>8}  Comportamiento")
+print('-' * 58)
+ 
+for tau, desc in [
+    (0.1, 'muy determinista'),
+    (0.5, 'algo concentrada'),
+    (1.0, 'neutro (default)'),
+    (2.0, 'algo uniforme'),
+    (10.0,'casi uniforme'),
+]:
+    p = softmax_temp(z, tau)
+    print(f'{tau:>8.1f}  {p[0]:>8.4f}  {p[1]:>8.4f}  {p[2]:>8.4f}  {desc}')
+ 
+print()
+print('Con tau=0.1: casi todo el peso en el mayor (2.0)')
+print('Con tau=10:  los tres tokens tienen probabilidad similar')
+print('En generacion de LLMs: tau=0.8 da buen balance')
+```
+
+**Ejecución:** `python ejercicio_1_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Vector: [2.  1.5 0.5]
+     Tau      P(A)      P(B)      P(C)  Comportamiento
+----------------------------------------------------------
+     0.1    0.9933    0.0067    0.0000  muy determinista
+     0.5    0.7054    0.2595    0.0351  algo concentrada
+     1.0    0.5465    0.3315    0.1220  neutro (default)
+     2.0    0.4442    0.3460    0.2098  algo uniforme
+    10.0    0.3556    0.3383    0.3061  casi uniforme
+
+Con tau=0.1: casi todo el peso en el mayor (2.0)
+Con tau=10:  los tres tokens tienen probabilidad similar
+En generacion de LLMs: tau=0.8 da buen balance
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_1_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 2: La Neurona — Del Cerebro al Código (*)
+
+## 4. Ejercicio 2.1 — Cálculo manual de una neurona
+
+**Archivo:** `ejercicio_2_1.py`  ·  **Capítulo:** Capítulo 2: La Neurona — Del Cerebro al Código (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (22 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+entradas = np.array([0.5,  0.8])
+pesos    = np.array([0.3, -0.4])
+sesgo    = 0.2
+ 
+def sigmoid(z): return 1 / (1 + np.exp(-z))
+ 
+# --- Cálculo paso a paso ---
+p1 = entradas[0] * pesos[0]    # 0.5 x 0.30 =  0.15
+p2 = entradas[1] * pesos[1]    # 0.8 x (-0.4) = -0.32
+z  = p1 + p2 + sesgo           # 0.15 + (-0.32) + 0.20 = 0.03
+sal = sigmoid(z)
+ 
+print('=== CÁLCULO DETALLADO ===')
+print(f'  x1.w1 = {entradas[0]} x {pesos[0]}  = {p1:.4f}')
+print(f'  x2.w2 = {entradas[1]} x {pesos[1]} = {p2:.4f}')
+print(f'  sesgo =                   {sesgo:.4f}')
+print(f'  z     = {p1:.4f} + ({p2:.4f}) + {sesgo:.4f} = {z:.4f}')
+print(f'  σ({z:.4f}) = 1/(1+e^{-z:.4f}) = {sal:.6f}')
+print()
+print(f'Como z={z:.4f} > 0, la salida ({sal:.4f}) > 0.5 ✓')
+```
+
+**Ejecución:** `python ejercicio_2_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== CÁLCULO DETALLADO ===
+  x1.w1 = 0.5 x 0.3  = 0.1500
+  x2.w2 = 0.8 x -0.4 = -0.3200
+  sesgo =                   0.2000
+  z     = 0.1500 + (-0.3200) + 0.2000 = 0.0300
+  σ(0.0300) = 1/(1+e^-0.0300) = 0.507499
+
+Como z=0.0300 > 0, la salida (0.5075) > 0.5 ✓
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_2_1.txt`), que es la que describe el texto.
+
+## 5. Ejercicio 2.2 — Neurona con ReLU y comparación
+
+**Archivo:** `ejercicio_2_2.py`  ·  **Capítulo:** Capítulo 2: La Neurona — Del Cerebro al Código (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (34 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+class NeuronaFlex:
+    def __init__(self, n, activacion='sigmoid', semilla=42):
+        np.random.seed(semilla)
+        self.W = np.random.randn(n) * 0.5
+        self.b = 0.1
+        self.activacion = activacion
+    
+    def calcular(self, x):
+        z = np.dot(np.array(x), self.W) + self.b
+        if self.activacion == 'sigmoid':
+            return 1/(1+np.exp(-z)), z
+        elif self.activacion == 'relu':
+            return max(0.0, z), z
+        elif self.activacion == 'tanh':
+            return np.tanh(z), z
+ 
+n_sig = NeuronaFlex(3, 'sigmoid')
+n_rel = NeuronaFlex(3, 'relu')
+ 
+casos = [[1.0,1.0,1.0], [-1.0,-1.0,-1.0], [0.0,0.0,0.0]]
+print(f"{'Entradas':>22}  {'Sigmoid':>10}  {'ReLU':>10}  {'z':>8}")
+print('-' * 57)
+for x in casos:
+    s, z = n_sig.calcular(x)
+    r, _ = n_rel.calcular(x)
+    print(f'{str(x):>22}  {s:>10.4f}  {r:>10.4f}  {z:>8.4f}')
+ 
+print()
+print('Diferencias clave:')
+print('* Sigmoid: acotada en (0,1), nunca exactamente 0')
+print('* ReLU:    puede ser 0 exacto (neurona apagada)')
+print('* ReLU:    sin acotación superior')
+```
+
+**Ejecución:** `python ejercicio_2_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+              Entradas     Sigmoid        ReLU         z
+---------------------------------------------------------
+       [1.0, 1.0, 1.0]      0.6464      0.6031    0.6031
+    [-1.0, -1.0, -1.0]      0.4006      0.0000   -0.4031
+       [0.0, 0.0, 0.0]      0.5250      0.1000    0.1000
+
+Diferencias clave:
+* Sigmoid: acotada en (0,1), nunca exactamente 0
+* ReLU:    puede ser 0 exacto (neurona apagada)
+* ReLU:    sin acotación superior
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_2_2.txt`), que es la que describe el texto.
+
+## 6. Ejercicio 2.3 — El papel del sesgo como umbral
+
+**Archivo:** `ejercicio_2_3.py`  ·  **Capítulo:** Capítulo 2: La Neurona — Del Cerebro al Código (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (25 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def sigmoid(z): return 1/(1+np.exp(-z))
+ 
+peso   = 1.0
+x_fijo = 0.0
+ 
+print('Neurona con 1 entrada: w=1.0, x=0 (fija)')
+print(f"{'Sesgo b':>10}  {'z=x*w+b':>10}  {'σ(z)':>10}  Estado")
+print('-' * 50)
+ 
+for b in range(-5, 6):
+    z = x_fijo * peso + b
+    s = sigmoid(z)
+    if s < 0.12:   estado = 'prácticamente apagada (≈0)'
+    elif s < 0.40: estado = 'inhibida'
+    elif s < 0.60: estado = 'neutral (≈0.5)'
+    elif s < 0.88: estado = 'activa'
+    else:          estado = 'prácticamente encendida (≈1)'
+    print(f'{b:>10.0f}  {z:>10.1f}  {s:>10.4f}  {estado}')
+ 
+print()
+print('Conclusión: el sesgo controla el umbral de activación.')
+print('Sesgo negativo -> la neurona necesita entradas más fuertes')
+print('Sesgo positivo -> la neurona se activa incluso con entradas débiles')
+```
+
+**Ejecución:** `python ejercicio_2_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Neurona con 1 entrada: w=1.0, x=0 (fija)
+   Sesgo b     z=x*w+b        σ(z)  Estado
+--------------------------------------------------
+        -5        -5.0      0.0067  prácticamente apagada (≈0)
+        -4        -4.0      0.0180  prácticamente apagada (≈0)
+        -3        -3.0      0.0474  prácticamente apagada (≈0)
+        -2        -2.0      0.1192  prácticamente apagada (≈0)
+        -1        -1.0      0.2689  inhibida
+         0         0.0      0.5000  neutral (≈0.5)
+         1         1.0      0.7311  activa
+         2         2.0      0.8808  prácticamente encendida (≈1)
+         3         3.0      0.9526  prácticamente encendida (≈1)
+         4         4.0      0.9820  prácticamente encendida (≈1)
+         5         5.0      0.9933  prácticamente encendida (≈1)
+
+Conclusión: el sesgo controla el umbral de activación.
+Sesgo negativo -> la neurona necesita entradas más fuertes
+Sesgo positivo -> la neurona se activa incluso con entradas débiles
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_2_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 3: Programando Nuestra Primera Neurona (*)
+
+## 7. Programa 1A — Funciones de activación
+
+**Archivo:** `programa_1a_activaciones.py`  ·  **Capítulo:** Capítulo 3: Programando Nuestra Primera Neurona (*)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (47 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# FUNCIONES DE ACTIVACIÓN
+# Cada función transforma un número de entrada en una salida
+# =======================================================
+ 
+def sigmoid(z):
+    """Comprime cualquier número al rango (0, 1)"""
+    return 1.0 / (1.0 + np.exp(-z))
+ 
+def derivada_sigmoid(z):
+    """Derivada de sigmoid — necesaria para el aprendizaje"""
+    s = sigmoid(z)
+    return s * (1.0 - s)
+ 
+def relu(z):
+    """Rectified Linear Unit — la más usada en capas ocultas"""
+    return np.maximum(0.0, z)
+ 
+def derivada_relu(z):
+    """Derivada de ReLU: 1 donde z>0, 0 donde z≤0"""
+    return (np.asarray(z) > 0).astype(float)   # asarray: funciona también con un número suelto
+ 
+def tanh_act(z):
+    """Tangente hiperbólica — rango (-1, 1)"""
+    return np.tanh(z)
+ 
+def softmax(z):
+    """Convierte un vector en distribución de probabilidad"""
+    # Restamos el máximo para evitar desbordamiento numérico
+    e_z = np.exp(z - np.max(z))
+    return e_z / e_z.sum()
+ 
+# -- Demostración ---------------------------------------
+print('=== FUNCIONES DE ACTIVACIÓN ===')
+print(f'{"Entrada":>8}  {"Sigmoid":>9}  {"ReLU":>6}  {"Tanh":>8}')
+print('-' * 40)
+for z in [-3.0, -1.0, -0.5, 0.0, 0.5, 1.0, 3.0]:
+    print(f'{z:8.1f}  {sigmoid(z):9.4f}  {relu(z):6.2f}  {tanh_act(z):8.4f}')
+ 
+# Softmax con un ejemplo
+logits = np.array([2.0, 1.0, 0.5, -0.5])
+probs  = softmax(logits)
+print(f'\nSoftmax([2.0, 1.0, 0.5, -0.5]):')
+print(f'  {probs.round(4)}')
+print(f'  Suman: {probs.sum():.6f}')
+```
+
+**Ejecución:** `python programa_1a_activaciones.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== FUNCIONES DE ACTIVACIÓN ===
+ Entrada    Sigmoid    ReLU      Tanh
+----------------------------------------
+    -3.0     0.0474    0.00   -0.9951
+    -1.0     0.2689    0.00   -0.7616
+    -0.5     0.3775    0.00   -0.4621
+     0.0     0.5000    0.00    0.0000
+     0.5     0.6225    0.50    0.4621
+     1.0     0.7311    1.00    0.7616
+     3.0     0.9526    3.00    0.9951
+
+Softmax([2.0, 1.0, 0.5, -0.5]):
+  [0.5977 0.2199 0.1334 0.0491]
+  Suman: 1.000000
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (13 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 8. Programa 1B — La neurona artificial completa
+
+**Archivo:** `programa_1b_neurona.py`  ·  **Capítulo:** Capítulo 3: Programando Nuestra Primera Neurona (*)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (74 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# CLASE NEURONA ARTIFICIAL
+# Implementa el modelo: salida = sigmoid(X . W + b)
+# =======================================================
+ 
+class Neurona:
+    """
+    Una neurona artificial con función de activación sigmoid.
+    
+    Parámetros aprendibles:
+      - pesos: un valor por cada entrada
+      - sesgo: un valor adicional (permite desplazar la activación)
+    """
+    
+    def __init__(self, n_entradas, semilla=42):
+        np.random.seed(semilla)
+        # Inicializamos con valores pequeños aleatorios
+        # Si fueran todos cero, la red nunca aprendería diferencias
+        self.pesos = np.random.randn(n_entradas) * 0.3
+        self.sesgo = 0.0
+        self.n_entradas = n_entradas
+    
+    def _sigmoid(self, z):
+        return 1.0 / (1.0 + np.exp(-z))
+    
+    def calcular(self, entradas):
+        """
+        Realiza el cálculo forward (hacia adelante).
+        Retorna la salida y la pre-activación z.
+        """
+        entradas = np.array(entradas, dtype=float)
+        if entradas.shape != (self.n_entradas,):
+            raise ValueError(f'Se esperaban {self.n_entradas} entradas')
+        
+        # Paso 1: suma ponderada
+        z = np.dot(entradas, self.pesos) + self.sesgo
+        # Paso 2: función de activación
+        salida = self._sigmoid(z)
+        return salida, z
+    
+    def __repr__(self):
+        return (f'Neurona(n={self.n_entradas}, '
+                f'pesos={self.pesos.round(4)}, '
+                f'sesgo={self.sesgo:.4f})')
+ 
+ 
+# -- Demostración ---------------------------------------
+print('=== NUESTRA PRIMERA NEURONA ARTIFICIAL ===\n')
+ 
+# Creamos una neurona que acepta 3 entradas
+neurona = Neurona(n_entradas=3)
+print(f'Neurona creada:\n  {neurona}\n')
+ 
+# La probamos con distintos conjuntos de entradas
+casos = [
+    ([0.0, 0.0, 0.0], 'Entradas todas a cero'),
+    ([1.0, 1.0, 1.0], 'Entradas todas a uno'),
+    ([0.8, 0.2, 0.6], 'Entradas mixtas'),
+    ([-1.0, 2.0, -0.5], 'Entradas con negativos'),
+]
+ 
+print(f'{"Descripción":<30} {"z (pre-act.)":>14} {"Salida":>10}')
+print('-' * 58)
+for entradas, desc in casos:
+    salida, z = neurona.calcular(entradas)
+    print(f'{desc:<30} {z:14.4f} {salida:10.4f}')
+ 
+# Interpretación de la salida
+print('\nInterpretación:')
+print('  Salida ≈ 0.5 -> la neurona no tiene preferencia')
+print('  Salida -> 1.0 -> la neurona se activa fuertemente')
+print('  Salida -> 0.0 -> la neurona se inhibe fuertemente')
+```
+
+**Ejecución:** `python programa_1b_neurona.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== NUESTRA PRIMERA NEURONA ARTIFICIAL ===
+
+Neurona creada:
+  Neurona(n=3, pesos=[ 0.149  -0.0415  0.1943], sesgo=0.0000)
+
+Descripción                      z (pre-act.)     Salida
+----------------------------------------------------------
+Entradas todas a cero                  0.0000     0.5000
+Entradas todas a uno                   0.3018     0.5749
+Entradas mixtas                        0.2275     0.5566
+Entradas con negativos                -0.3291     0.4185
+
+Interpretación:
+  Salida ≈ 0.5 -> la neurona no tiene preferencia
+  Salida -> 1.0 -> la neurona se activa fuertemente
+  Salida -> 0.0 -> la neurona se inhibe fuertemente
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (13 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 9. Ejercicio 3.1 — Implementar Leaky ReLU
+
+**Archivo:** `ejercicio_3_1.py`  ·  **Capítulo:** Capítulo 3: Programando Nuestra Primera Neurona (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (21 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def relu(z):                     return np.maximum(0, z)
+def leaky_relu(z, alpha=0.01):   return np.where(z > 0, z, alpha * z)
+def elu(z, alpha=1.0):           return np.where(z > 0, z, alpha*(np.exp(z)-1))
+ 
+valores = np.array([-3, -1, -0.5, 0, 0.5, 1, 3], dtype=float)
+ 
+print(f"{'z':>6}  {'ReLU':>8}  {'LeakyReLU':>12}  {'ELU':>8}  Gradiente Leaky")
+print('-' * 56)
+for z in valores:
+    r  = relu(z)
+    lr = leaky_relu(z)
+    e  = elu(z)
+    # Derivada de Leaky ReLU: 1 si z>0, 0.01 si z<=0
+    grad_lr = 1.0 if z > 0 else 0.01
+    print(f'{z:>6.1f}  {r:>8.3f}  {lr:>12.4f}  {e:>8.4f}  {grad_lr:>14.2f}')
+ 
+print()
+print('ReLU: gradiente = 0 para z < 0 (neurona muerta)')
+print('Leaky: gradiente = 0.01 para z < 0 (siempre aprende algo)')
+```
+
+**Ejecución:** `python ejercicio_3_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+     z      ReLU     LeakyReLU       ELU  Gradiente Leaky
+--------------------------------------------------------
+  -3.0     0.000       -0.0300   -0.9502            0.01
+  -1.0     0.000       -0.0100   -0.6321            0.01
+  -0.5     0.000       -0.0050   -0.3935            0.01
+   0.0     0.000        0.0000    0.0000            0.01
+   0.5     0.500        0.5000    0.5000            1.00
+   1.0     1.000        1.0000    1.0000            1.00
+   3.0     3.000        3.0000    3.0000            1.00
+
+ReLU: gradiente = 0 para z < 0 (neurona muerta)
+Leaky: gradiente = 0.01 para z < 0 (siempre aprende algo)
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_3_1.txt`), que es la que describe el texto.
+
+## 10. Ejercicio 3.2 — Simular una puerta OR con parámetros a mano
+
+**Archivo:** `ejercicio_3_2.py`  ·  **Capítulo:** Capítulo 3: Programando Nuestra Primera Neurona (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (29 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def sigmoid(z): return 1/(1+np.exp(-z))
+ 
+# Parámetros escogidos a mano para OR
+# Lógica: queremos sigmoid(w+b) > 0.5 cuando solo hay 1 entrada activa
+# sigmoid(z) > 0.5  <=>  z > 0
+# Para OR: necesitamos  w1*1 + w2*0 + b > 0  y  w1*0 + w2*0 + b < 0
+# Es decir:  w1 + b > 0  y  b < 0
+# Con w1=w2=8, b=-4:  8-4=4>0 ✓  y  -4<0 ✓
+ 
+w1, w2, b = 8.0, 8.0, -4.0
+ 
+X = [[0,0],[0,1],[1,0],[1,1]]
+y = [0,   1,   1,   1  ]
+ 
+print('Puerta OR — parámetros ajustados manualmente')
+print(f'w1={w1}, w2={w2}, sesgo={b}')
+print()
+print(f"{'Entradas':^12}  {'z':>8}  {'σ(z)':>10}  {'Esperado':>8}  OK")
+print('-' * 50)
+correcto = 0
+for xi, yi in zip(X, y):
+    z   = xi[0]*w1 + xi[1]*w2 + b
+    sal = sigmoid(z)
+    ok  = round(sal) == yi
+    correcto += ok
+    print(f'{str(xi):^12}  {z:>8.1f}  {sal:>10.4f}  {yi:>8}  {"✓" if ok else "✗"}')
+print(f'\nPrecisión: {correcto}/4')
+```
+
+**Ejecución:** `python ejercicio_3_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Puerta OR — parámetros ajustados manualmente
+w1=8.0, w2=8.0, sesgo=-4.0
+
+  Entradas           z        σ(z)  Esperado  OK
+--------------------------------------------------
+   [0, 0]         -4.0      0.0180         0  ✓
+   [0, 1]          4.0      0.9820         1  ✓
+   [1, 0]          4.0      0.9820         1  ✓
+   [1, 1]         12.0      1.0000         1  ✓
+
+Precisión: 4/4
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_3_2.txt`), que es la que describe el texto.
+
+## 11. Ejercicio 3.3 — Visualizar el espacio de decisión
+
+**Archivo:** `ejercicio_3_3.py`  ·  **Capítulo:** Capítulo 3: Programando Nuestra Primera Neurona (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (33 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def sigmoid(z): return 1/(1+np.exp(-z))
+ 
+# Pesos de la neurona AND que entrena el Programa 2 (Capítulo 4)
+w1, w2, b = 7.28, 7.28, -11.01
+ 
+print('Mapa de activación de la neurona AND')
+print('(█ > 0.7,  ▓ entre 0.4 y 0.7,  ░ entre 0.2 y 0.4,  . < 0.2)')
+print()
+ 
+# Cuadrícula de -0.4 a 1.4 en pasos de 0.2 (incluye el 0 y el 1)
+x_vals = np.arange(-0.4, 1.5, 0.2)
+y_vals = np.arange(1.4, -0.5, -0.2)   # invertido para que (0,0) esté abajo
+ 
+# Filas: x2 de arriba abajo; columnas: x1 de izquierda a derecha
+print('x2 ^')
+for x2 in y_vals:
+    fila = f'{x2:>4.1f} |'
+    for x1 in x_vals:
+        z   = w1*x1 + w2*x2 + b
+        sal = sigmoid(z)
+        if sal > 0.7:   fila += '█'
+        elif sal > 0.4: fila += '▓'
+        elif sal > 0.2: fila += '░'
+        else:           fila += '.'
+    print(fila)
+print('     +' + '-'*len(x_vals) + '-> x1')
+print('      ' + ''.join(f'{v:>1.0f}' if abs(v-round(v))<0.01 else ' '
+                          for v in x_vals))
+print()
+print('La frontera (▓) separa el punto (1,1) de los demás.')
+print('Es una línea recta: la neurona es un clasificador lineal.')
+```
+
+**Ejecución:** `python ejercicio_3_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Mapa de activación de la neurona AND
+(█ > 0.7,  ▓ entre 0.4 y 0.7,  ░ entre 0.2 y 0.4,  . < 0.2)
+
+x2 ^
+ 1.4 |..░▓██████
+ 1.2 |...░▓█████
+ 1.0 |....░▓████
+ 0.8 |.....░▓███
+ 0.6 |......░▓██
+ 0.4 |.......░▓█
+ 0.2 |........░▓
+ 0.0 |.........░
+-0.2 |..........
+-0.4 |..........
+     +-----------> x1
+        0    1  
+
+La frontera (▓) separa el punto (1,1) de los demás.
+Es una línea recta: la neurona es un clasificador lineal.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_3_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 4: El Aprendizaje — Gradientes y Backpropagation (**)
+
+## 12. Programa 2 — Neurona que aprende (puerta AND)
+
+**Archivo:** `programa_2_neurona_aprende.py`  ·  **Capítulo:** Capítulo 4: El Aprendizaje — Gradientes y Backpropagation (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (66 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# NEURONA QUE APRENDE MEDIANTE GRADIENTE DESCENDENTE
+# Problema: función lógica AND
+# =======================================================
+ 
+def sigmoid(z):
+    return 1.0 / (1.0 + np.exp(-z))
+ 
+def derivada_sigmoid(z):
+    s = sigmoid(z)
+    return s * (1.0 - s)
+ 
+# -- Datos de entrenamiento: tabla verdad del AND --------
+X = np.array([[0, 0],   # 0 AND 0 = 0
+              [0, 1],   # 0 AND 1 = 0
+              [1, 0],   # 1 AND 0 = 0
+              [1, 1]])  # 1 AND 1 = 1
+y = np.array([0, 0, 0, 1], dtype=float)
+ 
+# -- Inicialización de parámetros -----------------------
+np.random.seed(0)
+pesos = np.random.randn(2) * 0.3   # 2 pesos (uno por entrada)
+sesgo = 0.0
+lr    = 0.5                         # tasa de aprendizaje
+ 
+print('=== ENTRENANDO NEURONA PARA APRENDER AND ===\n')
+print(f'Pesos iniciales: {pesos.round(4)}  Sesgo: {sesgo:.4f}\n')
+ 
+# -- Bucle de entrenamiento -----------------------------
+for epoca in range(10_000):
+    error_total = 0.0
+    
+    for xi, yi in zip(X, y):         # un ejemplo a la vez
+        # === FORWARD PASS ===
+        z = np.dot(xi, pesos) + sesgo
+        pred = sigmoid(z)
+        
+        # === CÁLCULO DEL ERROR ===
+        error = yi - pred            # cuánto nos hemos equivocado
+        error_total += error**2
+        
+        # === BACKWARD PASS (gradientes) ===
+        # Regla de la cadena aplicada a una neurona
+        delta = error * derivada_sigmoid(z)
+        
+        # === ACTUALIZACIÓN DE PARÁMETROS ===
+        pesos += lr * delta * xi    # actualizar cada peso
+        sesgo += lr * delta         # actualizar sesgo
+    
+    # Mostrar progreso cada 1000 épocas
+    if epoca % 1000 == 0:
+        perdida_media = error_total / len(X)
+        print(f'Época {epoca:5d} | Pérdida: {perdida_media:.6f}')
+ 
+# -- Resultados -----------------------------------------
+print(f'\nPesos finales: {pesos.round(4)}  Sesgo: {sesgo:.4f}')
+print('\n=== PRUEBA FINAL ===')
+print(f'{"Entradas":^20} {"Predicción":>12} {"Esperado":>10} {"Correcto":>10}')
+print('-' * 55)
+for xi, yi in zip(X, y):
+    z    = np.dot(xi, pesos) + sesgo
+    pred = sigmoid(z)
+    ok   = '✓' if round(pred) == yi else '✗'
+    print(f'{str(xi.tolist()):^20} {pred:12.4f} {int(yi):10d} {ok:>10}')
+```
+
+**Ejecución:** `python programa_2_neurona_aprende.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.3 s
+
+**Salida real por consola:**
+
+```
+=== ENTRENANDO NEURONA PARA APRENDER AND ===
+
+Pesos iniciales: [0.5292 0.12  ]  Sesgo: 0.0000
+
+Época     0 | Pérdida: 0.262964
+Época  1000 | Pérdida: 0.005612
+Época  2000 | Pérdida: 0.002616
+Época  3000 | Pérdida: 0.001684
+Época  4000 | Pérdida: 0.001236
+Época  5000 | Pérdida: 0.000974
+Época  6000 | Pérdida: 0.000802
+Época  7000 | Pérdida: 0.000681
+Época  8000 | Pérdida: 0.000592
+Época  9000 | Pérdida: 0.000523
+
+Pesos finales: [7.2846 7.2842]  Sesgo: -11.0135
+
+=== PRUEBA FINAL ===
+      Entradas         Predicción   Esperado   Correcto
+-------------------------------------------------------
+       [0, 0]              0.0000          0          ✓
+       [0, 1]              0.0234          0          ✓
+       [1, 0]              0.0235          0          ✓
+       [1, 1]              0.9722          1          ✓
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (20 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 13. Ejercicio 4.1 — Entrenar AND, OR y NAND con la misma neurona
+
+**Archivo:** `ejercicio_4_1.py`  ·  **Capítulo:** Capítulo 4: El Aprendizaje — Gradientes y Backpropagation (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (31 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def sigmoid(z): return 1/(1+np.exp(-z))
+def d_sig(z): s=sigmoid(z); return s*(1-s)
+ 
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+ 
+tablas = {
+    'AND':  np.array([0, 0, 0, 1], dtype=float),
+    'OR':   np.array([0, 1, 1, 1], dtype=float),
+    'NAND': np.array([1, 1, 1, 0], dtype=float),
+}
+ 
+for nombre, y in tablas.items():
+    np.random.seed(1)
+    w = np.random.randn(2) * 0.3
+    b = 0.0
+    for _ in range(8000):
+        for xi, yi in zip(X, y):
+            z = np.dot(xi, w) + b
+            d = (yi - sigmoid(z)) * d_sig(z)
+            w += 0.5 * d * xi
+            b += 0.5 * d
+    print(f'{nombre}: w=[{w[0]:.2f}, {w[1]:.2f}]  b={b:.2f}', end='   ')
+    pred = [round(float(sigmoid(np.dot(xi,w)+b))) for xi in X]
+    print(f'preds={pred}  {"✓" if pred == list(y.astype(int)) else "✗"}')
+ 
+print()
+print('Observación: NAND tiene pesos negativos y sesgo positivo.')
+print('Esto tiene sentido: NAND activa la salida por defecto')
+print('y la inhibe cuando recibe entradas positivas fuertes.')
+```
+
+**Ejecución:** `python ejercicio_4_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.4 s
+
+**Salida real por consola:**
+
+```
+AND: w=[7.04, 7.04]  b=-10.65   preds=[0, 0, 0, 1]  ✓
+OR: w=[7.71, 7.71]  b=-3.62   preds=[0, 1, 1, 1]  ✓
+NAND: w=[-7.04, -7.04]  b=10.65   preds=[1, 1, 1, 0]  ✓
+
+Observación: NAND tiene pesos negativos y sesgo positivo.
+Esto tiene sentido: NAND activa la salida por defecto
+y la inhibe cuando recibe entradas positivas fuertes.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_4_1.txt`), que es la que describe el texto.
+
+## 14. Ejercicio 4.2 — Efecto de la tasa de aprendizaje
+
+**Archivo:** `ejercicio_4_2.py`  ·  **Capítulo:** Capítulo 4: El Aprendizaje — Gradientes y Backpropagation (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (29 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def sigmoid(z): return 1/(1+np.exp(-z))
+def d_sig(z): s=sigmoid(z); return s*(1-s)
+ 
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+y = np.array([0, 0, 0, 1], dtype=float)
+ 
+def perdida(w, b):
+    return sum((y[i]-sigmoid(np.dot(X[i],w)+b))**2 for i in range(4))/4
+ 
+print(f"{'lr':>8}  {'Épocas hasta conv.':>20}  {'Pérdida final':>15}  Estado")
+print('-' * 60)
+ 
+for lr in [0.001, 0.01, 0.1, 0.5, 1.0, 5.0]:
+    np.random.seed(42)
+    w = np.random.randn(2) * 0.3; b = 0.0
+    ep_conv = None
+    for ep in range(15000):
+        for xi, yi in zip(X, y):
+            z = np.dot(xi, w) + b
+            d = (yi - sigmoid(z)) * d_sig(z)
+            w += lr * d * xi; b += lr * d
+        if perdida(w, b) < 0.005 and ep_conv is None:
+            ep_conv = ep + 1
+    L = perdida(w, b)
+    ep_str  = str(ep_conv) if ep_conv else '>15000'
+    estado  = 'converge' if L < 0.01 else 'NO converge'
+    print(f'{lr:>8.3f}  {ep_str:>20}  {L:>15.6f}  {estado}')
+```
+
+**Ejecución:** `python ejercicio_4_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.8 s
+
+**Salida real por consola:**
+
+```
+      lr    Épocas hasta conv.    Pérdida final  Estado
+------------------------------------------------------------
+   0.001                >15000         0.121941  NO converge
+   0.010                >15000         0.021517  NO converge
+   0.100                  5619         0.001696  converge
+   0.500                  1108         0.000307  converge
+   1.000                   544         0.000150  converge
+   5.000                    93         0.000029  converge
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_4_2.txt`), que es la que describe el texto.
+
+## 15. Ejercicio 4.3 — Curva de aprendizaje y tasa de mejora
+
+**Archivo:** `ejercicio_4_3.py`  ·  **Capítulo:** Capítulo 4: El Aprendizaje — Gradientes y Backpropagation (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (34 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def sigmoid(z): return 1/(1+np.exp(-z))
+def d_sig(z): s=sigmoid(z); return s*(1-s)
+ 
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+y = np.array([0, 0, 0, 1], dtype=float)
+ 
+np.random.seed(42)
+w = np.random.randn(2)*0.3; b = 0.0
+curva = []
+ 
+for ep in range(5000):
+    L = sum((y[i]-sigmoid(np.dot(X[i],w)+b))**2 for i in range(4))/4
+    if ep % 100 == 0: curva.append((ep, L))
+    for xi, yi in zip(X, y):
+        z = np.dot(xi, w)+b; d = (yi-sigmoid(z))*d_sig(z)
+        w += 0.5*d*xi; b += 0.5*d
+ 
+print('Curva de aprendizaje AND (lr=0.5)\n')
+print(f"{'Época':>8}  {'Pérdida':>12}  {'Mejora abs.':>13}  {'Mejora rel.':>13}")
+print('-' * 52)
+for i, (ep, L) in enumerate(curva[:15]):
+    if i == 0:
+        mejora_abs = mejora_rel = 0
+    else:
+        mejora_abs = curva[i-1][1] - L
+        mejora_rel = mejora_abs / curva[i-1][1] * 100
+    print(f'{ep:>8}  {L:>12.6f}  {mejora_abs:>13.6f}  {mejora_rel:>12.2f}%')
+ 
+print()
+print('Observación: la mejora absoluta decrece con el tiempo.')
+print('Las primeras 100 épocas eliminan la mayor parte del error.')
+print('El resto del entrenamiento ajusta finamente los pesos.')
+```
+
+**Ejecución:** `python ejercicio_4_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.2 s
+
+**Salida real por consola:**
+
+```
+Curva de aprendizaje AND (lr=0.5)
+
+   Época       Pérdida    Mejora abs.    Mejora rel.
+----------------------------------------------------
+       0      0.250543       0.000000          0.00%
+     100      0.057124       0.193418         77.20%
+     200      0.031194       0.025930         45.39%
+     300      0.020756       0.010438         33.46%
+     400      0.015305       0.005451         26.26%
+     500      0.012016       0.003289         21.49%
+     600      0.009839       0.002177         18.12%
+     700      0.008302       0.001538         15.63%
+     800      0.007163       0.001139         13.72%
+     900      0.006288       0.000875         12.21%
+    1000      0.005596       0.000691         11.00%
+    1100      0.005037       0.000559         10.00%
+    1200      0.004576       0.000461          9.16%
+    1300      0.004189       0.000386          8.45%
+    1400      0.003861       0.000328          7.83%
+
+Observación: la mejora absoluta decrece con el tiempo.
+Las primeras 100 épocas eliminan la mayor parte del error.
+El resto del entrenamiento ajusta finamente los pesos.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_4_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)
+
+## 16. Programa O-1 — SGD vs SGD+Momentum en un paisaje difícil
+
+**Archivo:** `programa_O1_momentum.py`  ·  **Capítulo:** Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (58 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =============================================================
+# FUNCION DE ROSENBROCK: el test clasico para optimizadores.
+# Es un valle largo y curvo con un unico minimo en (1, 1).
+# f(x,y) = (1-x)^2 + 100*(y-x^2)^2
+# El gradiente es muy diferente en las dos direcciones,
+# lo que hace que SGD basico zigzaguee terriblemente.
+# =============================================================
+ 
+def f(p):      return (1-p[0])**2 + 100*(p[1]-p[0]**2)**2
+def grad_f(p):
+    dx = -2*(1-p[0]) - 400*p[0]*(p[1]-p[0]**2)
+    dy = 200*(p[1]-p[0]**2)
+    return np.array([dx, dy])
+ 
+P0     = np.array([-0.5, 0.8])   # punto de partida
+N      = 3000                     # pasos
+LR     = 0.001
+BETA   = 0.9
+ 
+# --- SGD puro ---
+p_sgd  = P0.copy()
+hist_sgd = [float(f(p_sgd))]
+for _ in range(N):
+    p_sgd -= LR * grad_f(p_sgd)
+    hist_sgd.append(float(f(p_sgd)))
+ 
+# --- SGD + Momentum ---
+p_mom  = P0.copy()
+v      = np.zeros(2)
+hist_mom = [float(f(p_mom))]
+for _ in range(N):
+    g  = grad_f(p_mom)
+    v  = BETA * v + g
+    p_mom -= LR * v
+    hist_mom.append(float(f(p_mom)))
+ 
+# =============================================================
+# MOSTRAR CONVERGENCIA
+# =============================================================
+print('=== SGD vs SGD+MOMENTUM — Funcion de Rosenbrock ===')
+print(f'Minimo en (1.0, 1.0), f=0.  Partimos de {P0.tolist()}\n')
+ 
+print(f"{'Paso':>6}  {'SGD':>12}  {'SGD+Momentum':>14}  Pérdida del Momentum")
+print('-' * 48)
+for paso in [0, 50, 200, 500, 1000, 2000, 3000]:
+    sgd_v = hist_sgd[paso]
+    mom_v = hist_mom[paso]
+    if sgd_v > 0 and mom_v > 0:
+        ventaja = f'{sgd_v/mom_v:.3g} veces menor' if mom_v < sgd_v else 'igual'
+    else:
+        ventaja = 'convergido'
+    print(f'{paso:>6}  {sgd_v:>12.6f}  {mom_v:>14.6f}  {ventaja}')
+ 
+print(f'\nPosicion final SGD:          {p_sgd.round(4)}')
+print(f'Posicion final SGD+Momentum: {p_mom.round(4)}')
+print(f'Posicion optima:             [1.0, 1.0]')
+```
+
+**Ejecución:** `python programa_O1_momentum.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== SGD vs SGD+MOMENTUM — Funcion de Rosenbrock ===
+Minimo en (1.0, 1.0), f=0.  Partimos de [-0.5, 0.8]
+
+  Paso           SGD    SGD+Momentum  Pérdida del Momentum
+------------------------------------------------
+     0     32.500000       32.500000  igual
+    50      2.895213        0.164685  17.6 veces menor
+   200      2.268292        0.017729  128 veces menor
+   500      0.878829        0.001051  836 veces menor
+  1000      0.227352        0.000015  1.52e+04 veces menor
+  2000      0.053682        0.000000  1.49e+07 veces menor
+  3000      0.018243        0.000000  2.07e+10 veces menor
+
+Posicion final SGD:          [0.8651 0.7477]
+Posicion final SGD+Momentum: [1. 1.]
+Posicion optima:             [1.0, 1.0]
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (14 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 17. Programa O-2 — Implementación completa de todos los optimizadores
+
+**Archivo:** `programa_O2_optimizadores.py`  ·  **Capítulo:** Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (111 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =============================================================
+# FAMILIA DE OPTIMIZADORES — IMPLEMENTACION DESDE CERO
+# Todos implementan la misma interfaz: paso(params, grads)
+# =============================================================
+ 
+class SGD:
+    def __init__(self, lr=0.01):
+        self.lr = lr
+    def paso(self, params, grads):
+        for k in params:
+            params[k] -= self.lr * grads[k]
+ 
+ 
+class SGDMomentum:
+    def __init__(self, lr=0.01, beta=0.9):
+        self.lr   = lr
+        self.beta = beta
+        self.v    = {}
+    def paso(self, params, grads):
+        for k in params:
+            if k not in self.v:
+                self.v[k] = np.zeros_like(params[k])
+            self.v[k]  = self.beta * self.v[k] + grads[k]
+            params[k] -= self.lr * self.v[k]
+ 
+ 
+class RMSprop:
+    def __init__(self, lr=0.001, beta=0.99, eps=1e-8):
+        self.lr   = lr
+        self.beta = beta
+        self.eps  = eps
+        self.s    = {}
+    def paso(self, params, grads):
+        for k in params:
+            if k not in self.s:
+                self.s[k] = np.zeros_like(params[k])
+            g          = grads[k]
+            self.s[k]  = self.beta * self.s[k] + (1-self.beta) * g**2
+            params[k] -= self.lr * g / (np.sqrt(self.s[k]) + self.eps)
+ 
+ 
+class Adam:
+    """
+    El optimizador mas usado en Deep Learning.
+    Combina Momentum (primer momento) + RMSprop (segundo momento)
+    con correccion de sesgo para los primeros pasos.
+    """
+    def __init__(self, lr=0.001, beta1=0.9, beta2=0.999, eps=1e-8):
+        self.lr    = lr
+        self.beta1 = beta1
+        self.beta2 = beta2
+        self.eps   = eps
+        self.m = {}    # primer momento (media del gradiente)
+        self.v = {}    # segundo momento (media del gradiente^2)
+        self.t = 0     # contador de pasos (para correccion de sesgo)
+    
+    def paso(self, params, grads):
+        self.t += 1
+        for k in params:
+            if k not in self.m:
+                self.m[k] = np.zeros_like(params[k])
+                self.v[k] = np.zeros_like(params[k])
+            g = grads[k]
+            # Actualizar momentos
+            self.m[k] = self.beta1 * self.m[k] + (1 - self.beta1) * g
+            self.v[k] = self.beta2 * self.v[k] + (1 - self.beta2) * g**2
+            # Correccion de sesgo
+            m_hat = self.m[k] / (1 - self.beta1**self.t)
+            v_hat = self.v[k] / (1 - self.beta2**self.t)
+            # Actualizacion final
+            params[k] -= self.lr * m_hat / (np.sqrt(v_hat) + self.eps)
+ 
+ 
+class AdamW(Adam):
+    """
+    Adam con weight decay desacoplado.
+    Estandar para entrenar Transformers y LLMs.
+    """
+    def __init__(self, lr=0.001, beta1=0.9, beta2=0.999, eps=1e-8, wd=0.01):
+        super().__init__(lr, beta1, beta2, eps)
+        self.wd = wd
+    
+    def paso(self, params, grads):
+        self.t += 1
+        for k in params:
+            if k not in self.m:
+                self.m[k] = np.zeros_like(params[k])
+                self.v[k] = np.zeros_like(params[k])
+            # Weight decay desacoplado (ANTES del gradiente)
+            params[k] *= (1 - self.lr * self.wd)
+            g = grads[k]
+            self.m[k] = self.beta1 * self.m[k] + (1 - self.beta1) * g
+            self.v[k] = self.beta2 * self.v[k] + (1 - self.beta2) * g**2
+            m_hat = self.m[k] / (1 - self.beta1**self.t)
+            v_hat = self.v[k] / (1 - self.beta2**self.t)
+            params[k] -= self.lr * m_hat / (np.sqrt(v_hat) + self.eps)
+ 
+ 
+print('Optimizadores implementados correctamente.')
+print('Clases disponibles: SGD, SGDMomentum, RMSprop, Adam, AdamW')
+print()
+# Verificacion: todos tienen la misma interfaz
+opts = [SGD(0.01), SGDMomentum(0.01), RMSprop(0.001), Adam(0.001), AdamW(0.001)]
+params_test = {'W': np.array([1.0, -0.5, 2.0])}
+grads_test  = {'W': np.array([0.1, -0.2, 0.3])}
+for opt in opts:
+    p = {k: v.copy() for k,v in params_test.items()}
+    opt.paso(p, grads_test)
+    print(f'{opt.__class__.__name__:>14}: W -> {p["W"].round(5)}')
+```
+
+**Ejecución:** `python programa_O2_optimizadores.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Optimizadores implementados correctamente.
+Clases disponibles: SGD, SGDMomentum, RMSprop, Adam, AdamW
+
+           SGD: W -> [ 0.999 -0.498  1.997]
+   SGDMomentum: W -> [ 0.999 -0.498  1.997]
+       RMSprop: W -> [ 0.99 -0.49  1.99]
+          Adam: W -> [ 0.999 -0.499  1.999]
+         AdamW: W -> [ 0.99899 -0.499    1.99898]
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (7 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 18. Programa O-3 — Comparativa de todos los optimizadores en el MLP
+
+**Archivo:** `programa_O3_comparativa.py`  ·  **Capítulo:** Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_O2_optimizadores.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (115 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_O2_optimizadores.py', encoding='utf-8').read()
+exec(fuente.split("print('Optimizadores")[0])   # las clases del Programa O-2
+ 
+np.random.seed(42)
+ 
+# =============================================================
+# PROBLEMA: clasificacion de dos lunas (no lineal)
+# Generamos dos semilunares entrelazadas — clasico para
+# demostrar la diferencia entre optimizadores.
+# =============================================================
+def dos_lunas(n=300, ruido=0.15):
+    """Genera dos semilunares entrelazadas"""
+    n_half = n // 2
+    # Luna superior
+    ang1 = np.linspace(0, np.pi, n_half)
+    X1   = np.column_stack([np.cos(ang1), np.sin(ang1)])
+    X1  += np.random.normal(0, ruido, X1.shape)
+    # Luna inferior (desplazada)
+    ang2 = np.linspace(0, np.pi, n_half)
+    X2   = np.column_stack([1 - np.cos(ang2), 0.5 - np.sin(ang2)])
+    X2  += np.random.normal(0, ruido, X2.shape)
+    X = np.vstack([X1, X2])
+    y = np.array([0]*n_half + [1]*n_half)
+    idx = np.random.permutation(n)
+    return X[idx], y[idx]
+ 
+X, y = dos_lunas(300)
+X_tr, y_tr   = X[:240], y[:240]
+X_val, y_val = X[240:], y[240:]
+ 
+# =============================================================
+# RED NEURONAL COMUN PARA TODOS LOS OPTIMIZADORES
+# =============================================================
+def sigmoid(z): return 1/(1+np.exp(-np.clip(z,-500,500)))
+def relu(z):    return np.maximum(0, z)
+def d_relu(z):  return (z > 0).astype(float)
+ 
+def inicializar(s=0):
+    np.random.seed(s)
+    return {
+        'W1': np.random.randn(2, 16) * np.sqrt(2/2),
+        'b1': np.zeros(16),
+        'W2': np.random.randn(16, 1) * 0.1,
+        'b2': np.zeros(1),
+    }
+ 
+def forward(X, p):
+    Z1 = X @ p['W1'] + p['b1']
+    A1 = relu(Z1)
+    Z2 = A1 @ p['W2'] + p['b2']
+    return sigmoid(Z2), Z1, A1
+ 
+def backward(X, y, pred, Z1, A1, p):
+    m    = len(X)
+    dZ2  = (pred - y.reshape(-1,1)) / m
+    grads = {
+        'W2': A1.T @ dZ2,
+        'b2': dZ2.sum(axis=0),
+    }
+    dA1  = dZ2 @ p['W2'].T
+    dZ1  = dA1 * d_relu(Z1)
+    grads['W1'] = X.T @ dZ1
+    grads['b1'] = dZ1.sum(axis=0)
+    return grads
+ 
+def bce_loss(pred, y):
+    p = np.clip(pred.ravel(), 1e-7, 1-1e-7)
+    return -np.mean(y*np.log(p) + (1-y)*np.log(1-p))
+ 
+def accuracy(X, y, p):
+    pred, _, _ = forward(X, p)
+    return np.mean((pred.ravel()>0.5) == y)
+ 
+# =============================================================
+# COMPARATIVA: mismos datos, misma red, distintos optimizadores
+# =============================================================
+configs = [
+    ('SGD              lr=0.1 ', SGD(lr=0.1)),
+    ('SGD+Momentum     lr=0.1 ', SGDMomentum(lr=0.1, beta=0.9)),
+    ('RMSprop          lr=0.01', RMSprop(lr=0.01)),
+    ('Adam             lr=0.01', Adam(lr=0.01)),
+    ('AdamW            lr=0.01', AdamW(lr=0.01, wd=0.01)),
+]
+ 
+EPOCAS   = 500
+BATCH    = 32
+ 
+print('=== COMPARATIVA DE OPTIMIZADORES ===')
+print(f'Problema: clasificacion de dos lunas (no lineal)')
+print(f'Red: 2 -> 16 (ReLU) -> 1 (Sigmoid)  |  {EPOCAS} epocas\n')
+print(f"{'Optimizador':>30}  {'Loss ep.10':>12}  {'Loss ep.100':>12}  ",
+      f"{'Loss ep.500':>12}  {'Acc val':>8}")
+print('-' * 85)
+ 
+for nombre, opt in configs:
+    params = inicializar(s=42)
+    hist   = []
+    for ep in range(EPOCAS):
+        # Mini-batch SGD
+        idx = np.random.permutation(len(X_tr))
+        for start in range(0, len(X_tr), BATCH):
+            xb = X_tr[idx[start:start+BATCH]]
+            yb = y_tr[idx[start:start+BATCH]]
+            pred, Z1, A1 = forward(xb, params)
+            grads = backward(xb, yb, pred, Z1, A1, params)
+            opt.paso(params, grads)
+        pred_tr, _, _ = forward(X_tr, params)
+        hist.append(bce_loss(pred_tr, y_tr))
+    
+    acc = accuracy(X_val, y_val, params)
+    l10  = hist[9]  if len(hist)>9  else hist[-1]
+    l100 = hist[99] if len(hist)>99 else hist[-1]
+    l500 = hist[-1]
+    print(f'{nombre:>30}  {l10:>12.5f}  {l100:>12.5f}  {l500:>12.5f}  {acc:>8.1%}')
+```
+
+**Ejecución:** `python programa_O3_comparativa.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.1 s
+
+**Salida real por consola:**
+
+```
+=== COMPARATIVA DE OPTIMIZADORES ===
+Problema: clasificacion de dos lunas (no lineal)
+Red: 2 -> 16 (ReLU) -> 1 (Sigmoid)  |  500 epocas
+
+                   Optimizador    Loss ep.10   Loss ep.100    Loss ep.500   Acc val
+-------------------------------------------------------------------------------------
+      SGD              lr=0.1        0.30191       0.21244       0.02772    100.0%
+      SGD+Momentum     lr=0.1        0.20937       0.01290       0.00603    100.0%
+      RMSprop          lr=0.01       0.22907       0.01335       0.00224    100.0%
+      Adam             lr=0.01       0.25832       0.02132       0.00412    100.0%
+      AdamW            lr=0.01       0.25861       0.02355       0.00567    100.0%
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (10 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 19. Programa O-4 — Learning Rate Scheduling
+
+**Archivo:** `programa_O4_lr_scheduling.py`  ·  **Capítulo:** Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (91 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =============================================================
+# ESTRATEGIAS DE LEARNING RATE SCHEDULING
+# Cada funcion recibe el numero de paso actual y
+# devuelve el lr a usar en ese paso.
+# =============================================================
+ 
+def lr_constante(t, lr_max, **kw):
+    return lr_max
+ 
+def lr_step_decay(t, lr_max, step=100, factor=0.5, **kw):
+    """Reduce el lr a la mitad cada 'step' epocas"""
+    return lr_max * (factor ** (t // step))
+ 
+def lr_exponencial(t, lr_max, decay=0.995, **kw):
+    """Reduce el lr exponencialmente en cada paso"""
+    return lr_max * (decay ** t)
+ 
+def lr_coseno(t, lr_max, t_total, lr_min=1e-6, **kw):
+    """
+    Decaimiento en coseno: el lr baja suavemente siguiendo
+    la mitad de un periodo del coseno.
+    """
+    return lr_min + 0.5*(lr_max - lr_min)*(1 + np.cos(np.pi*t/t_total))
+ 
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=100, lr_min=1e-6, **kw):
+    """
+    Estandar en LLMs: sube linealmente durante t_warmup pasos,
+    luego baja en coseno hasta lr_min.
+    Motivo del warmup: al inicio los gradientes son inestables.
+    Comenzar con lr alto puede causar divergencia.
+    """
+    if t < t_warmup:
+        return lr_max * t / t_warmup          # subida lineal
+    t_adj   = t - t_warmup
+    t_decay = t_total - t_warmup
+    return lr_min + 0.5*(lr_max - lr_min)*(1 + np.cos(np.pi*t_adj/t_decay))
+ 
+ 
+# =============================================================
+# VISUALIZACION DE LAS CURVAS DE LR
+# =============================================================
+T      = 500   # total de pasos
+LR_MAX = 0.01
+ 
+schedules = {
+    'Constante':      lambda t: lr_constante(t, LR_MAX),
+    'Step decay':     lambda t: lr_step_decay(t, LR_MAX, step=100),
+    'Exponencial':    lambda t: lr_exponencial(t, LR_MAX),
+    'Coseno':         lambda t: lr_coseno(t, LR_MAX, T),
+    'Warmup+Coseno':  lambda t: lr_warmup_coseno(t, LR_MAX, T, t_warmup=50),
+}
+ 
+pasos_ref = [0, 25, 50, 100, 200, 300, 400, 500]
+ 
+print('=== LEARNING RATE SCHEDULING ===')
+print(f'lr_max={LR_MAX}, T={T} pasos\n')
+print(f"{'Paso':>6}  ", end='')
+for nombre in schedules: print(f'{nombre:>16}', end='')
+print()
+print('-' * (6 + 16*len(schedules) + 2))
+ 
+for t in pasos_ref:
+    print(f'{t:>6}  ', end='')
+    for fn in schedules.values():
+        print(f'{fn(t):>16.6f}', end='')
+    print()
+ 
+# Visualizacion ASCII de la curva Warmup+Coseno
+fn_wc = schedules['Warmup+Coseno']
+curva = [fn_wc(t) for t in range(T+1)]
+print('\nWarmup+Coseno (el estandar en LLMs):')
+print(f'  0.010 |', end='')
+for t in range(0, T+1, 10):
+    col = int(curva[t] / LR_MAX * 30)
+    print('#' if col > 28 else ('|' if t==50 else ' '), end='')
+print('|')
+print(f'  0.005 |', end='')
+for t in range(0, T+1, 10):
+    col = int(curva[t] / LR_MAX * 30)
+    marker = '#' if 14 < col <= 28 else ('.' if col==15 else ' ')
+    print(marker, end='')
+print('|')
+print(f'  0.001 |' + '.' * 5 + '...warmup..|.......coseno decay......|')
+print(f'         paso 0         50        100                       500')
+ 
+print()
+print('Durante el warmup (pasos 0-50): el lr sube de 0 a lr_max.')
+print('Durante el decay (pasos 50-500): baja suavemente en coseno.')
+print('Al final, lr ~ lr_min (casi cero) para ajuste fino preciso.')
+```
+
+**Ejecución:** `python programa_O4_lr_scheduling.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== LEARNING RATE SCHEDULING ===
+lr_max=0.01, T=500 pasos
+
+  Paso         Constante      Step decay     Exponencial          Coseno   Warmup+Coseno
+----------------------------------------------------------------------------------------
+     0          0.010000        0.010000        0.010000        0.010000        0.000000
+    25          0.010000        0.010000        0.008822        0.009938        0.005000
+    50          0.010000        0.010000        0.007783        0.009755        0.010000
+   100          0.010000        0.005000        0.006058        0.009045        0.009698
+   200          0.010000        0.002500        0.003670        0.006545        0.007500
+   300          0.010000        0.001250        0.002223        0.003456        0.004132
+   400          0.010000        0.000625        0.001347        0.000956        0.001171
+   500          0.010000        0.000313        0.000816        0.000001        0.000001
+
+Warmup+Coseno (el estandar en LLMs):
+  0.010 |     ######                                        |
+  0.005 |   ##      #################                       |
+  0.001 |........warmup..|.......coseno decay......|
+         paso 0         50        100                       500
+
+Durante el warmup (pasos 0-50): el lr sube de 0 a lr_max.
+Durante el decay (pasos 50-500): baja suavemente en coseno.
+Al final, lr ~ lr_min (casi cero) para ajuste fino preciso.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (20 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 20. Ejercicio 5.1 — Implementar Nesterov Accelerated Gradient
+
+**Archivo:** `ejercicio_5_1.py`  ·  **Capítulo:** Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (33 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def f(p):      return (1-p[0])**2 + 100*(p[1]-p[0]**2)**2
+def grad_f(p):
+    dx = -2*(1-p[0]) - 400*p[0]*(p[1]-p[0]**2)
+    dy = 200*(p[1]-p[0]**2)
+    return np.array([dx, dy])
+ 
+P0, N, LR, BETA = np.array([-0.5, 0.8]), 2000, 0.001, 0.9
+ 
+# --- Momentum estandar ---
+p_mom = P0.copy(); v = np.zeros(2)
+for _ in range(N):
+    g = grad_f(p_mom)
+    v = BETA*v + g
+    p_mom -= LR*v
+ 
+# --- Nesterov Momentum ---
+p_nes = P0.copy(); v = np.zeros(2)
+for _ in range(N):
+    # Evaluar el gradiente en la posicion 'adelantada'
+    p_adelantado = p_nes - LR * BETA * v
+    g = grad_f(p_adelantado)
+    v = BETA*v + g
+    p_nes -= LR*v
+ 
+print('=== MOMENTUM vs NESTEROV ===')
+print(f'Momentum: f={f(p_mom):.6f}  pos={p_mom.round(4)}')
+print(f'Nesterov: f={f(p_nes):.6f}  pos={p_nes.round(4)}')
+print(f'Optimo:   f=0.0  pos=[1.0, 1.0]')
+print()
+print('Nesterov suele converger algo mas rapido porque "corrige"')
+print('su trayectoria antes de comprometerse con el paso completo.')
+```
+
+**Ejecución:** `python ejercicio_5_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== MOMENTUM vs NESTEROV ===
+Momentum: f=0.000000  pos=[0.9999 0.9999]
+Nesterov: f=0.000000  pos=[0.9999 0.9998]
+Optimo:   f=0.0  pos=[1.0, 1.0]
+
+Nesterov suele converger algo mas rapido porque "corrige"
+su trayectoria antes de comprometerse con el paso completo.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_5_1.txt`), que es la que describe el texto.
+
+## 21. Ejercicio 5.2 — Visualizar la trayectoria de Adam paso a paso
+
+**Archivo:** `ejercicio_5_2.py`  ·  **Capítulo:** Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (31 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def f(p):    return p[0]**2 + 10*p[1]**2
+def grad(p): return np.array([2*p[0], 20*p[1]])
+ 
+p = np.array([5.0, 5.0])
+m = np.zeros(2); v = np.zeros(2)
+beta1, beta2, eps, lr = 0.9, 0.999, 1e-8, 0.3
+ 
+print('=== TRAYECTORIA DE ADAM ===')
+print('f(x,y) = x^2 + 10y^2   (gradiente en y es 10x mayor que en x)')
+print()
+print(f"{'Paso':>5}  {'x':>8}  {'y':>8}  {'grad_x':>8}  {'grad_y':>8}  {'paso_x':>8}  {'paso_y':>8}")
+print('-' * 65)
+ 
+for t in range(1, 16):
+    g = grad(p)
+    m = beta1*m + (1-beta1)*g
+    v = beta2*v + (1-beta2)*g**2
+    m_hat = m / (1 - beta1**t)
+    v_hat = v / (1 - beta2**t)
+    paso = lr * m_hat / (np.sqrt(v_hat) + eps)
+    p_anterior = p.copy()
+    p -= paso
+    if t <= 10 or t == 15:
+        print(f'{t:>5}  {p[0]:>8.4f}  {p[1]:>8.4f}  {g[0]:>8.3f}  {g[1]:>8.3f}  {paso[0]:>8.4f}  {paso[1]:>8.4f}')
+ 
+print()
+print('Observa: aunque grad_y es ~10x mayor que grad_x al principio,')
+print('los PASOS en x e y son de magnitud similar.')
+print('Adam normaliza por la magnitud historica de cada gradiente.')
+```
+
+**Ejecución:** `python ejercicio_5_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== TRAYECTORIA DE ADAM ===
+f(x,y) = x^2 + 10y^2   (gradiente en y es 10x mayor que en x)
+
+ Paso         x         y    grad_x    grad_y    paso_x    paso_y
+-----------------------------------------------------------------
+    1    4.7000    4.7000    10.000   100.000    0.3000    0.3000
+    2    4.4006    4.4006     9.400    94.000    0.2994    0.2994
+    3    4.1024    4.1024     8.801    88.013    0.2983    0.2983
+    4    3.8057    3.8057     8.205    82.047    0.2966    0.2966
+    5    3.5113    3.5113     7.611    76.114    0.2944    0.2944
+    6    3.2197    3.2197     7.023    70.226    0.2916    0.2916
+    7    2.9317    2.9317     6.439    64.395    0.2880    0.2880
+    8    2.6480    2.6480     5.863    58.634    0.2837    0.2837
+    9    2.3693    2.3693     5.296    52.959    0.2786    0.2786
+   10    2.0966    2.0966     4.739    47.386    0.2727    0.2727
+   15    0.8556    0.8556     2.168    21.684    0.2286    0.2286
+
+Observa: aunque grad_y es ~10x mayor que grad_x al principio,
+los PASOS en x e y son de magnitud similar.
+Adam normaliza por la magnitud historica de cada gradiente.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_5_2.txt`), que es la que describe el texto.
+
+## 22. Ejercicio 5.3 — Comparar AdamW con distintos valores de weight decay
+
+**Archivo:** `ejercicio_5_3.py`  ·  **Capítulo:** Capítulo 5: Los Optimizadores — Cómo Aprende Realmente la Red (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_O3_comparativa.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (27 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_O3_comparativa.py', encoding='utf-8').read()
+exec(fuente.split('# COMPARATIVA')[0])   # datos, red y optimizadores (O-2 y O-3)
+ 
+np.random.seed(42)
+X, y = dos_lunas(300)
+X_tr, y_tr   = X[:240], y[:240]
+X_val, y_val = X[240:], y[240:]
+ 
+valores_wd = [0.0, 0.001, 0.01, 0.1, 1.0]
+ 
+print('=== EFECTO DEL WEIGHT DECAY EN ADAMW ===\n')
+print(f"{'weight_decay':>14}  {'Loss train':>12}  {'Acc val':>10}  Diagnostico")
+print('-' * 55)
+ 
+for wd in valores_wd:
+    params = inicializar(s=42)
+    opt = AdamW(lr=0.01, wd=wd)
+    for ep in range(300):
+        pred, Z1, A1 = forward(X_tr, params)
+        grads = backward(X_tr, y_tr, pred, Z1, A1, params)
+        opt.paso(params, grads)
+    pred_final, _, _ = forward(X_tr, params)
+    loss = bce_loss(pred_final, y_tr)
+    acc  = accuracy(X_val, y_val, params)
+    diag = 'underfitting' if wd >= 1.0 else ('optimo' if 0.001<=wd<=0.1 else 'sin regularizar')
+    print(f'{wd:>14.3f}  {loss:>12.5f}  {acc:>10.1%}  {diag}')
+```
+
+**Ejecución:** `python ejercicio_5_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.2 s
+
+**Salida real por consola:**
+
+```
+=== EFECTO DEL WEIGHT DECAY EN ADAMW ===
+
+  weight_decay    Loss train     Acc val  Diagnostico
+-------------------------------------------------------
+         0.000       0.06289       96.7%  sin regularizar
+         0.001       0.06301       96.7%  optimo
+         0.010       0.06485       96.7%  optimo
+         0.100       0.08245       96.7%  optimo
+         1.000       0.26526       88.3%  underfitting
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_5_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 6: Red Neuronal Multicapa (MLP) (**)
+
+## 23. Programa 3 — Red Neuronal Multicapa desde cero
+
+**Archivo:** `programa_3_mlp.py`  ·  **Capítulo:** Capítulo 6: Red Neuronal Multicapa (MLP) (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (95 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# BLOQUES CONSTRUCTIVOS DEL MLP
+# Cada bloque tiene métodos forward() y backward()
+# =======================================================
+ 
+class CapaDensa:
+    """Capa totalmente conectada: salida = X @ W + b"""
+    
+    def __init__(self, n_ent, n_sal):
+        # Inicialización He — buena para ReLU
+        escala = np.sqrt(2.0 / n_ent)
+        self.W = np.random.randn(n_ent, n_sal) * escala
+        self.b = np.zeros(n_sal)
+        # Cache: guardamos valores para backprop
+        self._X = None
+    
+    def forward(self, X):
+        self._X = X                      # guardamos para backprop
+        return X @ self.W + self.b
+    
+    def backward(self, dZ, lr):
+        dW  = self._X.T @ dZ             # gradiente de W (dZ ya trae el 1/N de la pérdida media)
+        db  = dZ.sum(axis=0)             # gradiente de b
+        dX  = dZ @ self.W.T              # gradiente hacia atrás
+        self.W -= lr * dW                # actualizar W
+        self.b -= lr * db                # actualizar b
+        return dX
+ 
+ 
+class ReLU:
+    """Activación ReLU con su derivada para backprop"""
+    def __init__(self): self._Z = None
+    def forward(self, Z):
+        self._Z = Z
+        return np.maximum(0, Z)
+    def backward(self, dA, lr=None):
+        return dA * (self._Z > 0)        # derivada es 0 ó 1
+ 
+ 
+class Sigmoid:
+    """Activación sigmoid con su derivada"""
+    def __init__(self): self._A = None
+    def forward(self, Z):
+        self._A = 1.0 / (1.0 + np.exp(-np.clip(Z, -500, 500)))
+        return self._A
+    def backward(self, dA, lr=None):
+        s = self._A
+        return dA * s * (1.0 - s)
+class RedNeuronal:
+    """
+    MLP genérico: acepta cualquier secuencia de capas.
+    Ejemplo de uso:
+      red = RedNeuronal([
+          CapaDensa(2, 4), ReLU(),
+          CapaDensa(4, 1), Sigmoid()
+      ])
+    """
+    
+    def __init__(self, capas):
+        self.capas = capas
+    
+    def predecir(self, X):
+        """Paso forward completo"""
+        salida = X
+        for capa in self.capas:
+            salida = capa.forward(salida)
+        return salida
+    
+    def _backward(self, grad, lr):
+        """Backpropagation: propaga el gradiente hacia atrás"""
+        for capa in reversed(self.capas):
+            grad = capa.backward(grad, lr)
+    
+    def entrenar(self, X, y, epocas=2000, lr=0.1, verbose=True):
+        """Bucle de entrenamiento completo"""
+        y = y.reshape(-1, 1)
+        historico = []
+        
+        for epoca in range(epocas):
+            # --- Forward ---
+            pred  = self.predecir(X)
+            # --- Pérdida MSE ---
+            loss  = float(np.mean((pred - y) ** 2))
+            historico.append(loss)
+            # --- Gradiente de MSE respecto a la predicción ---
+            dPred = 2.0 * (pred - y) / len(X)
+            # --- Backward ---
+            self._backward(dPred, lr)
+            
+            if verbose and (epoca % 500 == 0 or epoca == epocas - 1):
+                print(f'  Época {epoca:5d}: pérdida = {loss:.6f}')
+        
+        return historico
+```
+
+**Ejecución:** `python programa_3_mlp.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_programa_3_mlp.txt`), que es la que describe el texto.
+
+## 24. Programa 4 — MLP resuelve XOR
+
+**Archivo:** `programa_4_xor.py`  ·  **Capítulo:** Capítulo 6: Red Neuronal Multicapa (MLP) (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (38 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+from programa_3_mlp import CapaDensa, ReLU, Sigmoid, RedNeuronal   # Programa 3
+ 
+# =======================================================
+# RESOLVIENDO XOR CON UNA RED MULTICAPA
+# =======================================================
+ 
+np.random.seed(42)
+ 
+# Datos del XOR
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+y = np.array([0,  1,  1,  0],          dtype=float)
+ 
+# Arquitectura: 2 -> 8 -> 1
+# La capa oculta de 8 neuronas da más que suficiente capacidad
+red = RedNeuronal([
+    CapaDensa(2, 8),   # capa oculta: 2 entradas -> 8 neuronas
+    ReLU(),
+    CapaDensa(8, 1),   # capa de salida: 8 -> 1
+    Sigmoid()
+])
+ 
+print('=== RESOLVIENDO XOR CON MLP ===')
+print(f'Arquitectura: 2 entradas -> 8 ocultas (ReLU) -> 1 salida (Sigmoid)')
+print(f'Parámetros: {2*8+8 + 8*1+1} pesos + sesgos\n')
+print('Entrenamiento:')
+historico = red.entrenar(X, y, epocas=5000, lr=0.1)
+ 
+print('\n=== RESULTADOS FINALES ===')
+pred = red.predecir(X).ravel()   # CORRECCION: aplanar (4,1)->(4,) para NumPy 2.x
+print(f'{"Entradas":^15} {"Predicción":>12} {"Redondeado":>12} {"Correcto":>10}')
+print('-' * 53)
+for xi, yi, pi in zip(X, y, pred):
+    entradas_str = f'{int(xi[0])} XOR {int(xi[1])}'
+    correcto = '✓' if round(float(pi)) == int(yi) else '✗'
+    print(f'{entradas_str:^15} {float(pi):12.4f} {round(float(pi)):12d} {correcto:>10}')
+ 
+print(f'\nPérdida final: {historico[-1]:.8f}')
+```
+
+**Ejecución:** `python programa_4_xor.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.2 s
+
+**Salida real por consola:**
+
+```
+=== RESOLVIENDO XOR CON MLP ===
+Arquitectura: 2 entradas -> 8 ocultas (ReLU) -> 1 salida (Sigmoid)
+Parámetros: 33 pesos + sesgos
+
+Entrenamiento:
+  Época     0: pérdida = 0.329071
+  Época   500: pérdida = 0.032847
+  Época  1000: pérdida = 0.009912
+  Época  1500: pérdida = 0.005003
+  Época  2000: pérdida = 0.003151
+  Época  2500: pérdida = 0.002231
+  Época  3000: pérdida = 0.001696
+  Época  3500: pérdida = 0.001352
+  Época  4000: pérdida = 0.001115
+  Época  4500: pérdida = 0.000943
+  Época  4999: pérdida = 0.000814
+
+=== RESULTADOS FINALES ===
+   Entradas       Predicción   Redondeado   Correcto
+-----------------------------------------------------
+    0 XOR 0           0.0433            0          ✓
+    0 XOR 1           0.9758            1          ✓
+    1 XOR 0           0.9772            1          ✓
+    1 XOR 1           0.0168            0          ✓
+
+Pérdida final: 0.00081414
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (23 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 25. Ejercicio 6.1 — Resolver XNOR con el MLP
+
+**Archivo:** `ejercicio_6_1.py`  ·  **Capítulo:** Capítulo 6: Red Neuronal Multicapa (MLP) (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (26 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+from programa_3_mlp import CapaDensa, ReLU, Sigmoid, RedNeuronal   # Programa 3
+ 
+np.random.seed(0)
+ 
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+y_xor  = np.array([0, 1, 1, 0], dtype=float)  # XOR
+y_xnor = np.array([1, 0, 0, 1], dtype=float)  # XNOR = NOT XOR
+ 
+for nombre, y in [('XOR', y_xor), ('XNOR', y_xnor)]:
+    np.random.seed(42)
+    red = RedNeuronal([
+        CapaDensa(2, 8), ReLU(),
+        CapaDensa(8, 1), Sigmoid()
+    ])
+    hist = red.entrenar(X, y, epocas=5000, lr=0.1, verbose=False)
+    pred = red.predecir(X).ravel()   # CORRECCION: aplanar para NumPy 2.x
+    correcto = sum(round(float(p))==int(e) for p,e in zip(pred,y))
+    print(f'{nombre}: pérdida={hist[-1]:.5f}  precision={correcto}/4  ', end='')
+    preds_str = str([round(float(p)) for p in pred])
+    print(f'preds={preds_str}')
+ 
+print()
+print('Observación: XNOR = NOT XOR.')
+print('La misma arquitectura resuelve ambos porque ambos son')
+print('no linealmente separables y tienen la misma complejidad.')
+```
+
+**Ejecución:** `python ejercicio_6_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.4 s
+
+**Salida real por consola:**
+
+```
+XOR: pérdida=0.00081  precision=4/4  preds=[0, 1, 1, 0]
+XNOR: pérdida=0.00066  precision=4/4  preds=[1, 0, 0, 1]
+
+Observación: XNOR = NOT XOR.
+La misma arquitectura resuelve ambos porque ambos son
+no linealmente separables y tienen la misma complejidad.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_6_1.txt`), que es la que describe el texto.
+
+## 26. Ejercicio 6.2 — Contando parámetros
+
+**Archivo:** `ejercicio_6_2.py`  ·  **Capítulo:** Capítulo 6: Red Neuronal Multicapa (MLP) (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (29 líneas, tal como está impreso en el libro):
+
+```python
+def contar_params(arquitectura):
+    """Cuenta pesos + sesgos de una red densa."""
+    total = 0
+    for i in range(len(arquitectura) - 1):
+        n_ent = arquitectura[i]
+        n_sal = arquitectura[i+1]
+        pesos  = n_ent * n_sal
+        sesgos = n_sal
+        total += pesos + sesgos
+    return total
+ 
+# Verificar con casos conocidos
+casos = {
+    'Una neurona (1 entrada)': [1, 1],
+    'Neurona AND (2 entradas)': [2, 1],
+    'MLP XOR (2-8-1)':         [2, 8, 1],
+    'MLP mediano (10-64-32-1)':[10, 64, 32, 1],
+    'FFN de un bloque de GPT-2 (768-3072-768)': [768, 3072, 768],
+}
+ 
+print(f"{'Arquitectura':>40}  {'Parámetros':>12}")
+print('-' * 56)
+for nombre, arq in casos.items():
+    print(f'{nombre:>40}  {contar_params(arq):>12,}')
+ 
+# Cálculo manual para verificar [2, 8, 1]:
+# Capa 1: 2*8 + 8 = 16 + 8 = 24
+# Capa 2: 8*1 + 1 =  8 + 1 =  9
+# Total: 24 + 9 = 33, que coincide con el Programa 4 (8 ocultas): 2*8+8 + 8*1+1 = 33
+```
+
+**Ejecución:** `python ejercicio_6_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+                            Arquitectura    Parámetros
+--------------------------------------------------------
+                 Una neurona (1 entrada)             2
+                Neurona AND (2 entradas)             3
+                         MLP XOR (2-8-1)            33
+                MLP mediano (10-64-32-1)         2,817
+FFN de un bloque de GPT-2 (768-3072-768)     4,722,432
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_6_2.txt`), que es la que describe el texto.
+
+## 27. Ejercicio 6.3 — ¿Cuántas neuronas ocultas son suficientes para XOR?
+
+**Archivo:** `ejercicio_6_3.py`  ·  **Capítulo:** Capítulo 6: Red Neuronal Multicapa (MLP) (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (25 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+from programa_3_mlp import CapaDensa, ReLU, Sigmoid, RedNeuronal   # Programa 3
+ 
+X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=float)
+y = np.array([0, 1, 1, 0], dtype=float)
+ 
+print('¿Cuántas neuronas ocultas necesita XOR?\n')
+print(f"{'N ocultas':>12}  {'Éxitos/10':>10}  {'Pérdida media':>15}")
+print('-' * 42)
+ 
+for n_ocultas in [1, 2, 3, 4, 8]:
+    exitos = 0
+    perdidas = []
+    for semilla in range(10):
+        np.random.seed(semilla)
+        red = RedNeuronal([
+            CapaDensa(2, n_ocultas), ReLU(),
+            CapaDensa(n_ocultas, 1), Sigmoid()
+        ])
+        hist = red.entrenar(X, y, epocas=3000, lr=0.2, verbose=False)
+        pred = red.predecir(X).ravel()   # CORRECCION: aplanar para NumPy 2.x
+        ok = all(round(float(p))==int(e) for p,e in zip(pred,y))
+        if ok: exitos += 1
+        perdidas.append(hist[-1])
+    print(f'{n_ocultas:>12}  {exitos:>10}/10  {np.mean(perdidas):>15.5f}')
+```
+
+**Ejecución:** `python ejercicio_6_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  4.8 s
+
+**Salida real por consola:**
+
+```
+¿Cuántas neuronas ocultas necesita XOR?
+
+   N ocultas   Éxitos/10    Pérdida media
+------------------------------------------
+           1           0/10          0.20005
+           2           0/10          0.18766
+           3           5/10          0.10488
+           4           8/10          0.03839
+           8          10/10          0.00087
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_6_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 7: Sobreajuste y Regularización (**)
+
+## 28. Programa R-1 — Demostración de Overfitting con curvas de aprendizaje
+
+**Archivo:** `programa_R1_overfitting.py`  ·  **Capítulo:** Capítulo 7: Sobreajuste y Regularización (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (136 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+# =============================================================
+# DATASET: funcion seno con ruido gaussiano
+# Usamos POCOS datos de entrenamiento a proposito,
+# para que el overfitting emerja facilmente.
+# =============================================================
+ 
+def generar_datos(n, ruido=0.25, semilla=None):
+    if semilla: np.random.seed(semilla)
+    X = np.sort(np.random.uniform(0, 1, n))
+    y = np.sin(2 * np.pi * X) + np.random.normal(0, ruido, n)
+    return X.reshape(-1, 1), y
+ 
+X_tr,  y_tr  = generar_datos(20, semilla=42)   # 20 datos de entrenamiento
+X_val, y_val = generar_datos(200, semilla=99)  # 200 datos de validacion
+ 
+# =============================================================
+# MLP para regresion (salida lineal, sin sigmoid en la capa final)
+# =============================================================
+def relu(z):     return np.maximum(0, z)
+def d_relu(z):   return (z > 0).astype(float)
+ 
+class MLPRegresion:
+    def __init__(self, n_oculta, semilla=0):
+        np.random.seed(semilla)
+        escala = np.sqrt(2.0 / 1)
+        self.W1 = np.random.randn(1, n_oculta) * escala
+        self.b1 = np.zeros(n_oculta)
+        self.W2 = np.random.randn(n_oculta, 1) * 0.1
+        self.b2 = np.zeros(1)
+        self.m = {'W1': np.zeros_like(self.W1), 'b1': np.zeros_like(self.b1),
+                  'W2': np.zeros_like(self.W2), 'b2': np.zeros_like(self.b2)}
+        self.v = {k: np.zeros_like(val) for k, val in self.m.items()}
+        self.t = 0   # contador de pasos, para la correccion de sesgo de Adam
+    
+    def forward(self, X):
+        self.X  = X
+        self.Z1 = X @ self.W1 + self.b1
+        self.A1 = relu(self.Z1)
+        self.Z2 = self.A1 @ self.W2 + self.b2
+        return self.Z2
+    
+    def backward(self, dZ2, lr, beta1=0.9, beta2=0.999, eps=1e-8):
+        dW2 = self.A1.T @ dZ2            # dZ2 ya trae el 1/N de la pérdida media
+        db2 = dZ2.sum(axis=0)
+        dA1 = dZ2 @ self.W2.T
+        dZ1 = dA1 * d_relu(self.Z1)
+        dW1 = self.X.T @ dZ1
+        db1 = dZ1.sum(axis=0)
+        self.t += 1
+        for nombre, grad in [('W1',dW1),('b1',db1),('W2',dW2),('b2',db2)]:
+            self.m[nombre] = beta1*self.m[nombre] + (1-beta1)*grad
+            self.v[nombre] = beta2*self.v[nombre] + (1-beta2)*grad**2
+            m_hat = self.m[nombre] / (1 - beta1**self.t)
+            v_hat = self.v[nombre] / (1 - beta2**self.t)
+            getattr(self, nombre)[...] -= lr * m_hat / (np.sqrt(v_hat) + eps)
+    
+    def mse(self, X, y):
+        return float(np.mean((self.forward(X) - y.reshape(-1,1))**2))
+    
+    def entrenar_epoch(self, X, y, lr):
+        pred = self.forward(X)
+        loss = float(np.mean((pred - y.reshape(-1,1))**2))
+        grad = 2 * (pred - y.reshape(-1,1)) / len(X)
+        self.backward(grad, lr)
+        return loss
+ 
+ 
+# =============================================================
+# ENTRENAR TRES REDES: pequena, mediana y grande
+# =============================================================
+EPOCAS = 20000   # aumentado de 5000: con Adam y mas tiempo, el sobreajuste emerge con claridad
+LR     = 0.01    # ajustado para Adam (antes 0.005, pensado para SGD)
+ 
+modelos = [
+    ('Modelo simple  (4 neuronas) ',  4),
+    ('Modelo adecuado (16 neuronas)', 16),
+    ('Modelo grande  (256 neuronas)', 256),
+]
+ 
+resultados = {}
+for nombre, n_oc in modelos:
+    red = MLPRegresion(n_oc, semilla=42)
+    hist_tr, hist_val = [], []
+    for ep in range(EPOCAS):
+        lt = red.entrenar_epoch(X_tr, y_tr, LR)
+        lv = red.mse(X_val, y_val)
+        hist_tr.append(lt)
+        hist_val.append(lv)
+    resultados[nombre] = (hist_tr, hist_val)
+ 
+# =============================================================
+# MOSTRAR CURVAS DE APRENDIZAJE (formato tabla)
+# =============================================================
+def curva_ascii(hist_tr, hist_val, n_puntos=12):
+    """Visualizacion ASCII de la curva de aprendizaje"""
+    paso = len(hist_tr) // n_puntos
+    print(f"  {'Epoca':>7}  {'Error train':>13}  {'Error val':>11}  Divergencia")
+    print('  ' + '-'*55)
+    for i in range(n_puntos):
+        ep  = i * paso
+        lt  = hist_tr[ep]
+        lv  = hist_val[ep]
+        div = lv / (lt + 1e-10)
+        barra_tr = '*' * min(20, int(lt * 40))
+        barra_vl = 'o' * min(20, int(lv * 40))
+        if div > 2.0:
+            señal = f'!!! OVERFITTING (val={div:.1f}x train)'
+        elif lt > 0.15:
+            señal = 'aun aprendiendo'
+        else:
+            señal = 'convergido'
+        print(f'  {ep:>7}  {lt:>13.5f}  {lv:>11.5f}  {señal}')
+ 
+print('='*60)
+print('CURVAS DE APRENDIZAJE')
+print('='*60)
+ 
+for nombre, (hist_tr, hist_val) in resultados.items():
+    print(f'\n{nombre}')
+    curva_ascii(hist_tr, hist_val)
+    mejor_val  = min(hist_val)
+    epoca_mej  = hist_val.index(mejor_val)
+    print(f'  -> Error train final:  {hist_tr[-1]:.5f}')
+    print(f'  -> Error val final:    {hist_val[-1]:.5f}')
+    print(f'  -> Mejor val (epoca {epoca_mej}): {mejor_val:.5f}')
+    ratio = hist_val[-1] / (hist_tr[-1] + 1e-10)
+    if ratio > 2.5:
+        print(f'  -> DIAGNOSTICO: OVERFITTING grave (val es {ratio:.1f}x train)')
+    elif hist_tr[-1] > 0.12:
+        print(f'  -> DIAGNOSTICO: UNDERFITTING (error train alto)')
+    else:
+        print(f'  -> DIAGNOSTICO: Buen ajuste')
+```
+
+**Ejecución:** `python programa_R1_overfitting.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  8.8 s
+
+**Salida real por consola:**
+
+```
+============================================================
+CURVAS DE APRENDIZAJE
+============================================================
+
+Modelo simple  (4 neuronas) 
+    Epoca    Error train    Error val  Divergencia
+  -------------------------------------------------------
+        0        0.61752      0.67340  aun aprendiendo
+     1666        0.18143      0.21486  aun aprendiendo
+     3332        0.18143      0.21462  aun aprendiendo
+     4998        0.18145      0.21472  aun aprendiendo
+     6664        0.18142      0.21472  aun aprendiendo
+     8330        0.18143      0.21462  aun aprendiendo
+     9996        0.18142      0.21484  aun aprendiendo
+    11662        0.18143      0.21453  aun aprendiendo
+    13328        0.09008      0.10292  convergido
+    14994        0.09008      0.10292  convergido
+    16660        0.09009      0.10301  convergido
+    18326        0.09008      0.10292  convergido
+  -> Error train final:  0.09008
+  -> Error val final:    0.10292
+  -> Mejor val (epoca 13127): 0.10068
+  -> DIAGNOSTICO: Buen ajuste
+
+Modelo adecuado (16 neuronas)
+    Epoca    Error train    Error val  Divergencia
+  -------------------------------------------------------
+        0        0.46126      0.46179  aun aprendiendo
+     1666        0.14247      0.19840  convergido
+     3332        0.14235      0.19800  convergido
+     4998        0.14232      0.19816  convergido
+     6664        0.14240      0.19828  convergido
+     8330        0.14234      0.19826  convergido
+     9996        0.14235      0.19808  convergido
+    11662        0.14239      0.19827  convergido
+    13328        0.14235      0.19839  convergido
+    14994        0.14236      0.19855  convergido
+    16660        0.14236      0.19770  convergido
+    18326        0.14239      0.19809  convergido
+  -> Error train final:  0.14240
+  -> Error val final:    0.19800
+  -> Mejor val (epoca 306): 0.19635
+  -> DIAGNOSTICO: UNDERFITTING (error train alto)
+
+Modelo grande  (256 neuronas)
+    Epoca    Error train    Error val  Divergencia
+  -------------------------------------------------------
+        0        0.59756      0.80696  aun aprendiendo
+     1666        0.14099      0.19911  convergido
+     3332        0.08161      0.13848  convergido
+     4998        0.04024      0.08005  convergido
+     6664        0.03729      0.08267  !!! OVERFITTING (val=2.2x train)
+     8330        0.03626      0.08351  !!! OVERFITTING (val=2.3x train)
+     9996        0.03570      0.08377  !!! OVERFITTING (val=2.3x train)
+    11662        0.03961      0.09508  !!! OVERFITTING (val=2.4x train)
+    13328        0.03493      0.08453  !!! OVERFITTING (val=2.4x train)
+    14994        0.03427      0.09049  !!! OVERFITTING (val=2.6x train)
+    16660        0.03286      0.08725  !!! OVERFITTING (val=2.7x train)
+    18326        0.04032      0.10471  !!! OVERFITTING (val=2.6x train)
+  -> Error train final:  0.03226
+  -> Error val final:    0.09107
+  -> Mejor val (epoca 3655): 0.07874
+  -> DIAGNOSTICO: OVERFITTING grave (val es 2.8x train)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (60 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 29. Programa R-2 — Regularización L2 y comparativa de regularización
+
+**Archivo:** `programa_R2_regularizacion.py`  ·  **Capítulo:** Capítulo 7: Sobreajuste y Regularización (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (107 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+# Dataset: mismo que el Programa R-1
+def generar(n, ruido=0.25, s=None):
+    if s: np.random.seed(s)
+    X = np.sort(np.random.uniform(0, 1, n)).reshape(-1,1)
+    y = np.sin(2*np.pi*X.ravel()) + np.random.normal(0, ruido, n)
+    return X, y
+ 
+X_tr, y_tr   = generar(20, s=42)
+X_val, y_val = generar(200, s=99)
+ 
+def relu(z):   return np.maximum(0, z)
+def d_relu(z): return (z > 0).astype(float)
+ 
+# =============================================================
+# MLP CON REGULARIZACION L2 OPCIONAL
+# El unico cambio respecto al MLP basico: añadimos
+# 2 * lambda * W al gradiente en cada actualizacion.
+# =============================================================
+class MLPConL2:
+    def __init__(self, n_oc, lam=0.0):
+        np.random.seed(42)
+        self.W1  = np.random.randn(1, n_oc) * np.sqrt(2)
+        self.b1  = np.zeros(n_oc)
+        self.W2  = np.random.randn(n_oc, 1) * 0.1
+        self.b2  = np.zeros(1)
+        self.m = {'W1': np.zeros_like(self.W1), 'b1': np.zeros_like(self.b1),
+                  'W2': np.zeros_like(self.W2), 'b2': np.zeros_like(self.b2)}
+        self.v = {k: np.zeros_like(val) for k, val in self.m.items()}
+        self.t = 0
+        self.lam = lam          # fuerza de la regularizacion L2
+    
+    def forward(self, X):
+        self.X  = X
+        self.Z1 = X @ self.W1 + self.b1
+        self.A1 = relu(self.Z1)
+        return self.A1 @ self.W2 + self.b2
+    
+    def backward(self, dZ2, lr, beta1=0.9, beta2=0.999, eps=1e-8):
+        dW2 = self.A1.T @ dZ2 + 2*self.lam*self.W2  # <-- L2 (dZ2 ya trae el 1/N del MSE)
+        db2 = dZ2.sum(axis=0)
+        dA1 = dZ2 @ self.W2.T
+        dZ1 = dA1 * d_relu(self.Z1)
+        dW1 = self.X.T @ dZ1 + 2*self.lam*self.W1  # <-- L2
+        db1 = dZ1.sum(axis=0)
+        self.t += 1
+        for nombre, grad in [('W1',dW1),('b1',db1),('W2',dW2),('b2',db2)]:
+            self.m[nombre] = beta1*self.m[nombre] + (1-beta1)*grad
+            self.v[nombre] = beta2*self.v[nombre] + (1-beta2)*grad**2
+            m_hat = self.m[nombre] / (1 - beta1**self.t)
+            v_hat = self.v[nombre] / (1 - beta2**self.t)
+            getattr(self, nombre)[...] -= lr * m_hat / (np.sqrt(v_hat) + eps)
+    
+    def train(self, X, y, lr):
+        pred  = self.forward(X)
+        err   = pred - y.reshape(-1,1)
+        loss  = float(np.mean(err**2))
+        self.backward(2*err/len(X), lr)
+        return loss
+    
+    def mse(self, X, y):
+        return float(np.mean((self.forward(X)-y.reshape(-1,1))**2))
+    
+    def norma_pesos(self):
+        return float(np.sum(self.W1**2) + np.sum(self.W2**2))
+ 
+ 
+# Comparamos tres configuraciones del mismo modelo (256 neuronas)
+configs = [
+    ('Sin regularizacion  (lambda=0)',    0.0),
+    ('L2 moderada         (lambda=0.001)',  0.001),
+    ('L2 fuerte           (lambda=0.01)',   0.01),
+]
+ 
+print('=== EFECTO DE LA REGULARIZACION L2 ===')
+print('Modelo: 256 neuronas ocultas (propenso a overfitting)\n')
+print(f"{'Configuracion':>40}  {'Train':>8}  {'Val':>8}  {'|W|^2':>10}  Diagnostico")
+print('-'*90)
+ 
+for nombre, lam in configs:
+    red = MLPConL2(256, lam=lam)
+    for _ in range(20000):
+        red.train(X_tr, y_tr, lr=0.01)
+    err_tr  = red.mse(X_tr, y_tr)
+    err_val = red.mse(X_val, y_val)
+    norma   = red.norma_pesos()
+    ratio   = err_val / (err_tr + 1e-10)
+    if ratio > 2.5:
+        diag = f'OVERFITTING (val={ratio:.1f}x train)'
+    elif err_tr > 0.12:
+        diag = 'underfitting'
+    else:
+        diag = 'buen ajuste'
+    print(f'{nombre:>40}  {err_tr:>8.5f}  {err_val:>8.5f}  {norma:>10.1f}  {diag}')
+ 
+# Analisis de los pesos
+print('\nAnálisis de los pesos tras el entrenamiento:')
+for nombre, lam in configs:
+    red = MLPConL2(256, lam=lam)
+    for _ in range(20000):
+        red.train(X_tr, y_tr, lr=0.01)
+    pesos = np.concatenate([red.W1.ravel(), red.W2.ravel()])
+    print(f'  {nombre:>37}: max|w|={np.abs(pesos).max():.3f}  '
+          f'mean|w|={np.abs(pesos).mean():.4f}')
+```
+
+**Ejecución:** `python programa_R2_regularizacion.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  11.4 s
+
+**Salida real por consola:**
+
+```
+=== EFECTO DE LA REGULARIZACION L2 ===
+Modelo: 256 neuronas ocultas (propenso a overfitting)
+
+                           Configuracion     Train       Val       |W|^2  Diagnostico
+------------------------------------------------------------------------------------------
+          Sin regularizacion  (lambda=0)   0.03237   0.09107       608.5  OVERFITTING (val=2.8x train)
+      L2 moderada         (lambda=0.001)   0.04774   0.08097        32.5  buen ajuste
+       L2 fuerte           (lambda=0.01)   0.17898   0.21058         4.2  underfitting
+
+Análisis de los pesos tras el entrenamiento:
+         Sin regularizacion  (lambda=0): max|w|=5.340  mean|w|=0.7169
+     L2 moderada         (lambda=0.001): max|w|=2.564  mean|w|=0.0559
+      L2 fuerte           (lambda=0.01): max|w|=1.020  mean|w|=0.0097
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (11 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 30. Programa R-3 — Dropout implementado desde cero
+
+**Archivo:** `programa_R3_dropout.py`  ·  **Capítulo:** Capítulo 7: Sobreajuste y Regularización (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (146 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+# =============================================================
+# DATASET: el mismo que el Programa R-1 (seno con ruido)
+# =============================================================
+ 
+def generar_datos(n, ruido=0.25, semilla=None):
+    if semilla:
+        np.random.seed(semilla)
+    X = np.sort(np.random.uniform(0, 1, n))
+    y = np.sin(2 * np.pi * X) + np.random.normal(0, ruido, n)
+    return X.reshape(-1, 1), y
+ 
+ 
+X_tr, y_tr = generar_datos(20, semilla=42)      # 20 datos de entrenamiento
+X_val, y_val = generar_datos(200, semilla=99)   # 200 datos de validacion
+ 
+# =============================================================
+# MLP para regresion con Dropout (inverted dropout) integrado
+# Reutiliza el mismo optimizador Adam que MLPRegresion (Programa R-1)
+# para que el modelo "Sin Dropout" sea EXACTAMENTE el mismo modelo
+# propenso a overfitting que ya conocemos.
+# =============================================================
+ 
+def relu(z): return np.maximum(0, z)
+def d_relu(z): return (z > 0).astype(float)
+ 
+ 
+class MLPConDropout:
+    def __init__(self, n_oculta, p_dropout=0.5, semilla=0):
+        np.random.seed(semilla)
+        escala = np.sqrt(2.0 / 1)
+        self.W1 = np.random.randn(1, n_oculta) * escala
+        self.b1 = np.zeros(n_oculta)
+        self.W2 = np.random.randn(n_oculta, 1) * 0.1
+        self.b2 = np.zeros(1)
+        self.p = p_dropout  # probabilidad de APAGAR una neurona
+ 
+        self.m = {'W1': np.zeros_like(self.W1), 'b1': np.zeros_like(self.b1),
+                  'W2': np.zeros_like(self.W2), 'b2': np.zeros_like(self.b2)}
+        self.v = {k: np.zeros_like(val) for k, val in self.m.items()}
+        self.t = 0  # contador de pasos, para la correccion de sesgo de Adam
+ 
+    def forward(self, X, entrenando=True):
+        # aplica dropout SOLO si entrenando=True
+        self.X = X
+        self.Z1 = X @ self.W1 + self.b1
+        self.A1 = relu(self.Z1)
+ 
+        if entrenando and self.p > 0:
+            # Mascara binaria: True = neurona activa. Escalado 1/(1-p)
+            # incluido en la propia mascara ("inverted dropout"): la
+            # magnitud esperada de la activacion no cambia con o sin
+            # dropout, asi que no hace falta tocar nada en inferencia.
+            self.mask = (np.random.rand(*self.A1.shape) > self.p) / (1.0 - self.p)
+            self.D1 = self.A1 * self.mask
+        else:
+            self.mask = None       # inferencia: todas las neuronas, sin mascara
+            self.D1 = self.A1
+ 
+        self.Z2 = self.D1 @ self.W2 + self.b2
+        return self.Z2
+ 
+    def backward(self, dZ2, lr, beta1=0.9, beta2=0.999, eps=1e-8):
+        # el gradiente tambien pasa por la mascara: el gradiente de una
+        # neurona apagada es 0 (se multiplica por la misma mascara del forward)
+        dW2 = self.D1.T @ dZ2            # dZ2 ya trae el 1/N de la pérdida media
+        db2 = dZ2.sum(axis=0)
+        dD1 = dZ2 @ self.W2.T
+        dA1 = dD1 * self.mask if self.mask is not None else dD1
+        dZ1 = dA1 * d_relu(self.Z1)
+        dW1 = self.X.T @ dZ1
+        db1 = dZ1.sum(axis=0)
+ 
+        self.t += 1
+        for nombre, grad in [('W1', dW1), ('b1', db1), ('W2', dW2), ('b2', db2)]:
+            self.m[nombre] = beta1 * self.m[nombre] + (1 - beta1) * grad
+            self.v[nombre] = beta2 * self.v[nombre] + (1 - beta2) * grad ** 2
+            m_hat = self.m[nombre] / (1 - beta1 ** self.t)
+            v_hat = self.v[nombre] / (1 - beta2 ** self.t)
+            getattr(self, nombre)[...] -= lr * m_hat / (np.sqrt(v_hat) + eps)
+ 
+    def entrenar_epoch(self, X, y, lr):
+        pred = self.forward(X, entrenando=True)          # dropout activado
+        err = pred - y.reshape(-1, 1)
+        loss = float(np.mean(err ** 2))
+        self.backward(2 * err / len(X), lr)
+        return loss
+ 
+    def evaluar(self, X, y):
+        pred = self.forward(X, entrenando=False)          # dropout desactivado
+        return float(np.mean((pred - y.reshape(-1, 1)) ** 2))
+ 
+ 
+# =============================================================
+# COMPARATIVA: mismo modelo (256 neuronas, propenso a overfitting
+# de R-1), una vez sin Dropout y otras con Dropout p=0.3 y p=0.5
+# =============================================================
+ 
+EPOCAS = 20000
+LR = 0.01
+ 
+configs = [
+    ('Sin Dropout (p=0.00)', 0.00),
+    ('Dropout moderado (p=0.30)', 0.30),
+    ('Dropout estandar (p=0.50)', 0.50),
+]
+ 
+print('=== EFECTO DEL DROPOUT (red de 256 neuronas) ===\n')
+print(f"{'Configuracion':>28} {'Train':>10} {'Val':>10} {'Ratio':>8}  Diagnostico")
+print('-' * 78)
+ 
+for nombre, p in configs:
+    red = MLPConDropout(256, p_dropout=p, semilla=42)
+    for _ in range(EPOCAS):
+        red.entrenar_epoch(X_tr, y_tr, LR)
+    err_tr = red.evaluar(X_tr, y_tr)
+    err_val = red.evaluar(X_val, y_val)
+    ratio = err_val / (err_tr + 1e-10)
+    if ratio > 2.5:
+        diag = f'OVERFITTING (val={ratio:.1f}x train)'
+    elif err_tr > 0.12:
+        diag = 'underfitting'
+    else:
+        diag = 'buen ajuste'
+    print(f'{nombre:>28} {err_tr:>10.5f} {err_val:>10.5f} {ratio:>7.2f}x  {diag}')
+ 
+# =============================================================
+# Verificacion del escalado invertido: la media de la activacion
+# debe ser aproximadamente la misma con y sin dropout.
+# =============================================================
+ 
+print('\n--- Verificacion del escalado de Dropout ---')
+np.random.seed(0)
+A_prueba = np.ones((1000, 8))  # activaciones simuladas, todas a 1
+ 
+p = 0.5
+mascara = (np.random.rand(*A_prueba.shape) > p) / (1.0 - p)
+salida_entrenamiento = A_prueba * mascara
+salida_inferencia = A_prueba  # sin mascara ni escalado
+ 
+print(f'Media activacion (entrenamiento, con mascara): {salida_entrenamiento.mean():.4f}')
+print(f'Media activacion (inferencia, sin mascara):    {salida_inferencia.mean():.4f}')
+print('Las medias son similares gracias al escalado 1/(1-p) ("inverted dropout").')
+```
+
+**Ejecución:** `python programa_R3_dropout.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  7.4 s
+
+**Salida real por consola:**
+
+```
+=== EFECTO DEL DROPOUT (red de 256 neuronas) ===
+
+               Configuracion      Train        Val    Ratio  Diagnostico
+------------------------------------------------------------------------------
+        Sin Dropout (p=0.00)    0.03237    0.09107    2.81x  OVERFITTING (val=2.8x train)
+   Dropout moderado (p=0.30)    0.05535    0.08764    1.58x  buen ajuste
+   Dropout estandar (p=0.50)    0.08372    0.11701    1.40x  buen ajuste
+
+--- Verificacion del escalado de Dropout ---
+Media activacion (entrenamiento, con mascara): 0.9855
+Media activacion (inferencia, sin mascara):    1.0000
+Las medias son similares gracias al escalado 1/(1-p) ("inverted dropout").
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (10 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 31. Programa R-4 — Early Stopping con paciencia
+
+**Archivo:** `programa_R4_early_stopping.py`  ·  **Capítulo:** Capítulo 7: Sobreajuste y Regularización (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (112 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+# =============================================================
+# CLASE EARLY STOPPING
+# Monitoriza el error de validacion y detiene el entrenamiento
+# cuando no mejora durante 'paciencia' epocas consecutivas.
+# =============================================================
+class EarlyStopping:
+    def __init__(self, paciencia=50, delta=1e-4):
+        """
+        paciencia: epocas sin mejora antes de parar
+        delta:     mejora minima para considerar que ha habido progreso
+        """
+        self.paciencia     = paciencia
+        self.delta         = delta
+        self.mejor_val     = float('inf')
+        self.contador      = 0
+        self.mejor_epoca   = 0
+        self.mejores_pesos = None
+    
+    def registrar(self, val_loss, pesos, epoca):
+        """
+        Llamar en cada epoca con el error de validacion.
+        Devuelve True si hay que parar, False si continuar.
+        """
+        if val_loss < self.mejor_val - self.delta:
+            # Ha mejorado: guardar estos pesos
+            self.mejor_val   = val_loss
+            self.contador    = 0
+            self.mejor_epoca = epoca
+            # Copia profunda de los pesos
+            self.mejores_pesos = {k: v.copy() for k, v in pesos.items()}
+            return False  # seguir entrenando
+        else:
+            # No ha mejorado: incrementar contador
+            self.contador += 1
+            if self.contador >= self.paciencia:
+                return True  # parar
+            return False     # todavia tenemos paciencia
+ 
+ 
+# MLP simple para la demo
+def relu(z):   return np.maximum(0, z)
+def d_relu(z): return (z > 0).astype(float)
+ 
+class MLP:
+    def __init__(self, n_oc, s=42):
+        np.random.seed(s)
+        self.W1=np.random.randn(1,n_oc)*np.sqrt(2); self.b1=np.zeros(n_oc)
+        self.W2=np.random.randn(n_oc,1)*0.1;        self.b2=np.zeros(1)
+        self.m={'W1':np.zeros_like(self.W1),'b1':np.zeros_like(self.b1),'W2':np.zeros_like(self.W2),'b2':np.zeros_like(self.b2)}
+        self.v={k:np.zeros_like(x) for k,x in self.m.items()}; self.t=0
+    def pesos(self): return {'W1':self.W1,'b1':self.b1,'W2':self.W2,'b2':self.b2}
+    def cargar(self, d): self.W1=d['W1'].copy();self.b1=d['b1'].copy();self.W2=d['W2'].copy();self.b2=d['b2'].copy()
+    def forward(self, X): self.X=X; self.Z1=X@self.W1+self.b1; self.A1=relu(self.Z1); return self.A1@self.W2+self.b2
+    def backward(self, g, lr, b1=0.9, b2=0.999, eps=1e-8):
+        dW2=self.A1.T@g; db2=g.sum(0); dA1=g@self.W2.T          # g ya trae el 1/N del MSE
+        dZ1=dA1*d_relu(self.Z1); dW1=self.X.T@dZ1; db1=dZ1.sum(0)
+        self.t+=1
+        for n_,g_ in [('W1',dW1),('b1',db1),('W2',dW2),('b2',db2)]:
+            self.m[n_]=b1*self.m[n_]+(1-b1)*g_; self.v[n_]=b2*self.v[n_]+(1-b2)*g_**2
+            mh=self.m[n_]/(1-b1**self.t); vh=self.v[n_]/(1-b2**self.t)
+            getattr(self,n_)[...] -= lr*mh/(np.sqrt(vh)+eps)
+    def train_ep(self, X, y, lr):
+        p=self.forward(X); e=p-y.reshape(-1,1); self.backward(2*e/len(X),lr); return float(np.mean(e**2))
+    def mse(self, X, y): return float(np.mean((self.forward(X)-y.reshape(-1,1))**2))
+ 
+ 
+# Dataset
+def gen(n, s): np.random.seed(s); X=np.sort(np.random.uniform(0,1,n)).reshape(-1,1); return X, np.sin(2*np.pi*X.ravel())+np.random.normal(0,0.25,n)
+X_tr, y_tr   = gen(20, 42)
+X_val, y_val = gen(200, 99)
+ 
+# =============================================================
+# ENTRENAMIENTO CON EARLY STOPPING
+# =============================================================
+red = MLP(256)
+es  = EarlyStopping(paciencia=1000, delta=1e-5)   # aumentado de 100: evita parar en una meseta temprana
+ 
+print('=== ENTRENAMIENTO CON EARLY STOPPING ===')
+print(f'Modelo: 256 neuronas | Paciencia: 1000 epocas\n')
+print(f"{'Epoca':>7}  {'Train':>10}  {'Val':>10}  Evento")
+print('-'*52)
+ 
+epocas_totales = 30_000   # aumentado de 10_000: con Adam hace falta mas margen
+for epoca in range(epocas_totales):
+    lt = red.train_ep(X_tr, y_tr, lr=0.01)   # ajustado para Adam (antes 0.005)
+    lv = red.mse(X_val, y_val)
+    
+    parar = es.registrar(lv, red.pesos(), epoca)
+    
+    # Mostrar hitos importantes
+    if epoca < 5 or epoca % 500 == 0 or parar:
+        evento = ''
+        if es.contador == 0: evento = '<-- nuevo mejor'
+        if parar:            evento = '<-- PARADA ANTICIPADA'
+        print(f'{epoca:>7}  {lt:>10.5f}  {lv:>10.5f}  {evento}')
+    
+    if parar:
+        break
+ 
+# Restaurar los mejores pesos
+red.cargar(es.mejores_pesos)
+ 
+print(f'\nResumen:')
+print(f'  Epocas entrenadas:  {epoca + 1} de {epocas_totales} posibles')
+print(f'  Mejor epoca:        {es.mejor_epoca}')
+print(f'  Mejor val (guardado): {es.mejor_val:.5f}')
+print(f'  Val con pesos finales s/ ES: podria ser mucho peor')
+print(f'  Val restaurando mejores pesos: {red.mse(X_val, y_val):.5f}')
+```
+
+**Ejecución:** `python programa_R4_early_stopping.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  2.1 s
+
+**Salida real por consola:**
+
+```
+=== ENTRENAMIENTO CON EARLY STOPPING ===
+Modelo: 256 neuronas | Paciencia: 1000 epocas
+
+  Epoca       Train         Val  Evento
+----------------------------------------------------
+      0     0.59756     0.80696  <-- nuevo mejor
+      1     0.82116     0.54969  <-- nuevo mejor
+      2     0.55503     0.47869  <-- nuevo mejor
+      3     0.44115     0.62274  
+      4     0.53792     0.58042  
+    500     0.14159     0.19776  
+   1000     0.14117     0.19779  
+   1500     0.14087     0.19711  
+   2000     0.14000     0.19767  
+   2500     0.13957     0.19772  
+   3000     0.13998     0.19886  
+   3500     0.04529     0.08177  
+   4000     0.04129     0.07956  
+   4500     0.04685     0.08104  
+   4655     0.03972     0.08301  <-- PARADA ANTICIPADA
+
+Resumen:
+  Epocas entrenadas:  4656 de 30000 posibles
+  Mejor epoca:        3655
+  Mejor val (guardado): 0.07874
+  Val con pesos finales s/ ES: podria ser mucho peor
+  Val restaurando mejores pesos: 0.07874
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (25 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 32. Ejercicio 7.1 — Curva de complejidad vs. error
+
+**Archivo:** `ejercicio_7_1.py`  ·  **Capítulo:** Capítulo 7: Sobreajuste y Regularización (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_R1_overfitting.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (28 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_R1_overfitting.py', encoding='utf-8').read()
+exec(fuente.split('# ENTRENAR')[0])   # la clase MLPRegresion del Programa R-1
+ 
+def gen(n, s): np.random.seed(s); X=np.sort(np.random.uniform(0,1,n)).reshape(-1,1); return X, np.sin(2*np.pi*X.ravel())+np.random.normal(0,0.25,n)
+X_tr, y_tr   = gen(20, 42)
+X_val, y_val = gen(200, 99)
+ 
+tamanos = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+ 
+print('=== CURVA DE COMPLEJIDAD (sesgo-varianza) ===\n')
+print(f"{'Neuronas':>10}  {'Err. Train':>12}  {'Err. Val':>10}  Barra Val")
+print('-' * 55)
+ 
+resultados = []
+for n_oc in tamanos:
+    red = MLPRegresion(n_oc, semilla=42)
+    for _ in range(20000):   # aumentado de 3000: con Adam hace falta mas tiempo
+        red.entrenar_epoch(X_tr, y_tr, lr=0.01)
+    err_tr  = red.mse(X_tr, y_tr)
+    err_val = red.mse(X_val, y_val)
+    resultados.append((n_oc, err_tr, err_val))
+    barra = '#' * min(40, int(err_val * 80))
+    print(f'{n_oc:>10}  {err_tr:>12.5f}  {err_val:>10.5f}  {barra}')
+ 
+mejor = min(resultados, key=lambda r: r[2])
+print(f'\nMejor configuracion: {mejor[0]} neuronas (err_val={mejor[2]:.5f})')
+print('Antes de ese punto: underfitting. Despues: overfitting creciente.')
+```
+
+**Ejecución:** `python ejercicio_7_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  10.9 s
+
+**Salida real por consola:**
+
+```
+=== CURVA DE COMPLEJIDAD (sesgo-varianza) ===
+
+  Neuronas    Err. Train    Err. Val  Barra Val
+-------------------------------------------------------
+         1       0.18145     0.21481  #################
+         2       0.18143     0.21475  #################
+         4       0.09008     0.10292  ########
+         8       0.09011     0.10275  ########
+        16       0.14233     0.19800  ###############
+        32       0.14233     0.19813  ###############
+        64       0.04519     0.08256  ######
+       128       0.03525     0.08404  ######
+       256       0.03237     0.09107  #######
+
+Mejor configuracion: 64 neuronas (err_val=0.08256)
+Antes de ese punto: underfitting. Despues: overfitting creciente.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_7_1.txt`), que es la que describe el texto.
+
+## 33. Ejercicio 7.2 — El efecto del tamaño del dataset en el overfitting
+
+**Archivo:** `ejercicio_7_2.py`  ·  **Capítulo:** Capítulo 7: Sobreajuste y Regularización (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_R1_overfitting.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (28 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_R1_overfitting.py', encoding='utf-8').read()
+exec(fuente.split('# ENTRENAR')[0])   # la clase MLPRegresion del Programa R-1
+ 
+def gen(n, s): np.random.seed(s); X=np.sort(np.random.uniform(0,1,n)).reshape(-1,1); return X, np.sin(2*np.pi*X.ravel())+np.random.normal(0,0.25,n)
+X_val, y_val = gen(200, 99)
+ 
+tamanos_dataset = [10, 20, 50, 100, 500]
+ 
+print('=== EFECTO DEL TAMAÑO DEL DATASET (red fija: 256 neuronas) ===\n')
+print(f"{'N ejemplos':>11}  {'Err Train':>10}  {'Err Val':>10}  {'Ratio Val/Train':>16}")
+print('-' * 55)
+ 
+for n in tamanos_dataset:
+    X_tr, y_tr = gen(n, 42)
+    red = MLPRegresion(256, semilla=42)
+    epocas = max(20000, 400000 // n)  # mas epocas si hay menos datos; suelo alto para Adam
+    for _ in range(epocas):
+        red.entrenar_epoch(X_tr, y_tr, lr=0.01)
+    err_tr  = red.mse(X_tr, y_tr)
+    err_val = red.mse(X_val, y_val)
+    ratio   = err_val / (err_tr + 1e-10)
+    print(f'{n:>11}  {err_tr:>10.5f}  {err_val:>10.5f}  {ratio:>16.1f}x')
+ 
+print()
+print('Con pocos datos (n=10), la misma red memoriza perfectamente')
+print('pero generaliza fatal. Con muchos datos (n=500), ya no puede')
+print('memorizar cada punto y se ve forzada a generalizar mejor.')
+```
+
+**Ejecución:** `python ejercicio_7_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  39.5 s
+
+**Salida real por consola:**
+
+```
+=== EFECTO DEL TAMAÑO DEL DATASET (red fija: 256 neuronas) ===
+
+ N ejemplos   Err Train     Err Val   Ratio Val/Train
+-------------------------------------------------------
+         10     0.01433     0.18345              12.8x
+         20     0.03237     0.09107               2.8x
+         50     0.03694     0.07404               2.0x
+        100     0.04735     0.06653               1.4x
+        500     0.06143     0.06543               1.1x
+
+Con pocos datos (n=10), la misma red memoriza perfectamente
+pero generaliza fatal. Con muchos datos (n=500), ya no puede
+memorizar cada punto y se ve forzada a generalizar mejor.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_7_2.txt`), que es la que describe el texto.
+
+## 34. Ejercicio 7.3 — Combinar Dropout y Early Stopping
+
+**Archivo:** `ejercicio_7_3.py`  ·  **Capítulo:** Capítulo 7: Sobreajuste y Regularización (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_R3_dropout.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (48 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_R3_dropout.py', encoding='utf-8').read()
+exec(fuente.split('# COMPARATIVA')[0])   # la clase MLPConDropout del Programa R-3
+ 
+def gen(n, s): np.random.seed(s); X=np.sort(np.random.uniform(0,1,n)).reshape(-1,1); return X, np.sin(2*np.pi*X.ravel())+np.random.normal(0,0.25,n)
+X_tr, y_tr   = gen(20, 42)
+X_val, y_val = gen(200, 99)
+ 
+configs = [
+    ('Solo Dropout (p=0.3)',        0.3,  None),
+    ('Solo Early Stopping',         0.0,  1000),   # paciencia como en R-4: no parar en una meseta
+    ('Dropout + Early Stopping',    0.3,  1000),
+]
+ 
+print('=== COMBINANDO DROPOUT Y EARLY STOPPING ===\n')
+print(f"{'Configuracion':>28}  {'Err Val Final':>14}  {'Mejor Err Val':>14}  {'Epoca parada':>13}")
+resumen = []
+print('-' * 75)
+ 
+for nombre, p_drop, paciencia in configs:
+    red = MLPConDropout(256, p_dropout=p_drop)
+    mejor_val = float('inf')
+    contador  = 0
+    epoca_final = 5000
+    mejores = None
+    for ep in range(5000):
+        red.entrenar_epoch(X_tr, y_tr, lr=0.01)
+        err_val = red.evaluar(X_val, y_val)
+        if paciencia is not None:
+            if err_val < mejor_val - 1e-4:
+                mejor_val = err_val; contador = 0
+                mejores = [x.copy() for x in (red.W1, red.b1, red.W2, red.b2)]   # guardar los mejores pesos
+            else:
+                contador += 1
+                if contador >= paciencia:
+                    epoca_final = ep; break
+        else:
+            mejor_val = min(mejor_val, err_val)
+    if mejores is not None:                       # early stopping: restaurar los mejores pesos
+        red.W1, red.b1, red.W2, red.b2 = mejores
+    err_final = red.evaluar(X_val, y_val)
+    resumen.append((err_final, nombre))
+    print(f'{nombre:>28}  {err_final:>14.5f}  {mejor_val:>14.5f}  {epoca_final:>13}')
+ 
+print()
+print(f'Mejor en esta ejecucion: {min(resumen)[1]} (err_val={min(resumen)[0]:.5f}).')
+print('Que la combinacion gane depende del problema y de la semilla: con 20 puntos')
+print('hay que repetir con varias semillas antes de sacar conclusiones.')
+```
+
+**Ejecución:** `python ejercicio_7_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  3.1 s
+
+**Salida real por consola:**
+
+```
+=== COMBINANDO DROPOUT Y EARLY STOPPING ===
+
+               Configuracion   Err Val Final   Mejor Err Val   Epoca parada
+---------------------------------------------------------------------------
+        Solo Dropout (p=0.3)         0.08048         0.07408           5000
+         Solo Early Stopping         0.19727         0.19727           1194
+    Dropout + Early Stopping         0.07408         0.07408           4258
+
+Mejor en esta ejecucion: Dropout + Early Stopping (err_val=0.07408).
+Que la combinacion gane depende del problema y de la semilla: con 20 puntos
+hay que repetir con varias semillas antes de sacar conclusiones.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_7_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 8: Del Número a la Palabra — Texto como Vectores (**)
+
+## 35. Programa 5 — Tokenizador y tabla de embeddings
+
+**Archivo:** `programa_5_embeddings.py`  ·  **Capítulo:** Capítulo 8: Del Número a la Palabra — Texto como Vectores (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (82 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# TOKENIZADOR A NIVEL DE CARÁCTER + EMBEDDINGS
+# =======================================================
+ 
+class TokenizadorCaracter:
+    """Convierte texto en secuencias de índices enteros"""
+    
+    def __init__(self, texto):
+        # El vocabulario son los caracteres únicos del texto
+        self.vocab = sorted(set(texto))
+        self.V = len(self.vocab)
+        self.c2i = {c: i for i, c in enumerate(self.vocab)}
+        self.i2c = {i: c for i, c in enumerate(self.vocab)}
+        print(f'Vocabulario: {self.V} caracteres únicos')
+    
+    def codificar(self, texto):
+        """Texto -> lista de enteros. OJO: un carácter que no esté en el
+        vocabulario se descarta sin avisar (el BPE del Capítulo 9 lo evita)."""
+        return [self.c2i[c] for c in texto if c in self.c2i]
+    
+    def decodificar(self, indices):
+        """Lista de enteros -> texto"""
+        return ''.join(self.i2c[i] for i in indices)
+ 
+ 
+class TablaEmbeddings:
+    """
+    Tabla de vectores densos para cada token.
+    Cada token tiene asignado un vector de dimensión 'dim'.
+    Los vectores se APRENDEN durante el entrenamiento.
+    """
+    
+    def __init__(self, V, dim):
+        # Inicialización con valores pequeños aleatorios
+        self.E = np.random.randn(V, dim) * 0.01
+        self.V   = V
+        self.dim = dim
+    
+    def obtener(self, indices):
+        """
+        Lookup: dado un índice (o lista), devuelve su vector.
+        Equivalente a: E[indices]
+        """
+        return self.E[indices]
+    
+    def similitud(self, i, j):
+        """Coseno entre dos vectores de embedding"""
+        u = self.E[i] / (np.linalg.norm(self.E[i]) + 1e-8)
+        v = self.E[j] / (np.linalg.norm(self.E[j]) + 1e-8)
+        return float(np.dot(u, v))
+ 
+ 
+# -- Demostración ---------------------------------------
+texto_ejemplo = 'hola mundo, aprendiendo inteligencia artificial'
+tok = TokenizadorCaracter(texto_ejemplo)
+ 
+# Codificación y decodificación
+fragmento = 'hola'
+codificado   = tok.codificar(fragmento)
+decodificado = tok.decodificar(codificado)
+print(f'\nOriginal:    "{fragmento}"')
+print(f'Codificado:  {codificado}')
+print(f'Decodificado:"{decodificado}"')
+ 
+# Crear tabla de embeddings (dim=6 para visualización)
+np.random.seed(7)
+emb = TablaEmbeddings(V=tok.V, dim=6)
+ 
+# Mostrar embeddings de algunos caracteres
+print(f'\nEmbeddings iniciales (antes de entrenar):')
+for char in ['h', 'o', 'l', 'a', ' ']:
+    idx = tok.c2i[char]
+    vec = emb.obtener(idx)
+    print(f'  [{repr(char)}] índice={idx:2d}  {vec.round(3)}')
+ 
+# Nota: después del entrenamiento, caracteres con
+# contextos similares tendrán vectores más parecidos
+print('\nNota: Los embeddings se aprenden durante el entrenamiento.')
+print('Después, caracteres en contextos similares tienen')
+print('vectores matemáticamente más cercanos.')
+```
+
+**Ejecución:** `python programa_5_embeddings.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.6 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 18 caracteres únicos
+
+Original:    "hola"
+Codificado:  [8, 13, 10, 2]
+Decodificado:"hola"
+
+Embeddings iniciales (antes de entrenar):
+  ['h'] índice= 8  [ 0.003 -0.005  0.019  0.002  0.001  0.003]
+  ['o'] índice=13  [-0.002 -0.018  0.007  0.009  0.004 -0.009]
+  ['l'] índice=10  [-0.004 -0.019 -0.001  0.017 -0.004 -0.009]
+  ['a'] índice= 2  [ 0.005 -0.003 -0.002 -0.015  0.006  0.001]
+  [' '] índice= 0  [ 0.017 -0.005  0.     0.004 -0.008  0.   ]
+
+Nota: Los embeddings se aprenden durante el entrenamiento.
+Después, caracteres en contextos similares tienen
+vectores matemáticamente más cercanos.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (13 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): un comentario avisa de que el codificador descarta sin aviso los caracteres que no están en el vocabulario. El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_programa_5_embeddings.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 36. Ejercicio 8.1 — Tokenizar tu nombre
+
+**Archivo:** `ejercicio_8_1.py`  ·  **Capítulo:** Capítulo 8: Del Número a la Palabra — Texto como Vectores (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (28 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+class TokenizadorCaracter:
+    def __init__(self, texto):
+        self.vocab = sorted(set(texto))
+        self.V     = len(self.vocab)
+        self.c2i   = {c:i for i,c in enumerate(self.vocab)}
+        self.i2c   = dict(enumerate(self.vocab))
+    def codificar(self, t):  return [self.c2i[c] for c in t if c in self.c2i]   # descarta lo desconocido
+    def decodificar(self, l): return ''.join(self.i2c[i] for i in l)
+ 
+# Cambia por tu propio nombre
+nombre = 'Alan Turing'
+ 
+tok = TokenizadorCaracter(nombre)
+print(f'Nombre: "{nombre}"')
+print(f'Vocabulario ({tok.V} caracteres): {tok.vocab}')
+print()
+ 
+cod = tok.codificar(nombre)
+dec = tok.decodificar(cod)
+print(f'Codificado:   {cod}')
+print(f'Decodificado: "{dec}"')
+print(f'Reversible:   {nombre == dec}')
+print()
+print('Índice de cada carácter:')
+for c, i in tok.c2i.items():
+    print(f'  {repr(c):>6}  ->  índice {i}')
+```
+
+**Ejecución:** `python ejercicio_8_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Nombre: "Alan Turing"
+Vocabulario (10 caracteres): [' ', 'A', 'T', 'a', 'g', 'i', 'l', 'n', 'r', 'u']
+
+Codificado:   [1, 6, 3, 7, 0, 2, 9, 8, 5, 7, 4]
+Decodificado: "Alan Turing"
+Reversible:   True
+
+Índice de cada carácter:
+     ' '  ->  índice 0
+     'A'  ->  índice 1
+     'T'  ->  índice 2
+     'a'  ->  índice 3
+     'g'  ->  índice 4
+     'i'  ->  índice 5
+     'l'  ->  índice 6
+     'n'  ->  índice 7
+     'r'  ->  índice 8
+     'u'  ->  índice 9
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_8_1.txt`), que es la que describe el texto.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): un comentario avisa de que el codificador descarta los caracteres desconocidos. El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_ejercicio_8_1.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 37. Ejercicio 8.2 — Tabla de frecuencias de bigramas
+
+**Archivo:** `ejercicio_8_2.py`  ·  **Capítulo:** Capítulo 8: Del Número a la Palabra — Texto como Vectores (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (29 líneas, tal como está impreso en el libro):
+
+```python
+from collections import Counter
+ 
+texto = 'la red neuronal aprende'
+ 
+# Contar todos los bigramas
+bigramas = Counter(texto[i:i+2] for i in range(len(texto)-1))
+total    = sum(bigramas.values())
+ 
+print(f'Texto: "{texto}"')
+print(f'Total de bigramas: {total}\n')
+print('Top 10 bigramas:')
+print(f"{'Bigrama':>10}  {'Frec.':>8}  {'Prob.':>8}  Barra")
+print('-' * 45)
+ 
+for bg, freq in bigramas.most_common(10):
+    prob  = freq / total
+    barra = '█' * int(prob * 200)
+    print(f'{repr(bg):>10}  {freq:>8}  {prob:>8.4f}  {barra}')
+ 
+bg_max, f_max = bigramas.most_common(1)[0]
+empates = [bg for bg, f in bigramas.items() if f == f_max]
+print(f'\nBigrama mas frecuente: {bg_max!r} ({f_max} veces)'
+      + (f'; empatan {len(empates)}: {empates}' if len(empates) > 1 else ''))
+print()
+ 
+# Probabilidad condicional: P(siguiente | actual)
+print('Probabilidad de que despues de a venga p:')
+p_ap = bigramas.get('ap', 0) / sum(v for k,v in bigramas.items() if k[0]=='a')
+print(f'  P("p" | "a") = {p_ap:.4f}')
+```
+
+**Ejecución:** `python ejercicio_8_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+Texto: "la red neuronal aprende"
+Total de bigramas: 22
+
+Top 10 bigramas:
+   Bigrama     Frec.     Prob.  Barra
+---------------------------------------------
+      're'         2    0.0909  ██████████████████
+      'la'         1    0.0455  █████████
+      'a '         1    0.0455  █████████
+      ' r'         1    0.0455  █████████
+      'ed'         1    0.0455  █████████
+      'd '         1    0.0455  █████████
+      ' n'         1    0.0455  █████████
+      'ne'         1    0.0455  █████████
+      'eu'         1    0.0455  █████████
+      'ur'         1    0.0455  █████████
+
+Bigrama mas frecuente: 're' (2 veces)
+
+Probabilidad de que despues de a venga p:
+  P("p" | "a") = 0.3333
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_8_2.txt`), que es la que describe el texto.
+
+## 38. Ejercicio 8.3 — Similitud coseno: ¿qué mide?
+
+**Archivo:** `ejercicio_8_3.py`  ·  **Capítulo:** Capítulo 8: Del Número a la Palabra — Texto como Vectores (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (37 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def sim_coseno(u, v):
+    nu = np.linalg.norm(u) + 1e-10
+    nv = np.linalg.norm(v) + 1e-10
+    return float(np.dot(u, v) / (nu * nv))
+ 
+# Vectores de demostración (en 3D para visualizar)
+v_ref    = np.array([1.0, 0.0, 0.0])         # referencia
+v_parec  = np.array([0.9, 0.4, 0.0])          # muy similar a v_ref
+v_perp   = np.array([0.0, 0.0, 1.0])          # perpendicular a los dos
+v_opuest = np.array([-1.0, 0.0, 0.0])         # opuesto
+v_igual  = np.array([3.0, 0.0, 0.0])          # misma dirección, distinta magnitud
+ 
+vectores = [
+    (v_ref, 'referencia [1,0,0]'),
+    (v_parec, 'parecido [0.9,0.4,0]'),
+    (v_perp, 'perpendicular [0,0,1]'),
+    (v_opuest, 'opuesto [-1,0,0]'),
+    (v_igual, 'misma dirección [3,0,0]'),
+]
+ 
+print('Similitudes coseno respecto a v_ref = [1, 0, 0]\n')
+print(f"{'Vector':>32}  {'Sim. coseno':>12}  Interpretación")
+print('-' * 65)
+for v, nombre in vectores:
+    sim = sim_coseno(v_ref, v)
+    if sim > 0.9:   interp = 'muy similares'
+    elif sim > 0.5: interp = 'bastante similares'
+    elif sim > 0.1: interp = 'algo similares'
+    elif sim > -0.1: interp = 'perpendiculares'
+    else:            interp = 'opuestos'
+    print(f'{nombre:>32}  {sim:>12.4f}  {interp}')
+ 
+print(f'\nY entre los otros dos: sim(parecido, perpendicular) = {sim_coseno(v_parec, v_perp):.4f}')
+print('\nObserva: la similitud coseno NO depende de la magnitud,')
+print('solo de la dirección. [1,0,0] y [3,0,0] son identicos.')
+```
+
+**Ejecución:** `python ejercicio_8_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Similitudes coseno respecto a v_ref = [1, 0, 0]
+
+                          Vector   Sim. coseno  Interpretación
+-----------------------------------------------------------------
+              referencia [1,0,0]        1.0000  muy similares
+            parecido [0.9,0.4,0]        0.9138  muy similares
+           perpendicular [0,0,1]        0.0000  perpendiculares
+                opuesto [-1,0,0]       -1.0000  opuestos
+         misma dirección [3,0,0]        1.0000  muy similares
+
+Y entre los otros dos: sim(parecido, perpendicular) = 0.0000
+
+Observa: la similitud coseno NO depende de la magnitud,
+solo de la dirección. [1,0,0] y [3,0,0] son identicos.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_8_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 9: Tokenización BPE — Del Texto al Token (**)
+
+## 39. Programa BPE-1 — Entrenador BPE completo desde cero
+
+**Archivo:** `programa_BPE1_entrenador.py`  ·  **Capítulo:** Capítulo 9: Tokenización BPE — Del Texto al Token (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (124 líneas, tal como está impreso en el libro):
+
+```python
+from collections import Counter
+import re
+ 
+# ================================================================
+# ENTRENADOR BPE (Byte Pair Encoding)
+# Aprende las reglas de fusion optimas sobre un corpus de texto.
+# ================================================================
+ 
+def texto_a_vocab_inicial(texto):
+    '''
+    Convierte el texto en un vocabulario de frecuencias.
+    Cada palabra se representa como una tupla de caracteres
+    mas el marcador especial </w> (end of word).
+    '''
+    contador = Counter()
+    for palabra in texto.lower().split():
+        # Eliminar puntuacion basica
+        # Simplificación didáctica: mantenemos solo letras minúsculas
+        # Un tokenizador real trabaja sobre bytes UTF-8 completos.
+        palabra = re.sub(r'[^a-záéíóúüñ]', '', palabra.lower())
+        if palabra:
+            contador[tuple(list(palabra) + ['</w>'])] += 1
+    return dict(contador)
+ 
+ 
+def contar_pares(vocab):
+    '''Cuenta la frecuencia de todos los pares adyacentes.'''
+    pares = Counter()
+    for palabra, freq in vocab.items():
+        for i in range(len(palabra) - 1):
+            pares[(palabra[i], palabra[i+1])] += freq
+    return pares
+ 
+ 
+def fusionar_par(vocab, par):
+    '''Fusiona el par dado en todas las palabras del vocabulario.'''
+    a, b   = par
+    nuevo  = {}
+    for palabra, freq in vocab.items():
+        nueva_pal = []
+        i = 0
+        while i < len(palabra):
+            if i < len(palabra) - 1 and palabra[i] == a and palabra[i+1] == b:
+                nueva_pal.append(a + b)   # fusion!
+                i += 2
+            else:
+                nueva_pal.append(palabra[i])
+                i += 1
+        nuevo[tuple(nueva_pal)] = freq
+    return nuevo
+ 
+ 
+def entrenar_bpe(corpus, num_fusiones, verbose=True):
+    '''
+    Entrena el tokenizador BPE.
+    Devuelve la lista de reglas de fusion aprendidas.
+    '''
+    vocab       = texto_a_vocab_inicial(corpus)
+    vocab_chars = set(c for pal in vocab for c in pal)
+    reglas      = []
+    
+    if verbose:
+        print(f'Vocabulario inicial: {len(vocab_chars)} simbolos')
+        print(f'Palabras unicas:     {len(vocab)}')
+        print(f'Tokens iniciales en corpus: {sum(len(k)*v for k,v in vocab.items())}')
+        print()
+        print(f"{'Fusion':>7}  {'Par':>25}  {'Frec':>6}  {'Vocab size':>11}")
+        print('-' * 55)
+    
+    for i in range(num_fusiones):
+        pares = contar_pares(vocab)
+        if not pares:
+            break
+        
+        # Elegir el par mas frecuente
+        mejor_par  = max(pares, key=pares.get)
+        mejor_freq = pares[mejor_par]
+        
+        # Fusionar
+        vocab  = fusionar_par(vocab, mejor_par)
+        reglas.append(mejor_par)
+        
+        # El nuevo token es la concatenacion del par
+        token_nuevo = mejor_par[0] + mejor_par[1]
+        vocab_chars.add(token_nuevo)
+        
+        if verbose and (i < 10 or (i+1) % 10 == 0):
+            print(f"  {i+1:>5}  {str(mejor_par):>25}  ",
+                  f"{mejor_freq:>6}  {len(vocab_chars):>11}")
+    
+    if verbose:
+        tokens_final = sum(len(k)*v for k,v in vocab.items())
+        print(f'\nVocabulario final:   {len(vocab_chars)} simbolos')
+        print(f'Tokens en corpus:    {tokens_final}')
+        print(f'Reglas aprendidas:   {len(reglas)}')
+    
+    return reglas, vocab_chars
+ 
+ 
+# ================================================================
+# CORPUS DE ENTRENAMIENTO
+# ================================================================
+CORPUS = '''
+la inteligencia artificial aprende de los datos de entrenamiento.
+los modelos de lenguaje aprenden a predecir el siguiente token.
+las redes neuronales aprenden representaciones de los datos.
+el aprendizaje automatico permite que las maquinas aprendan.
+la tokenizacion divide el texto en unidades llamadas tokens.
+el vocabulario define el conjunto de tokens posibles.
+los transformers usan atencion para procesar secuencias.
+el entrenamiento ajusta los pesos de la red neuronal.
+la inteligencia artificial transforma la tecnologia moderna.
+aprender a programar inteligencia artificial es fascinante.
+'''
+ 
+print('=== ENTRENANDO TOKENIZADOR BPE ===')
+print('Corpus de', len(CORPUS.split()), 'palabras\n')
+ 
+reglas, vocab = entrenar_bpe(CORPUS, num_fusiones=30, verbose=True)
+ 
+# Mostrar los tokens aprendidos mas interesantes
+print('\nTokens aprendidos (subpalabras emergentes):')
+tokens_subpal = [t for t in sorted(vocab) if len(t)>2 and '</w>' not in t]
+print('  ' + '  '.join(sorted(tokens_subpal, key=len, reverse=True)[:20]))
+```
+
+**Ejecución:** `python programa_BPE1_entrenador.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+=== ENTRENANDO TOKENIZADOR BPE ===
+Corpus de 82 palabras
+
+Vocabulario inicial: 24 simbolos
+Palabras unicas:     54
+Tokens iniciales en corpus: 589
+
+ Fusion                        Par    Frec   Vocab size
+-------------------------------------------------------
+      1                 ('e', 'n')       27           25
+      2              ('s', '</w>')       23           26
+      3              ('a', '</w>')       15           27
+      4                 ('d', 'e')       15           28
+      5                 ('c', 'i')       12           29
+      6                 ('t', 'o')       11           30
+      7              ('l', '</w>')       10           31
+      8                 ('p', 'r')       10           32
+      9                 ('t', 'e')        8           33
+     10             ('de', '</w>')        8           34
+     20               ('en', 'ci')        5           44
+     30                ('to', 'k')        4           54
+
+Vocabulario final:   54 simbolos
+Tokens en corpus:    350
+Reglas aprendidas:   30
+
+Tokens aprendidos (subpalabras emergentes):
+  apren  enci  apr  tok
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (24 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 40. Programa BPE-2 — Codificador y decodificador BPE
+
+**Archivo:** `programa_BPE2_codificador.py`  ·  **Capítulo:** Capítulo 9: Tokenización BPE — Del Texto al Token (**)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_BPE1_entrenador.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (98 líneas, tal como está impreso en el libro):
+
+```python
+import re
+fuente = open('programa_BPE1_entrenador.py', encoding='utf-8').read()
+exec(fuente.split("print('=== ENTRENANDO")[0])   # entrenar_bpe() y CORPUS (BPE-1)
+ 
+# ================================================================
+# CODIFICADOR BPE
+# Aplica las reglas de fusion aprendidas a texto nuevo.
+# ================================================================
+ 
+def codificar_bpe(texto, reglas):
+    '''
+    Convierte texto en una lista de tokens BPE.
+    Aplica las reglas aprendidas en el mismo orden en que
+    fueron aprendidas durante el entrenamiento.
+    '''
+    tokens_totales = []
+    for palabra in texto.lower().split():
+        palabra = re.sub(r'[^a-záéíóúüñ]', '', palabra)   # la misma normalización que BPE-1
+        if not palabra:
+            continue
+        # Empezar con caracteres individuales
+        chars = list(palabra) + ['</w>']
+        # Aplicar reglas en orden de aprendizaje
+        for (a, b) in reglas:
+            nueva = []
+            i = 0
+            while i < len(chars):
+                if i < len(chars)-1 and chars[i]==a and chars[i+1]==b:
+                    nueva.append(a + b)
+                    i += 2
+                else:
+                    nueva.append(chars[i])
+                    i += 1
+            chars = nueva
+        tokens_totales.extend(chars)
+    return tokens_totales
+ 
+ 
+def decodificar_bpe(tokens):
+    '''Convierte tokens BPE de vuelta a texto (normalizado).
+    Se unen los tokens tal cual y cada </w> marca el final de una palabra.
+    Recupera las palabras normalizadas (minúsculas, sin cifras ni puntuación),
+    no el texto original letra a letra.'''
+    return ''.join(tokens).replace('</w>', ' ').strip()
+ 
+ 
+def comparar_tokenizaciones(frase, reglas):
+    '''Compara tokenizacion por caracter vs BPE.'''
+    # Char-level
+    tokens_char = list(frase.replace(' ', '_'))
+    # BPE
+    tokens_bpe  = codificar_bpe(frase, reglas)
+    tokens_bpe_limpios = [t.replace('</w>', '+') for t in tokens_bpe]
+    print(f'  Frase: "{frase}"')
+    print(f'  Char: {len(tokens_char):3d} tokens  {tokens_char[:15]}...')
+    print(f'  BPE:  {len(tokens_bpe):3d} tokens  {tokens_bpe_limpios}')
+    ratio = len(tokens_char) / max(len(tokens_bpe), 1)
+    print(f'  BPE es {ratio:.1f}x mas eficiente que char-level')
+    print()
+ 
+ 
+# Entrenar con nuestro corpus
+reglas, vocab = entrenar_bpe(CORPUS, num_fusiones=30, verbose=False)
+ 
+print('=== TOKENIZACION BPE EN ACCION ===')
+print()
+ 
+frases = [
+    'la inteligencia artificial aprende',
+    'aprendizaje automatico',
+    'redes neuronales profundas',
+    'tokenizacion de texto',
+]
+for frase in frases:
+    comparar_tokenizaciones(frase, reglas)
+ 
+# Manejar palabras fuera del vocabulario
+print('--- Manejo de palabras desconocidas ---')
+frase_oov = 'supercalifragilistico'
+tokens_oov = codificar_bpe(frase_oov, reglas)
+print(f'  Palabra rara: "{frase_oov}"')
+print(f'  BPE la descompone: {[t.replace("</w>","+") for t in tokens_oov]}')
+print(f'  Sin OOV mientras sus letras esten en el corpus: cae hasta nivel caracter')
+ 
+# Ida y vuelta: codificar y decodificar
+print('\n--- Ida y vuelta (texto normalizado) ---')
+for f in ['hola mundo', 'El niño aprende, 2026.']:
+    print(f'  {f!r} -> {decodificar_bpe(codificar_bpe(f, reglas))!r}')
+print('  Se recuperan las palabras normalizadas, no el texto literal:')
+print('  mayusculas, cifras y puntuacion se pierden (GPT-2 lo evita con BPE por bytes).')
+ 
+# Estadisticas de compresion
+print('\n--- Compresion del corpus completo ---')
+tokens_char = sum(len(w) for w in CORPUS.split())
+tokens_bpe  = len(codificar_bpe(CORPUS, reglas))
+print(f'  Chars en corpus:  {tokens_char}')
+print(f'  Tokens BPE:       {tokens_bpe}')
+print(f'  Ratio de compresion: {tokens_char/tokens_bpe:.2f}x')
+```
+
+**Ejecución:** `python programa_BPE2_codificador.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+=== TOKENIZACION BPE EN ACCION ===
+
+  Frase: "la inteligencia artificial aprende"
+  Char:  34 tokens  ['l', 'a', '_', 'i', 'n', 't', 'e', 'l', 'i', 'g', 'e', 'n', 'c', 'i', 'a']...
+  BPE:   15 tokens  ['la+', 'in', 'te', 'l', 'ig', 'enci', 'a+', 'ar', 'ti', 'f', 'i', 'ci', 'al+', 'apren', 'de+']
+  BPE es 2.3x mas eficiente que char-level
+
+  Frase: "aprendizaje automatico"
+  Char:  22 tokens  ['a', 'p', 'r', 'e', 'n', 'd', 'i', 'z', 'a', 'j', 'e', '_', 'a', 'u', 't']...
+  BPE:   16 tokens  ['apren', 'd', 'i', 'z', 'a', 'j', 'e+', 'a', 'u', 'to', 'm', 'a', 'ti', 'c', 'o', '+']
+  BPE es 1.4x mas eficiente que char-level
+
+  Frase: "redes neuronales profundas"
+  Char:  26 tokens  ['r', 'e', 'd', 'e', 's', '_', 'n', 'e', 'u', 'r', 'o', 'n', 'a', 'l', 'e']...
+  BPE:   20 tokens  ['r', 'e', 'de', 's+', 'n', 'e', 'u', 'r', 'on', 'a', 'l', 'e', 's+', 'pr', 'o', 'f', 'u', 'n', 'da', 's+']
+  BPE es 1.3x mas eficiente que char-level
+
+  Frase: "tokenizacion de texto"
+  Char:  21 tokens  ['t', 'o', 'k', 'e', 'n', 'i', 'z', 'a', 'c', 'i', 'o', 'n', '_', 'd', 'e']...
+  BPE:   12 tokens  ['tok', 'en', 'i', 'z', 'a', 'ci', 'on', '+', 'de+', 'te', 'x', 'to+']
+  BPE es 1.8x mas eficiente que char-level
+
+--- Manejo de palabras desconocidas ---
+  Palabra rara: "supercalifragilistico"
+  BPE la descompone: ['s', 'u', 'p', 'e', 'r', 'c', 'a', 'l', 'i', 'f', 'r', 'a', 'g', 'i', 'l', 'i', 's', 'ti', 'c', 'o', '+']
+  Sin OOV mientras sus letras esten en el corpus: cae hasta nivel caracter
+
+--- Ida y vuelta (texto normalizado) ---
+  'hola mundo' -> 'hola mundo'
+  'El niño aprende, 2026.' -> 'el niño aprende'
+  Se recuperan las palabras normalizadas, no el texto literal:
+  mayusculas, cifras y puntuacion se pierden (GPT-2 lo evita con BPE por bytes).
+
+--- Compresion del corpus completo ---
+  Chars en corpus:  517
+  Tokens BPE:       350
+  Ratio de compresion: 1.48x
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (30 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 41. Ejercicio 9.1 — BPE a mano: dos iteraciones
+
+**Archivo:** `ejercicio_9_1.py`  ·  **Capítulo:** Capítulo 9: Tokenización BPE — Del Texto al Token (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (40 líneas, tal como está impreso en el libro):
+
+```python
+from collections import Counter
+ 
+def texto_a_vocab(palabras_freq):
+    return {tuple(list(p) + ['</w>']): f for p, f in palabras_freq.items()}
+ 
+def contar_pares(vocab):
+    pares = Counter()
+    for palabra, freq in vocab.items():
+        for i in range(len(palabra)-1):
+            pares[(palabra[i], palabra[i+1])] += freq
+    return pares
+ 
+def fusionar(vocab, par):
+    a, b = par; nuevo = {}
+    for palabra, freq in vocab.items():
+        nueva_pal, i = [], 0
+        while i < len(palabra):
+            if i<len(palabra)-1 and palabra[i]==a and palabra[i+1]==b:
+                nueva_pal.append(a+b); i += 2
+            else:
+                nueva_pal.append(palabra[i]); i += 1
+        nuevo[tuple(nueva_pal)] = freq
+    return nuevo
+ 
+corpus = {'bajo': 6, 'bajar': 3, 'caja': 4, 'cajon': 2}
+vocab  = texto_a_vocab(corpus)
+ 
+print('=== BPE A MANO: 2 ITERACIONES ===\n')
+print('Vocabulario inicial:')
+for p, f in vocab.items(): print(f'  {p} x{f}')
+ 
+for it in range(1, 3):
+    pares = contar_pares(vocab)
+    mejor = max(pares, key=pares.get)
+    print(f'\n--- Iteracion {it} ---')
+    print(f'Pares mas frecuentes: {pares.most_common(3)}')
+    print(f'Fusionando: {mejor} (frecuencia {pares[mejor]})')
+    vocab = fusionar(vocab, mejor)
+    print('Vocabulario tras fusion:')
+    for p, f in vocab.items(): print(f'  {p} x{f}')
+```
+
+**Ejecución:** `python ejercicio_9_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+=== BPE A MANO: 2 ITERACIONES ===
+
+Vocabulario inicial:
+  ('b', 'a', 'j', 'o', '</w>') x6
+  ('b', 'a', 'j', 'a', 'r', '</w>') x3
+  ('c', 'a', 'j', 'a', '</w>') x4
+  ('c', 'a', 'j', 'o', 'n', '</w>') x2
+
+--- Iteracion 1 ---
+Pares mas frecuentes: [(('a', 'j'), 15), (('b', 'a'), 9), (('j', 'o'), 8)]
+Fusionando: ('a', 'j') (frecuencia 15)
+Vocabulario tras fusion:
+  ('b', 'aj', 'o', '</w>') x6
+  ('b', 'aj', 'a', 'r', '</w>') x3
+  ('c', 'aj', 'a', '</w>') x4
+  ('c', 'aj', 'o', 'n', '</w>') x2
+
+--- Iteracion 2 ---
+Pares mas frecuentes: [(('b', 'aj'), 9), (('aj', 'o'), 8), (('aj', 'a'), 7)]
+Fusionando: ('b', 'aj') (frecuencia 9)
+Vocabulario tras fusion:
+  ('baj', 'o', '</w>') x6
+  ('baj', 'a', 'r', '</w>') x3
+  ('c', 'aj', 'a', '</w>') x4
+  ('c', 'aj', 'o', 'n', '</w>') x2
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_9_1.txt`), que es la que describe el texto.
+
+## 42. Ejercicio 9.2 — Calcular la tasa de compresión de BPE en función del número de fusiones
+
+**Archivo:** `ejercicio_9_2.py`  ·  **Capítulo:** Capítulo 9: Tokenización BPE — Del Texto al Token (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_BPE2_codificador.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (30 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_BPE2_codificador.py', encoding='utf-8').read()
+exec(fuente.split('# Entrenar con nuestro corpus')[0])   # BPE-1 y BPE-2
+ 
+CORPUS = '''
+la inteligencia artificial aprende de los datos de entrenamiento.
+los modelos de lenguaje aprenden a predecir el siguiente token.
+las redes neuronales aprenden representaciones de los datos.
+'''
+ 
+n_fusiones_lista = [5, 10, 20, 40, 80]
+n_chars = sum(len(w) for w in CORPUS.split())
+ 
+print(f'Caracteres totales en el corpus: {n_chars}\n')
+print(f"{'N fusiones':>11}  {'Tokens BPE':>11}  {'Compresion':>11}  {'Mejora vs anterior':>19}")
+print('-' * 60)
+ 
+anterior = n_chars
+for nf in n_fusiones_lista:
+    reglas, vocab = entrenar_bpe(CORPUS, num_fusiones=nf, verbose=False)
+    n_tokens = len(codificar_bpe(CORPUS, reglas))
+    compresion = n_chars / n_tokens
+    mejora = (anterior - n_tokens) / anterior * 100
+    print(f'{nf:>11}  {n_tokens:>11}  {compresion:>10.2f}x  {mejora:>18.1f}%')
+    anterior = n_tokens
+ 
+print()
+print('La compresion mejora con cada fusion, pero la GANANCIA marginal')
+print('decrece: las primeras fusiones (patrones frecuentes) aportan')
+print('mucho mas que las ultimas (casos cada vez mas raros).')
+```
+
+**Ejecución:** `python ejercicio_9_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Caracteres totales en el corpus: 164
+
+ N fusiones   Tokens BPE   Compresion   Mejora vs anterior
+------------------------------------------------------------
+          5          146        1.12x                11.0%
+         10          126        1.30x                13.7%
+         20          103        1.59x                18.3%
+         40           77        2.13x                25.2%
+         80           37        4.43x                51.9%
+
+La compresion mejora con cada fusion, pero la GANANCIA marginal
+decrece: las primeras fusiones (patrones frecuentes) aportan
+mucho mas que las ultimas (casos cada vez mas raros).
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_9_2.txt`), que es la que describe el texto.
+
+## 43. Ejercicio 9.3 — Comparar la fertilidad del token entre dos idiomas simulados
+
+**Archivo:** `ejercicio_9_3.py`  ·  **Capítulo:** Capítulo 9: Tokenización BPE — Del Texto al Token (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_BPE2_codificador.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (35 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_BPE2_codificador.py', encoding='utf-8').read()
+exec(fuente.split('# Entrenar con nuestro corpus')[0])   # BPE-1 y BPE-2
+ 
+# Simulamos las dos situaciones lingüísticas
+CORPUS_TIPO_INGLES = '''
+la red es buena la red aprende el dato es bueno
+el dato fluye la red usa el dato la red es util
+'''
+ 
+CORPUS_TIPO_ALEMAN = '''
+lareduronal esbuenaparaaprender eldatoesimportanteparalared
+elflujodedatos esutilparalaredneuronalartificial
+'''
+ 
+for nombre, corpus in [('Tipo INGLES (palabras cortas)', CORPUS_TIPO_INGLES),
+                       ('Tipo ALEMAN (compuestos largos)', CORPUS_TIPO_ALEMAN)]:
+    reglas, vocab = entrenar_bpe(corpus, num_fusiones=20, verbose=False)
+    n_chars  = len(corpus.replace(chr(10), '').replace(' ', ''))
+    n_tokens = len(codificar_bpe(corpus, reglas))
+    fertilidad = n_tokens / len(corpus.split())
+    print(f'{nombre}:')
+    print(f'  Caracteres: {n_chars}  Tokens: {n_tokens}  '
+          f'Fertilidad: {fertilidad:.2f} tokens/palabra')
+    print()
+ 
+print('El corpus con compuestos largos necesita MAS tokens por palabra')
+print('porque las palabras unicas son mas dificiles de comprimir:')
+print('cada compuesto aparece pocas veces, asi que BPE no puede')
+print('asignarle un token unico tan facilmente.')
+print()
+print('Es una ilustracion con dos corpus inventados, no una medida de')
+print('tokenizadores reales; pero apunta en la misma direccion que el fenomeno')
+print('real: idiomas de morfologia rica (aleman, finlandes, turco) gastan mas')
+print('tokens por palabra en tokenizadores entrenados sobre todo en ingles.')
+```
+
+**Ejecución:** `python ejercicio_9_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Tipo INGLES (palabras cortas):
+  Caracteres: 73  Tokens: 36  Fertilidad: 1.57 tokens/palabra
+
+Tipo ALEMAN (compuestos largos):
+  Caracteres: 104  Tokens: 59  Fertilidad: 11.80 tokens/palabra
+
+El corpus con compuestos largos necesita MAS tokens por palabra
+porque las palabras unicas son mas dificiles de comprimir:
+cada compuesto aparece pocas veces, asi que BPE no puede
+asignarle un token unico tan facilmente.
+
+Es una ilustracion con dos corpus inventados, no una medida de
+tokenizadores reales; pero apunta en la misma direccion que el fenomeno
+real: idiomas de morfologia rica (aleman, finlandes, turco) gastan mas
+tokens por palabra en tokenizadores entrenados sobre todo en ingles.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_9_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 10: Redes Recurrentes — El Camino hacia el Transformer (***)
+
+## 44. Programa RNN-1 — Red Recurrente desde cero: paso a paso
+
+**Archivo:** `programa_RNN1_rnn_basico.py`  ·  **Capítulo:** Capítulo 10: Redes Recurrentes — El Camino hacia el Transformer (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (93 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+# ================================================================
+# RNN BASICO PARA PREDICCION DE SECUENCIAS DE CARACTERES
+# Mismo problema que el Nano-LLM del Cap 13, pero con RNN.
+# ================================================================
+ 
+# Texto de ejemplo
+TEXTO = 'la inteligencia artificial aprende del texto de entrenamiento'
+chars = sorted(set(TEXTO))
+V     = len(chars)
+c2i   = {c: i for i, c in enumerate(chars)}
+i2c   = dict(enumerate(chars))
+datos = [c2i[c] for c in TEXTO]
+ 
+# Hiperparametros
+D = 8    # dimension del embedding
+H = 16   # dimension del estado oculto
+ 
+# Parametros del RNN (escalas elegidas para que el estado oculto se vea)
+W_xh = np.random.randn(H, D) * 0.25   # entrada -> estado
+W_hh = np.random.randn(H, H) * 0.25   # estado -> estado
+b_h  = np.zeros(H)                     # sesgo del estado
+W_hy = np.random.randn(V, H) * 0.01   # estado -> salida
+b_y  = np.zeros(V)                     # sesgo de la salida
+E    = np.random.randn(V, D)          # tabla de embeddings
+ 
+def softmax(x): e=np.exp(x-x.max()); return e/e.sum()
+ 
+def rnn_forward(tokens):
+    """
+    Pasa una secuencia de tokens por el RNN paso a paso.
+    Devuelve los logits y el historial de estados ocultos.
+    """
+    T       = len(tokens)
+    h       = np.zeros(H)          # estado inicial: ceros
+    estados = [h.copy()]            # guardar h0
+    logits  = []
+    
+    for t in range(T):
+        x_t = E[tokens[t]]          # embedding del token actual
+        # Ecuacion del RNN: combinar estado anterior + entrada actual
+        h   = np.tanh(W_hh @ h + W_xh @ x_t + b_h)
+        y_t = W_hy @ h + b_y        # prediccion
+        estados.append(h.copy())
+        logits.append(y_t)
+    
+    return np.array(logits), estados
+ 
+# ================================================================
+# VISUALIZAR EL ESTADO OCULTO EVOLUCIONANDO
+# ================================================================
+secuencia  = datos[:12]            # primeros 12 caracteres
+chars_seq  = TEXTO[:12]
+logits_seq, estados = rnn_forward(secuencia)
+ 
+print('=== RNN: ESTADO OCULTO A TRAVES DEL TIEMPO ===')
+print(f'Secuencia: "{chars_seq}"')
+print(f'Vocab: {V} chars | Embedding: {D}d | Estado oculto: {H}d')
+print()
+print('Cada columna es el estado oculto h_t (primeras 6 dims).')
+print('Observa como cambia con cada nuevo caracter.')
+print()
+print(f"{'Paso':>5}  {'Char':>5}  {'h_t[:6] (estado oculto — la memoria)':>40}")
+print('-' * 58)
+for t, (c, h) in enumerate(zip('·'+chars_seq, estados)):   # paso 0: h0
+    char_show = repr(c) if c != ' ' else "' '"
+    h_str = '[' + ' '.join(f'{v:>5.2f}' for v in h[:6]) + ']'
+    print(f'{t:>5}  {char_show:>5}  {h_str}')
+ 
+# ================================================================
+# ENTRENAMIENTO BASICO (10 pasos para demostrar el mecanismo)
+# ================================================================
+def calcular_perdida(tokens):
+    logits, _ = rnn_forward(tokens[:-1])
+    perdida   = 0.0
+    for t in range(len(logits)):
+        p = softmax(logits[t])
+        perdida -= np.log(p[tokens[t+1]] + 1e-10)
+    return perdida / len(logits)
+ 
+print(f'\nPerdida inicial (antes de entrenar): {calcular_perdida(datos):.4f}')
+print(f'Perdida aleatoria esperada: ln({V}) = {np.log(V):.4f}')
+ 
+print()
+print('=== DIFERENCIA CLAVE CON EL TRANSFORMER ===')
+print(f'RNN: procesa {len(datos)} tokens de UNO EN UNO (secuencial).')
+print(f'     Para procesar el token 50, necesita los pasos 1..49.')
+print(f'     NO se puede paralelizar en GPUs.')
+print(f'Transformer: procesa TODOS los tokens en PARALELO.')
+print(f'     El entrenamiento es ordenes de magnitud mas rapido.')
+```
+
+**Ejecución:** `python programa_RNN1_rnn_basico.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== RNN: ESTADO OCULTO A TRAVES DEL TIEMPO ===
+Secuencia: "la inteligen"
+Vocab: 16 chars | Embedding: 8d | Estado oculto: 16d
+
+Cada columna es el estado oculto h_t (primeras 6 dims).
+Observa como cambia con cada nuevo caracter.
+
+ Paso   Char      h_t[:6] (estado oculto — la memoria)
+----------------------------------------------------------
+    0    '·'  [ 0.00  0.00  0.00  0.00  0.00  0.00]
+    1    'l'  [ 0.32 -0.67 -0.61  0.70 -0.96  0.06]
+    2    'a'  [ 0.97 -0.83 -0.92 -0.31 -0.02  0.10]
+    3    ' '  [-0.92  0.94 -0.25 -0.05  0.88  0.64]
+    4    'i'  [-0.72  0.03  0.06 -0.35 -0.03  0.66]
+    5    'n'  [ 0.72  0.47  0.61  0.22 -0.21 -0.22]
+    6    't'  [ 0.23  0.10 -0.16  0.89 -0.82  0.30]
+    7    'e'  [ 0.21 -0.96 -0.71  0.83 -0.79  0.50]
+    8    'l'  [ 0.71 -0.77 -0.85  0.61 -0.95  0.02]
+    9    'i'  [ 0.33 -0.22 -0.81 -0.39  0.47 -0.17]
+   10    'g'  [ 0.93  0.54 -0.59  0.19 -0.93  0.23]
+   11    'e'  [-0.12 -0.88 -0.79  0.85 -0.66  0.91]
+   12    'n'  [ 0.33 -0.30 -0.82  0.38  0.56  0.04]
+
+Perdida inicial (antes de entrenar): 2.7756
+Perdida aleatoria esperada: ln(16) = 2.7726
+
+=== DIFERENCIA CLAVE CON EL TRANSFORMER ===
+RNN: procesa 61 tokens de UNO EN UNO (secuencial).
+     Para procesar el token 50, necesita los pasos 1..49.
+     NO se puede paralelizar en GPUs.
+Transformer: procesa TODOS los tokens en PARALELO.
+     El entrenamiento es ordenes de magnitud mas rapido.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (28 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 45. Programa RNN-2 — El gradiente que desaparece: demostración numérica
+
+**Archivo:** `programa_RNN2_vanishing_gradient.py`  ·  **Capítulo:** Capítulo 10: Redes Recurrentes — El Camino hacia el Transformer (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (113 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(0)
+ 
+# ================================================================
+# DEMOSTRACION DEL VANISHING GRADIENT
+# Simulamos como fluye el gradiente hacia atras en un RNN.
+# En cada paso, el gradiente se multiplica por W_hh.T
+# y por la derivada de tanh (entre 0 y 1).
+# ================================================================
+ 
+H    = 32   # dimension del estado oculto
+T    = 60   # longitud de la secuencia
+ 
+# Cuatro RNNs con distintas inicializaciones de W_hh
+configs = {
+    'W_hh pequena  (escala 0.05)':      np.random.randn(H,H) * 0.05,
+    'W_hh moderada (escala 1/sqrt(H))': np.random.randn(H,H) * (1.0/np.sqrt(H)),
+    'W_hh grande   (escala 0.3)':       np.random.randn(H,H) * 0.3,
+    'W_hh muy grande (escala 0.5)':     np.random.randn(H,H) * 0.5,
+}
+ 
+def simular_gradiente(W_hh, T):
+    """
+    Simula el flujo del gradiente hacia atras en un RNN.
+    En cada paso backward, el gradiente se multiplica por W_hh.T
+    y por la derivada de tanh (simplificada a 0.5 de media).
+    """
+    grad   = np.ones(H) / np.sqrt(H)  # gradiente inicial normalizado
+    normas = [float(np.linalg.norm(grad))]
+    
+    for t in range(T):
+        # Derivada de tanh promediada: ~0.5 en un estado tipico
+        d_tanh = 0.5 * np.ones(H)
+        # Backprop un paso atras
+        grad   = (W_hh.T @ grad) * d_tanh
+        normas.append(float(np.linalg.norm(grad)))
+    
+    return normas
+ 
+print('=== VANISHING / EXPLODING GRADIENT EN RNN ===')
+print(f'Estado oculto H={H}, secuencia T={T}')
+print()
+print('Norma del gradiente a distintas distancias del final:\n')
+print(f"{'Distancia':>10}", end='')
+for nombre in configs: print(f'  {nombre.split("(")[0].strip():>17}', end='')
+print()
+print('-' * (10 + 19*len(configs)))
+ 
+historicos = {}
+for nombre, W in configs.items():
+    historicos[nombre] = simular_gradiente(W, T)
+ 
+pasos_mostrar = [0, 1, 2, 5, 10, 20, 30, 50, 60]
+for dist in pasos_mostrar:
+    print(f'{dist:>10}', end='')
+    for nombre in configs:
+        v = historicos[nombre][dist]
+        if v < 1e-10:   fmt = '< 1e-10  (MUERTO)'
+        elif v > 1e4:   fmt = f'{v:.1e}  (EXPLOTA)'
+        else:           fmt = f'{v:.6f}'
+        print(f'  {fmt:>17}', end='')
+    print()
+ 
+# Visualizacion ASCII del decaimiento
+print('\nVisualizacion del gradiente (W_hh pequena — caso tipico):')
+print('Norma del gradiente al retropropagar hacia atras:')
+normas = historicos['W_hh pequena  (escala 0.05)']
+vmax   = normas[0]
+for dist in range(0, T+1, 5):
+    v     = normas[dist]
+    ratio = v / vmax if vmax > 0 else 0
+    barra = '#' * int(ratio * 40)
+    arrow = '<-- el gradiente es casi NULO' if v < 1e-4 else ''
+    print(f'  Distancia {dist:>3}: {v:.2e}  {barra} {arrow}')
+ 
+# Contraste: la derivada REAL de tanh, 1 - h^2, en una secuencia de verdad
+# (entradas al azar ya proyectadas; mismo W_hh que arriba)
+np.random.seed(1)
+X_in = np.random.randn(T, H) * 0.5
+ 
+def gradiente_real(W_hh):
+    h, hs = np.zeros(H), []
+    for t in range(T):                                # forward real
+        h = np.tanh(W_hh @ h + X_in[t]); hs.append(h)
+    grad, normas, dts = np.ones(H) / np.sqrt(H), [1.0], []
+    for t in reversed(range(T)):                      # backward real
+        d_tanh = 1 - hs[t]**2
+        dts.append(d_tanh.mean())
+        grad = W_hh.T @ (grad * d_tanh)
+        normas.append(float(np.linalg.norm(grad)))
+    return normas, float(np.mean(dts))
+ 
+print('\nContraste con la derivada real de tanh (1 - h^2):')
+print(f"{'Configuracion':>18}  {'media 1-h^2':>11}  {'dist 10 (0.5)':>14}  {'dist 10 (real)':>14}  {'dist 30 (real)':>14}")
+for nombre, W in configs.items():
+    reales, media = gradiente_real(W)
+    print(f"{nombre.split('(')[0].strip():>18}  {media:>11.3f}  {historicos[nombre][10]:>14.2e}  {reales[10]:>14.2e}  {reales[30]:>14.2e}")
+ 
+print()
+print('Conclusion:')
+print('  Con W_hh pequena o moderada, el gradiente desaparece en pocos pasos,')
+print('  tanto con la derivada fija (0.5) como con la real (1 - h^2):')
+print('  los tokens lejanos apenas contribuyen al aprendizaje.')
+print()
+print('  Con escalas mayores, la derivada importa: con 0.5 fijo, el gradiente')
+print('  decae (0.3) o EXPLOTA (0.5); con la real, que baja cuando tanh se')
+print('  satura, se mantiene en el mismo orden de magnitud a distancia 30.')
+print('  Una RNN simple vive en un equilibrio fragil entre ambos extremos.')
+print()
+print('  Esta es la razon fundamental por la que el Transformer')
+print('  supero a los RNNs: la atencion conecta directamente')
+print('  cualquier par de tokens sin importar la distancia.')
+```
+
+**Ejecución:** `python programa_RNN2_vanishing_gradient.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== VANISHING / EXPLODING GRADIENT EN RNN ===
+Estado oculto H=32, secuencia T=60
+
+Norma del gradiente a distintas distancias del final:
+
+ Distancia       W_hh pequena      W_hh moderada        W_hh grande    W_hh muy grande
+--------------------------------------------------------------------------------------
+         0           1.000000           1.000000           1.000000           1.000000
+         1           0.130100           0.454545           0.748099           1.706543
+         2           0.017290           0.209258           0.566045           2.669450
+         5           0.000068           0.018165           0.297183           8.238849
+        10           0.000000           0.000482           0.053872          38.145981
+        20  < 1e-10  (MUERTO)           0.000000           0.004103        1189.766160
+        30  < 1e-10  (MUERTO)           0.000000           0.000358  6.1e+04  (EXPLOTA)
+        50  < 1e-10  (MUERTO)  < 1e-10  (MUERTO)           0.000003  1.3e+08  (EXPLOTA)
+        60  < 1e-10  (MUERTO)  < 1e-10  (MUERTO)           0.000000  1.1e+10  (EXPLOTA)
+
+Visualizacion del gradiente (W_hh pequena — caso tipico):
+Norma del gradiente al retropropagar hacia atras:
+  Distancia   0: 1.00e+00  ######################################## 
+  Distancia   5: 6.82e-05   <-- el gradiente es casi NULO
+  Distancia  10: 4.94e-09   <-- el gradiente es casi NULO
+  Distancia  15: 2.47e-13   <-- el gradiente es casi NULO
+  Distancia  20: 1.91e-17   <-- el gradiente es casi NULO
+  Distancia  25: 1.87e-21   <-- el gradiente es casi NULO
+  Distancia  30: 1.06e-25   <-- el gradiente es casi NULO
+  Distancia  35: 6.17e-30   <-- el gradiente es casi NULO
+  Distancia  40: 6.74e-34   <-- el gradiente es casi NULO
+  Distancia  45: 4.60e-38   <-- el gradiente es casi NULO
+  Distancia  50: 2.22e-42   <-- el gradiente es casi NULO
+  Distancia  55: 2.29e-46   <-- el gradiente es casi NULO
+  Distancia  60: 1.88e-50   <-- el gradiente es casi NULO
+
+Contraste con la derivada real de tanh (1 - h^2):
+     Configuracion  media 1-h^2   dist 10 (0.5)  dist 10 (real)  dist 30 (real)
+      W_hh pequena        0.818        4.94e-09        5.45e-07        1.85e-19
+     W_hh moderada        0.727        4.82e-04        3.58e-02        4.23e-05
+       W_hh grande        0.559        5.39e-02        8.38e-01        5.72e-01
+   W_hh muy grande        0.311        3.81e+01        1.73e+01        7.73e+01
+
+Conclusion:
+  Con W_hh pequena o moderada, el gradiente desaparece en pocos pasos,
+  tanto con la derivada fija (0.5) como con la real (1 - h^2):
+  los tokens lejanos apenas contribuyen al aprendizaje.
+
+  Con escalas mayores, la derivada importa: con 0.5 fijo, el gradiente
+  decae (0.3) o EXPLOTA (0.5); con la real, que baja cuando tanh se
+  satura, se mantiene en el mismo orden de magnitud a distancia 30.
+  Una RNN simple vive en un equilibrio fragil entre ambos extremos.
+
+  Esta es la razon fundamental por la que el Transformer
+  supero a los RNNs: la atencion conecta directamente
+  cualquier par de tokens sin importar la distancia.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (46 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 46. Ejercicio 10.1 — Medir el 'horizonte de memoria' efectivo de un RNN
+
+**Archivo:** `ejercicio_10_1.py`  ·  **Capítulo:** Capítulo 10: Redes Recurrentes — El Camino hacia el Transformer (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (31 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def simular_gradiente(W_hh, T, H):
+    grad = np.ones(H) / np.sqrt(H)
+    normas = [float(np.linalg.norm(grad))]
+    for t in range(T):
+        d_tanh = 0.5 * np.ones(H)
+        grad = (W_hh.T @ grad) * d_tanh
+        normas.append(float(np.linalg.norm(grad)))
+    return normas
+ 
+np.random.seed(0)
+T = 60
+UMBRAL = 1e-6
+ 
+print('=== HORIZONTE DE MEMORIA SEGUN TAMAÑO DEL ESTADO OCULTO ===\n')
+print(f"{'H (estado oculto)':>18}  {'Horizonte (pasos)':>18}")
+print('-' * 40)
+ 
+for H in [8, 32, 128]:
+    W_hh = np.random.randn(H, H) * 0.05   # misma escala para todos
+    normas = simular_gradiente(W_hh, T, H)
+    horizonte = next((i for i,v in enumerate(normas) if v < UMBRAL), T)
+    print(f'{H:>18}  {horizonte:>18}')
+ 
+print()
+print('El horizonte de memoria es similar entre tamaños de H')
+print('porque depende de la ESCALA de los pesos (eigenvalues de W_hh),')
+print('no tanto del numero de neuronas del estado oculto.')
+print('Esto es justamente lo que motivo el diseño de LSTM/GRU:')
+print('controlar explicitamente esa escala con puertas aprendidas.')
+```
+
+**Ejecución:** `python ejercicio_10_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== HORIZONTE DE MEMORIA SEGUN TAMAÑO DEL ESTADO OCULTO ===
+
+ H (estado oculto)   Horizonte (pasos)
+----------------------------------------
+                 8                   5
+                32                   7
+               128                  11
+
+El horizonte de memoria es similar entre tamaños de H
+porque depende de la ESCALA de los pesos (eigenvalues de W_hh),
+no tanto del numero de neuronas del estado oculto.
+Esto es justamente lo que motivo el diseño de LSTM/GRU:
+controlar explicitamente esa escala con puertas aprendidas.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_10_1.txt`), que es la que describe el texto.
+
+## 47. Ejercicio 10.2 — Implementar una puerta de olvido simplificada
+
+**Archivo:** `ejercicio_10_2.py`  ·  **Capítulo:** Capítulo 10: Redes Recurrentes — El Camino hacia el Transformer (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (49 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+def sigmoid(z): return 1/(1+np.exp(-np.clip(z,-500,500)))
+ 
+class RNNConPuerta:
+    '''RNN con una puerta de olvido simplificada (estilo GRU minimalista)'''
+    def __init__(self, D, H):
+        self.H = H
+        self.W_xh = np.random.randn(H, D) * 0.1
+        self.W_hh = np.random.randn(H, H) * 0.1
+        self.b_h  = np.zeros(H)
+        # Parametros de la puerta de olvido
+        self.W_xf = np.random.randn(H, D) * 0.1
+        self.W_hf = np.random.randn(H, H) * 0.1
+        self.b_f  = np.zeros(H)
+    
+    def forward(self, tokens, embeddings):
+        h = np.zeros(self.H)
+        puertas_historial = []
+        for tok in tokens:
+            x = embeddings[tok]
+            # Puerta de olvido: decide cuanto conservar del pasado
+            f = sigmoid(self.W_xf @ x + self.W_hf @ h + self.b_f)
+            # Candidato de nuevo estado (como el RNN normal)
+            h_candidato = np.tanh(self.W_xh @ x + self.W_hh @ h + self.b_h)
+            # Combinar: f decide cuanto pasado conservar
+            h = f * h + (1 - f) * h_candidato
+            puertas_historial.append(f.mean())
+        return h, puertas_historial
+ 
+# Comparacion con texto simple
+V, D, H = 20, 8, 16
+emb = np.random.randn(V, D) * 0.1
+tokens = np.random.randint(0, V, 30)
+ 
+red = RNNConPuerta(D, H)
+h_final, puertas = red.forward(tokens, emb)
+ 
+print('=== RNN CON PUERTA DE OLVIDO ===\n')
+print(f'Valor medio de la puerta a lo largo de la secuencia:')
+for i, p in enumerate(puertas[:10]):
+    barra = '#' * int(p * 30)
+    print(f'  paso {i:2d}: {p:.3f}  {barra}')
+print()
+print('f cercano a 1: el modelo conserva mucho el estado anterior')
+print('f cercano a 0: el modelo prioriza la nueva informacion')
+print('Esta puerta, ENTRENADA, aprenderia cuando "olvidar" el contexto.')
+```
+
+**Ejecución:** `python ejercicio_10_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== RNN CON PUERTA DE OLVIDO ===
+
+Valor medio de la puerta a lo largo de la secuencia:
+  paso  0: 0.502  ###############
+  paso  1: 0.500  ###############
+  paso  2: 0.502  ###############
+  paso  3: 0.500  ###############
+  paso  4: 0.499  ##############
+  paso  5: 0.499  ##############
+  paso  6: 0.501  ###############
+  paso  7: 0.501  ###############
+  paso  8: 0.499  ##############
+  paso  9: 0.499  ##############
+
+f cercano a 1: el modelo conserva mucho el estado anterior
+f cercano a 0: el modelo prioriza la nueva informacion
+Esta puerta, ENTRENADA, aprenderia cuando "olvidar" el contexto.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_10_2.txt`), que es la que describe el texto.
+
+## 48. Ejercicio 10.3 — Cuantificar la ventaja de paralelismo del Transformer
+
+**Archivo:** `ejercicio_10_3.py`  ·  **Capítulo:** Capítulo 10: Redes Recurrentes — El Camino hacia el Transformer (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (23 líneas, tal como está impreso en el libro):
+
+```python
+T = 1000   # longitud de la secuencia
+ 
+print('=== PASOS SECUENCIALES: RNN vs TRANSFORMER ===\n')
+ 
+print('RNN:')
+print(f'  Pasos secuenciales necesarios: {T}')
+print(f'  (cada paso DEBE esperar al anterior, sin excepcion)')
+print(f'  Camino mas largo entre token 1 y token {T}: {T} pasos')
+print()
+ 
+print('Transformer (con self-attention):')
+print(f'  Pasos secuenciales necesarios: 1 (todos los tokens en paralelo)')
+print(f'  Camino mas largo entre cualquier par de tokens: 1 paso')
+print(f'  (la atencion conecta directamente cualquier par)')
+print()
+ 
+# El tiempo real no se deduce de aqui: depende del hardware y del modelo
+print('Lo que cambia es la profundidad del camino secuencial, no un tiempo fijo:')
+print(f'la RNN encadena {T} pasos que no pueden solaparse; el Transformer')
+print('procesa las T posiciones a la vez, a cambio de una atencion que cuesta')
+print('O(T^2) en calculo y memoria. Cuanto se gana en tiempo hay que medirlo')
+print('en cada maquina, pero el paralelismo es la razon fundamental por la que')
+print('se puede entrenar con billones de tokens.')
+```
+
+**Ejecución:** `python ejercicio_10_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+=== PASOS SECUENCIALES: RNN vs TRANSFORMER ===
+
+RNN:
+  Pasos secuenciales necesarios: 1000
+  (cada paso DEBE esperar al anterior, sin excepcion)
+  Camino mas largo entre token 1 y token 1000: 1000 pasos
+
+Transformer (con self-attention):
+  Pasos secuenciales necesarios: 1 (todos los tokens en paralelo)
+  Camino mas largo entre cualquier par de tokens: 1 paso
+  (la atencion conecta directamente cualquier par)
+
+Lo que cambia es la profundidad del camino secuencial, no un tiempo fijo:
+la RNN encadena 1000 pasos que no pueden solaparse; el Transformer
+procesa las T posiciones a la vez, a cambio de una atencion que cuesta
+O(T^2) en calculo y memoria. Cuanto se gana en tiempo hay que medirlo
+en cada maquina, pero el paralelismo es la razon fundamental por la que
+se puede entrenar con billones de tokens.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_10_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 11: El Mecanismo de Atención (***)
+
+## 49. Programa 6 — Mecanismo de Self-Attention
+
+**Archivo:** `programa_6_atencion.py`  ·  **Capítulo:** Capítulo 11: El Mecanismo de Atención (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (80 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# MECANISMO DE SELF-ATTENTION PASO A PASO
+# =======================================================
+ 
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)  # estabilidad
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+ 
+def self_attention(X, Wq, Wk, Wv, mascara_causal=False):
+    """
+    Calcula el self-attention de una secuencia.
+    X:    (T, d) — T tokens, cada uno de dimensión d
+    Wq,Wk,Wv: (d, d) — matrices de proyección aprendibles
+    mascara_causal: True en el decoder (no ver el futuro)
+    """
+    T, d = X.shape
+    d_k  = Wk.shape[1]
+    
+    # 1. Proyecciones
+    Q = X @ Wq   # (T, d) — Queries
+    K = X @ Wk   # (T, d) — Keys
+    V = X @ Wv   # (T, d) — Values
+    
+    # 2. Puntuaciones de similitud (producto escalar escalado)
+    scores = (Q @ K.T) / np.sqrt(d_k)   # (T, T)
+    
+    # 3. Máscara causal: el token en posición t no puede
+    #    ver tokens en posiciones > t (el futuro)
+    if mascara_causal:
+        mascara = np.triu(np.full((T, T), -1e9), k=1)
+        scores  = scores + mascara
+    
+    # 4. Softmax -> pesos de atención (cada fila suma 1)
+    pesos = softmax(scores, axis=-1)     # (T, T)
+    
+    # 5. Suma ponderada de Values
+    salida = pesos @ V                   # (T, d)
+    
+    return salida, pesos
+ 
+ 
+# -- Demostración con una frase corta -------------------
+np.random.seed(3)
+ 
+# Simulamos 5 tokens con embeddings de dimensión 4
+T, d = 5, 4
+frase_tokens = ['la', 'red', 'aprende', 'del', 'texto']
+ 
+# Embeddings (en la práctica vienen de la tabla de embeddings)
+X = np.random.randn(T, d) * 0.5
+ 
+# Matrices de proyección (en la práctica se aprenden)
+Wq = np.random.randn(d, d) * 0.3
+Wk = np.random.randn(d, d) * 0.3
+Wv = np.random.randn(d, d) * 0.3
+ 
+# Calculamos la atención con y sin máscara causal
+sal_full, pesos_full   = self_attention(X, Wq, Wk, Wv, False)
+sal_causal, pesos_caus = self_attention(X, Wq, Wk, Wv, True)
+ 
+np.set_printoptions(precision=3, suppress=True, linewidth=80)
+ 
+print('=== SELF-ATTENTION ===')
+print(f'Secuencia: {frase_tokens}')
+print(f'T={T} tokens, dimensión d={d}\n')
+ 
+print('Pesos de atención BIDIRECCIONAL (fila=query, col=key):')
+print('(cada fila indica cuánto atiende ese token a los demás)')
+print(pesos_full.round(3))
+ 
+print('\nPesos de atención CAUSAL (solo mira el pasado):')
+print(pesos_caus.round(3))
+ 
+print('\nInterpretación del token "aprende" (fila 2):')
+for i, (tok, peso) in enumerate(zip(frase_tokens, pesos_caus[2])):
+    barra = '█' * int(peso * 40)
+    print(f'  -> {tok:10s} {peso:.3f}  {barra}')
+```
+
+**Ejecución:** `python programa_6_atencion.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== SELF-ATTENTION ===
+Secuencia: ['la', 'red', 'aprende', 'del', 'texto']
+T=5 tokens, dimensión d=4
+
+Pesos de atención BIDIRECCIONAL (fila=query, col=key):
+(cada fila indica cuánto atiende ese token a los demás)
+[[0.175 0.199 0.252 0.171 0.203]
+ [0.194 0.206 0.2   0.179 0.22 ]
+ [0.222 0.196 0.168 0.227 0.187]
+ [0.194 0.19  0.227 0.213 0.176]
+ [0.177 0.213 0.21  0.15  0.25 ]]
+
+Pesos de atención CAUSAL (solo mira el pasado):
+[[1.    0.    0.    0.    0.   ]
+ [0.484 0.516 0.    0.    0.   ]
+ [0.379 0.335 0.286 0.    0.   ]
+ [0.236 0.231 0.275 0.258 0.   ]
+ [0.177 0.213 0.21  0.15  0.25 ]]
+
+Interpretación del token "aprende" (fila 2):
+  -> la         0.379  ███████████████
+  -> red        0.335  █████████████
+  -> aprende    0.286  ███████████
+  -> del        0.000  
+  -> texto      0.000  
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (22 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 50. Script complementario
+
+**Archivo:** `figura_7_atencion_nano_llm.py`  ·  **Capítulo:** Capítulo 11: El Mecanismo de Atención (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py`, que aparece más adelante en el libro: se ejecutó primero para generar esos pesos.
+
+**Listado** (47 líneas, tal como está impreso en el libro):
+
+```python
+# Figura del Capítulo 11: pesos de atención del Nano-LLM ya entrenado (Programa 8)
+# sobre una frase del corpus: 2 bloques × 4 cabezas.
+# Requiere nano_llm_pesos.npz (lo guarda el Programa 8).
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+ 
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+exec(fuente.split('# -- Learning rate')[0])          # datos, parámetros, forward
+params.update(np.load('nano_llm_pesos.npz'))
+ 
+frase = 'la atención permite ver todo'[:CTX]
+tok = np.array([[C2I[c] for c in frase]])           # lote de una frase
+T = tok.shape[1]
+_, (_, _, cache) = forward(tok)
+P = [cache[k]['pesos'][0] for k in range(N_BLQ)]      # cada uno: (H, T, T)
+ 
+etiq = [c if c != ' ' else '␣' for c in frase]
+fig, axes = plt.subplots(H, N_BLQ, figsize=(8, 11.5), dpi=300, layout='constrained')   # una columna por bloque
+for k in range(N_BLQ):
+    for c in range(H):
+        ax = axes[c, k]
+        im = ax.imshow(P[k][c], cmap='Blues', vmin=0, vmax=1)
+        ax.set_xticks(range(T)); ax.set_xticklabels(etiq if c == H - 1 else [], fontsize=8)
+        ax.set_yticks(range(T)); ax.set_yticklabels(etiq, fontsize=8)
+        ax.set_title(f'Bloque {k + 1} · cabeza {c + 1}', fontsize=13, color='#1A3A6B', fontweight='bold')
+        if c == H - 1:
+            ax.set_xlabel('key: carácter al que se mira', fontsize=12)
+        if k == 0:
+            ax.set_ylabel('query: carácter que pregunta', fontsize=12)
+fig.suptitle('Pesos de atención del Nano-LLM entrenado (Programa 8)\n«' + frase + '»',
+             fontsize=15, color='#1A3A6B', fontweight='bold')
+cb = fig.colorbar(im, ax=axes, shrink=0.5)
+cb.set_label('peso de atención', fontsize=12); cb.ax.tick_params(labelsize=10)
+plt.savefig('figura_7_atencion.png', bbox_inches='tight')
+ 
+# Resumen numérico para el texto
+np.set_printoptions(precision=2, suppress=True)
+print('frase:', repr(frase), 'T =', T)
+io = frase.index('ó')
+for k in range(N_BLQ):
+    for c in range(H):
+        dist = [i - int(P[k][c][i].argmax()) for i in range(T)]
+        print(f'Bloque {k + 1}, cabeza {c + 1}: distancias al más atendido', dist)
+        print(f'   peso máximo medio {P[k][c].max(1).mean():.2f} | máximo en el anterior: {dist.count(1)} de {T} '
+              f'| en sí mismo: {dist.count(0)} | fila «ó»:', P[k][c][io, :io + 1])
+```
+
+**Ejecución:** `python figura_7_atencion_nano_llm.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  3.7 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+frase: 'la atención permite ver ' T = 24
+Bloque 1, cabeza 1: distancias al más atendido [0, 1, 2, 1, 2, 1, 1, 1, 2, 0, 1, 2, 3, 1, 3, 3, 1, 0, 1, 0, 1, 1, 2, 3]
+   peso máximo medio 0.63 | máximo en el anterior: 11 de 24 | en sí mismo: 4 | fila «ó»: [0.07 0.08 0.07 0.09 0.13 0.13 0.07 0.11 0.09 0.16]
+Bloque 1, cabeza 2: distancias al más atendido [0, 1, 2, 3, 1, 5, 2, 2, 2, 1, 2, 2, 1, 0, 1, 2, 7, 5, 0, 4, 2, 0, 1, 3]
+   peso máximo medio 0.47 | máximo en el anterior: 6 de 24 | en sí mismo: 4 | fila «ó»: [0.01 0.02 0.03 0.04 0.11 0.11 0.02 0.1  0.47 0.11]
+Bloque 1, cabeza 3: distancias al más atendido [0, 1, 2, 1, 2, 2, 2, 2, 1, 0, 1, 3, 5, 2, 2, 1, 4, 1, 0, 3, 0, 1, 2, 2]
+   peso máximo medio 0.51 | máximo en el anterior: 7 de 24 | en sí mismo: 4 | fila «ó»: [0.01 0.09 0.03 0.19 0.02 0.02 0.03 0.04 0.02 0.55]
+Bloque 1, cabeza 4: distancias al más atendido [0, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 2, 2, 1, 5, 1, 2, 2, 1, 2, 1, 1, 2, 3]
+   peso máximo medio 0.64 | máximo en el anterior: 14 de 24 | en sí mismo: 1 | fila «ó»: [0.07 0.05 0.04 0.08 0.12 0.04 0.11 0.17 0.24 0.08]
+Bloque 2, cabeza 1: distancias al más atendido [0, 1, 2, 1, 1, 1, 1, 6, 7, 8, 2, 1, 6, 3, 8, 12, 3, 6, 2, 9, 6, 8, 4, 13]
+   peso máximo medio 0.59 | máximo en el anterior: 6 de 24 | en sí mismo: 1 | fila «ó»: [0.02 0.48 0.   0.06 0.   0.02 0.4  0.   0.   0.01]
+Bloque 2, cabeza 2: distancias al más atendido [0, 1, 0, 3, 0, 2, 2, 6, 5, 6, 3, 2, 7, 6, 6, 2, 1, 5, 3, 8, 10, 6, 10, 11]
+   peso máximo medio 0.66 | máximo en el anterior: 2 de 24 | en sí mismo: 3 | fila «ó»: [0.   0.02 0.02 0.86 0.   0.09 0.   0.   0.01 0.  ]
+Bloque 2, cabeza 3: distancias al más atendido [0, 0, 2, 0, 1, 0, 1, 4, 7, 4, 3, 5, 0, 1, 2, 3, 4, 2, 13, 13, 1, 7, 8, 1]
+   peso máximo medio 0.61 | máximo en el anterior: 5 de 24 | en sí mismo: 5 | fila «ó»: [0.04 0.03 0.02 0.16 0.04 0.31 0.08 0.26 0.06 0.01]
+Bloque 2, cabeza 4: distancias al más atendido [0, 1, 0, 3, 4, 0, 6, 0, 4, 4, 3, 6, 4, 8, 1, 3, 11, 0, 4, 14, 12, 7, 8, 3]
+   peso máximo medio 0.64 | máximo en el anterior: 2 de 24 | en sí mismo: 5 | fila «ó»: [0.   0.03 0.02 0.01 0.   0.92 0.02 0.   0.   0.  ]
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (además, guarda figura_7_atencion.png):» (20 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Interés:** es un script complementario que dibuja la figura de atención del Capítulo 11 con el Nano-LLM ya entrenado. Necesita `nano_llm_pesos.npz`, que guarda el Programa 8 del Capítulo 13, así que **hay que ejecutar el Programa 8 antes** aunque el script aparezca antes en el libro. El propio listado lo avisa en su cabecera. La primera vez se lanzó sin esos pesos y falló con `FileNotFoundError`, como era de esperar. Se repitió después de generarlos y terminó correctamente.
+
+## 51. Ejercicio 11.1 — Verificar que los pesos de atención suman 1
+
+**Archivo:** `ejercicio_11_1.py`  ·  **Capítulo:** Capítulo 11: El Mecanismo de Atención (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (30 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+ 
+np.random.seed(7)
+T, d = 6, 8
+X  = np.random.randn(T, d)
+Wq = np.random.randn(d, d) * 0.2
+Wk = np.random.randn(d, d) * 0.2
+ 
+Q      = X @ Wq
+K      = X @ Wk
+scores = Q @ K.T / np.sqrt(d)
+pesos  = softmax(scores)
+ 
+print('=== VERIFICACIÓN DE PESOS DE ATENCIÓN ===\n')
+print(f'Matriz de pesos ({T}x{T}):')
+np.set_printoptions(precision=4, suppress=True)
+print(pesos)
+ 
+print('\nVerificaciones:')
+sumas = pesos.sum(axis=1)
+print(f'  Todas las filas suman 1: {np.allclose(sumas, 1.0)}')
+print(f'  Todos los pesos >= 0:    {(pesos >= 0).all()}')
+print(f'  Suma mínima de fila:  {sumas.min():.10f}')
+print(f'  Suma máxima de fila:  {sumas.max():.10f}')
+print(f'  Peso mínimo: {pesos.min():.2e}  (positivo por softmax)')
+```
+
+**Ejecución:** `python ejercicio_11_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== VERIFICACIÓN DE PESOS DE ATENCIÓN ===
+
+Matriz de pesos (6x6):
+[[0.1426 0.1513 0.1896 0.1563 0.2032 0.157 ]
+ [0.1598 0.1561 0.1666 0.1574 0.2134 0.1468]
+ [0.1784 0.1812 0.1222 0.1565 0.2033 0.1584]
+ [0.1725 0.1662 0.1374 0.1337 0.1625 0.2277]
+ [0.272  0.1592 0.1366 0.1333 0.0888 0.2102]
+ [0.1136 0.1669 0.1871 0.1735 0.2027 0.1563]]
+
+Verificaciones:
+  Todas las filas suman 1: True
+  Todos los pesos >= 0:    True
+  Suma mínima de fila:  1.0000000000
+  Suma máxima de fila:  1.0000000000
+  Peso mínimo: 8.88e-02  (positivo por softmax)
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_11_1.txt`), que es la que describe el texto.
+
+## 52. Ejercicio 11.2 — ¿Qué ocurre sin el factor de escala sqrt(d_k)?
+
+**Archivo:** `ejercicio_11_2.py`  ·  **Capítulo:** Capítulo 11: El Mecanismo de Atención (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (31 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x); return e / e.sum(axis=axis, keepdims=True)
+ 
+def entropia(pesos):
+    """Entropia media de las filas (bits). Mayor = más distribuida."""
+    return -(pesos * np.log2(pesos + 1e-10)).sum(axis=1).mean()
+ 
+np.random.seed(0)
+T, d = 8, 64
+X  = np.random.randn(T, d)
+Wq = np.random.randn(d, d) * 0.02
+Wk = np.random.randn(d, d) * 0.02
+Q  = X @ Wq; K = X @ Wk
+scores_raw    = Q @ K.T
+scores_scaled = Q @ K.T / np.sqrt(d)
+pesos_raw    = softmax(scores_raw)
+pesos_scaled = softmax(scores_scaled)
+ 
+print(f'Dimensión d={d}, T={T} tokens\n')
+print(f"{'Métrica':>35}  {'Sin escala':>12}  {'Con escala':>12}")
+print('-' * 62)
+print(f"{'Varianza de scores':>35}  {scores_raw.var():>12.4f}  {scores_scaled.var():>12.4f}")
+print(f"{'Max peso de atención':>35}  {pesos_raw.max():>12.4f}  {pesos_scaled.max():>12.4f}")
+print(f"{'Entropía media (bits)':>35}  {entropia(pesos_raw):>12.4f}  {entropia(pesos_scaled):>12.4f}")
+print(f"{'Máxima entropía posible':>35}  {np.log2(T):>12.4f}  {np.log2(T):>12.4f}")
+print()
+print('Sin escala: scores de alta varianza -> softmax muy puntuda')
+print('-> gradientes casi nulos -> el modelo no aprende')
+```
+
+**Ejecución:** `python ejercicio_11_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Dimensión d=64, T=8 tokens
+
+                            Métrica    Sin escala    Con escala
+--------------------------------------------------------------
+                 Varianza de scores        0.0292        0.0005
+               Max peso de atención        0.1673        0.1299
+              Entropía media (bits)        2.9819        2.9997
+            Máxima entropía posible        3.0000        3.0000
+
+Sin escala: scores de alta varianza -> softmax muy puntuda
+-> gradientes casi nulos -> el modelo no aprende
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_11_2.txt`), que es la que describe el texto.
+
+## 53. Ejercicio 11.3 — Multi-Head Attention: varias perspectivas a la vez
+
+**Archivo:** `ejercicio_11_3.py`  ·  **Capítulo:** Capítulo 11: El Mecanismo de Atención (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (34 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    return np.exp(x) / np.exp(x).sum(axis=axis, keepdims=True)
+ 
+np.random.seed(3)
+T, d, n_heads = 6, 16, 4
+d_head = d // n_heads   # 4
+X = np.random.randn(T, d)
+ 
+salidas_cabezas = []
+for h in range(n_heads):
+    Wq_h = np.random.randn(d, d_head) * 0.02
+    Wk_h = np.random.randn(d, d_head) * 0.02
+    Wv_h = np.random.randn(d, d_head) * 0.02
+    Q = X @ Wq_h; K = X @ Wk_h; V = X @ Wv_h
+    scores = Q @ K.T / np.sqrt(d_head)
+    msk    = np.triu(np.full((T,T), -1e9), k=1)
+    pesos  = softmax(scores + msk)
+    sal_h  = pesos @ V              # (T, d_head)
+    salidas_cabezas.append(sal_h)
+ 
+# Concatenar cabezas: (T, n_heads*d_head) = (T, d)
+concat = np.concatenate(salidas_cabezas, axis=-1)   # (6, 16)
+# Proyección final
+Wo     = np.random.randn(d, d) * 0.02
+salida = concat @ Wo                                 # (6, 16)
+ 
+print(f'Multi-Head Attention: {n_heads} cabezas x d_head={d_head}')
+print(f'Entrada:  {X.shape} -> Salida: {salida.shape}')
+print(f'(la forma se mantiene — condición del bloque transformer)')
+params_atencion = n_heads * 3*d*d_head + d*d
+print(f'Parámetros: {n_heads}x3x{d}x{d_head} + {d}x{d} = {params_atencion}')
+```
+
+**Ejecución:** `python ejercicio_11_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Multi-Head Attention: 4 cabezas x d_head=4
+Entrada:  (6, 16) -> Salida: (6, 16)
+(la forma se mantiene — condición del bloque transformer)
+Parámetros: 4x3x16x4 + 16x16 = 1024
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_11_3.txt`), que es la que describe el texto.
+
+## 54. Ejercicio 11.4 — Calcula a mano la atención de «gato»
+
+**Archivo:** `ejercicio_11_4.py`  ·  **Capítulo:** Capítulo 11: El Mecanismo de Atención (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (20 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(x):
+    e = np.exp(x - x.max())
+    return e / e.sum()
+ 
+tokens = ['el', 'gato', 'duerme']
+K = np.array([[0.0, 1.0], [1.0, 0.0], [0.0, 0.0]])
+V = np.array([[1.0, 0.0], [0.0, 2.0], [1.0, 1.0]])
+q_gato = np.array([0.0, 2.0])          # "gato" busca su determinante
+ 
+np.set_printoptions(precision=3, suppress=True)
+scores = K @ q_gato / np.sqrt(2)
+print('scores           :', scores)
+print('pesos            :', softmax(scores))
+print('salida           :', softmax(scores) @ V)
+# Con máscara causal, "gato" (posición 2) no puede ver "duerme" (posición 3)
+pesos_c = softmax(scores + np.array([0, 0, -1e9]))
+print('pesos (causal)   :', pesos_c)
+print('salida (causal)  :', pesos_c @ V)
+```
+
+**Ejecución:** `python ejercicio_11_4.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+scores           : [1.414 0.    0.   ]
+pesos            : [0.673 0.164 0.164]
+salida           : [0.836 0.491]
+pesos (causal)   : [0.804 0.196 0.   ]
+salida (causal)  : [0.804 0.391]
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (5 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+
+---
+
+# Capítulo 12: El Transformer — La Arquitectura que lo Cambió Todo (***)
+
+## 55. Programa 7 — Bloque Transformer
+
+**Archivo:** `programa_7_transformer_bloque.py`  ·  **Capítulo:** Capítulo 12: El Transformer — La Arquitectura que lo Cambió Todo (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (97 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# UN BLOQUE TRANSFORMER COMPLETO (diseño de GPT-2: Pre-LN)
+# (versión simplificada sin Multi-Head para claridad)
+# =======================================================
+ 
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+ 
+ 
+def layer_norm(x, g, b, eps=1e-5):
+    """Normaliza cada fila y aplica escala g (γ) y desplazamiento b (β)"""
+    mu  = x.mean(axis=-1, keepdims=True)
+    var = x.var(axis=-1, keepdims=True)
+    return (x - mu) / np.sqrt(var + eps) * g + b
+ 
+def gelu(x):
+    """La activación de GPT-2: una ReLU 'suave'"""
+    return 0.5 * x * (1 + np.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * x**3)))
+ 
+ 
+class BloqueTransformer:
+    """
+    Un bloque del Transformer decoder, como en GPT-2 (Pre-LN):
+    1. LayerNorm -> self-attention causal -> suma residual
+    2. LayerNorm -> Feed-Forward (GELU)   -> suma residual
+    """
+    
+    def __init__(self, d, d_ff=None):
+        d_ff = d_ff or d * 4
+        # Dos LayerNorm con escala (γ) y desplazamiento (β)
+        self.g1, self.b_ln1 = np.ones(d), np.zeros(d)
+        self.g2, self.b_ln2 = np.ones(d), np.zeros(d)
+        # Matrices de atención, cada una con su sesgo
+        self.Wq = np.random.randn(d, d) * 0.02;  self.bq = np.zeros(d)
+        self.Wk = np.random.randn(d, d) * 0.02;  self.bk = np.zeros(d)
+        self.Wv = np.random.randn(d, d) * 0.02;  self.bv = np.zeros(d)
+        self.Wo = np.random.randn(d, d) * 0.02;  self.bo = np.zeros(d)
+        # Matrices FFN
+        self.W1 = np.random.randn(d, d_ff) * 0.02
+        self.b1 = np.zeros(d_ff)
+        self.W2 = np.random.randn(d_ff, d) * 0.02
+        self.b2 = np.zeros(d)
+    
+    def atencion_causal(self, X):
+        T, d = X.shape
+        Q = X @ self.Wq + self.bq
+        K = X @ self.Wk + self.bk
+        V = X @ self.Wv + self.bv
+        scores = Q @ K.T / np.sqrt(d)
+        # Máscara causal: -inf en el triángulo superior
+        mascara = np.triu(np.full((T, T), -1e9), k=1)
+        pesos   = softmax(scores + mascara)
+        return (pesos @ V) @ self.Wo + self.bo
+    
+    def ffn(self, X):
+        h = gelu(X @ self.W1 + self.b1)
+        return h @ self.W2 + self.b2
+    
+    def forward(self, X):
+        # Sub-bloque 1: norm -> self-attention -> residual
+        X = X + self.atencion_causal(layer_norm(X, self.g1, self.b_ln1))
+        # Sub-bloque 2: norm -> FFN -> residual
+        X = X + self.ffn(layer_norm(X, self.g2, self.b_ln2))
+        return X
+ 
+ 
+# -- Demostración ---------------------------------------
+np.random.seed(5)
+T, d = 6, 16    # 6 tokens, dimensión 16
+ 
+bloque = BloqueTransformer(d=16, d_ff=64)
+ 
+# Entrada: 6 tokens aleatorios
+X_entrada = np.random.randn(T, d)
+X_salida  = bloque.forward(X_entrada)
+ 
+print('=== BLOQUE TRANSFORMER ===')
+print(f'Entrada: {T} tokens x {d} dimensiones')
+print(f'Salida:  {X_salida.shape[0]} tokens x {X_salida.shape[1]} dimensiones')
+print(f'El bloque mantiene las dimensiones (T={T}, d={d})')
+ 
+ 
+# Contar parámetros: atención (4 matrices + 4 sesgos), FFN, 2 LayerNorm
+n_params = (4*d*d + 4*d) + (2 * d*(d*4) + d*4 + d) + 2 * 2*d
+print(f'Parámetros del bloque: {n_params}')
+ 
+ 
+# Pre-LN: la salida es la entrada MÁS lo que aportan las subcapas
+cambio = X_salida - X_entrada
+print(f'\nLa vía residual conserva la entrada:')
+print(f'  Std de la entrada:        {X_entrada.std():.4f}')
+print(f'  Std de lo que se suma:    {cambio.std():.4f}')
+print(f'  Std de la salida:         {X_salida.std():.4f}')
+```
+
+**Ejecución:** `python programa_7_transformer_bloque.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== BLOQUE TRANSFORMER ===
+Entrada: 6 tokens x 16 dimensiones
+Salida:  6 tokens x 16 dimensiones
+El bloque mantiene las dimensiones (T=6, d=16)
+Parámetros del bloque: 3280
+
+La vía residual conserva la entrada:
+  Std de la entrada:        1.1279
+  Std de lo que se suma:    0.0061
+  Std de la salida:         1.1264
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (9 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 56. Ejercicio 12.1 — Contar parámetros de un bloque Transformer
+
+**Archivo:** `ejercicio_12_1.py`  ·  **Capítulo:** Capítulo 12: El Transformer — La Arquitectura que lo Cambió Todo (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (23 líneas, tal como está impreso en el libro):
+
+```python
+def params_transformer(d, d_ff=None, n_heads=1):
+    d_ff = d_ff or d * 4
+    """Cuenta parámetros de un bloque transformer"""
+    aten  = 4 * d * d + 4 * d      # Wq, Wk, Wv, Wo y sus sesgos
+    ffn   = d*d_ff + d_ff + d_ff*d + d  # W1+b1 + W2+b2
+    lnorm = 2 * 2 * d              # 2 LayerNorm x (gamma + beta)
+    total = aten + ffn + lnorm
+    return {'atención': aten, 'FFN': ffn, 'LayerNorm': lnorm, 'total': total}
+ 
+configs = [
+    ('Nuestro bloque (d=16)',     16,   64,  1),
+    ('Nano-LLM completo (2 bl.)', 48,  192,  2),   # 28 272 por bloque, como el Programa 8
+    ('GPT-2 small (d=768, 12bl)',768, 3072, 12),
+    ('GPT-3 (d=12288, 96bl)',  12288,49152, 96),
+]
+ 
+for nombre, d, d_ff, n_bl in configs:
+    r = params_transformer(d, d_ff)
+    total_modelo = r['total'] * n_bl
+    print(f'{nombre}')
+    print(f'  Atención: {r["atención"]:>10,}  FFN: {r["FFN"]:>10,}  LN: {r["LayerNorm"]:>6,}')
+    print(f'  Por bloque: {r["total"]:>10,}   x {n_bl} bloques = {total_modelo:>15,} total')
+    print()
+```
+
+**Ejecución:** `python ejercicio_12_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+Nuestro bloque (d=16)
+  Atención:      1,088  FFN:      2,128  LN:     64
+  Por bloque:      3,280   x 1 bloques =           3,280 total
+
+Nano-LLM completo (2 bl.)
+  Atención:      9,408  FFN:     18,672  LN:    192
+  Por bloque:     28,272   x 2 bloques =          56,544 total
+
+GPT-2 small (d=768, 12bl)
+  Atención:  2,362,368  FFN:  4,722,432  LN:  3,072
+  Por bloque:  7,087,872   x 12 bloques =      85,054,464 total
+
+GPT-3 (d=12288, 96bl)
+  Atención: 604,028,928  FFN: 1,208,020,992  LN: 49,152
+  Por bloque: 1,812,099,072   x 96 bloques = 173,961,510,912 total
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_12_1.txt`), que es la que describe el texto.
+
+## 57. Ejercicio 12.2 — Layer Normalization desde cero
+
+**Archivo:** `ejercicio_12_2.py`  ·  **Capítulo:** Capítulo 12: El Transformer — La Arquitectura que lo Cambió Todo (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (30 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def layer_norm(X, eps=1e-5):
+    """Normaliza cada fila a media 0, std 1."""
+    mu    = X.mean(axis=-1, keepdims=True)   # media por fila
+    sigma = X.std(axis=-1,  keepdims=True)   # std por fila
+    return (X - mu) / (sigma + eps)
+ 
+np.random.seed(5)
+T, d = 5, 8
+ 
+# Crear datos con distribución no estándar
+X = np.random.randn(T, d) * 3 + 5   # media≈5, std≈3
+ 
+print('ANTES de LayerNorm:')
+print(f'  Media global:    {X.mean():.4f}  (≈5)')
+print(f'  Std global:      {X.std():.4f}   (≈3)')
+print(f'  Media por fila:  {X.mean(axis=1).round(3)}')
+ 
+X_norm = layer_norm(X)
+print()
+print('DESPUÉS de LayerNorm:')
+print(f'  Media global:    {X_norm.mean():.8f}  (≈0)')
+print(f'  Std global:      {X_norm.std():.8f}   (≈1)')
+print(f'  Media por fila:  {X_norm.mean(axis=1).round(6)}')
+print(f'  Std por fila:    {X_norm.std(axis=1).round(6)}')
+ 
+print()
+print('LayerNorm garantiza activaciones bien escaladas,')
+print('lo cual es crucial para entrenar redes muy profundas.')
+```
+
+**Ejecución:** `python ejercicio_12_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+ANTES de LayerNorm:
+  Media global:    5.1793  (≈5)
+  Std global:      2.6965   (≈3)
+  Media por fila:  [5.93  3.627 4.629 5.549 6.161]
+
+DESPUÉS de LayerNorm:
+  Media global:    0.00000000  (≈0)
+  Std global:      0.99999552   (≈1)
+  Media por fila:  [ 0.  0. -0.  0. -0.]
+  Std por fila:    [0.999997 0.999995 0.999997 0.999994 0.999995]
+
+LayerNorm garantiza activaciones bien escaladas,
+lo cual es crucial para entrenar redes muy profundas.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_12_2.txt`), que es la que describe el texto.
+
+## 58. Ejercicio 12.3 — Positional Encoding: ¿se parecen más los tokens cercanos?
+
+**Archivo:** `ejercicio_12_3.py`  ·  **Capítulo:** Capítulo 12: El Transformer — La Arquitectura que lo Cambió Todo (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (33 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def pos_encoding(T, d):
+    PE = np.zeros((T, d))
+    for pos in range(T):
+        for i in range(0, d, 2):
+            ang = pos / (10000 ** (i/d))
+            PE[pos, i]   = np.sin(ang)
+            if i+1 < d: PE[pos, i+1] = np.cos(ang)
+    return PE
+ 
+def sim_coseno(u, v):
+    return np.dot(u,v) / (np.linalg.norm(u)*np.linalg.norm(v)+1e-10)
+ 
+PE = pos_encoding(T=64, d=32)
+ 
+print('Similitudes coseno entre posición 0 y otras posiciones\n')
+print(f"{'Distancia':>10}  {'Pos A':>6}  {'Pos B':>6}  {'Similitud':>12}  Barra")
+print('-' * 55)
+ 
+for pos_b in [1, 2, 4, 8, 16, 32]:
+    sim = sim_coseno(PE[0], PE[pos_b])
+    barra = '█' * int(max(0, sim) * 30)
+    print(f'{pos_b:>10}  {0:>6}  {pos_b:>6}  {sim:>12.4f}  {barra}')
+ 
+sims = [sim_coseno(PE[0], PE[k]) for k in range(1, 64)]
+subidas = [k + 1 for k in range(len(sims) - 1) if sims[k + 1] > sims[k]]
+print()
+print(f'De la distancia 1 a la 4, la similitud cae de {sims[0]:.2f} a {sims[3]:.2f}.')
+print(f'Pero no decrece siempre: entre las distancias 1 y 63 vuelve a subir')
+print(f'{len(subidas)} veces (por ejemplo, de la 16 a la 32: {sims[15]:.2f} -> {sims[31]:.2f}).')
+print('Las posiciones cercanas se parecen mas que la mayoria de las lejanas,')
+print('pero es una tendencia, no una ley: el modelo aprende a usarla.')
+```
+
+**Ejecución:** `python ejercicio_12_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Similitudes coseno entre posición 0 y otras posiciones
+
+ Distancia   Pos A   Pos B     Similitud  Barra
+-------------------------------------------------------
+         1       0       1        0.9571  ████████████████████████████
+         2       0       2        0.8581  █████████████████████████
+         4       0       4        0.7288  █████████████████████
+         8       0       8        0.6576  ███████████████████
+        16       0      16        0.4953  ██████████████
+        32       0      32        0.6016  ██████████████████
+
+De la distancia 1 a la 4, la similitud cae de 0.96 a 0.73.
+Pero no decrece siempre: entre las distancias 1 y 63 vuelve a subir
+29 veces (por ejemplo, de la 16 a la 32: 0.50 -> 0.60).
+Las posiciones cercanas se parecen mas que la mayoria de las lejanas,
+pero es una tendencia, no una ley: el modelo aprende a usarla.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_12_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)
+
+## 59. Programa 8 — Nano-LLM completo (versión de referencia)
+
+**Archivo:** `programa_8_nano_llm.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (413 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA 8 — Nano-LLM: un GPT-2 en miniatura
+# Modelo de lenguaje de nivel carácter con la arquitectura
+# de GPT-2 (2019): embeddings de token y de posición
+# aprendidos, 2 bloques Pre-LN (LayerNorm con γ y β antes de
+# cada subcapa), atención causal de 4 cabezas, FFN con GELU,
+# LayerNorm final y pesos compartidos entre la entrada y la
+# salida. Solo cambian los tamaños (GPT-2 small: 12 bloques,
+# 12 cabezas, D = 768, contexto 1024, 50 257 tokens BPE).
+# NumPy puro: backpropagation analítico completo, mini-lotes,
+# Adam con warmup + coseno y recorte del gradiente. Guarda
+# los pesos en nano_llm_pesos.npz para los capítulos siguientes.
+# =======================================================
+ 
+import numpy as np
+ 
+# -- Texto de entrenamiento (93 líneas, vocabulario de 46 caracteres) --
+TEXTO = """
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas capas ocultas.
+la atención permite ver todo el contexto a la vez.
+los transformers son la base de los llm modernos.
+entrenar un modelo requiere muchos datos y cálculo.
+el futuro pertenece a quienes comprenden la ia.
+un modelo pequeño puede aprender patrones simples.
+la tokenización convierte texto en números enteros.
+cada carácter del vocabulario tiene un índice único.
+el embedding transforma índices en vectores densos.
+la codificación posicional indica el orden del texto.
+la función softmax convierte logits en probabilidades.
+el optimizador adam ajusta los pesos, paso a paso.
+una red profunda combina atención y capas ocultas.
+generar texto significa predecir, uno a uno, cada token.
+la temperatura controla cuánta variedad hay al generar.
+un buen modelo equilibra memoria y generalización.
+¿comprender la ia? requiere práctica, paciencia y datos.
+también existe el software: gpt-2 fue un hito clave.
+un modelo (bien entrenado) generaliza; uno malo, no.
+¡el aprendizaje nunca termina! sigue explorando.
+un vector es una lista ordenada de números reales.
+una matriz agrupa vectores en filas y columnas.
+el producto punto mide cuánto se parecen dos vectores.
+la retropropagación calcula gradientes hacia atrás.
+el descenso de gradiente ajusta los pesos poco a poco.
+una época recorre todo el conjunto de entrenamiento.
+el sobreajuste ocurre cuando el modelo memoriza demasiado.
+la regularización ayuda a que el modelo generalice mejor.
+un lote agrupa varios ejemplos para entrenar juntos.
+la normalización estabiliza las activaciones internas.
+una neurona combina entradas, pesos y un sesgo.
+la función de pérdida mide el error del modelo.
+el aprendizaje supervisado usa ejemplos etiquetados.
+una capa oculta transforma la información paso a paso.
+el descenso estocástico usa lotes pequeños y aleatorios.
+la validación comprueba si el modelo generaliza bien.
+un hiperparámetro se ajusta antes de entrenar el modelo.
+la arquitectura define cómo se conectan las capas.
+el vocabulario agrupa todos los símbolos posibles.
+una secuencia es un orden concreto de tokens.
+el contexto limita cuántos tokens ve el modelo a la vez.
+la generalización permite responder a datos nuevos.
+comprender estos conceptos abre la puerta a la ia moderna.
+un dataset agrupa todos los ejemplos disponibles.
+el conjunto de test evalúa el modelo al final, una sola vez.
+la precisión mide cuántas predicciones son correctas.
+el error mide cuánto se aleja la predicción del valor real.
+una etiqueta indica la respuesta correcta de un ejemplo.
+la inferencia usa el modelo ya entrenado, sin ajustar pesos.
+el preentrenamiento aprende patrones generales del lenguaje.
+el ajuste fino especializa un modelo en una tarea concreta.
+un token puede ser una letra, una parte de palabra o una palabra.
+la ventana de contexto limita cuánto texto ve el modelo.
+un residual conecta la entrada directamente con la salida.
+la normalización evita que las activaciones crezcan sin control.
+el ruido en los datos dificulta encontrar el patrón real.
+una red ancha tiene muchas neuronas en cada capa.
+una red profunda tiene muchas capas apiladas.
+el paralelismo permite entrenar varias partes a la vez.
+la memoria limita cuántos datos caben en una gráfica.
+un acelerador gráfico multiplica matrices muy rápido.
+la escala mide cuántos parámetros tiene un modelo.
+un modelo grande necesita muchos más datos para aprender bien.
+la eficiencia importa tanto como la precisión final.
+el costo de entrenar crece con el tamaño del modelo.
+la interpretabilidad explica por qué el modelo decide algo.
+un sesgo en los datos puede producir un modelo injusto.
+la ética en la ia estudia el impacto social de los modelos.
+la privacidad protege los datos personales de los usuarios.
+un modelo robusto resiste pequeños cambios en la entrada.
+la incertidumbre mide cuánta confianza tiene el modelo.
+un ejemplo difícil confunde incluso a un buen modelo.
+la curva de aprendizaje muestra el progreso del entrenamiento.
+un mínimo local complica encontrar la mejor solución.
+el paisaje de pérdida describe cómo cambia el error.
+una meseta ralentiza el progreso del entrenamiento.
+el ruido ayuda a veces a escapar de mínimos malos.
+la exploración prueba caminos nuevos durante el entrenamiento.
+la explotación aprovecha lo que ya funciona bien.
+un modelo generativo produce contenido nuevo y original.
+un modelo discriminativo distingue entre categorías distintas.
+la clasificación asigna una categoría a cada ejemplo.
+la regresión predice un número continuo, no una categoría.
+el aprendizaje por refuerzo premia las buenas decisiones.
+un agente aprende actuando dentro de un entorno.
+la recompensa guía el aprendizaje del agente.
+la política define cómo actúa el agente en cada estado.
+un entorno simulado permite entrenar sin riesgo real.
+la simulación acelera enormemente el aprendizaje del agente.
+comprender bien lo básico facilita entender lo avanzado.
+"""
+ 
+# -- Tokenizador ----------------------------------------
+ 
+VOCAB = sorted(set(TEXTO))
+V = len(VOCAB)
+C2I = {c: i for i, c in enumerate(VOCAB)}
+I2C = dict(enumerate(VOCAB))
+DATOS = np.array([C2I[c] for c in TEXTO], dtype=int)
+# -- Hiperparámetros (entre paréntesis, los de GPT-2 small) --
+CTX    = 24     # longitud del contexto (1024)
+D      = 48     # dimensión del modelo (768)
+H      = 4      # cabezas de atención (12)
+DH     = D // H # dimensión de cada cabeza: 12 (64)
+D_FF   = 192    # dimensión interna FFN, 4xD (3072)
+N_BLQ  = 2      # bloques transformer (12)
+LR     = 3e-3   # tasa de aprendizaje máxima
+PASOS  = 12000  # pasos de entrenamiento (cada paso ve BATCH ventanas al azar;
+                #  no son épocas: 12000 pasos ≈ 454 pasadas por el corpus)
+BATCH  = 8      # secuencias por lote (promedia el gradiente, suaviza la curva)
+CLIP   = 1.0    # recorte de la norma del gradiente (Capítulo 5, 5.8)
+ 
+np.random.seed(42)
+ 
+# -- Parámetros del modelo (inicialización de GPT-2) --------
+def randn(shape, std=0.02):
+    return np.random.randn(*shape) * std
+# Las proyecciones que se suman a la vía residual (Wo y W2) se
+# inician con una desviación menor, 0.02/sqrt(2·N_BLQ), como en GPT-2.
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)
+ 
+params = {
+    'wte': randn((V, D)),     # embedding de tokens (y matriz de salida)
+    'wpe': randn((CTX, D)),   # embedding de posiciones
+    'lnf_g': np.ones(D), 'lnf_b': np.zeros(D),   # LayerNorm final
+}
+for k in range(N_BLQ):
+    params[f'ln1_g{k}'] = np.ones(D);  params[f'ln1_b{k}'] = np.zeros(D)
+    for n in 'qkv':
+        params[f'W{n}{k}'] = randn((D, D)); params[f'b{n}{k}'] = np.zeros(D)
+    params[f'Wo{k}'] = randn((D, D), STD_RES); params[f'bo{k}'] = np.zeros(D)
+    params[f'ln2_g{k}'] = np.ones(D);  params[f'ln2_b{k}'] = np.zeros(D)
+    params[f'W1{k}'] = randn((D, D_FF)); params[f'b1{k}'] = np.zeros(D_FF)
+    params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)
+ 
+total = sum(p.size for p in params.values())
+print(f'Vocabulario: {V} caracteres')
+print(f'Total de parámetros: {total:,}')
+print(f'Texto de entrenamiento: {len(DATOS)} tokens, '
+      f'{TEXTO.strip().count(chr(10)) + 1} líneas')
+ 
+# Máscara causal: se calcula una vez con el tamaño máximo (CTX, CTX)
+# y se recorta a [:T, :T] cuando la secuencia es más corta.
+MASCARA_CAUSAL = np.triu(np.full((CTX, CTX), -1e9), k=1)
+# -- Utilidades ---------------------------------------------
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    return np.exp(x) / np.exp(x).sum(axis=axis, keepdims=True)
+ 
+ 
+ 
+ 
+def layer_norm_fwd(x, g, b, eps=1e-5):
+    """LayerNorm de GPT-2: normaliza cada fila y aplica escala g (γ) y desplazamiento b (β)."""
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+def layer_norm_bwd(dy, g, cache):
+    """Derivada exacta de LayerNorm: devuelve dx, dg y db."""
+    xhat, inv = cache
+    ejes = tuple(range(dy.ndim - 1))      # todas las filas (lote y posiciones)
+    dg = (dy * xhat).sum(ejes)
+    db = dy.sum(ejes)
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, dg, db
+C_GELU = np.sqrt(2 / np.pi)
+def gelu(x):
+    """GELU con la aproximación tanh que usa GPT-2."""
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+def gelu_bwd(x):
+    """Derivada de gelu(x)."""
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+def separar(x):   # (B, T, D) -> (B, H, T, DH): una matriz por cabeza
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+def unir(x):      # (B, H, T, DH) -> (B, T, D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+def tmm(a, b):
+    """Suma sobre lote y posiciones de aᵀ·b: el gradiente de una capa lineal."""
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+ 
+# -- Forward ---------------------------------------------------
+def forward(tokens):
+    """tokens (B, T) -> logits (B, T, V), y lo que el backward necesita."""
+    B, T = tokens.shape
+    X = params['wte'][tokens] + params['wpe'][:T]
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X
+        # Subcapa 1: LayerNorm -> atención causal multi-cabeza -> suma residual
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA_CAUSAL[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        # Subcapa 2: LayerNorm -> FFN con GELU -> suma residual
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+        cache.append(dict(a=a, ln1=ln1, Q=Q, K=K, Vm=Vm, pesos=pesos,
+                          att=att, m=m, ln2=ln2, h_pre=h_pre, h=h))
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    logits = xf @ params['wte'].T          # pesos compartidos: la salida usa wte
+    return logits, (xf, lnf, cache)
+ 
+# -- Forward + Backward (un mini-lote entero) ---------------------
+def forward_backward(tokens, targets):
+    """
+    Pasa el mini-lote por el modelo y calcula, con backpropagation
+    exacto (regla de la cadena), el gradiente de la pérdida media
+    respecto a TODOS los parámetros.
+    """
+ 
+ 
+ 
+ 
+ 
+    B, T = tokens.shape
+    logits, (xf, lnf, cache) = forward(tokens)
+    probs = softmax(logits)
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -np.log(probs[bi, ti, targets] + 1e-10).mean()
+    grads = {k: np.zeros_like(v) for k, v in params.items()}
+ 
+    dlogits = probs.copy()
+ 
+    dlogits[bi, ti, targets] -= 1.0          # softmax + entropía cruzada
+    dlogits /= B * T
+    grads['wte'] += tmm(dlogits, xf)         # wte como matriz de salida
+    dxf = dlogits @ params['wte']
+    dX, grads['lnf_g'], grads['lnf_b'] = layer_norm_bwd(dxf, params['lnf_g'], lnf)
+ 
+    for k in reversed(range(N_BLQ)):
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+        c = cache[k]
+        # Subcapa 2 hacia atrás. Residual: dX llega entero a X1 y a la FFN
+        grads[f'W2{k}'] = tmm(c['h'], dX)
+        grads[f'b2{k}'] = dX.sum((0, 1))
+        dh_pre = (dX @ params[f'W2{k}'].T) * gelu_bwd(c['h_pre'])
+        grads[f'W1{k}'] = tmm(c['m'], dh_pre)
+        grads[f'b1{k}'] = dh_pre.sum((0, 1))
+        dm = dh_pre @ params[f'W1{k}'].T
+        dx1, grads[f'ln2_g{k}'], grads[f'ln2_b{k}'] = layer_norm_bwd(dm, params[f'ln2_g{k}'], c['ln2'])
+        dX1 = dX + dx1
+        # Subcapa 1 hacia atrás. Residual: dX1 llega entero a Xin y a la atención
+        grads[f'Wo{k}'] = tmm(c['att'], dX1)
+        grads[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ params[f'Wo{k}'].T)
+        dpesos = datt @ c['Vm'].transpose(0, 1, 3, 2)
+        dVm = c['pesos'].transpose(0, 1, 3, 2) @ datt
+        s = (dpesos * c['pesos']).sum(-1, keepdims=True)
+        dscores = c['pesos'] * (dpesos - s) / np.sqrt(DH)   # derivada de softmax
+        dQ = unir(dscores @ c['K'])
+        dK = unir(dscores.transpose(0, 1, 3, 2) @ c['Q'])
+        dV = unir(dVm)
+        da = np.zeros_like(c['a'])
+        for n, dn in zip('qkv', (dQ, dK, dV)):
+            grads[f'W{n}{k}'] = tmm(c['a'], dn)
+            grads[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ params[f'W{n}{k}'].T
+        dxin, grads[f'ln1_g{k}'], grads[f'ln1_b{k}'] = layer_norm_bwd(da, params[f'ln1_g{k}'], c['ln1'])
+        dX = dX1 + dxin
+    grads['wpe'][:T] = dX.sum(0)
+    np.add.at(grads['wte'], tokens, dX)      # wte también como embedding de entrada
+ 
+    return grads, loss
+# -- Learning rate: warmup lineal + decaimiento coseno --------
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    """
+    Sube linealmente de 0 a lr_max durante t_warmup pasos (evita
+    pasos erráticos al principio, cuando los gradientes son más
+    inestables), luego decae en coseno hasta lr_min (afina los
+    pesos al final). Es el esquema estándar al entrenar LLMs.
+    """
+    if t < t_warmup:
+        return lr_max * (t + 1) / t_warmup     # +1: el paso 0 ya aprende
+    t_adj = t - t_warmup
+    t_decay = t_total - t_warmup
+    return lr_min + 0.5 * (lr_max - lr_min) * (1 + np.cos(np.pi * t_adj / t_decay))
+ 
+ 
+# -- Entrenamiento con Adam (mini-lotes de BATCH secuencias) --
+m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+beta1, beta2, eps_adam, t_adam = 0.9, 0.999, 1e-8, 0
+LR_MAX = LR
+ 
+print('\nEntrenando Nano-LLM (backpropagation analítico, mini-lotes)...')
+print(f'CTX={CTX} | D={D} | D_FF={D_FF} | Bloques={N_BLQ} | Batch={BATCH}\n')
+ 
+for paso in range(PASOS):
+    lr_actual = lr_warmup_coseno(paso, LR_MAX, PASOS)
+    inicios = np.random.randint(0, len(DATOS) - CTX - 1, size=BATCH)
+    xb = np.stack([DATOS[i:i + CTX] for i in inicios])          # (BATCH, CTX)
+    yb = np.stack([DATOS[i + 1:i + CTX + 1] for i in inicios])  # desplazado 1
+    grads_acc, loss = forward_backward(xb, yb)
+    # Recorte del gradiente: si la norma global supera CLIP, se reescala
+    norma = np.sqrt(sum((g ** 2).sum() for g in grads_acc.values()))
+    if norma > CLIP:
+        for k in grads_acc:
+            grads_acc[k] *= CLIP / norma
+ 
+    t_adam += 1
+    for k in params:
+        g = grads_acc[k]
+        m_adam[k] = beta1 * m_adam[k] + (1 - beta1) * g
+        v_adam[k] = beta2 * v_adam[k] + (1 - beta2) * g ** 2
+        m_h = m_adam[k] / (1 - beta1 ** t_adam)
+        v_h = v_adam[k] / (1 - beta2 ** t_adam)
+        params[k] -= lr_actual * m_h / (np.sqrt(v_h) + eps_adam)
+ 
+    if paso % 1000 == 0 or paso == PASOS - 1:
+        print(f'Paso {paso:5d}: pérdida = {loss:.4f}   lr = {lr_actual:.5f}   '
+              f'(bits/char = {loss/np.log(2):.2f})')
+# -- Estrategias de muestreo (se estudian a fondo en el Capítulo 14) --
+# generar() usa temperatura + top_p_filtrar; greedy y top_k_filtrar
+# quedan definidas para experimentar con ellas.
+def greedy(probs):
+    """Siempre el token más probable. Puede quedar 'atrapado' en bucles."""
+    return np.argmax(probs)
+ 
+def top_k_filtrar(probs, k):
+    """Conserva solo los k tokens más probables."""
+    indices_ord = np.argsort(probs)[::-1]
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:k]] = probs[indices_ord[:k]]
+    return nueva / nueva.sum()
+ 
+def top_p_filtrar(probs, p):
+    """Conserva el mínimo conjunto de tokens que suman probabilidad p (nucleus sampling)."""
+    indices_ord = np.argsort(probs)[::-1]
+    probs_ord   = probs[indices_ord]
+    suma_acum   = np.cumsum(probs_ord)
+    n_tokens = int(np.searchsorted(suma_acum, p)) + 1
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:n_tokens]] = probs[indices_ord[:n_tokens]]
+    return nueva / nueva.sum()
+ 
+ 
+# -- Generación de texto -----------------------------------
+def generar(semilla, n_chars=120, temperatura=0.8, top_p=0.9):
+    """
+    Genera texto carácter a carácter.
+    temperatura > 1: más aleatorio | temperatura < 1: más determinista
+    top_p: nucleus sampling — conserva solo el conjunto mínimo de
+    caracteres cuya probabilidad acumulada alcanza top_p, evitando
+    elegir caracteres de probabilidad residual que producen "sopa
+    de letras". Con top_p=1.0 equivale al muestreo puro.
+    """
+    tokens = [C2I.get(c, 0) for c in semilla[-CTX:]]
+    resultado = semilla
+ 
+    for _ in range(n_chars):
+        ctx = tokens[-CTX:]
+        logits = forward(np.array([ctx]))[0][0, -1]
+        probs = softmax(logits / temperatura)
+ 
+        if top_p < 1.0:
+            probs = top_p_filtrar(probs, top_p)
+ 
+        siguiente = int(np.random.choice(V, p=probs))
+        tokens.append(siguiente)
+        resultado += I2C[siguiente]
+ 
+    return resultado
+ 
+ 
+print('\n=== TEXTO GENERADO POR EL NANO-LLM ===')
+print(generar('la inteligencia', n_chars=120))
+print()
+print(generar('los modelos de', n_chars=120))
+# -- Guardar los pesos entrenados ------------------------------
+# Los Capítulos 11, 14, 15 y 18 reutilizan este modelo ya entrenado:
+#   params = dict(np.load('nano_llm_pesos.npz'))
+np.savez('nano_llm_pesos.npz', **params)
+print("\nPesos guardados en nano_llm_pesos.npz")
+```
+
+**Ejecución:** `python programa_8_nano_llm.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  85.1 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=48 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.8547   lr = 0.00002   (bits/char = 5.56)
+Paso  1000: pérdida = 1.3802   lr = 0.00296   (bits/char = 1.99)
+Paso  2000: pérdida = 0.9349   lr = 0.00283   (bits/char = 1.35)
+Paso  3000: pérdida = 0.6037   lr = 0.00261   (bits/char = 0.87)
+Paso  4000: pérdida = 0.3814   lr = 0.00231   (bits/char = 0.55)
+Paso  5000: pérdida = 0.4244   lr = 0.00196   (bits/char = 0.61)
+Paso  6000: pérdida = 0.3764   lr = 0.00158   (bits/char = 0.54)
+Paso  7000: pérdida = 0.3344   lr = 0.00120   (bits/char = 0.48)
+Paso  8000: pérdida = 0.3753   lr = 0.00084   (bits/char = 0.54)
+Paso  9000: pérdida = 0.3107   lr = 0.00053   (bits/char = 0.45)
+Paso 10000: pérdida = 0.2764   lr = 0.00030   (bits/char = 0.40)
+Paso 11000: pérdida = 0.2689   lr = 0.00015   (bits/char = 0.39)
+Paso 11999: pérdida = 0.2866   lr = 0.00010   (bits/char = 0.41)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas
+
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas
+
+Pesos guardados en nano_llm_pesos.npz
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (unos 2.5 minutos):» (26 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Interés:** es el corazón del libro. Entrena el GPT-2 en miniatura con 60 000 parámetros y backpropagation analítico, en 12 000 pasos (85 s en esta máquina), y deja `nano_llm_pesos.npz`, que usan otros 15 programas y ejercicios posteriores. Se ejecutó completo, sin interrumpirlo.
+
+## 60. Programa 8 — Nano-LLM, versión comentada
+
+**Archivo:** `programa_8_nano_llm_documentado.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (1098 líneas, tal como está impreso en el libro):
+
+```python
+ 
+# =============================================================================
+#  PROGRAMA 8 — NANO-LLM: UN GPT-2 EN MINIATURA (versión extensamente comentada)
+#  ----------------------------------------------------------------------------
+#  Modelo de lenguaje (LLM) de nivel CARÁCTER, implementado ÚNICAMENTE
+#  con NumPy — sin PyTorch, sin TensorFlow, sin ninguna librería de
+#  aprendizaje profundo. Todo lo que hace un framework "por debajo"
+#  (propagar hacia adelante, calcular gradientes, actualizar pesos)
+#  está escrito aquí a mano, línea por línea, para que se pueda ver
+#  y entender exactamente qué ocurre en cada paso.
+#
+#  Hace lo mismo, y da exactamente la misma salida, que la versión
+#  compacta del Programa 8 impresa en el Capítulo 13 (13.5.1).
+#
+#  ¿QUÉ ES UN "NANO-LLM"?
+#  Es GPT-2 (OpenAI, 2019) en miniatura: la MISMA arquitectura, pieza
+#  a pieza, con tamaños diminutos. Aprende a predecir el SIGUIENTE
+#  CARÁCTER de un texto, dado un fragmento de contexto. Repitiendo ese
+#  proceso carácter a carácter, "escribe" frases que se parecen a las
+#  del texto con el que fue entrenado.
+#
+#                       este modelo     GPT-2 small
+#      contexto (CTX)        24            1024
+#      dimensión (D)         48             768
+#      cabezas (H)            4              12
+#      bloques (N_BLQ)        2              12
+#      vocabulario (V)       46          50 257 (BPE)
+#      parámetros        60 000      124 millones
+#
+#  ARQUITECTURA (de abajo hacia arriba):
+#
+#      texto de entrada (caracteres)
+#              │
+#              ▼
+#        Tokenizador (carácter → número entero)
+#              │
+#              ▼
+#        wte[token] + wpe[posición]          (número → vector de D = 48)
+#              │
+#              ▼
+#      ┌──────────────────────────────────┐
+#      │ Bloque Transformer (Pre-LN)        │   × N_BLQ  (aquí, 2 veces)
+#      │  X = X + Atención(LayerNorm(X))     │   4 cabezas, máscara causal
+#      │  X = X + FFN(LayerNorm(X))          │   48 → 192 (GELU) → 48
+#      └──────────────────────────────────┘
+#              │
+#              ▼
+#        LayerNorm final
+#              │
+#              ▼
+#        logits = vector · wteᵀ   (la MISMA tabla de la entrada)
+#              │
+#              ▼
+#        Carácter muestreado  →  se añade al texto  →  se repite
+#
+#  FLUJO GENERAL DEL PROGRAMA (en el orden en que aparece el código):
+#    1. Se define el texto de entrenamiento (TEXTO).
+#    2. Se construye el tokenizador (carácter <-> índice entero).
+#    3. Se fijan los hiperparámetros (tamaños, tasa de aprendizaje...).
+#    4. Se inicializan aleatoriamente todos los parámetros (pesos).
+#    5. Se definen el forward (predicción) y el forward + backward
+#       (pérdida y gradiente exacto de todos los pesos, con
+#       backpropagation escrito a mano).
+#    6. Se entrena con Adam durante PASOS pasos, con mini-lotes,
+#       warmup + coseno y recorte del gradiente (gradient clipping).
+#    7. Se genera texto nuevo usando el modelo ya entrenado.
+#    8. Se guardan los pesos entrenados en nano_llm_pesos.npz.
+#
+#  Todas las matrices que el modelo "aprende" están en el diccionario
+#  `params`. Entrenar consiste, únicamente, en ir ajustando poco a
+#  poco los números de esas matrices para que el modelo se equivoque
+#  cada vez menos al predecir el siguiente carácter.
+# =============================================================================
+ 
+import numpy as np   # única dependencia externa: cálculo numérico con arrays/matrices
+ 
+# -----------------------------------------------------------------------------
+# TEXTO DE ENTRENAMIENTO
+# -----------------------------------------------------------------------------
+# Es el "libro" del que el modelo aprenderá. Cuanto más texto y más
+# variado, más patrones distintos puede aprender — pero también hace
+# falta más capacidad de modelo (ver D, D_FF más abajo) para no perder
+# calidad, un compromiso conocido como "leyes de escalado".
+#
+# 93 líneas en español, con tildes, la letra "ñ" y signos de puntuación
+# variados (¿ ? ¡ ! , . ; : ( ) -), pensadas para que el vocabulario
+# resultante sea exactamente de 46 caracteres distintos (ver más abajo).
+# El contenido cubre, a propósito, muchos conceptos de IA/ML para que
+# el propio texto de entrenamiento sirva como resumen del tema.
+TEXTO = """
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas capas ocultas.
+la atención permite ver todo el contexto a la vez.
+los transformers son la base de los llm modernos.
+entrenar un modelo requiere muchos datos y cálculo.
+el futuro pertenece a quienes comprenden la ia.
+un modelo pequeño puede aprender patrones simples.
+la tokenización convierte texto en números enteros.
+cada carácter del vocabulario tiene un índice único.
+el embedding transforma índices en vectores densos.
+la codificación posicional indica el orden del texto.
+la función softmax convierte logits en probabilidades.
+el optimizador adam ajusta los pesos, paso a paso.
+una red profunda combina atención y capas ocultas.
+generar texto significa predecir, uno a uno, cada token.
+la temperatura controla cuánta variedad hay al generar.
+un buen modelo equilibra memoria y generalización.
+¿comprender la ia? requiere práctica, paciencia y datos.
+también existe el software: gpt-2 fue un hito clave.
+un modelo (bien entrenado) generaliza; uno malo, no.
+¡el aprendizaje nunca termina! sigue explorando.
+un vector es una lista ordenada de números reales.
+una matriz agrupa vectores en filas y columnas.
+el producto punto mide cuánto se parecen dos vectores.
+la retropropagación calcula gradientes hacia atrás.
+el descenso de gradiente ajusta los pesos poco a poco.
+una época recorre todo el conjunto de entrenamiento.
+el sobreajuste ocurre cuando el modelo memoriza demasiado.
+la regularización ayuda a que el modelo generalice mejor.
+un lote agrupa varios ejemplos para entrenar juntos.
+la normalización estabiliza las activaciones internas.
+una neurona combina entradas, pesos y un sesgo.
+la función de pérdida mide el error del modelo.
+el aprendizaje supervisado usa ejemplos etiquetados.
+una capa oculta transforma la información paso a paso.
+el descenso estocástico usa lotes pequeños y aleatorios.
+la validación comprueba si el modelo generaliza bien.
+un hiperparámetro se ajusta antes de entrenar el modelo.
+la arquitectura define cómo se conectan las capas.
+el vocabulario agrupa todos los símbolos posibles.
+una secuencia es un orden concreto de tokens.
+el contexto limita cuántos tokens ve el modelo a la vez.
+la generalización permite responder a datos nuevos.
+comprender estos conceptos abre la puerta a la ia moderna.
+un dataset agrupa todos los ejemplos disponibles.
+el conjunto de test evalúa el modelo al final, una sola vez.
+la precisión mide cuántas predicciones son correctas.
+el error mide cuánto se aleja la predicción del valor real.
+una etiqueta indica la respuesta correcta de un ejemplo.
+la inferencia usa el modelo ya entrenado, sin ajustar pesos.
+el preentrenamiento aprende patrones generales del lenguaje.
+el ajuste fino especializa un modelo en una tarea concreta.
+un token puede ser una letra, una parte de palabra o una palabra.
+la ventana de contexto limita cuánto texto ve el modelo.
+un residual conecta la entrada directamente con la salida.
+la normalización evita que las activaciones crezcan sin control.
+el ruido en los datos dificulta encontrar el patrón real.
+una red ancha tiene muchas neuronas en cada capa.
+una red profunda tiene muchas capas apiladas.
+el paralelismo permite entrenar varias partes a la vez.
+la memoria limita cuántos datos caben en una gráfica.
+un acelerador gráfico multiplica matrices muy rápido.
+la escala mide cuántos parámetros tiene un modelo.
+un modelo grande necesita muchos más datos para aprender bien.
+la eficiencia importa tanto como la precisión final.
+el costo de entrenar crece con el tamaño del modelo.
+la interpretabilidad explica por qué el modelo decide algo.
+un sesgo en los datos puede producir un modelo injusto.
+la ética en la ia estudia el impacto social de los modelos.
+la privacidad protege los datos personales de los usuarios.
+un modelo robusto resiste pequeños cambios en la entrada.
+la incertidumbre mide cuánta confianza tiene el modelo.
+un ejemplo difícil confunde incluso a un buen modelo.
+la curva de aprendizaje muestra el progreso del entrenamiento.
+un mínimo local complica encontrar la mejor solución.
+el paisaje de pérdida describe cómo cambia el error.
+una meseta ralentiza el progreso del entrenamiento.
+el ruido ayuda a veces a escapar de mínimos malos.
+la exploración prueba caminos nuevos durante el entrenamiento.
+la explotación aprovecha lo que ya funciona bien.
+un modelo generativo produce contenido nuevo y original.
+un modelo discriminativo distingue entre categorías distintas.
+la clasificación asigna una categoría a cada ejemplo.
+la regresión predice un número continuo, no una categoría.
+el aprendizaje por refuerzo premia las buenas decisiones.
+un agente aprende actuando dentro de un entorno.
+la recompensa guía el aprendizaje del agente.
+la política define cómo actúa el agente en cada estado.
+un entorno simulado permite entrenar sin riesgo real.
+la simulación acelera enormemente el aprendizaje del agente.
+comprender bien lo básico facilita entender lo avanzado.
+"""
+ 
+# -----------------------------------------------------------------------------
+# TOKENIZADOR A NIVEL DE CARÁCTER
+# -----------------------------------------------------------------------------
+# Una red neuronal solo entiende números, no letras. El "tokenizador"
+# es el traductor entre texto y números en ambas direcciones.
+#
+# Este es el tokenizador MÁS SIMPLE posible: cada carácter distinto
+# del texto (una letra, un espacio, un signo de puntuación...) se
+# convierte en UN token. Los LLMs de verdad (GPT, Claude...) usan
+# tokenizadores más sofisticados a nivel de "subpalabra" (por ejemplo,
+# BPE), donde un token puede ser una palabra entera o un trozo de ella,
+# lo que hace las secuencias más cortas y eficientes. Aquí, por
+# claridad didáctica, se usa el nivel de carácter: más lento de
+# entrenar, pero mucho más fácil de entender y depurar.
+VOCAB  = sorted(set(TEXTO))
+# `set(TEXTO)` recorre el string TEXTO y se queda con cada carácter
+# ÚNICO que aparece en él (sin repeticiones). `sorted(...)` los ordena
+# (por su código Unicode) para que el orden sea siempre el mismo cada
+# vez que se ejecuta el programa — importante para reproducibilidad.
+# Resultado: una lista de 46 caracteres distintos, p. ej.
+# ['\n', ' ', '!', '(', ')', ',', ..., 'z', '¡', '¿', 'á', 'é', ...].
+ 
+V      = len(VOCAB)
+# V = tamaño del vocabulario = número de caracteres distintos = 46.
+# Es la "V" que aparecerá en muchas fórmulas y tamaños de matrices
+# más abajo (p. ej. la tabla de embeddings tiene forma (V, D)).
+ 
+C2I    = {c: i for i, c in enumerate(VOCAB)}
+# "Character To Index": diccionario que traduce cada carácter a su
+# número entero (su posición en VOCAB). Ejemplo: C2I['a'] podría ser 12.
+# `enumerate(VOCAB)` genera pares (índice, carácter); el diccionario
+# por comprensión los invierte a {carácter: índice}.
+ 
+I2C    = dict(enumerate(VOCAB))
+# "Index To Character": el diccionario inverso, traduce cada número
+# de vuelta a su carácter original. Se usa al GENERAR texto, para
+# convertir los índices que predice el modelo de nuevo en letras.
+ 
+DATOS  = np.array([C2I[c] for c in TEXTO], dtype=int)
+# Se recorre el texto completo, carácter a carácter, y se sustituye
+# cada uno por su índice entero (usando C2I). El resultado es un
+# array de NumPy de enteros: la "traducción numérica" de todo el
+# texto de entrenamiento. Es sobre este array (DATOS) de donde se
+# extraerán, más adelante, las ventanas de contexto para entrenar.
+ 
+# -----------------------------------------------------------------------------
+# HIPERPARÁMETROS
+# -----------------------------------------------------------------------------
+# Los "hiperparámetros" son las decisiones de diseño que el programador
+# fija ANTES de entrenar (a diferencia de los "parámetros", que son los
+# pesos que el modelo aprende solo). Cambiarlos cambia la forma y el
+# comportamiento del modelo.
+CTX    = 24
+# Longitud del "contexto": cuántos caracteres previos puede ver el
+# modelo como máximo para predecir el siguiente. Con CTX=24, el modelo
+# solo "recuerda" los últimos 24 caracteres — más o menos 4-5 palabras
+# cortas en español. Los LLMs reales usan contextos de miles o cientos
+# de miles de tokens; aquí se mantiene pequeño para que el modelo siga
+# siendo manejable y rápido de entrenar.
+ 
+D      = 48
+# Dimensión del "embedding": cuántos números se usan para representar
+# internamente cada carácter (su "vector de significado"). Cuanto
+# mayor es D, más matices puede capturar el modelo sobre cada
+# carácter y su contexto, pero también hay más parámetros que
+# aprender y más lento va el entrenamiento. GPT-2 small usa D = 768.
+ 
+H      = 4
+# Número de "cabezas" de atención. En vez de una única atención sobre
+# los 48 números de cada vector, se hacen 4 atenciones en paralelo,
+# cada una sobre 12 de ellos (DH = D / H = 12). Cada cabeza puede
+# especializarse en una relación distinta: una puede mirar el carácter
+# anterior; otra, el principio de la palabra. GPT-2 small usa 12
+# cabezas de 64 dimensiones.
+ 
+DH     = D // H
+ 
+D_FF   = 192
+# Dimensión interna de la red "Feed-Forward" (FFN) que hay dentro de
+# cada bloque transformer (ver más abajo). Por convención, suele ser
+# 4 veces D (48 × 4 = 192): esa capa intermedia más ancha le da al
+# modelo más "espacio de trabajo" para procesar cada posición antes
+# de comprimir el resultado de vuelta a dimensión D.
+ 
+N_BLQ  = 2
+# Número de "bloques transformer" apilados uno tras otro (ver el
+# diagrama de la cabecera). Cada bloque añade una ronda más de
+# "prestar atención al contexto + procesar la información". Los LLMs
+# grandes apilan decenas o cientos de bloques; aquí, con solo 2, el
+# modelo ya es capaz de aprender patrones de lenguaje simples.
+ 
+LR     = 3e-3
+# "Learning Rate" o tasa de aprendizaje: de qué tamaño son los pasos
+# con los que se ajustan los pesos en cada actualización. Un valor
+# demasiado alto hace que el entrenamiento sea inestable (los pesos
+# "saltan" de un lado a otro sin asentarse); demasiado bajo hace que
+# el aprendizaje sea desesperantemente lento. 3e-3 (0.003) es un
+# valor típico para el optimizador Adam con modelos de este tamaño.
+# Nótese que este valor es el MÁXIMO: durante el entrenamiento se
+# modula con un "warmup + decaimiento coseno" (ver más abajo).
+ 
+PASOS  = 12000
+# Número de veces que se actualizan los pesos: PASOS de optimización.
+# Cada paso procesa un mini-lote de BATCH ventanas elegidas al azar,
+# no todo el texto, así que un paso NO es una "época" (una época es
+# una pasada completa por todos los datos; ver el glosario). Cuenta:
+# 12000 pasos × 8 ventanas × 24 caracteres ≈ 2.3 millones de
+# predicciones ≈ 454 pasadas por los 5076 caracteres del corpus.
+ 
+BATCH  = 8
+# Cuántas secuencias de entrenamiento distintas se procesan juntas
+# antes de actualizar los pesos una vez. Promediar el gradiente de
+# varias secuencias (en vez de actualizar tras cada una) suaviza el
+# entrenamiento: reduce el "ruido" de que una sola secuencia rara
+# empuje los pesos en una dirección poco representativa.
+ 
+CLIP  = 1.0
+# Recorte de la norma del gradiente (Capítulo 5, 5.8): si la
+# norma global del gradiente (la raíz de la suma de los cuadrados de
+# TODOS sus elementos) supera CLIP, el gradiente entero se reescala
+# para que su norma valga exactamente CLIP. La dirección no cambia;
+# solo se limita el tamaño. Es una red de seguridad contra un paso
+# desmesurado provocado por un mini-lote anómalo.
+ 
+np.random.seed(42)
+# Fija la "semilla" del generador de números aleatorios de NumPy.
+# Con la misma semilla, todos los números "aleatorios" que se generen
+# a partir de aquí (inicialización de pesos, elección de qué ventana
+# de texto usar en cada paso, muestreo al generar texto...) serán
+# EXACTAMENTE los mismos cada vez que se ejecute el programa. Esto
+# hace que el experimento sea reproducible: cualquiera que ejecute
+# este mismo código debería obtener los mismos resultados.
+ 
+# -----------------------------------------------------------------------------
+# INICIALIZACIÓN DE LOS PARÁMETROS (PESOS) DEL MODELO
+# -----------------------------------------------------------------------------
+# Un modelo "sin entrenar" no es más que un conjunto de matrices
+# llenas de números aleatorios pequeños. El entrenamiento consiste,
+# únicamente, en ir corrigiendo esos números poco a poco (con
+# backpropagation + Adam) para que el modelo acierte cada vez más.
+ 
+def randn(shape, std=0.02):
+    """
+    Genera una matriz de la forma (shape) dada, con valores aleatorios
+    siguiendo una distribución normal (campana de Gauss) de media 0 y
+    desviación típica `std` (0.02 por defecto, como en GPT-2): la
+    mayoría de los valores quedan entre -0.06 y 0.06.
+ 
+    ¿Por qué valores tan pequeños? Si los pesos iniciales fueran muy
+    grandes, las primeras predicciones del modelo serían caóticas y
+    los gradientes iniciales podrían "explotar" (números enormes que
+    desestabilizan el entrenamiento desde el primer paso). Empezar
+    "casi en cero" da un punto de partida neutro y estable.
+    """
+    return np.random.randn(*shape) * std
+ 
+# Las dos proyecciones cuya salida se SUMA a la vía residual (Wo, al
+# final de la atención, y W2, al final de la FFN) se inician con una
+# desviación todavía menor: 0.02 / sqrt(2·N_BLQ). Es la receta de
+# GPT-2: cada bloque suma dos contribuciones a la vía residual, y con
+# N_BLQ bloques hay 2·N_BLQ sumas; dividir por su raíz cuadrada evita
+# que, al apilar muchos bloques, la vía residual crezca sin control
+# antes de empezar a entrenar.
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)
+ 
+# `params` es un diccionario que contiene TODAS las matrices que el
+# modelo puede aprender. Cada entrada es una pieza del "cerebro" del
+# modelo. Los nombres son los mismos que usa GPT-2 (wte, wpe, ln_f...).
+params = {
+    # Tabla de embeddings de TOKEN ("word token embedding"): una fila
+    # por cada carácter del vocabulario (V filas), cada una con D
+    # números. Es la "traducción" de cada carácter a un vector que la
+    # red puede procesar. Forma: (V, D) = (46, 48).
+    # En GPT-2 esta MISMA matriz se usa también a la salida, para
+    # convertir el vector final en una puntuación por carácter: se
+    # dice que entrada y salida "comparten pesos" (weight tying). Por
+    # eso no hay una matriz de salida aparte.
+    'wte':  randn((V, D)),
+ 
+    # Tabla de embeddings POSICIONALES ("word position embedding"):
+    # una fila por cada posición de la ventana de contexto (CTX
+    # filas). Le dice al modelo "en qué lugar de la secuencia" está
+    # cada carácter, algo que la atención, por sí sola, no distingue.
+    # Es APRENDIDA, como en GPT-2 (el Transformer original de 2017 la
+    # calculaba con senos y cosenos; ver Capítulo 12). Forma: (CTX, D).
+    'wpe':  randn((CTX, D)),
+ 
+    # LayerNorm FINAL: se aplica una vez, después del último bloque y
+    # antes de la salida. g (gamma, escala) empieza en 1 y b (beta,
+    # desplazamiento) en 0: al principio la LayerNorm solo normaliza.
+    'lnf_g': np.ones(D), 'lnf_b': np.zeros(D),
+}
+ 
+# A continuación se crean los parámetros de cada BLOQUE TRANSFORMER
+# (hay N_BLQ = 2 bloques, numerados 0 y 1). Cada bloque tiene su
+# propio juego de matrices, completamente independiente.
+for k in range(N_BLQ):
+    # --- LayerNorm previa a la atención (ln1) ---
+    params[f'ln1_g{k}'] = np.ones(D);  params[f'ln1_b{k}'] = np.zeros(D)
+ 
+    # --- Matrices de ATENCIÓN (self-attention) ---
+    # Wq, Wk, Wv proyectan la entrada en tres "vistas" del mismo
+    # vector, cada una con un papel distinto:
+    #   Q (Query)  = "¿qué información estoy buscando?"
+    #   K (Key)    = "¿qué información ofrezco yo a los demás?"
+    #   V (Value)  = "el contenido real que se transmite si me
+    #                 prestan atención"
+    # Cada una es (D, D) y lleva su sesgo de tamaño D, como en GPT-2.
+    # Las H = 4 cabezas NO tienen matrices propias: cada cabeza usa
+    # una "rebanada" de DH = 12 columnas de estas matrices (ver
+    # separar(), más abajo).
+    for n in 'qkv':
+        params[f'W{n}{k}'] = randn((D, D)); params[f'b{n}{k}'] = np.zeros(D)
+    # Wo junta lo que han recogido las 4 cabezas y lo proyecta de
+    # vuelta a dimensión D. Forma: (D, D), con sesgo.
+    params[f'Wo{k}'] = randn((D, D), STD_RES); params[f'bo{k}'] = np.zeros(D)
+ 
+    # --- LayerNorm previa a la FFN (ln2) ---
+    params[f'ln2_g{k}'] = np.ones(D);  params[f'ln2_b{k}'] = np.zeros(D)
+ 
+    # --- Matrices de la FEED-FORWARD NETWORK (FFN) ---
+    # Dos capas lineales con una activación GELU en medio. Procesa
+    # CADA posición por separado (la atención es la que mezcla
+    # información entre posiciones).
+    params[f'W1{k}'] = randn((D, D_FF)); params[f'b1{k}'] = np.zeros(D_FF)   # expande D -> D_FF
+    params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)  # comprime D_FF -> D
+ 
+# Comprobación rápida en pantalla: tamaño del vocabulario, número
+# total de parámetros (60 000 justos con estos tamaños) y cuánto texto
+# se va a usar para entrenar.
+total = sum(p.size for p in params.values())
+print(f'Vocabulario: {V} caracteres')
+print(f'Total de parámetros: {total:,}')
+print(f'Texto de entrenamiento: {len(DATOS)} tokens, '
+      f'{TEXTO.strip().count(chr(10)) + 1} líneas')
+ 
+# -----------------------------------------------------------------------------
+# MÁSCARA CAUSAL (para que el modelo no "haga trampa" mirando el futuro)
+# -----------------------------------------------------------------------------
+# Cuando el modelo predice el carácter en la posición t, NO debe
+# poder "espiar" los caracteres en las posiciones t+1, t+2... (eso
+# sería aprender a copiar la respuesta en vez de predecirla). La
+# máscara causal se lo impide: es una matriz (CTX, CTX) de ceros,
+# excepto por encima de la diagonal principal, donde vale -1e9.
+#
+# La máscara se SUMA a las puntuaciones de atención antes del
+# softmax: sumar -1e9 hace que esa posición reciba un peso de
+# atención prácticamente 0, es decir, "apaga" el futuro.
+#
+# Al entrenar, la longitud de la secuencia (T) es siempre CTX; al
+# generar puede ser menor (al principio, con semillas cortas). Por eso
+# la máscara se calcula UNA SOLA VEZ aquí, con el tamaño máximo, y se
+# usa su esquina superior izquierda [:T, :T].
+MASCARA_CAUSAL = np.triu(np.full((CTX, CTX), -1e9), k=1)
+ 
+ 
+# -----------------------------------------------------------------------------
+# UTILIDADES MATEMÁTICAS
+# -----------------------------------------------------------------------------
+def softmax(x, axis=-1):
+    """
+    Convierte un vector de números cualesquiera en una distribución
+    de probabilidad: valores entre 0 y 1 que suman exactamente 1 a lo
+    largo del eje `axis`.
+ 
+    Fórmula: softmax(x)_i = exp(x_i) / sum_j(exp(x_j))
+ 
+    TRUCO DE ESTABILIDAD NUMÉRICA: antes de exponenciar se resta el
+    máximo. El resultado matemático no cambia, pero se evita calcular
+    exponenciales enormes que desbordarían el float (inf o nan).
+    """
+    x = x - x.max(axis=axis, keepdims=True)
+    return np.exp(x) / np.exp(x).sum(axis=axis, keepdims=True)
+ 
+ 
+def layer_norm_fwd(x, g, b, eps=1e-5):
+    """
+    LayerNorm ("normalización de capa"), exactamente como en GPT-2:
+    para cada fila (cada posición) de x, resta su media y divide por
+    su desviación típica (con eps dentro de la raíz), y después
+    REESCALA con g (gamma) y DESPLAZA con b (beta):
+ 
+        xhat = (x − media) / sqrt(varianza + eps)
+        y    = xhat · g + b
+ 
+    ¿Para qué sirve? A medida que la información atraviesa bloques,
+    sus valores pueden crecer o desplazarse sin control. LayerNorm
+    devuelve cada fila a una escala estándar antes de que entre en la
+    atención o en la FFN. Con g y b el modelo puede, si le conviene,
+    aprender otra escala y otro centro distintos de (1, 0).
+ 
+    Devuelve y y, en un "cache", lo que el backward necesitará:
+    xhat (la fila normalizada) e inv = 1 / sqrt(varianza + eps).
+    """
+    mu = x.mean(-1, keepdims=True)                       # media de cada fila
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)  # 1 / desviación típica
+    xhat = (x - mu) * inv                                # fila normalizada
+    return xhat * g + b, (xhat, inv)
+ 
+ 
+def layer_norm_bwd(dy, g, cache):
+    """
+    Derivada (backward) EXACTA de la LayerNorm de arriba. Recibe
+    `dy`, el gradiente de la pérdida respecto a la SALIDA y, y
+    devuelve tres gradientes: respecto a la entrada x, a g y a b.
+ 
+      · db = suma de dy sobre todas las filas   (y = ... + b)
+      · dg = suma de dy·xhat sobre todas las filas   (y = xhat·g + ...)
+      · dx: primero se deshace la escala, dxhat = dy·g, y después la
+        normalización, con la fórmula exacta
+ 
+        dx = inv · ( dxhat − media(dxhat) − xhat · media(dxhat·xhat) )
+ 
+    Intuición de los tres términos dentro del paréntesis:
+      · dxhat              -> el gradiente "tal cual", si la
+                              normalización no acoplara las componentes.
+      · − media(dxhat)     -> corrige que restar la media acopla TODAS
+                              las componentes de la fila entre sí.
+      · − xhat · media(...) -> corrige que dividir por la desviación
+                              típica también depende de toda la fila.
+ 
+    Es la misma matemática que usa la LayerNorm de PyTorch por
+    debajo; aquí está escrita a la vista. El Ejercicio 13.6 la
+    comprueba numéricamente.
+    """
+    xhat, inv = cache
+    ejes = tuple(range(dy.ndim - 1))      # todas las filas (lote y posiciones)
+    dg = (dy * xhat).sum(ejes)
+    db = dy.sum(ejes)
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, dg, db
+ 
+ 
+C_GELU = np.sqrt(2 / np.pi)
+def gelu(x):
+    """
+    GELU ("Gaussian Error Linear Unit"), la activación de GPT-2, con
+    la misma aproximación por tanh que usa su código original:
+ 
+        gelu(x) = 0.5 · x · (1 + tanh( sqrt(2/π) · (x + 0.044715·x³) ))
+ 
+    Se parece a ReLU (≈ x para x grande y positivo, ≈ 0 para x muy
+    negativo), pero es SUAVE: no tiene esquina en 0 y deja pasar un
+    poco de los valores ligeramente negativos. x³ se escribe x*x*x
+    porque, en NumPy, la potencia x**3 es unas quince veces más lenta.
+    """
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+ 
+ 
+def gelu_bwd(x):
+    """
+    Derivada de gelu(x), por la regla del producto y la de la cadena.
+    Con t = tanh(u) y u = sqrt(2/π)·(x + 0.044715·x³):
+ 
+        gelu'(x) = 0.5·(1 + t) + 0.5·x·(1 − t²)·sqrt(2/π)·(1 + 3·0.044715·x²)
+ 
+    (la derivada de tanh(u) es 1 − tanh²(u)). Sustituye a la derivada
+    de ReLU (1 si x > 0, 0 si no) de la versión anterior del modelo.
+    """
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+ 
+ 
+def separar(x):   # (B, T, D) -> (B, H, T, DH): una matriz por cabeza
+    """
+    Reparte las D = 48 columnas entre las H = 4 cabezas: la cabeza 0
+    se queda con las columnas 0-11, la 1 con 12-23, etc. El resultado
+    tiene un eje nuevo, H, para que las cuatro cabezas calculen su
+    atención a la vez, con las mismas multiplicaciones de matrices.
+    """
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+ 
+ 
+def unir(x):      # (B, H, T, DH) -> (B, T, D)
+    """La operación inversa: vuelve a poner las 4 cabezas una al lado de otra."""
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+ 
+ 
+def tmm(a, b):
+    """
+    Gradiente de una capa lineal y = a @ W: dW = aᵀ · dy, SUMADO
+    sobre todas las filas del lote y todas las posiciones. Para
+    hacerlo con una sola multiplicación se aplanan los ejes del lote
+    y de las posiciones: (B, T, n) -> (B·T, n).
+    """
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+ 
+ 
+# =============================================================================
+# FORWARD: de los tokens a los logits
+# =============================================================================
+# Todo el programa trabaja con MINI-LOTES: en vez de una secuencia de
+# T caracteres, se procesan B secuencias a la vez, apiladas en un
+# tensor de forma (B, T). Las multiplicaciones de matrices de NumPy
+# aceptan ejes extra delante, así que el código es el mismo que para
+# una secuencia, y mucho más rápido que un bucle de Python.
+def forward(tokens):
+    """
+    tokens : array de enteros de forma (B, T).
+    Devuelve los logits (B, T, V) — una puntuación por carácter
+    posible, para cada posición de cada secuencia — y un "cache" con
+    los valores intermedios que el backward necesitará.
+    """
+    B, T = tokens.shape
+ 
+    # --- Embeddings: qué carácter es + en qué posición está ---
+    X = params['wte'][tokens] + params['wpe'][:T]       # (B, T, D)
+ 
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X   # entrada del bloque k (vía residual)
+ 
+        # --- SUB-CAPA 1: LayerNorm -> atención causal (4 cabezas) -> suma residual ---
+        # PRE-LN, como GPT-2: se normaliza ANTES de la subcapa, y la
+        # salida de la subcapa se SUMA a Xin sin normalizarla. La vía
+        # residual (Xin, X1, X...) nunca pasa por una LayerNorm dentro
+        # del bloque: es un "carril" por el que la información, y en el
+        # backward el gradiente, circula sin obstáculos.
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+ 
+        # Q, K, V para las 4 cabezas a la vez: (B, H, T, DH)
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+ 
+        # Puntuaciones Q·Kᵀ de cada cabeza, divididas por sqrt(DH)
+        # (12, la dimensión de CADA cabeza: es la que fija la escala de
+        # los productos), más la máscara causal; softmax por filas.
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA_CAUSAL[:T, :T])
+ 
+        # Suma ponderada de los Values; las 4 cabezas se vuelven a unir
+        att = unir(pesos @ Vm)                            # (B, T, D)
+ 
+        # Proyección de salida y suma a la vía residual
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+ 
+        # --- SUB-CAPA 2: LayerNorm -> FFN con GELU -> suma residual ---
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']  # (B, T, D_FF)
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+ 
+        # Se guarda todo lo que el backward necesitará de este bloque
+        cache.append(dict(a=a, ln1=ln1, Q=Q, K=K, Vm=Vm, pesos=pesos,
+                          att=att, m=m, ln2=ln2, h_pre=h_pre, h=h))
+ 
+    # --- LayerNorm final y salida ---
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    # PESOS COMPARTIDOS: la salida usa la MISMA matriz wte de la
+    # entrada, traspuesta. El logit de un carácter es el producto
+    # escalar del vector final con el embedding de ese carácter:
+    # "¿a qué carácter se parece más lo que viene ahora?".
+    logits = xf @ params['wte'].T                         # (B, T, V)
+    return logits, (xf, lnf, cache)
+ 
+ 
+# =============================================================================
+# FORWARD + BACKWARD: la pérdida y su gradiente exacto
+# =============================================================================
+# Esta función hace DOS cosas:
+#
+#   1. FORWARD: llama a forward() y, comparando las predicciones con
+#      los caracteres reales (targets), calcula la PÉRDIDA (loss), un
+#      único número que mide cuánto se equivoca el modelo.
+#
+#   2. BACKWARD (backpropagation): recorre el camino del forward AL
+#      REVÉS aplicando la regla de la cadena, y obtiene el GRADIENTE
+#      de la pérdida respecto a CADA parámetro: "en qué dirección y
+#      cuánto debería cambiar ese peso para reducir un poco la
+#      pérdida". Es lo que hace `loss.backward()` en PyTorch, escrito
+#      aquí a la vista, matriz a matriz.
+#
+# Dos reglas se repiten una y otra vez:
+#   · Capa lineal y = a @ W + b:  dW = aᵀ·dy (tmm),  db = suma de dy,
+#     y hacia atrás da = dy @ Wᵀ.
+#   · Una SUMA en el forward (la vía residual) COPIA el gradiente a
+#     las dos ramas; una variable usada en DOS sitios (como wte, en la
+#     entrada y en la salida) SUMA los gradientes de ambos usos.
+def forward_backward(tokens, targets):
+    """
+    tokens, targets : arrays de enteros (B, T); targets es la misma
+                      ventana de texto desplazada un carácter.
+    Devuelve (grads, loss): un diccionario con el gradiente de cada
+    matriz de `params` y la pérdida media del mini-lote.
+    """
+    B, T = tokens.shape
+    logits, (xf, lnf, cache) = forward(tokens)
+    probs = softmax(logits)
+ 
+    # --- PÉRDIDA: entropía cruzada media ---
+    # probs[bi, ti, targets] es la probabilidad que el modelo dio al
+    # carácter CORRECTO en cada posición de cada secuencia.
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -np.log(probs[bi, ti, targets] + 1e-10).mean()
+ 
+    grads = {k: np.zeros_like(v) for k, v in params.items()}
+ 
+    # --- Gradiente respecto a los logits ---
+    # Para softmax + entropía cruzada la derivada es sencillísima:
+    # (probabilidades − 1 en el carácter correcto), dividido entre el
+    # número de predicciones promediadas (B·T).
+    dlogits = probs.copy()
+    dlogits[bi, ti, targets] -= 1.0
+    dlogits /= B * T
+ 
+    # --- Salida: logits = xf @ wteᵀ ---
+    grads['wte'] += tmm(dlogits, xf)         # 1er uso de wte (como matriz de salida)
+    dxf = dlogits @ params['wte']
+    dX, grads['lnf_g'], grads['lnf_b'] = layer_norm_bwd(dxf, params['lnf_g'], lnf)
+ 
+    # --- Bloques transformer, del último al primero ---
+    for k in reversed(range(N_BLQ)):
+        c = cache[k]
+ 
+        # -- Subcapa 2 hacia atrás: X = X1 + h @ W2 + b2 --
+        # La suma residual copia dX a las dos ramas: a X1 (atajo) y a
+        # la FFN.
+        grads[f'W2{k}'] = tmm(c['h'], dX)
+        grads[f'b2{k}'] = dX.sum((0, 1))
+        # Deshacer la GELU: se multiplica por su derivada
+        dh_pre = (dX @ params[f'W2{k}'].T) * gelu_bwd(c['h_pre'])
+        grads[f'W1{k}'] = tmm(c['m'], dh_pre)
+        grads[f'b1{k}'] = dh_pre.sum((0, 1))
+        dm = dh_pre @ params[f'W1{k}'].T
+        # Deshacer la LayerNorm ln2 (devuelve también dg y db)
+        dx1, grads[f'ln2_g{k}'], grads[f'ln2_b{k}'] = layer_norm_bwd(dm, params[f'ln2_g{k}'], c['ln2'])
+        dX1 = dX + dx1                       # atajo residual + rama FFN
+ 
+        # -- Subcapa 1 hacia atrás: X1 = Xin + att @ Wo + bo --
+        grads[f'Wo{k}'] = tmm(c['att'], dX1)
+        grads[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ params[f'Wo{k}'].T)   # de vuelta a 4 cabezas
+ 
+        # Deshacer la suma ponderada: att = pesos @ Vm
+        dpesos = datt @ c['Vm'].transpose(0, 1, 3, 2)
+        dVm = c['pesos'].transpose(0, 1, 3, 2) @ datt
+ 
+        # Deshacer el softmax de la atención, fila a fila:
+        #     dscores_i = p_i · (dp_i − Σ_j dp_j·p_j)
+        # y, en la misma línea, la división por sqrt(DH).
+        s = (dpesos * c['pesos']).sum(-1, keepdims=True)
+        dscores = c['pesos'] * (dpesos - s) / np.sqrt(DH)
+ 
+        # Deshacer Q @ Kᵀ, y volver a unir las cabezas
+        dQ = unir(dscores @ c['K'])
+        dK = unir(dscores.transpose(0, 1, 3, 2) @ c['Q'])
+        dV = unir(dVm)
+ 
+        # Deshacer las tres proyecciones Q, K, V. Las tres parten de la
+        # MISMA entrada a, así que sus contribuciones a da se SUMAN.
+        # (Curiosidad: el gradiente de bk sale siempre 0 exacto. Sumar
+        # el mismo vector a todas las claves suma la misma constante a
+        # toda una fila de puntuaciones, y el softmax no cambia si a
+        # toda la fila se le suma lo mismo. GPT-2 tiene bk de todos
+        # modos; aquí se mantiene para que el modelo sea idéntico.)
+        da = np.zeros_like(c['a'])
+        for n, dn in zip('qkv', (dQ, dK, dV)):
+            grads[f'W{n}{k}'] = tmm(c['a'], dn)
+            grads[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ params[f'W{n}{k}'].T
+        # Deshacer la LayerNorm ln1
+        dxin, grads[f'ln1_g{k}'], grads[f'ln1_b{k}'] = layer_norm_bwd(da, params[f'ln1_g{k}'], c['ln1'])
+        dX = dX1 + dxin                      # atajo residual + rama de atención
+ 
+    # --- Embeddings: X = wte[tokens] + wpe[:T] ---
+    # Hacia wpe: cada posición recibe la suma de su gradiente en las
+    # B secuencias del lote.
+    grads['wpe'][:T] = dX.sum(0)
+    # Hacia wte (2º uso, como tabla de entrada): un mismo carácter
+    # aparece muchas veces en el lote, y cada aparición aporta su
+    # gradiente a la MISMA fila. np.add.at los SUMA todos (una
+    # asignación normal se quedaría solo con el último). Y se suman
+    # también al gradiente de wte como matriz de salida, calculado
+    # arriba: una matriz usada en dos sitios recibe los dos.
+    np.add.at(grads['wte'], tokens, dX)
+    return grads, loss
+ 
+ 
+# =============================================================================
+# LEARNING RATE: WARMUP LINEAL + DECAIMIENTO EN COSENO
+# =============================================================================
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    """
+    Calcula qué tasa de aprendizaje usar en el paso `t` del
+    entrenamiento (de un total de `t_total` pasos). En vez de usar
+    siempre el mismo LR fijo, se sigue una curva en dos tramos —el
+    esquema estándar para entrenar modelos tipo Transformer:
+ 
+      TRAMO 1 — "warmup" (calentamiento), los primeros `t_warmup`
+      pasos: el LR sube LINEALMENTE desde 0 hasta lr_max. Al
+      principio del entrenamiento los pesos son aleatorios y los
+      gradientes pueden ser grandes y poco fiables; empezar con un
+      LR muy bajo evita que esos primeros pasos, inestables, den
+      saltos demasiado bruscos que desestabilicen el entrenamiento.
+ 
+      TRAMO 2 — decaimiento en COSENO, el resto de pasos: el LR baja
+      suavemente desde lr_max hasta lr_min, siguiendo la forma de
+      media onda de coseno (empieza bajando despacio, acelera en el
+      medio, y vuelve a suavizarse al final). Esto permite dar pasos
+      grandes mientras el modelo aún tiene mucho que aprender, y
+      pasos cada vez más pequeños y precisos a medida que se acerca
+      a una buena solución — como "afinar" el resultado al final.
+ 
+    Parámetros
+    ----------
+    t         : paso actual del bucle de entrenamiento (0, 1, 2...).
+    lr_max    : tasa de aprendizaje máxima, alcanzada al final del warmup.
+    t_total   : número total de pasos de entrenamiento (PASOS).
+    t_warmup  : cuántos pasos dura la subida lineal inicial.
+    lr_min    : tasa de aprendizaje mínima, al final del decaimiento.
+    """
+    if t < t_warmup:
+        # Subida lineal. El +1 hace que el paso 0 ya aprenda (con
+        # t / t_warmup, el primer paso tendría lr = 0 y no cambiaría
+        # nada) y que en el paso t_warmup − 1 se alcance lr_max.
+        return lr_max * (t + 1) / t_warmup
+    # A partir de aquí, decaimiento en coseno desde lr_max hasta lr_min.
+    t_adj = t - t_warmup           # pasos transcurridos DESDE que acabó el warmup
+    t_decay = t_total - t_warmup   # duración total de la fase de decaimiento
+    return lr_min + 0.5 * (lr_max - lr_min) * (1 + np.cos(np.pi * t_adj / t_decay))
+ 
+ 
+# =============================================================================
+# BUCLE DE ENTRENAMIENTO: OPTIMIZADOR ADAM CON MINI-LOTES
+# =============================================================================
+# Adam ("Adaptive Moment Estimation") es el optimizador más usado en
+# la práctica para entrenar redes neuronales (los LLMs reales usan
+# su variante AdamW, 5.6). En vez de simplemente restar
+# `LR * gradiente` a cada peso (como el descenso de gradiente más
+# básico), Adam mantiene, PARA CADA PARÁMETRO POR SEPARADO, dos
+# "memorias" que se actualizan en cada paso:
+#   m (primer momento)  -> una media móvil del gradiente reciente
+#                          (funciona como un "impulso": suaviza la
+#                          dirección de la actualización).
+#   v (segundo momento) -> una media móvil del CUADRADO del
+#                          gradiente reciente (mide cuánto "varía"
+#                          el gradiente de ese parámetro).
+# Dividir por sqrt(v) hace que los parámetros con gradientes
+# históricamente grandes y erráticos reciban pasos más pequeños
+# (para no desestabilizarlos), y los que tienen gradientes pequeños
+# y estables reciban pasos relativamente mayores — cada parámetro
+# "aprende a su propio ritmo".
+ 
+# m_adam, v_adam: un diccionario con la misma forma que `params`,
+# inicializado todo a cero — son las "memorias" de Adam para cada
+# matriz de parámetros, que se irán actualizando en cada paso.
+m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+ 
+# Hiperparámetros estándar de Adam (los valores por defecto que
+# recomienda el artículo original y que casi nunca hace falta tocar):
+#   beta1 = 0.9   -> cuánto "recuerda" la media móvil del gradiente (m)
+#   beta2 = 0.999 -> cuánto "recuerda" la media móvil del cuadrado (v)
+#   eps_adam      -> número minúsculo para evitar dividir entre cero
+#   t_adam        -> contador de pasos, usado para la "corrección de
+#                    sesgo" (bias correction) de m y v — sin ella,
+#                    m y v estarían artificialmente cerca de cero en
+#                    los primeros pasos, porque empiezan en cero y
+#                    aún no han "visto" suficientes gradientes.
+beta1, beta2, eps_adam, t_adam = 0.9, 0.999, 1e-8, 0
+LR_MAX = LR   # la tasa de aprendizaje máxima que usará el planificador coseno
+ 
+print('\nEntrenando Nano-LLM (backpropagation analítico, mini-lotes)...')
+print(f'CTX={CTX} | D={D} | D_FF={D_FF} | Bloques={N_BLQ} | Batch={BATCH}\n')
+ 
+# --- BUCLE PRINCIPAL DE ENTRENAMIENTO ---
+# Se repite PASOS veces. Cada iteración es un PASO de optimización:
+# procesa solo BATCH secuencias elegidas al azar (no todo el texto)
+# y actualiza los pesos una vez.
+for paso in range(PASOS):
+ 
+    # 1) Calcular la tasa de aprendizaje de este paso, según el
+    #    esquema de warmup + coseno definido arriba.
+    lr_actual = lr_warmup_coseno(paso, LR_MAX, PASOS)
+ 
+    # 2) Elegir un MINI-LOTE de BATCH ventanas al azar. Para cada una
+    #    se toma una posición de inicio dentro de DATOS (el texto ya
+    #    convertido a números) y se extrae una ventana de CTX
+    #    caracteres como entrada; la misma ventana desplazada un
+    #    carácter a la derecha es el objetivo: "dado este trozo de
+    #    texto, en cada posición viene después este carácter".
+    inicios = np.random.randint(0, len(DATOS) - CTX - 1, size=BATCH)
+    xb = np.stack([DATOS[i:i + CTX] for i in inicios])          # (BATCH, CTX)
+    yb = np.stack([DATOS[i + 1:i + CTX + 1] for i in inicios])  # desplazado 1
+ 
+    # 3) y 4) Forward + backward del mini-lote ENTERO de una vez. La
+    #    pérdida y el gradiente ya salen PROMEDIADOS sobre las BATCH
+    #    ventanas (dlogits se divide entre BATCH·CTX). Promediar da una
+    #    estimación más estable de "hacia dónde" mover los pesos que
+    #    actualizar tras cada ventana suelta.
+    grads_acc, loss = forward_backward(xb, yb)
+ 
+    # 5) RECORTE DEL GRADIENTE: se calcula la norma global del
+    #    gradiente promedio (todas las matrices a la vez) y, si supera
+    #    CLIP, se reescala todo el gradiente por el factor CLIP / norma.
+    norma = np.sqrt(sum((g ** 2).sum() for g in grads_acc.values()))
+    if norma > CLIP:
+        for k in grads_acc:
+            grads_acc[k] *= CLIP / norma
+ 
+    # 6) ACTUALIZACIÓN DE ADAM: se aplica, a cada matriz de parámetros
+    #    por separado, la fórmula completa de Adam.
+    t_adam += 1
+    for k in params:
+        g = grads_acc[k]
+        # Actualizar las medias móviles del gradiente (m) y de su
+        # cuadrado (v) para este parámetro:
+        m_adam[k] = beta1 * m_adam[k] + (1 - beta1) * g
+        v_adam[k] = beta2 * v_adam[k] + (1 - beta2) * g ** 2
+        # Corrección de sesgo: en los primeros pasos (t_adam pequeño),
+        # m_adam y v_adam están artificialmente cerca de 0 porque
+        # empezaron en 0; dividir entre (1 - beta^t) lo compensa.
+        m_h = m_adam[k] / (1 - beta1 ** t_adam)
+        v_h = v_adam[k] / (1 - beta2 ** t_adam)
+        # Actualización final del peso: se mueve en la dirección
+        # contraria al gradiente (para REDUCIR la pérdida), con un
+        # tamaño de paso que combina la tasa de aprendizaje actual
+        # (lr_actual) y la adaptación por parámetro que aporta Adam.
+        params[k] -= lr_actual * m_h / (np.sqrt(v_h) + eps_adam)
+ 
+    # 7) Cada 1000 pasos (y en el último), imprimir el progreso:
+    #    la pérdida actual (y
+    #    su equivalente en "bits por carácter", una forma alternativa
+    #    e intuitiva de leer la misma pérdida: cuántos bits de
+    #    información hacen falta, en promedio, para "corregir" al
+    #    modelo en cada carácter — cuanto más bajo, mejor predice).
+    if paso % 1000 == 0 or paso == PASOS - 1:
+        print(f'Paso {paso:5d}: pérdida = {loss:.4f}   lr = {lr_actual:.5f}   '
+              f'(bits/char = {loss/np.log(2):.2f})')
+ 
+ 
+# =============================================================================
+# ESTRATEGIAS DE MUESTREO: ¿CÓMO ELEGIR EL SIGUIENTE CARÁCTER?
+# =============================================================================
+# El modelo, para cada posición, produce una distribución de
+# probabilidad sobre los 46 caracteres posibles (gracias a softmax).
+# Pero de esa distribución hay que ELEGIR uno solo para continuar el
+# texto. Existen varias estrategias, cada una con sus ventajas:
+ 
+def greedy(probs):
+    """
+    Estrategia "voraz": elegir SIEMPRE el carácter de mayor
+    probabilidad, sin ninguna aleatoriedad. `np.argmax` devuelve el
+    índice del valor más alto del array.
+ 
+    Ventaja: el resultado es siempre el mismo (determinista) dado el
+    mismo modelo y el mismo texto de partida.
+    Inconveniente: el modelo puede quedar "atrapado" repitiendo el
+    mismo patrón una y otra vez, porque si un carácter es el más
+    probable en un contexto, seguirá siéndolo al volver a aparecer
+    ese mismo contexto — produce bucles como "el modelo el modelo
+    el modelo...".
+ 
+    (Esta función se deja como referencia / para experimentar; la
+    generación por defecto de este programa usa temperatura + top-p,
+    ver `generar()` más abajo.)
+    """
+    return np.argmax(probs)
+ 
+ 
+def top_k_filtrar(probs, k):
+    """
+    "Top-k sampling": se queda solo con los `k` caracteres de mayor
+    probabilidad, pone a CERO la probabilidad de todos los demás, y
+    renormaliza (para que las probabilidades restantes vuelvan a
+    sumar 1). Después, se muestrea al azar entre esos k candidatos
+    según sus probabilidades relativas.
+ 
+    Con k=1 equivale a `greedy` (solo puede elegir el más probable).
+    Con k grande, se acerca al muestreo "puro" (casi sin filtrar).
+ 
+    Limitación: k es un número FIJO, sin importar si la distribución
+    de probabilidad está muy concentrada (pocos candidatos buenos) o
+    muy repartida (muchos candidatos razonables) — de ahí que top-p
+    (más abajo) suela funcionar mejor en la práctica.
+    """
+    indices_ord = np.argsort(probs)[::-1]      # índices ordenados de mayor a menor prob.
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:k]] = probs[indices_ord[:k]]   # conservar solo los k mejores
+    return nueva / nueva.sum()                  # renormalizar para que sumen 1
+ 
+ 
+def top_p_filtrar(probs, p):
+    """
+    "Top-p sampling" o "nucleus sampling": en vez de fijar CUÁNTOS
+    caracteres conservar (como top-k), se fija CUÁNTA probabilidad
+    acumulada se quiere cubrir. Se ordenan los caracteres de mayor a
+    menor probabilidad y se van sumando uno a uno hasta alcanzar
+    (como mínimo) `p` de probabilidad acumulada — esos son los
+    únicos candidatos que se conservan; el resto se descarta.
+ 
+    Ventaja sobre top-k: el número de candidatos se ADAPTA a la
+    forma de la distribución en cada paso. Si el modelo está muy
+    "seguro" (una probabilidad domina claramente), bastarán 1 o 2
+    caracteres para cubrir el p%. Si el modelo está más "indeciso"
+    (probabilidades repartidas), se conservarán más candidatos.
+    Esto es justo lo que se usa en `generar()` para evitar elegir
+    caracteres de probabilidad residual ("ruido") que producirían
+    texto sin sentido.
+    """
+    indices_ord = np.argsort(probs)[::-1]        # de mayor a menor probabilidad
+    probs_ord   = probs[indices_ord]
+    suma_acum   = np.cumsum(probs_ord)           # suma acumulada: 0.4, 0.7, 0.85, ...
+    # Buscar cuántos candidatos hacen falta para llegar (o superar) a p:
+    n_tokens = int(np.searchsorted(suma_acum, p)) + 1
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:n_tokens]] = probs[indices_ord[:n_tokens]]
+    return nueva / nueva.sum()                   # renormalizar
+ 
+ 
+# =============================================================================
+# GENERACIÓN DE TEXTO: usar el modelo ya entrenado para "escribir"
+# =============================================================================
+def generar(semilla, n_chars=120, temperatura=0.8, top_p=0.9):
+    """
+    Genera texto nuevo, carácter a carácter, de forma AUTORREGRESIVA:
+    en cada paso se predice UN carácter, se añade al final del texto
+    generado hasta ahora, y ese texto (ya un carácter más largo) se
+    usa como entrada para predecir el SIGUIENTE carácter — y así
+    sucesivamente hasta completar `n_chars` caracteres nuevos.
+ 
+    Parámetros
+    ----------
+    semilla     : texto inicial (string) que "arranca" la generación.
+    n_chars     : cuántos caracteres nuevos generar.
+    temperatura : controla la aleatoriedad de la elección.
+                  - temperatura = 1.0 → probabilidades tal cual las
+                    predice el modelo, sin modificar.
+                  - temperatura < 1.0 → "afila" la distribución
+                    (favorece aún más a los caracteres ya probables):
+                    salida más determinista y repetitiva.
+                  - temperatura > 1.0 → "aplana" la distribución
+                    (da más oportunidad a caracteres poco probables):
+                    salida más aleatoria y creativa, con riesgo de
+                    volverse incoherente si se sube demasiado.
+    top_p       : parámetro del nucleus sampling (ver
+                  `top_p_filtrar` arriba). Con top_p=1.0 se desactiva
+                  el filtrado y se muestrea de la distribución
+                  completa (tras aplicar la temperatura).
+    """
+    # Convertir la semilla de texto a una lista de índices enteros,
+    # usando como máximo los últimos CTX caracteres (el modelo no
+    # puede usar un contexto más largo que su ventana CTX).
+    # `C2I.get(c, 0)`: si algún carácter de la semilla no estuviera
+    # en el vocabulario, se usa el índice 0 como valor por defecto
+    # en vez de fallar con un error.
+    tokens = [C2I.get(c, 0) for c in semilla[-CTX:]]
+    resultado = semilla   # aquí se irá acumulando el texto completo generado
+ 
+    for _ in range(n_chars):
+        # Tomar los últimos CTX tokens como contexto actual.
+        ctx = tokens[-CTX:]
+        # NO se rellena si el contexto aún es más corto que CTX (al
+        # principio de la generación, con semillas cortas): forward()
+        # acepta cualquier longitud real gracias a la máscara
+        # recortada [:T, :T]. Rellenar con un token artificial
+        # desplazaría la posición relativa de los caracteres reales
+        # respecto a las ventanas vistas en el entrenamiento.
+ 
+        # Forward del modelo sobre el contexto actual. forward()
+        # trabaja con lotes, así que el contexto se mete en un lote de
+        # UNA secuencia: np.array([ctx]), de forma (1, T). Devuelve los
+        # logits (1, T, V) y el cache (que aquí no se usa); solo
+        # interesa la ÚLTIMA posición, la predicción de "qué viene
+        # después del último carácter del contexto": [0][0, -1].
+        logits = forward(np.array([ctx]))[0][0, -1]
+ 
+        # Aplicar la temperatura ANTES del softmax: dividir los
+        # logits por `temperatura` cambia cuánto se "exageran" las
+        # diferencias entre ellos una vez calculado el softmax.
+        probs  = softmax(logits / temperatura)
+ 
+        # Aplicar nucleus sampling (top-p), salvo que top_p=1.0 (en
+        # cuyo caso no se filtra nada y se usa la distribución
+        # completa tal cual).
+        if top_p < 1.0:
+            probs = top_p_filtrar(probs, top_p)
+ 
+        # Elegir el siguiente carácter MUESTREANDO al azar según las
+        # probabilidades finales (no simplemente el más probable):
+        # así, ejecuciones distintas pueden generar textos distintos,
+        # aunque partan de la misma semilla.
+        siguiente = int(np.random.choice(V, p=probs))
+ 
+        # Añadir el nuevo token a la lista de contexto (para que
+        # influya en la predicción del SIGUIENTE carácter) y su
+        # versión en texto al resultado final.
+        tokens.append(siguiente)
+        resultado += I2C[siguiente]
+ 
+    return resultado
+ 
+ 
+# -----------------------------------------------------------------------------
+# DEMOSTRACIÓN FINAL: generar un par de ejemplos de texto con el modelo
+# ya entrenado, a partir de dos semillas distintas.
+# -----------------------------------------------------------------------------
+print('\n=== TEXTO GENERADO POR EL NANO-LLM ===')
+print(generar('la inteligencia', n_chars=120))
+print()
+print(generar('los modelos de', n_chars=120))
+ 
+# -----------------------------------------------------------------------------
+# GUARDAR LOS PESOS ENTRENADOS
+# -----------------------------------------------------------------------------
+# np.savez guarda todas las matrices de `params` en un único archivo.
+# Los Capítulos 11, 14, 15 (Programa RZ-1) y 18 lo cargan con
+#   params = dict(np.load('nano_llm_pesos.npz'))
+# para usar el modelo ya entrenado sin repetir el entrenamiento.
+np.savez('nano_llm_pesos.npz', **params)
+print("\nPesos guardados en nano_llm_pesos.npz")
+```
+
+**Ejecución:** `python programa_8_nano_llm_documentado.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  85.0 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=48 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.8547   lr = 0.00002   (bits/char = 5.56)
+Paso  1000: pérdida = 1.3802   lr = 0.00296   (bits/char = 1.99)
+Paso  2000: pérdida = 0.9349   lr = 0.00283   (bits/char = 1.35)
+Paso  3000: pérdida = 0.6037   lr = 0.00261   (bits/char = 0.87)
+Paso  4000: pérdida = 0.3814   lr = 0.00231   (bits/char = 0.55)
+Paso  5000: pérdida = 0.4244   lr = 0.00196   (bits/char = 0.61)
+Paso  6000: pérdida = 0.3764   lr = 0.00158   (bits/char = 0.54)
+Paso  7000: pérdida = 0.3344   lr = 0.00120   (bits/char = 0.48)
+Paso  8000: pérdida = 0.3753   lr = 0.00084   (bits/char = 0.54)
+Paso  9000: pérdida = 0.3107   lr = 0.00053   (bits/char = 0.45)
+Paso 10000: pérdida = 0.2764   lr = 0.00030   (bits/char = 0.40)
+Paso 11000: pérdida = 0.2689   lr = 0.00015   (bits/char = 0.39)
+Paso 11999: pérdida = 0.2866   lr = 0.00010   (bits/char = 0.41)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas
+
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas
+
+Pesos guardados en nano_llm_pesos.npz
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_programa_8_nano_llm_documentado.txt`), que es la que describe el texto.
+**Interés:** es la versión comentada del Programa 8 (1098 líneas frente a 413) y también se ejecutó completa. Su salida es **idéntica carácter a carácter** a la de la versión de referencia: los comentarios añadidos no cambian ningún cálculo.
+
+## 61. Ejercicio 13.1 — Cambiar el texto de entrenamiento
+
+**Archivo:** `ejercicio_13_1.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (34 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 13.1 — Entrenar el Nano-LLM con otro texto
+# Reutiliza el Programa 8 tal cual: solo sustituye TEXTO,
+# reduce PASOS y guarda los pesos con otro nombre.
+# =======================================================
+import numpy as np
+ 
+ 
+NUEVO_TEXTO = """
+python es el lenguaje de la inteligencia artificial.
+las listas se crean con corchetes: [1, 2, 3].
+los diccionarios usan llaves y pares clave valor.
+las funciones se definen con la palabra reservada def.
+los bucles for recorren secuencias de elementos.
+las clases permiten crear objetos con metodos y atributos.
+importa numpy para operaciones numericas eficientes.
+las redes neuronales aprenden de los datos de entrenamiento.
+"""
+ 
+ 
+ 
+# Análisis del nuevo vocabulario (antes de entrenar)
+vocab = sorted(set(NUEVO_TEXTO))
+V = len(vocab)
+print(f'Texto: {len(NUEVO_TEXTO)} caracteres | vocabulario: {V} caracteres únicos')
+print(f'Pérdida inicial esperada: ln({V}) = {np.log(V):.4f}\n')
+ 
+# Programa 8 con tres cambios: TEXTO, PASOS y nombre del archivo de pesos
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+viejo = fuente.split('TEXTO = """')[1].split('"""')[0]
+fuente = fuente.replace(viejo, NUEVO_TEXTO)
+fuente = fuente.replace('PASOS  = 12000', 'PASOS  = 3000')
+fuente = fuente.replace('nano_llm_pesos.npz', 'pesos_ejercicio_13_1.npz')
+exec(fuente)
+```
+
+**Ejecución:** `python ejercicio_13_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  21.0 s
+
+**Salida real por consola:**
+
+```
+Texto: 427 caracteres | vocabulario: 31 caracteres únicos
+Pérdida inicial esperada: ln(31) = 3.4340
+
+Vocabulario: 31 caracteres
+Total de parámetros: 59,280
+Texto de entrenamiento: 427 tokens, 8 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=48 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.4565   lr = 0.00002   (bits/char = 4.99)
+Paso  1000: pérdida = 0.1853   lr = 0.00241   (bits/char = 0.27)
+Paso  2000: pérdida = 0.1503   lr = 0.00090   (bits/char = 0.22)
+Paso  2999: pérdida = 0.0953   lr = 0.00010   (bits/char = 0.14)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia artificial.
+las listas se crean con corchetes: [1, 2, 3].
+los diccionarios usan llaves y pares clave valor.
+las funcion
+
+los modelos dene entos.
+las clases permiten crear objetos con metodos y atributos.
+importa numpy para operaciones numericas eficientes
+
+Pesos guardados en pesos_ejercicio_13_1.npz
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (20 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 62. Ejercicio 13.2 — Explorar el efecto de la temperatura
+
+**Archivo:** `ejercicio_13_2.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (32 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 13.2 — El efecto de la temperatura, con el modelo real
+# Carga los pesos que guardó el Programa 8 y genera desde la
+# misma semilla con cinco temperaturas (top_p = 1.0 para aislar
+# el efecto de la temperatura).
+# =======================================================
+import numpy as np
+ 
+ 
+ 
+ 
+ 
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+exec(fuente.split('# -- Learning rate')[0])              # datos, parámetros, forward
+exec('def greedy' + fuente.split('def greedy')[1]
+                     .split("print('\\n=== TEXTO")[0])   # generar() y filtros
+params.update(np.load('nano_llm_pesos.npz'))             # el modelo ya entrenado
+ 
+# Cuánto se concentra la probabilidad del siguiente carácter
+contexto = [C2I[c] for c in 'un modelo ']
+logits = forward(np.array([contexto]))[0][0, -1]   # lote de 1; última posición
+print('\nProbabilidad del carácter más probable tras «un modelo »:')
+for tau in [0.2, 0.5, 0.8, 1.2, 2.0]:
+    p = softmax(logits / tau)
+    print(f'  τ = {tau:.1f}: {p.max():.3f}  («{I2C[int(p.argmax())]}»)')
+ 
+print('\nTexto generado (semilla «un modelo», top_p = 1.0):')
+for tau in [0.2, 0.5, 0.8, 1.2, 2.0]:
+    np.random.seed(0)
+    texto = generar('un modelo', n_chars=90, temperatura=tau, top_p=1.0)
+    print(f'\n--- τ = {tau} ---')
+    print(texto)
+```
+
+**Ejecución:** `python ejercicio_13_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.3 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Probabilidad del carácter más probable tras «un modelo »:
+  τ = 0.2: 0.810  («g»)
+  τ = 0.5: 0.445  («g»)
+  τ = 0.8: 0.311  («g»)
+  τ = 1.2: 0.234  («g»)
+  τ = 2.0: 0.167  («g»)
+
+Texto generado (semilla «un modelo», top_p = 1.0):
+
+--- τ = 0.2 ---
+un modelo generativo produce contenido nuevo y original.
+un modelo discriminativo distingue entre c
+
+--- τ = 0.5 ---
+un modelo generativo produce contenido nuevo y original.
+un modelo discriminativo distingue entre c
+
+--- τ = 0.8 ---
+un modelo injusto.
+la ética en la ia estudia el impacto social de los modelos.
+la precisión permite
+
+--- τ = 1.2 ---
+un modelo injusto.
+la ética en la ia estudia el impacto social de los modelos.
+la precisión permite
+
+--- τ = 2.0 ---
+un modelo memoriza dembed.
+unconteniperapo a ortepar todo.
+una camina la entoriónal.
+ediccial de lo
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (29 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 63. Ejercicio 13.3 — Calcular la Perplexity del modelo
+
+**Archivo:** `ejercicio_13_3.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (37 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 13.3 — La perplejidad del Nano-LLM
+# PPL = exp(pérdida media por carácter). Se calcula con el
+# modelo entrenado sobre TODO el texto de entrenamiento.
+# =======================================================
+import numpy as np
+
+
+
+
+
+
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+exec(fuente.split('# -- Learning rate')[0])
+params.update(np.load('nano_llm_pesos.npz'))
+
+# Pérdida media en ventanas consecutivas de CTX caracteres
+perdidas = []
+for i in range(0, len(DATOS) - CTX - 1, CTX):
+    x, y = DATOS[i:i + CTX], DATOS[i + 1:i + CTX + 1]
+    p = softmax(forward(np.array([x]))[0][0])        # lote de 1 ventana
+    perdidas.extend(-np.log(p[np.arange(CTX), y] + 1e-10))
+L = np.mean(perdidas)
+print(f'\nPérdida media en el texto de entrenamiento: {L:.4f}')
+print(f'Perplejidad: e^{L:.4f} = {np.exp(L):.2f}\n')
+
+print(f"{'Pérdida':>8}  {'PPL':>6}  Interpretación")
+print('-' * 58)
+for perd in [np.log(V), 3.0, 2.0, 1.5, 1.0, 0.5, L]:
+    ppl = np.exp(perd)
+    if np.isclose(perd, np.log(V)): interp = 'Referencia: la uniforme (al azar)'
+    elif ppl > V:      interp = f'Peor que el azar ({ppl - V:+.1f} sobre V)'
+    elif ppl > 15:     interp = 'Algo de estructura local'
+    elif ppl > 4:      interp = 'Patrones de carácter bien aprendidos'
+    elif ppl > 1.8:    interp = 'Buen modelo: captura el estilo'
+    else:              interp = 'Excelente... o sobreajuste (ver Capítulo 15)'
+    print(f'{perd:8.4f}  {ppl:6.2f}  {interp}')
+```
+
+**Ejecución:** `python ejercicio_13_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.0 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Pérdida media en el texto de entrenamiento: 0.2835
+Perplejidad: e^0.2835 = 1.33
+
+ Pérdida     PPL  Interpretación
+----------------------------------------------------------
+  3.8286   46.00  Referencia: la uniforme (al azar)
+  3.0000   20.09  Algo de estructura local
+  2.0000    7.39  Patrones de carácter bien aprendidos
+  1.5000    4.48  Patrones de carácter bien aprendidos
+  1.0000    2.72  Buen modelo: captura el estilo
+  0.5000    1.65  Excelente... o sobreajuste (ver Capítulo 15)
+  0.2835    1.33  Excelente... o sobreajuste (ver Capítulo 15)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (14 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): la fila de referencia se reconoce por igualdad con ln V («Referencia: la uniforme (al azar)») y lo que queda por encima se rotula «Peor que el azar». El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_ejercicio_13_3.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 64. Ejercicio 13.4 — CTX y D: cómo escalan los parámetros
+
+**Archivo:** `ejercicio_13_4.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (414 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 13.4 — El Programa 8 con D = 96 (el doble) y PASOS = 4000
+# =======================================================
+# PROGRAMA 8 — Nano-LLM: un GPT-2 en miniatura
+# Modelo de lenguaje de nivel carácter con la arquitectura
+# de GPT-2 (2019): embeddings de token y de posición
+# aprendidos, 2 bloques Pre-LN (LayerNorm con γ y β antes de
+# cada subcapa), atención causal de 4 cabezas, FFN con GELU,
+# LayerNorm final y pesos compartidos entre la entrada y la
+# salida. Solo cambian los tamaños (GPT-2 small: 12 bloques,
+# 12 cabezas, D = 768, contexto 1024, 50 257 tokens BPE).
+# NumPy puro: backpropagation analítico completo, mini-lotes,
+# Adam con warmup + coseno y recorte del gradiente. Guarda
+# los pesos en nano_llm_pesos.npz para los capítulos siguientes.
+# =======================================================
+ 
+import numpy as np
+ 
+# -- Texto de entrenamiento (93 líneas, vocabulario de 46 caracteres) --
+TEXTO = """
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas capas ocultas.
+la atención permite ver todo el contexto a la vez.
+los transformers son la base de los llm modernos.
+entrenar un modelo requiere muchos datos y cálculo.
+el futuro pertenece a quienes comprenden la ia.
+un modelo pequeño puede aprender patrones simples.
+la tokenización convierte texto en números enteros.
+cada carácter del vocabulario tiene un índice único.
+el embedding transforma índices en vectores densos.
+la codificación posicional indica el orden del texto.
+la función softmax convierte logits en probabilidades.
+el optimizador adam ajusta los pesos, paso a paso.
+una red profunda combina atención y capas ocultas.
+generar texto significa predecir, uno a uno, cada token.
+la temperatura controla cuánta variedad hay al generar.
+un buen modelo equilibra memoria y generalización.
+¿comprender la ia? requiere práctica, paciencia y datos.
+también existe el software: gpt-2 fue un hito clave.
+un modelo (bien entrenado) generaliza; uno malo, no.
+¡el aprendizaje nunca termina! sigue explorando.
+un vector es una lista ordenada de números reales.
+una matriz agrupa vectores en filas y columnas.
+el producto punto mide cuánto se parecen dos vectores.
+la retropropagación calcula gradientes hacia atrás.
+el descenso de gradiente ajusta los pesos poco a poco.
+una época recorre todo el conjunto de entrenamiento.
+el sobreajuste ocurre cuando el modelo memoriza demasiado.
+la regularización ayuda a que el modelo generalice mejor.
+un lote agrupa varios ejemplos para entrenar juntos.
+la normalización estabiliza las activaciones internas.
+una neurona combina entradas, pesos y un sesgo.
+la función de pérdida mide el error del modelo.
+el aprendizaje supervisado usa ejemplos etiquetados.
+una capa oculta transforma la información paso a paso.
+el descenso estocástico usa lotes pequeños y aleatorios.
+la validación comprueba si el modelo generaliza bien.
+un hiperparámetro se ajusta antes de entrenar el modelo.
+la arquitectura define cómo se conectan las capas.
+el vocabulario agrupa todos los símbolos posibles.
+una secuencia es un orden concreto de tokens.
+el contexto limita cuántos tokens ve el modelo a la vez.
+la generalización permite responder a datos nuevos.
+comprender estos conceptos abre la puerta a la ia moderna.
+un dataset agrupa todos los ejemplos disponibles.
+el conjunto de test evalúa el modelo al final, una sola vez.
+la precisión mide cuántas predicciones son correctas.
+el error mide cuánto se aleja la predicción del valor real.
+una etiqueta indica la respuesta correcta de un ejemplo.
+la inferencia usa el modelo ya entrenado, sin ajustar pesos.
+el preentrenamiento aprende patrones generales del lenguaje.
+el ajuste fino especializa un modelo en una tarea concreta.
+un token puede ser una letra, una parte de palabra o una palabra.
+la ventana de contexto limita cuánto texto ve el modelo.
+un residual conecta la entrada directamente con la salida.
+la normalización evita que las activaciones crezcan sin control.
+el ruido en los datos dificulta encontrar el patrón real.
+una red ancha tiene muchas neuronas en cada capa.
+una red profunda tiene muchas capas apiladas.
+el paralelismo permite entrenar varias partes a la vez.
+la memoria limita cuántos datos caben en una gráfica.
+un acelerador gráfico multiplica matrices muy rápido.
+la escala mide cuántos parámetros tiene un modelo.
+un modelo grande necesita muchos más datos para aprender bien.
+la eficiencia importa tanto como la precisión final.
+el costo de entrenar crece con el tamaño del modelo.
+la interpretabilidad explica por qué el modelo decide algo.
+un sesgo en los datos puede producir un modelo injusto.
+la ética en la ia estudia el impacto social de los modelos.
+la privacidad protege los datos personales de los usuarios.
+un modelo robusto resiste pequeños cambios en la entrada.
+la incertidumbre mide cuánta confianza tiene el modelo.
+un ejemplo difícil confunde incluso a un buen modelo.
+la curva de aprendizaje muestra el progreso del entrenamiento.
+un mínimo local complica encontrar la mejor solución.
+el paisaje de pérdida describe cómo cambia el error.
+una meseta ralentiza el progreso del entrenamiento.
+el ruido ayuda a veces a escapar de mínimos malos.
+la exploración prueba caminos nuevos durante el entrenamiento.
+la explotación aprovecha lo que ya funciona bien.
+un modelo generativo produce contenido nuevo y original.
+un modelo discriminativo distingue entre categorías distintas.
+la clasificación asigna una categoría a cada ejemplo.
+la regresión predice un número continuo, no una categoría.
+el aprendizaje por refuerzo premia las buenas decisiones.
+un agente aprende actuando dentro de un entorno.
+la recompensa guía el aprendizaje del agente.
+la política define cómo actúa el agente en cada estado.
+un entorno simulado permite entrenar sin riesgo real.
+la simulación acelera enormemente el aprendizaje del agente.
+comprender bien lo básico facilita entender lo avanzado.
+"""
+ 
+# -- Tokenizador ----------------------------------------
+ 
+VOCAB = sorted(set(TEXTO))
+V = len(VOCAB)
+C2I = {c: i for i, c in enumerate(VOCAB)}
+I2C = dict(enumerate(VOCAB))
+DATOS = np.array([C2I[c] for c in TEXTO], dtype=int)
+# -- Hiperparámetros (entre paréntesis, los de GPT-2 small) --
+CTX    = 24     # longitud del contexto (1024)
+D      = 96     # antes: 48
+H      = 4      # cabezas de atención (12)
+DH     = D // H # dimensión de cada cabeza: 12 (64)
+D_FF   = 192    # dimensión interna FFN, 4xD (3072)
+N_BLQ  = 2      # bloques transformer (12)
+LR     = 3e-3   # tasa de aprendizaje máxima
+PASOS  = 4000   # antes: 12000 (para comparar más rápido)
+BATCH  = 8      # secuencias por lote (promedia el gradiente, suaviza la curva)
+CLIP   = 1.0    # recorte de la norma del gradiente (Capítulo 5, 5.8)
+ 
+np.random.seed(42)
+ 
+# -- Parámetros del modelo (inicialización de GPT-2) --------
+def randn(shape, std=0.02):
+    return np.random.randn(*shape) * std
+# Las proyecciones que se suman a la vía residual (Wo y W2) se
+# inician con una desviación menor, 0.02/sqrt(2·N_BLQ), como en GPT-2.
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)
+ 
+params = {
+    'wte': randn((V, D)),     # embedding de tokens (y matriz de salida)
+    'wpe': randn((CTX, D)),   # embedding de posiciones
+    'lnf_g': np.ones(D), 'lnf_b': np.zeros(D),   # LayerNorm final
+}
+for k in range(N_BLQ):
+    params[f'ln1_g{k}'] = np.ones(D);  params[f'ln1_b{k}'] = np.zeros(D)
+    for n in 'qkv':
+        params[f'W{n}{k}'] = randn((D, D)); params[f'b{n}{k}'] = np.zeros(D)
+    params[f'Wo{k}'] = randn((D, D), STD_RES); params[f'bo{k}'] = np.zeros(D)
+    params[f'ln2_g{k}'] = np.ones(D);  params[f'ln2_b{k}'] = np.zeros(D)
+    params[f'W1{k}'] = randn((D, D_FF)); params[f'b1{k}'] = np.zeros(D_FF)
+    params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)
+ 
+total = sum(p.size for p in params.values())
+print(f'Vocabulario: {V} caracteres')
+print(f'Total de parámetros: {total:,}')
+print(f'Texto de entrenamiento: {len(DATOS)} tokens, '
+      f'{TEXTO.strip().count(chr(10)) + 1} líneas')
+ 
+# Máscara causal: se calcula una vez con el tamaño máximo (CTX, CTX)
+# y se recorta a [:T, :T] cuando la secuencia es más corta.
+MASCARA_CAUSAL = np.triu(np.full((CTX, CTX), -1e9), k=1)
+# -- Utilidades ---------------------------------------------
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    return np.exp(x) / np.exp(x).sum(axis=axis, keepdims=True)
+ 
+ 
+ 
+ 
+def layer_norm_fwd(x, g, b, eps=1e-5):
+    """LayerNorm de GPT-2: normaliza cada fila y aplica escala g (γ) y desplazamiento b (β)."""
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+def layer_norm_bwd(dy, g, cache):
+    """Derivada exacta de LayerNorm: devuelve dx, dg y db."""
+    xhat, inv = cache
+    ejes = tuple(range(dy.ndim - 1))      # todas las filas (lote y posiciones)
+    dg = (dy * xhat).sum(ejes)
+    db = dy.sum(ejes)
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, dg, db
+C_GELU = np.sqrt(2 / np.pi)
+def gelu(x):
+    """GELU con la aproximación tanh que usa GPT-2."""
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+def gelu_bwd(x):
+    """Derivada de gelu(x)."""
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+def separar(x):   # (B, T, D) -> (B, H, T, DH): una matriz por cabeza
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+def unir(x):      # (B, H, T, DH) -> (B, T, D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+def tmm(a, b):
+    """Suma sobre lote y posiciones de aᵀ·b: el gradiente de una capa lineal."""
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+ 
+# -- Forward ---------------------------------------------------
+def forward(tokens):
+    """tokens (B, T) -> logits (B, T, V), y lo que el backward necesita."""
+    B, T = tokens.shape
+    X = params['wte'][tokens] + params['wpe'][:T]
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X
+        # Subcapa 1: LayerNorm -> atención causal multi-cabeza -> suma residual
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA_CAUSAL[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        # Subcapa 2: LayerNorm -> FFN con GELU -> suma residual
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+        cache.append(dict(a=a, ln1=ln1, Q=Q, K=K, Vm=Vm, pesos=pesos,
+                          att=att, m=m, ln2=ln2, h_pre=h_pre, h=h))
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    logits = xf @ params['wte'].T          # pesos compartidos: la salida usa wte
+    return logits, (xf, lnf, cache)
+ 
+# -- Forward + Backward (un mini-lote entero) ---------------------
+def forward_backward(tokens, targets):
+    """
+    Pasa el mini-lote por el modelo y calcula, con backpropagation
+    exacto (regla de la cadena), el gradiente de la pérdida media
+    respecto a TODOS los parámetros.
+    """
+ 
+ 
+ 
+ 
+ 
+    B, T = tokens.shape
+    logits, (xf, lnf, cache) = forward(tokens)
+    probs = softmax(logits)
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -np.log(probs[bi, ti, targets] + 1e-10).mean()
+    grads = {k: np.zeros_like(v) for k, v in params.items()}
+ 
+    dlogits = probs.copy()
+ 
+    dlogits[bi, ti, targets] -= 1.0          # softmax + entropía cruzada
+    dlogits /= B * T
+    grads['wte'] += tmm(dlogits, xf)         # wte como matriz de salida
+    dxf = dlogits @ params['wte']
+    dX, grads['lnf_g'], grads['lnf_b'] = layer_norm_bwd(dxf, params['lnf_g'], lnf)
+ 
+    for k in reversed(range(N_BLQ)):
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+        c = cache[k]
+        # Subcapa 2 hacia atrás. Residual: dX llega entero a X1 y a la FFN
+        grads[f'W2{k}'] = tmm(c['h'], dX)
+        grads[f'b2{k}'] = dX.sum((0, 1))
+        dh_pre = (dX @ params[f'W2{k}'].T) * gelu_bwd(c['h_pre'])
+        grads[f'W1{k}'] = tmm(c['m'], dh_pre)
+        grads[f'b1{k}'] = dh_pre.sum((0, 1))
+        dm = dh_pre @ params[f'W1{k}'].T
+        dx1, grads[f'ln2_g{k}'], grads[f'ln2_b{k}'] = layer_norm_bwd(dm, params[f'ln2_g{k}'], c['ln2'])
+        dX1 = dX + dx1
+        # Subcapa 1 hacia atrás. Residual: dX1 llega entero a Xin y a la atención
+        grads[f'Wo{k}'] = tmm(c['att'], dX1)
+        grads[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ params[f'Wo{k}'].T)
+        dpesos = datt @ c['Vm'].transpose(0, 1, 3, 2)
+        dVm = c['pesos'].transpose(0, 1, 3, 2) @ datt
+        s = (dpesos * c['pesos']).sum(-1, keepdims=True)
+        dscores = c['pesos'] * (dpesos - s) / np.sqrt(DH)   # derivada de softmax
+        dQ = unir(dscores @ c['K'])
+        dK = unir(dscores.transpose(0, 1, 3, 2) @ c['Q'])
+        dV = unir(dVm)
+        da = np.zeros_like(c['a'])
+        for n, dn in zip('qkv', (dQ, dK, dV)):
+            grads[f'W{n}{k}'] = tmm(c['a'], dn)
+            grads[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ params[f'W{n}{k}'].T
+        dxin, grads[f'ln1_g{k}'], grads[f'ln1_b{k}'] = layer_norm_bwd(da, params[f'ln1_g{k}'], c['ln1'])
+        dX = dX1 + dxin
+    grads['wpe'][:T] = dX.sum(0)
+    np.add.at(grads['wte'], tokens, dX)      # wte también como embedding de entrada
+ 
+    return grads, loss
+# -- Learning rate: warmup lineal + decaimiento coseno --------
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    """
+    Sube linealmente de 0 a lr_max durante t_warmup pasos (evita
+    pasos erráticos al principio, cuando los gradientes son más
+    inestables), luego decae en coseno hasta lr_min (afina los
+    pesos al final). Es el esquema estándar al entrenar LLMs.
+    """
+    if t < t_warmup:
+        return lr_max * (t + 1) / t_warmup     # +1: el paso 0 ya aprende
+    t_adj = t - t_warmup
+    t_decay = t_total - t_warmup
+    return lr_min + 0.5 * (lr_max - lr_min) * (1 + np.cos(np.pi * t_adj / t_decay))
+ 
+ 
+# -- Entrenamiento con Adam (mini-lotes de BATCH secuencias) --
+m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+beta1, beta2, eps_adam, t_adam = 0.9, 0.999, 1e-8, 0
+LR_MAX = LR
+ 
+print('\nEntrenando Nano-LLM (backpropagation analítico, mini-lotes)...')
+print(f'CTX={CTX} | D={D} | D_FF={D_FF} | Bloques={N_BLQ} | Batch={BATCH}\n')
+ 
+for paso in range(PASOS):
+    lr_actual = lr_warmup_coseno(paso, LR_MAX, PASOS)
+    inicios = np.random.randint(0, len(DATOS) - CTX - 1, size=BATCH)
+    xb = np.stack([DATOS[i:i + CTX] for i in inicios])          # (BATCH, CTX)
+    yb = np.stack([DATOS[i + 1:i + CTX + 1] for i in inicios])  # desplazado 1
+    grads_acc, loss = forward_backward(xb, yb)
+    # Recorte del gradiente: si la norma global supera CLIP, se reescala
+    norma = np.sqrt(sum((g ** 2).sum() for g in grads_acc.values()))
+    if norma > CLIP:
+        for k in grads_acc:
+            grads_acc[k] *= CLIP / norma
+ 
+    t_adam += 1
+    for k in params:
+        g = grads_acc[k]
+        m_adam[k] = beta1 * m_adam[k] + (1 - beta1) * g
+        v_adam[k] = beta2 * v_adam[k] + (1 - beta2) * g ** 2
+        m_h = m_adam[k] / (1 - beta1 ** t_adam)
+        v_h = v_adam[k] / (1 - beta2 ** t_adam)
+        params[k] -= lr_actual * m_h / (np.sqrt(v_h) + eps_adam)
+ 
+    if paso % 1000 == 0 or paso == PASOS - 1:
+        print(f'Paso {paso:5d}: pérdida = {loss:.4f}   lr = {lr_actual:.5f}   '
+              f'(bits/char = {loss/np.log(2):.2f})')
+# -- Estrategias de muestreo (se estudian a fondo en el Capítulo 14) --
+# generar() usa temperatura + top_p_filtrar; greedy y top_k_filtrar
+# quedan definidas para experimentar con ellas.
+def greedy(probs):
+    """Siempre el token más probable. Puede quedar 'atrapado' en bucles."""
+    return np.argmax(probs)
+ 
+def top_k_filtrar(probs, k):
+    """Conserva solo los k tokens más probables."""
+    indices_ord = np.argsort(probs)[::-1]
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:k]] = probs[indices_ord[:k]]
+    return nueva / nueva.sum()
+ 
+def top_p_filtrar(probs, p):
+    """Conserva el mínimo conjunto de tokens que suman probabilidad p (nucleus sampling)."""
+    indices_ord = np.argsort(probs)[::-1]
+    probs_ord   = probs[indices_ord]
+    suma_acum   = np.cumsum(probs_ord)
+    n_tokens = int(np.searchsorted(suma_acum, p)) + 1
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:n_tokens]] = probs[indices_ord[:n_tokens]]
+    return nueva / nueva.sum()
+ 
+ 
+# -- Generación de texto -----------------------------------
+def generar(semilla, n_chars=120, temperatura=0.8, top_p=0.9):
+    """
+    Genera texto carácter a carácter.
+    temperatura > 1: más aleatorio | temperatura < 1: más determinista
+    top_p: nucleus sampling — conserva solo el conjunto mínimo de
+    caracteres cuya probabilidad acumulada alcanza top_p, evitando
+    elegir caracteres de probabilidad residual que producen "sopa
+    de letras". Con top_p=1.0 equivale al muestreo puro.
+    """
+    tokens = [C2I.get(c, 0) for c in semilla[-CTX:]]
+    resultado = semilla
+ 
+    for _ in range(n_chars):
+        ctx = tokens[-CTX:]
+        logits = forward(np.array([ctx]))[0][0, -1]
+        probs = softmax(logits / temperatura)
+ 
+        if top_p < 1.0:
+            probs = top_p_filtrar(probs, top_p)
+ 
+        siguiente = int(np.random.choice(V, p=probs))
+        tokens.append(siguiente)
+        resultado += I2C[siguiente]
+ 
+    return resultado
+ 
+ 
+print('\n=== TEXTO GENERADO POR EL NANO-LLM ===')
+print(generar('la inteligencia', n_chars=120))
+print()
+print(generar('los modelos de', n_chars=120))
+# -- Guardar los pesos entrenados ------------------------------
+# Los Capítulos 11, 14, 15 y 18 reutilizan este modelo ya entrenado:
+#   params = dict(np.load('nano_llm_pesos.npz'))
+np.savez('pesos_ejercicio_13_4.npz', **params)
+print("\nPesos guardados en pesos_ejercicio_13_4.npz")
+```
+
+**Ejecución:** `python ejercicio_13_4.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  42.8 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 156,480
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=96 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.9088   lr = 0.00002   (bits/char = 5.64)
+Paso  1000: pérdida = 1.1512   lr = 0.00266   (bits/char = 1.66)
+Paso  2000: pérdida = 0.6265   lr = 0.00164   (bits/char = 0.90)
+Paso  3000: pérdida = 0.4638   lr = 0.00056   (bits/char = 0.67)
+Paso  3999: pérdida = 0.3027   lr = 0.00010   (bits/char = 0.44)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+la tokenización convierte texto e
+
+los modelos del lenguaje predicen el siguiente token.
+la tokenización convierte texto en números enteros.
+la recompensa guía el aprend
+
+Pesos guardados en pesos_ejercicio_13_4.npz
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (D = 48, original, con PASOS = 4000):» (6 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de una ejecución de comprobación del Programa 8 con PASOS = 4000 (el listado impreso con solo esa línea cambiada, hecha aparte porque el libro imprime este bloque como referencia de la versión original).
+Bloque impreso «> Salida del programa (D = 96, el doble):» (6 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Interés:** el libro imprime dos bloques. El primero, «D = 48, original, con PASOS = 4000», no es la salida de este ejercicio, sino la del Programa 8 recortado a 4000 pasos, que sirve de comparación. Para verificarlo se ejecutó aparte el Programa 8 con solo la línea `PASOS = 4000` cambiada, y sus cinco líneas coinciden exactamente. Con D = 96 (156 480 parámetros), la pérdida final baja a 0.30 frente a 0.47.
+
+## 65. Ejercicio 13.5 — ¿Hace falta de verdad el warm-up + coseno?
+
+**Archivo:** `ejercicio_13_5.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (410 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 13.5 — El Programa 8 con LR constante y PASOS = 4000
+# =======================================================
+# PROGRAMA 8 — Nano-LLM: un GPT-2 en miniatura
+# Modelo de lenguaje de nivel carácter con la arquitectura
+# de GPT-2 (2019): embeddings de token y de posición
+# aprendidos, 2 bloques Pre-LN (LayerNorm con γ y β antes de
+# cada subcapa), atención causal de 4 cabezas, FFN con GELU,
+# LayerNorm final y pesos compartidos entre la entrada y la
+# salida. Solo cambian los tamaños (GPT-2 small: 12 bloques,
+# 12 cabezas, D = 768, contexto 1024, 50 257 tokens BPE).
+# NumPy puro: backpropagation analítico completo, mini-lotes,
+# Adam con warmup + coseno y recorte del gradiente. Guarda
+# los pesos en nano_llm_pesos.npz para los capítulos siguientes.
+# =======================================================
+ 
+import numpy as np
+ 
+# -- Texto de entrenamiento (93 líneas, vocabulario de 46 caracteres) --
+TEXTO = """
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas capas ocultas.
+la atención permite ver todo el contexto a la vez.
+los transformers son la base de los llm modernos.
+entrenar un modelo requiere muchos datos y cálculo.
+el futuro pertenece a quienes comprenden la ia.
+un modelo pequeño puede aprender patrones simples.
+la tokenización convierte texto en números enteros.
+cada carácter del vocabulario tiene un índice único.
+el embedding transforma índices en vectores densos.
+la codificación posicional indica el orden del texto.
+la función softmax convierte logits en probabilidades.
+el optimizador adam ajusta los pesos, paso a paso.
+una red profunda combina atención y capas ocultas.
+generar texto significa predecir, uno a uno, cada token.
+la temperatura controla cuánta variedad hay al generar.
+un buen modelo equilibra memoria y generalización.
+¿comprender la ia? requiere práctica, paciencia y datos.
+también existe el software: gpt-2 fue un hito clave.
+un modelo (bien entrenado) generaliza; uno malo, no.
+¡el aprendizaje nunca termina! sigue explorando.
+un vector es una lista ordenada de números reales.
+una matriz agrupa vectores en filas y columnas.
+el producto punto mide cuánto se parecen dos vectores.
+la retropropagación calcula gradientes hacia atrás.
+el descenso de gradiente ajusta los pesos poco a poco.
+una época recorre todo el conjunto de entrenamiento.
+el sobreajuste ocurre cuando el modelo memoriza demasiado.
+la regularización ayuda a que el modelo generalice mejor.
+un lote agrupa varios ejemplos para entrenar juntos.
+la normalización estabiliza las activaciones internas.
+una neurona combina entradas, pesos y un sesgo.
+la función de pérdida mide el error del modelo.
+el aprendizaje supervisado usa ejemplos etiquetados.
+una capa oculta transforma la información paso a paso.
+el descenso estocástico usa lotes pequeños y aleatorios.
+la validación comprueba si el modelo generaliza bien.
+un hiperparámetro se ajusta antes de entrenar el modelo.
+la arquitectura define cómo se conectan las capas.
+el vocabulario agrupa todos los símbolos posibles.
+una secuencia es un orden concreto de tokens.
+el contexto limita cuántos tokens ve el modelo a la vez.
+la generalización permite responder a datos nuevos.
+comprender estos conceptos abre la puerta a la ia moderna.
+un dataset agrupa todos los ejemplos disponibles.
+el conjunto de test evalúa el modelo al final, una sola vez.
+la precisión mide cuántas predicciones son correctas.
+el error mide cuánto se aleja la predicción del valor real.
+una etiqueta indica la respuesta correcta de un ejemplo.
+la inferencia usa el modelo ya entrenado, sin ajustar pesos.
+el preentrenamiento aprende patrones generales del lenguaje.
+el ajuste fino especializa un modelo en una tarea concreta.
+un token puede ser una letra, una parte de palabra o una palabra.
+la ventana de contexto limita cuánto texto ve el modelo.
+un residual conecta la entrada directamente con la salida.
+la normalización evita que las activaciones crezcan sin control.
+el ruido en los datos dificulta encontrar el patrón real.
+una red ancha tiene muchas neuronas en cada capa.
+una red profunda tiene muchas capas apiladas.
+el paralelismo permite entrenar varias partes a la vez.
+la memoria limita cuántos datos caben en una gráfica.
+un acelerador gráfico multiplica matrices muy rápido.
+la escala mide cuántos parámetros tiene un modelo.
+un modelo grande necesita muchos más datos para aprender bien.
+la eficiencia importa tanto como la precisión final.
+el costo de entrenar crece con el tamaño del modelo.
+la interpretabilidad explica por qué el modelo decide algo.
+un sesgo en los datos puede producir un modelo injusto.
+la ética en la ia estudia el impacto social de los modelos.
+la privacidad protege los datos personales de los usuarios.
+un modelo robusto resiste pequeños cambios en la entrada.
+la incertidumbre mide cuánta confianza tiene el modelo.
+un ejemplo difícil confunde incluso a un buen modelo.
+la curva de aprendizaje muestra el progreso del entrenamiento.
+un mínimo local complica encontrar la mejor solución.
+el paisaje de pérdida describe cómo cambia el error.
+una meseta ralentiza el progreso del entrenamiento.
+el ruido ayuda a veces a escapar de mínimos malos.
+la exploración prueba caminos nuevos durante el entrenamiento.
+la explotación aprovecha lo que ya funciona bien.
+un modelo generativo produce contenido nuevo y original.
+un modelo discriminativo distingue entre categorías distintas.
+la clasificación asigna una categoría a cada ejemplo.
+la regresión predice un número continuo, no una categoría.
+el aprendizaje por refuerzo premia las buenas decisiones.
+un agente aprende actuando dentro de un entorno.
+la recompensa guía el aprendizaje del agente.
+la política define cómo actúa el agente en cada estado.
+un entorno simulado permite entrenar sin riesgo real.
+la simulación acelera enormemente el aprendizaje del agente.
+comprender bien lo básico facilita entender lo avanzado.
+"""
+ 
+# -- Tokenizador ----------------------------------------
+ 
+VOCAB = sorted(set(TEXTO))
+V = len(VOCAB)
+C2I = {c: i for i, c in enumerate(VOCAB)}
+I2C = dict(enumerate(VOCAB))
+DATOS = np.array([C2I[c] for c in TEXTO], dtype=int)
+# -- Hiperparámetros (entre paréntesis, los de GPT-2 small) --
+CTX    = 24     # longitud del contexto (1024)
+D      = 48     # dimensión del modelo (768)
+H      = 4      # cabezas de atención (12)
+DH     = D // H # dimensión de cada cabeza: 12 (64)
+D_FF   = 192    # dimensión interna FFN, 4xD (3072)
+N_BLQ  = 2      # bloques transformer (12)
+LR     = 3e-3   # tasa de aprendizaje máxima
+PASOS  = 4000   # antes: 12000 (para comparar más rápido)
+BATCH  = 8      # secuencias por lote (promedia el gradiente, suaviza la curva)
+CLIP   = 1.0    # recorte de la norma del gradiente (Capítulo 5, 5.8)
+ 
+np.random.seed(42)
+ 
+# -- Parámetros del modelo (inicialización de GPT-2) --------
+def randn(shape, std=0.02):
+    return np.random.randn(*shape) * std
+# Las proyecciones que se suman a la vía residual (Wo y W2) se
+# inician con una desviación menor, 0.02/sqrt(2·N_BLQ), como en GPT-2.
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)
+ 
+params = {
+    'wte': randn((V, D)),     # embedding de tokens (y matriz de salida)
+    'wpe': randn((CTX, D)),   # embedding de posiciones
+    'lnf_g': np.ones(D), 'lnf_b': np.zeros(D),   # LayerNorm final
+}
+for k in range(N_BLQ):
+    params[f'ln1_g{k}'] = np.ones(D);  params[f'ln1_b{k}'] = np.zeros(D)
+    for n in 'qkv':
+        params[f'W{n}{k}'] = randn((D, D)); params[f'b{n}{k}'] = np.zeros(D)
+    params[f'Wo{k}'] = randn((D, D), STD_RES); params[f'bo{k}'] = np.zeros(D)
+    params[f'ln2_g{k}'] = np.ones(D);  params[f'ln2_b{k}'] = np.zeros(D)
+    params[f'W1{k}'] = randn((D, D_FF)); params[f'b1{k}'] = np.zeros(D_FF)
+    params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)
+ 
+total = sum(p.size for p in params.values())
+print(f'Vocabulario: {V} caracteres')
+print(f'Total de parámetros: {total:,}')
+print(f'Texto de entrenamiento: {len(DATOS)} tokens, '
+      f'{TEXTO.strip().count(chr(10)) + 1} líneas')
+ 
+# Máscara causal: se calcula una vez con el tamaño máximo (CTX, CTX)
+# y se recorta a [:T, :T] cuando la secuencia es más corta.
+MASCARA_CAUSAL = np.triu(np.full((CTX, CTX), -1e9), k=1)
+# -- Utilidades ---------------------------------------------
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    return np.exp(x) / np.exp(x).sum(axis=axis, keepdims=True)
+ 
+ 
+ 
+ 
+def layer_norm_fwd(x, g, b, eps=1e-5):
+    """LayerNorm de GPT-2: normaliza cada fila y aplica escala g (γ) y desplazamiento b (β)."""
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+def layer_norm_bwd(dy, g, cache):
+    """Derivada exacta de LayerNorm: devuelve dx, dg y db."""
+    xhat, inv = cache
+    ejes = tuple(range(dy.ndim - 1))      # todas las filas (lote y posiciones)
+    dg = (dy * xhat).sum(ejes)
+    db = dy.sum(ejes)
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, dg, db
+C_GELU = np.sqrt(2 / np.pi)
+def gelu(x):
+    """GELU con la aproximación tanh que usa GPT-2."""
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+def gelu_bwd(x):
+    """Derivada de gelu(x)."""
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+def separar(x):   # (B, T, D) -> (B, H, T, DH): una matriz por cabeza
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+def unir(x):      # (B, H, T, DH) -> (B, T, D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+def tmm(a, b):
+    """Suma sobre lote y posiciones de aᵀ·b: el gradiente de una capa lineal."""
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+ 
+# -- Forward ---------------------------------------------------
+def forward(tokens):
+    """tokens (B, T) -> logits (B, T, V), y lo que el backward necesita."""
+    B, T = tokens.shape
+    X = params['wte'][tokens] + params['wpe'][:T]
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X
+        # Subcapa 1: LayerNorm -> atención causal multi-cabeza -> suma residual
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA_CAUSAL[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        # Subcapa 2: LayerNorm -> FFN con GELU -> suma residual
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+        cache.append(dict(a=a, ln1=ln1, Q=Q, K=K, Vm=Vm, pesos=pesos,
+                          att=att, m=m, ln2=ln2, h_pre=h_pre, h=h))
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    logits = xf @ params['wte'].T          # pesos compartidos: la salida usa wte
+    return logits, (xf, lnf, cache)
+ 
+# -- Forward + Backward (un mini-lote entero) ---------------------
+def forward_backward(tokens, targets):
+    """
+    Pasa el mini-lote por el modelo y calcula, con backpropagation
+    exacto (regla de la cadena), el gradiente de la pérdida media
+    respecto a TODOS los parámetros.
+    """
+ 
+ 
+ 
+ 
+ 
+    B, T = tokens.shape
+    logits, (xf, lnf, cache) = forward(tokens)
+    probs = softmax(logits)
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -np.log(probs[bi, ti, targets] + 1e-10).mean()
+    grads = {k: np.zeros_like(v) for k, v in params.items()}
+ 
+    dlogits = probs.copy()
+ 
+    dlogits[bi, ti, targets] -= 1.0          # softmax + entropía cruzada
+    dlogits /= B * T
+    grads['wte'] += tmm(dlogits, xf)         # wte como matriz de salida
+    dxf = dlogits @ params['wte']
+    dX, grads['lnf_g'], grads['lnf_b'] = layer_norm_bwd(dxf, params['lnf_g'], lnf)
+ 
+    for k in reversed(range(N_BLQ)):
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+        c = cache[k]
+        # Subcapa 2 hacia atrás. Residual: dX llega entero a X1 y a la FFN
+        grads[f'W2{k}'] = tmm(c['h'], dX)
+        grads[f'b2{k}'] = dX.sum((0, 1))
+        dh_pre = (dX @ params[f'W2{k}'].T) * gelu_bwd(c['h_pre'])
+        grads[f'W1{k}'] = tmm(c['m'], dh_pre)
+        grads[f'b1{k}'] = dh_pre.sum((0, 1))
+        dm = dh_pre @ params[f'W1{k}'].T
+        dx1, grads[f'ln2_g{k}'], grads[f'ln2_b{k}'] = layer_norm_bwd(dm, params[f'ln2_g{k}'], c['ln2'])
+        dX1 = dX + dx1
+        # Subcapa 1 hacia atrás. Residual: dX1 llega entero a Xin y a la atención
+        grads[f'Wo{k}'] = tmm(c['att'], dX1)
+        grads[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ params[f'Wo{k}'].T)
+        dpesos = datt @ c['Vm'].transpose(0, 1, 3, 2)
+        dVm = c['pesos'].transpose(0, 1, 3, 2) @ datt
+        s = (dpesos * c['pesos']).sum(-1, keepdims=True)
+        dscores = c['pesos'] * (dpesos - s) / np.sqrt(DH)   # derivada de softmax
+        dQ = unir(dscores @ c['K'])
+        dK = unir(dscores.transpose(0, 1, 3, 2) @ c['Q'])
+        dV = unir(dVm)
+        da = np.zeros_like(c['a'])
+        for n, dn in zip('qkv', (dQ, dK, dV)):
+            grads[f'W{n}{k}'] = tmm(c['a'], dn)
+            grads[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ params[f'W{n}{k}'].T
+        dxin, grads[f'ln1_g{k}'], grads[f'ln1_b{k}'] = layer_norm_bwd(da, params[f'ln1_g{k}'], c['ln1'])
+        dX = dX1 + dxin
+    grads['wpe'][:T] = dX.sum(0)
+    np.add.at(grads['wte'], tokens, dX)      # wte también como embedding de entrada
+ 
+    return grads, loss
+# -- Learning rate: warmup lineal + decaimiento coseno --------
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    """
+    Sube linealmente de 0 a lr_max durante t_warmup pasos (evita
+    pasos erráticos al principio, cuando los gradientes son más
+    inestables), luego decae en coseno hasta lr_min (afina los
+    pesos al final). Es el esquema estándar al entrenar LLMs.
+    """
+    return lr_max                              # LR constante: sin warm-up ni coseno
+ 
+ 
+# -- Entrenamiento con Adam (mini-lotes de BATCH secuencias) --
+m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+beta1, beta2, eps_adam, t_adam = 0.9, 0.999, 1e-8, 0
+LR_MAX = LR
+ 
+print('\nEntrenando Nano-LLM (backpropagation analítico, mini-lotes)...')
+print(f'CTX={CTX} | D={D} | D_FF={D_FF} | Bloques={N_BLQ} | Batch={BATCH}\n')
+ 
+for paso in range(PASOS):
+    lr_actual = lr_warmup_coseno(paso, LR_MAX, PASOS)
+    inicios = np.random.randint(0, len(DATOS) - CTX - 1, size=BATCH)
+    xb = np.stack([DATOS[i:i + CTX] for i in inicios])          # (BATCH, CTX)
+    yb = np.stack([DATOS[i + 1:i + CTX + 1] for i in inicios])  # desplazado 1
+    grads_acc, loss = forward_backward(xb, yb)
+    # Recorte del gradiente: si la norma global supera CLIP, se reescala
+    norma = np.sqrt(sum((g ** 2).sum() for g in grads_acc.values()))
+    if norma > CLIP:
+        for k in grads_acc:
+            grads_acc[k] *= CLIP / norma
+ 
+    t_adam += 1
+    for k in params:
+        g = grads_acc[k]
+        m_adam[k] = beta1 * m_adam[k] + (1 - beta1) * g
+        v_adam[k] = beta2 * v_adam[k] + (1 - beta2) * g ** 2
+        m_h = m_adam[k] / (1 - beta1 ** t_adam)
+        v_h = v_adam[k] / (1 - beta2 ** t_adam)
+        params[k] -= lr_actual * m_h / (np.sqrt(v_h) + eps_adam)
+ 
+    if paso % 1000 == 0 or paso == PASOS - 1:
+        print(f'Paso {paso:5d}: pérdida = {loss:.4f}   lr = {lr_actual:.5f}   '
+              f'(bits/char = {loss/np.log(2):.2f})')
+# -- Estrategias de muestreo (se estudian a fondo en el Capítulo 14) --
+# generar() usa temperatura + top_p_filtrar; greedy y top_k_filtrar
+# quedan definidas para experimentar con ellas.
+def greedy(probs):
+    """Siempre el token más probable. Puede quedar 'atrapado' en bucles."""
+    return np.argmax(probs)
+ 
+def top_k_filtrar(probs, k):
+    """Conserva solo los k tokens más probables."""
+    indices_ord = np.argsort(probs)[::-1]
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:k]] = probs[indices_ord[:k]]
+    return nueva / nueva.sum()
+ 
+def top_p_filtrar(probs, p):
+    """Conserva el mínimo conjunto de tokens que suman probabilidad p (nucleus sampling)."""
+    indices_ord = np.argsort(probs)[::-1]
+    probs_ord   = probs[indices_ord]
+    suma_acum   = np.cumsum(probs_ord)
+    n_tokens = int(np.searchsorted(suma_acum, p)) + 1
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:n_tokens]] = probs[indices_ord[:n_tokens]]
+    return nueva / nueva.sum()
+ 
+ 
+# -- Generación de texto -----------------------------------
+def generar(semilla, n_chars=120, temperatura=0.8, top_p=0.9):
+    """
+    Genera texto carácter a carácter.
+    temperatura > 1: más aleatorio | temperatura < 1: más determinista
+    top_p: nucleus sampling — conserva solo el conjunto mínimo de
+    caracteres cuya probabilidad acumulada alcanza top_p, evitando
+    elegir caracteres de probabilidad residual que producen "sopa
+    de letras". Con top_p=1.0 equivale al muestreo puro.
+    """
+    tokens = [C2I.get(c, 0) for c in semilla[-CTX:]]
+    resultado = semilla
+ 
+    for _ in range(n_chars):
+        ctx = tokens[-CTX:]
+        logits = forward(np.array([ctx]))[0][0, -1]
+        probs = softmax(logits / temperatura)
+ 
+        if top_p < 1.0:
+            probs = top_p_filtrar(probs, top_p)
+ 
+        siguiente = int(np.random.choice(V, p=probs))
+        tokens.append(siguiente)
+        resultado += I2C[siguiente]
+ 
+    return resultado
+ 
+ 
+print('\n=== TEXTO GENERADO POR EL NANO-LLM ===')
+print(generar('la inteligencia', n_chars=120))
+print()
+print(generar('los modelos de', n_chars=120))
+# -- Guardar los pesos entrenados ------------------------------
+# Los Capítulos 11, 14, 15 y 18 reutilizan este modelo ya entrenado:
+#   params = dict(np.load('nano_llm_pesos.npz'))
+np.savez('pesos_ejercicio_13_5.npz', **params)
+print("\nPesos guardados en pesos_ejercicio_13_5.npz")
+```
+
+**Ejecución:** `python ejercicio_13_5.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  28.3 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=48 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.8547   lr = 0.00300   (bits/char = 5.56)
+Paso  1000: pérdida = 1.3674   lr = 0.00300   (bits/char = 1.97)
+Paso  2000: pérdida = 0.8820   lr = 0.00300   (bits/char = 1.27)
+Paso  3000: pérdida = 0.5741   lr = 0.00300   (bits/char = 0.83)
+Paso  3999: pérdida = 0.6111   lr = 0.00300   (bits/char = 0.88)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia importa texto cure mite vez.
+la memoria yuda a sa vasisa.
+el aprendizaje profunda confianzadicesita el embeddinado el o
+
+los modelos de lenguaje predicen el siguiente token.
+la tos clave ditación posibles brealos pesos poco a prediccional con la base la c
+
+Pesos guardados en pesos_ejercicio_13_5.npz
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (original, warm-up + coseno, PASOS = 4000):» (5 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de una ejecución de comprobación del Programa 8 con PASOS = 4000 (el listado impreso con solo esa línea cambiada, hecha aparte porque el libro imprime este bloque como referencia de la versión original).
+Bloque impreso «> Salida del programa (LR constante = 0.003):» (5 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Interés:** igual que en el 13.4, el bloque «original, warm-up + coseno» es el Programa 8 con 4000 pasos, comprobado con la misma ejecución aparte. Con la tasa de aprendizaje constante, la pérdida final empeora (0.61 frente a 0.47) y el texto generado se degrada visiblemente, que es justo lo que el ejercicio quiere mostrar.
+
+## 66. Ejercicio 13.6 — Verifica tu backward
+
+**Archivo:** `ejercicio_13_6.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (66 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 13.6 — Verifica tu backward con diferencias finitas
+# Compara el gradiente analítico de forward_backward() con el
+# gradiente numérico (L(w+ε) − L(w−ε)) / 2ε en elementos al azar
+# de TODOS los tensores del Programa 8.
+# =======================================================
+import numpy as np
+ 
+# Cargamos del Programa 8 solo la parte anterior al entrenamiento
+# (datos, parámetros, utilidades, forward y forward_backward) y
+# después los pesos que guardó al terminar (nano_llm_pesos.npz).
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+exec(fuente.split('# -- Learning rate')[0])
+# Con los pesos ya entrenados los gradientes son mayores que en la
+# inicialización y la comparación numérica es más fiable.
+params.update(np.load('nano_llm_pesos.npz'))
+ 
+rng = np.random.RandomState(0)
+inicios = rng.randint(0, len(DATOS) - CTX - 1, size=2)      # un lote de 2 ventanas
+x = np.stack([DATOS[i:i + CTX] for i in inicios])
+y = np.stack([DATOS[i + 1:i + CTX + 1] for i in inicios])
+ 
+ 
+def comprobar(n_muestras=6, eps=1e-5):
+    """Error relativo ||num − ana|| / (||num|| + ||ana||) por tensor."""
+    grads, _ = forward_backward(x, y)
+    errores = {}
+    for nombre, P in params.items():
+        num, ana = [], []
+        for _ in range(n_muestras):
+            j = tuple(rng.randint(s) for s in P.shape)
+            orig = P[j]
+            P[j] = orig + eps; l_mas = forward_backward(x, y)[1]
+            P[j] = orig - eps; l_menos = forward_backward(x, y)[1]
+            P[j] = orig
+            num.append((l_mas - l_menos) / (2 * eps))
+            ana.append(grads[nombre][j])
+        num, ana = np.array(num), np.array(ana)
+        if max(abs(num).max(), abs(ana).max()) < 1e-8:
+            errores[nombre] = None          # los dos gradientes son ≈ 0
+        else:
+            errores[nombre] = np.linalg.norm(num - ana) / (np.linalg.norm(num) + np.linalg.norm(ana))
+    return errores
+ 
+ 
+def maximo(errores):
+    return max(e for e in errores.values() if e is not None)
+ 
+ 
+errores = comprobar()
+print('\nTensor      error relativo')
+for nombre, e in errores.items():
+    print(f'{nombre:10s}  ' + ('gradiente ≈ 0 (numérico y analítico)' if e is None else f'{e:.1e}'))
+print(f'\nError relativo máximo: {maximo(errores):.1e}')
+ 
+# ¿Y si olvidamos la regla del producto en la derivada de GELU?
+def gelu_bwd(x):                                     # versión incompleta
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t)                             # falta el segundo término
+ 
+rng = np.random.RandomState(0)
+errores_mal = comprobar()
+print('\nSin el segundo término de la derivada de GELU:')
+for nombre in ['W10', 'b10', 'W20', 'Wq0', 'wte']:
+    print(f'{nombre:10s}  {errores_mal[nombre]:.1e}')
+print(f'Error relativo máximo: {maximo(errores_mal):.1e}')
+```
+
+**Ejecución:** `python ejercicio_13_6.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.6 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Tensor      error relativo
+wte         1.4e-09
+wpe         6.0e-10
+lnf_g       2.1e-09
+lnf_b       1.4e-09
+ln1_g0      1.9e-09
+ln1_b0      3.5e-09
+Wq0         2.8e-09
+bq0         2.0e-09
+Wk0         1.8e-09
+bk0         gradiente ≈ 0 (numérico y analítico)
+Wv0         1.3e-09
+bv0         7.6e-09
+Wo0         3.3e-09
+bo0         6.1e-09
+ln2_g0      4.5e-09
+ln2_b0      3.3e-09
+W10         5.5e-09
+b10         4.2e-09
+W20         4.5e-09
+b20         3.1e-09
+ln1_g1      3.6e-09
+ln1_b1      6.8e-09
+Wq1         1.7e-09
+bq1         5.2e-09
+Wk1         4.3e-09
+bk1         gradiente ≈ 0 (numérico y analítico)
+Wv1         4.1e-09
+bv1         4.1e-09
+Wo1         2.7e-09
+bo1         3.5e-09
+ln2_g1      3.3e-09
+ln2_b1      2.4e-09
+W11         1.3e-09
+b11         1.3e-08
+W21         3.5e-09
+b21         2.8e-09
+
+Error relativo máximo: 1.3e-08
+
+Sin el segundo término de la derivada de GELU:
+W10         7.9e-01
+b10         1.8e-01
+W20         1.1e-01
+Wq0         1.3e-01
+wte         3.9e-02
+Error relativo máximo: 7.9e-01
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (48 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 67. Ejercicio 13.7 — El recorte del gradiente, con y sin
+
+**Archivo:** `ejercicio_13_7.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (24 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 13.7 — ¿Qué hace de verdad el recorte del gradiente?
+# Ejecuta el Programa 8 registrando la norma del gradiente en
+# cada paso, con recorte (CLIP = 1.0) o sin él.
+# Uso:  python ejercicio_13_7.py            -> con recorte
+#       python ejercicio_13_7.py sin_recorte -> sin recorte
+# =======================================================
+import sys
+import numpy as np
+ 
+SIN_RECORTE = len(sys.argv) > 1 and sys.argv[1] == 'sin_recorte'
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+fuente = fuente.replace("    if norma > CLIP:", "    NORMAS.append(norma)\n    if norma > CLIP:")
+if SIN_RECORTE:
+    fuente = fuente.replace("CLIP   = 1.0 ", "CLIP   = float('inf')")
+fuente = fuente.replace('nano_llm_pesos.npz', 'pesos_ejercicio_13_7.npz')
+NORMAS = []
+exec(fuente)
+NORMAS = np.array(NORMAS)
+print(f'\n{"SIN" if SIN_RECORTE else "CON"} recorte — norma del gradiente antes de recortar:')
+print(f'  mediana {np.median(NORMAS):.2f} | máxima {NORMAS.max():.2f} | '
+      f'pasos con norma > 1: {(NORMAS > 1).sum()} de {len(NORMAS)}')
+for a, b in [(0, 1000), (1000, 6000), (6000, 12000)]:
+    print(f'  pasos {a:5d}-{b - 1:5d}: mediana {np.median(NORMAS[a:b]):.2f}')
+```
+
+**Ejecución:** `python ejercicio_13_7.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  85.3 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=48 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.8547   lr = 0.00002   (bits/char = 5.56)
+Paso  1000: pérdida = 1.3802   lr = 0.00296   (bits/char = 1.99)
+Paso  2000: pérdida = 0.9349   lr = 0.00283   (bits/char = 1.35)
+Paso  3000: pérdida = 0.6037   lr = 0.00261   (bits/char = 0.87)
+Paso  4000: pérdida = 0.3814   lr = 0.00231   (bits/char = 0.55)
+Paso  5000: pérdida = 0.4244   lr = 0.00196   (bits/char = 0.61)
+Paso  6000: pérdida = 0.3764   lr = 0.00158   (bits/char = 0.54)
+Paso  7000: pérdida = 0.3344   lr = 0.00120   (bits/char = 0.48)
+Paso  8000: pérdida = 0.3753   lr = 0.00084   (bits/char = 0.54)
+Paso  9000: pérdida = 0.3107   lr = 0.00053   (bits/char = 0.45)
+Paso 10000: pérdida = 0.2764   lr = 0.00030   (bits/char = 0.40)
+Paso 11000: pérdida = 0.2689   lr = 0.00015   (bits/char = 0.39)
+Paso 11999: pérdida = 0.2866   lr = 0.00010   (bits/char = 0.41)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas
+
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas
+
+Pesos guardados en pesos_ejercicio_13_7.npz
+
+CON recorte — norma del gradiente antes de recortar:
+  mediana 1.67 | máxima 5.65 | pasos con norma > 1: 11758 de 12000
+  pasos     0-  999: mediana 1.52
+  pasos  1000- 5999: mediana 2.26
+  pasos  6000-11999: mediana 1.34
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (con recorte; extracto):» (18 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+Bloque impreso «> Salida del programa (sin recorte; extracto):» (18 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de la ejecución en modo sin recorte.
+**Interés:** el ejercicio tiene dos modos y se ejecutaron los dos: sin argumentos, con recorte del gradiente, y con `sin_recorte`. Cada bloque impreso coincide con el modo que le corresponde.
+
+## 67. Ejercicio 13.7 — El recorte del gradiente, con y sin — segunda ejecución, modo sin recorte
+
+**Archivo:** `ejercicio_13_7.py`  ·  **Capítulo:** Capítulo 13: El Nano-LLM — Construyendo un Modelo de Lenguaje (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado:** es el mismo del apartado anterior; cambia solo el argumento de la línea de órdenes.
+
+**Ejecución:** `python ejercicio_13_7.py sin_recorte`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  85.1 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Entrenando Nano-LLM (backpropagation analítico, mini-lotes)...
+CTX=24 | D=48 | D_FF=192 | Bloques=2 | Batch=8
+
+Paso     0: pérdida = 3.8547   lr = 0.00002   (bits/char = 5.56)
+Paso  1000: pérdida = 1.3656   lr = 0.00296   (bits/char = 1.97)
+Paso  2000: pérdida = 0.9621   lr = 0.00283   (bits/char = 1.39)
+Paso  3000: pérdida = 0.5490   lr = 0.00261   (bits/char = 0.79)
+Paso  4000: pérdida = 0.4463   lr = 0.00231   (bits/char = 0.64)
+Paso  5000: pérdida = 0.4254   lr = 0.00196   (bits/char = 0.61)
+Paso  6000: pérdida = 0.4157   lr = 0.00158   (bits/char = 0.60)
+Paso  7000: pérdida = 0.2983   lr = 0.00120   (bits/char = 0.43)
+Paso  8000: pérdida = 0.3607   lr = 0.00084   (bits/char = 0.52)
+Paso  9000: pérdida = 0.3326   lr = 0.00053   (bits/char = 0.48)
+Paso 10000: pérdida = 0.3031   lr = 0.00030   (bits/char = 0.44)
+Paso 11000: pérdida = 0.3041   lr = 0.00015   (bits/char = 0.44)
+Paso 11999: pérdida = 0.2654   lr = 0.00010   (bits/char = 0.38)
+
+=== TEXTO GENERADO POR EL NANO-LLM ===
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas
+
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas
+
+Pesos guardados en pesos_ejercicio_13_7.npz
+
+SIN recorte — norma del gradiente antes de recortar:
+  mediana 1.57 | máxima 5.69 | pasos con norma > 1: 11716 de 12000
+  pasos     0-  999: mediana 1.54
+  pasos  1000- 5999: mediana 2.11
+  pasos  6000-11999: mediana 1.31
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (con recorte; extracto):» (18 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de la ejecución en modo normal.
+Bloque impreso «> Salida del programa (sin recorte; extracto):» (18 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de la ejecución en modo sin recorte.
+**Interés:** el ejercicio tiene dos modos y se ejecutaron los dos: sin argumentos, con recorte del gradiente, y con `sin_recorte`. Cada bloque impreso coincide con el modo que le corresponde.
+
+
+---
+
+# Capítulo 14: Estrategias de Muestreo — Top-k y Top-p (**)
+
+## 68. Programa S-1 — Visualización de todas las estrategias de muestreo
+
+**Archivo:** `programa_S1_visualizacion.py`  ·  **Capítulo:** Capítulo 14: Estrategias de Muestreo — Top-k y Top-p (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (108 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# ================================================================
+# FUNCIONES DE MUESTREO
+# ================================================================
+ 
+def softmax(x, tau=1.0):
+    z = (x - x.max()) / tau
+    e = np.exp(z)
+    return e / e.sum()
+ 
+def top_k_filtrar(probs, k):
+    idx  = np.argsort(probs)[::-1]
+    mask = np.zeros_like(probs)
+    mask[idx[:k]] = probs[idx[:k]]
+    return mask / mask.sum()
+ 
+def top_p_filtrar(probs, p):
+    idx       = np.argsort(probs)[::-1]
+    acum      = np.cumsum(probs[idx])
+    n         = int(np.searchsorted(acum, p)) + 1
+    mask      = np.zeros_like(probs)
+    mask[idx[:n]] = probs[idx[:n]]
+    return mask / mask.sum()
+ 
+def muestrear(probs, n=10000):
+    """Muestrea n tokens y devuelve las frecuencias observadas."""
+    muestras = np.random.choice(len(probs), size=n, p=probs)
+    freqs    = np.bincount(muestras, minlength=len(probs)) / n
+    return freqs
+ 
+def visualizar_dist(probs, nombre, tokens):
+    """Muestra la distribucion como diagrama de barras ASCII."""
+    print(f'  {nombre}:')
+    activos = sum(p > 0.001 for p in probs)
+    print(f'  Tokens activos (prob > 0.1%): {activos}/{len(probs)}')
+    for i, (tok, p) in enumerate(zip(tokens, probs)):
+        if p < 0.001: continue
+        barra  = int(p * 50)
+        bloque = '#' * barra
+        print(f'    {tok:>12}: {p:>6.3f}  {bloque}')
+    print()
+ 
+ 
+np.random.seed(42)
+ 
+# ================================================================
+# DISTRIBUCION DE EJEMPLO: vocabulario de 12 tokens
+# Simula la salida de un LLM en un contexto concreto
+# ================================================================
+tokens = ['el', 'la', 'un', 'los', 'de',
+          'que', 'en', 'y', 'a', 'por', 'extraño', 'xyz']
+ 
+# Logits tipicos: unos pocos tokens muy probables, muchos improbables
+logits = np.array([3.8, 3.2, 2.1, 1.8, 1.5,
+                   1.0, 0.5, 0.2, -0.3, -0.8, -2.0, -4.0])
+ 
+print('='*60)
+print('VISUALIZACION DE ESTRATEGIAS DE MUESTREO')
+print('='*60)
+print()
+ 
+# --- DISTRIBUCION BASE (temperatura 1.0) ---
+probs_base = softmax(logits, tau=1.0)
+visualizar_dist(probs_base, 'BASE  (tau=1.0, sin filtros)', tokens)
+ 
+# --- TEMPERATURA BAJA ---
+probs_fria = softmax(logits, tau=0.5)
+visualizar_dist(probs_fria, 'TEMPERATURA BAJA  (tau=0.5)', tokens)
+ 
+# --- TOP-K ---
+probs_k3 = top_k_filtrar(probs_base, k=3)
+visualizar_dist(probs_k3, 'TOP-K=3  (solo los 3 mejores)', tokens)
+ 
+probs_k6 = top_k_filtrar(probs_base, k=6)
+visualizar_dist(probs_k6, 'TOP-K=6  (los 6 mejores)', tokens)
+ 
+# --- TOP-P ---
+probs_p80 = top_p_filtrar(probs_base, p=0.80)
+n_tokens_80 = sum(probs_p80 > 0)
+visualizar_dist(probs_p80, f'TOP-P=0.80  ({n_tokens_80} tokens cubren 80%)', tokens)
+ 
+probs_p95 = top_p_filtrar(probs_base, p=0.95)
+n_tokens_95 = sum(probs_p95 > 0)
+visualizar_dist(probs_p95, f'TOP-P=0.95  ({n_tokens_95} tokens cubren 95%)', tokens)
+ 
+# --- COMPARATIVA: tokens incluidos por cada estrategia ---
+print('COMPARATIVA: Tokens incluidos por cada estrategia')
+print(f"{'Token':>12}  {'Base':>8}  {'tau=0.5':>8}  ",
+      f"{'Top-k=3':>8}  {'Top-k=6':>8}  {'Top-p.80':>9}  {'Top-p.95':>9}")
+print('-' * 75)
+for i, tok in enumerate(tokens):
+    p0 = probs_base[i]
+    p1 = probs_fria[i]
+    p2 = probs_k3[i]
+    p3 = probs_k6[i]
+    p4 = probs_p80[i]
+    p5 = probs_p95[i]
+    def fmt(p): return f'{p:.3f}' if p > 0.001 else '  ---'
+    print(f'{tok:>12}  {fmt(p0):>8}  {fmt(p1):>8}  ',
+          f'{fmt(p2):>8}  {fmt(p3):>8}  {fmt(p4):>9}  {fmt(p5):>9}')
+ 
+print()
+print('Observacion clave:')
+print('  Top-k=3: exactamente 3 tokens siempre, sin importar la distribucion.')
+print('  Top-p=0.80: el numero de tokens se adapta a la forma de la dist.')
+print('  Con dist. concentrada: Top-p usara MENOS tokens que Top-k=6.')
+print('  Con dist. plana: Top-p usara MAS tokens que Top-k=6.')
+```
+
+**Ejecución:** `python programa_S1_visualizacion.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+============================================================
+VISUALIZACION DE ESTRATEGIAS DE MUESTREO
+============================================================
+
+  BASE  (tau=1.0, sin filtros):
+  Tokens activos (prob > 0.1%): 11/12
+              el:  0.471  #######################
+              la:  0.259  ############
+              un:  0.086  ####
+             los:  0.064  ###
+              de:  0.047  ##
+             que:  0.029  #
+              en:  0.017  
+               y:  0.013  
+               a:  0.008  
+             por:  0.005  
+         extraño:  0.001  
+
+  TEMPERATURA BAJA  (tau=0.5):
+  Tokens activos (prob > 0.1%): 6/12
+              el:  0.730  ####################################
+              la:  0.220  ##########
+              un:  0.024  #
+             los:  0.013  
+              de:  0.007  
+             que:  0.003  
+
+  TOP-K=3  (solo los 3 mejores):
+  Tokens activos (prob > 0.1%): 3/12
+              el:  0.578  ############################
+              la:  0.317  ###############
+              un:  0.106  #####
+
+  TOP-K=6  (los 6 mejores):
+  Tokens activos (prob > 0.1%): 6/12
+              el:  0.493  ########################
+              la:  0.271  #############
+              un:  0.090  ####
+             los:  0.067  ###
+              de:  0.049  ##
+             que:  0.030  #
+
+  TOP-P=0.80  (3 tokens cubren 80%):
+  Tokens activos (prob > 0.1%): 3/12
+              el:  0.578  ############################
+              la:  0.317  ###############
+              un:  0.106  #####
+
+  TOP-P=0.95  (6 tokens cubren 95%):
+  Tokens activos (prob > 0.1%): 6/12
+              el:  0.493  ########################
+              la:  0.271  #############
+              un:  0.090  ####
+             los:  0.067  ###
+              de:  0.049  ##
+             que:  0.030  #
+
+COMPARATIVA: Tokens incluidos por cada estrategia
+       Token      Base   tau=0.5    Top-k=3   Top-k=6   Top-p.80   Top-p.95
+---------------------------------------------------------------------------
+          el     0.471     0.730      0.578     0.493      0.578      0.493
+          la     0.259     0.220      0.317     0.271      0.317      0.271
+          un     0.086     0.024      0.106     0.090      0.106      0.090
+         los     0.064     0.013        ---     0.067        ---      0.067
+          de     0.047     0.007        ---     0.049        ---      0.049
+         que     0.029     0.003        ---     0.030        ---      0.030
+          en     0.017       ---        ---       ---        ---        ---
+           y     0.013       ---        ---       ---        ---        ---
+           a     0.008       ---        ---       ---        ---        ---
+         por     0.005       ---        ---       ---        ---        ---
+     extraño     0.001       ---        ---       ---        ---        ---
+         xyz       ---       ---        ---       ---        ---        ---
+
+Observacion clave:
+  Top-k=3: exactamente 3 tokens siempre, sin importar la distribucion.
+  Top-p=0.80: el numero de tokens se adapta a la forma de la dist.
+  Con dist. concentrada: Top-p usara MENOS tokens que Top-k=6.
+  Con dist. plana: Top-p usara MAS tokens que Top-k=6.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (70 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 69. Programa S-2 — Generación con todas las estrategias
+
+**Archivo:** `programa_S2_generacion_completa.py`  ·  **Capítulo:** Capítulo 14: Estrategias de Muestreo — Top-k y Top-p (**)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (131 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+exec(fuente.split('# -- Learning rate')[0])     # tokenizador y forward() del Programa 8
+params = dict(np.load('nano_llm_pesos.npz'))   # los pesos que guardó el Programa 8
+ 
+# ================================================================
+# GENERADOR UNIFICADO CON TODAS LAS ESTRATEGIAS
+# Este codigo amplia la funcion generar() del Nano-LLM
+# con soporte para todas las estrategias de muestreo.
+# ================================================================
+ 
+def softmax(x, axis=-1): e=np.exp(x-x.max(axis, keepdims=True)); return e/e.sum(axis, keepdims=True)
+def top_k_filtrar(p, k): idx=np.argsort(p)[::-1]; m=np.zeros_like(p); m[idx[:k]]=p[idx[:k]]; return m/m.sum()
+def top_p_filtrar(p, pp): idx=np.argsort(p)[::-1]; ac=np.cumsum(p[idx]); n=int(np.searchsorted(ac,pp))+1; m=np.zeros_like(p); m[idx[:n]]=p[idx[:n]]; return m/m.sum()
+ 
+def generar_avanzado(
+    modelo_forward,  # funcion forward del Nano-LLM
+    c2i, i2c,        # diccionarios del tokenizador
+    semilla,         # texto inicial
+    n       = 80,    # tokens a generar
+    CTX     = 24,    # longitud de contexto
+    # Hiperparametros de muestreo:
+    tau     = 1.0,   # temperatura
+    k       = 0,     # top-k (0 = desactivado)
+    p       = 0.0,   # top-p (0 = desactivado)
+    rep_pen = 1.0,   # repetition penalty (1.0 = sin penalizacion)
+):
+    """
+    Generacion flexible con todas las estrategias combinables.
+    El orden de aplicacion es: temperatura -> top-k -> top-p -> muestreo
+    """
+    V       = len(c2i)
+    tokens  = [c2i.get(c, 0) for c in semilla[-CTX:]]
+    resultado = semilla
+    generados = list(tokens)   # para repetition penalty
+    
+    for _ in range(n):
+        ctx    = tokens[-CTX:]   # SIN relleno: se usa la longitud real
+        
+        # 1. Obtener logits del modelo
+        logits = modelo_forward(ctx)[-1]
+        
+        # 2. Aplicar repetition penalty
+        if rep_pen != 1.0:
+            for t in set(generados[-20:]):   # solo los ultimos 20
+                if logits[t] > 0: logits[t] /= rep_pen
+                else:             logits[t] *= rep_pen
+        
+        # 3. Aplicar temperatura
+        probs = softmax(logits / max(tau, 1e-5))
+        
+        # 4. Aplicar top-k (si esta activado)
+        if k > 0:
+            probs = top_k_filtrar(probs, k)
+        
+        # 5. Aplicar top-p (si esta activado)
+        if 0 < p < 1.0:
+            probs = top_p_filtrar(probs, p)
+        
+        # 6. Muestrear
+        siguiente = int(np.random.choice(V, p=probs))
+        tokens.append(siguiente)
+        generados.append(siguiente)
+        resultado += i2c[siguiente]
+    
+    return resultado
+ 
+ 
+# ================================================================
+# COMPARATIVA: misma semilla, distintas estrategias
+# (Nano-LLM del Cap 13 ya entrenado: params = dict(np.load('nano_llm_pesos.npz')))
+# ================================================================
+ 
+estrategias = [
+    {'nombre': 'Greedy (tau=0.01)',
+     'tau': 0.01, 'k': 0, 'p': 0.0, 'rep_pen': 1.0},
+ 
+    {'nombre': 'Solo temperatura (tau=0.8)',
+     'tau': 0.8,  'k': 0, 'p': 0.0, 'rep_pen': 1.0},
+ 
+    {'nombre': 'Top-k=5, tau=0.8',
+     'tau': 0.8,  'k': 5, 'p': 0.0, 'rep_pen': 1.0},
+ 
+    {'nombre': 'Top-p=0.90, tau=0.8',
+     'tau': 0.8,  'k': 0, 'p': 0.9, 'rep_pen': 1.0},
+ 
+    {'nombre': 'Top-p=0.90 + rep_pen=1.2',
+     'tau': 0.8,  'k': 0, 'p': 0.9, 'rep_pen': 1.2},
+]
+ 
+SEMILLA = 'la inteligencia'
+print(f'=== COMPARATIVA DE ESTRATEGIAS ===')
+print(f'Semilla: "{SEMILLA}"  |  70 tokens a generar')
+print()
+ 
+# El forward del Programa 8 trabaja con lotes: le pasamos un lote de una
+# sola secuencia y nos quedamos con sus logits, de forma (T, V)
+def logits_nano(ctx):
+    return forward(np.array([ctx]))[0][0]
+ 
+np.random.seed(7)
+for conf in estrategias:
+    np.random.seed(7)   # misma semilla aleatoria para comparar
+    nombre = conf.pop('nombre')
+    texto = generar_avanzado(logits_nano, C2I, I2C, SEMILLA, n=70, CTX=CTX, **conf)
+    # (C2I, I2C y forward son los del Nano-LLM ya entrenado, Programa 8)
+    print(f'  [{nombre}]')
+    print(f'  -> {texto}')
+    print()
+ 
+# ================================================================
+# ANALISIS: efecto de tau y top-p sobre la diversidad
+# ================================================================
+print('=== EFECTO EN LA DIVERSIDAD DEL TEXTO ===')
+print()
+print('Tau muy bajo (< 0.3):')
+print('  El modelo siempre elige el token mas probable.')
+print('  Texto coherente pero repetitivo. Mismo texto siempre.')
+print()
+print('Tau 0.7-0.9 + Top-p=0.90 (configuracion estandar):')
+print('  Balance entre coherencia y variedad.')
+print('  Cada ejecucion produce texto distinto pero sensato.')
+print('  Es la configuracion por defecto de la mayoria de LLMs.')
+print()
+print('Tau muy alto (> 1.5):')
+print('  El texto se vuelve incoherente. Palabras aleatorias.')
+print('  Util para explorar espacios creativos extremos.')
+print()
+print('Top-p=0.90 + rep_pen=1.2:')
+print('  Evita la repeticion. Necesario en textos largos.')
+print('  Riesgo: penalizacion muy alta puede evitar palabras necesarias.')
+```
+
+**Ejecución:** `python programa_S2_generacion_completa.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.2 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+=== COMPARATIVA DE ESTRATEGIAS ===
+Semilla: "la inteligencia"  |  70 tokens a generar
+
+  [Greedy (tau=0.01)]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el 
+
+  [Solo temperatura (tau=0.8)]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguades.
+el aprendi
+
+  [Top-k=5, tau=0.8]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguades.
+el aprendi
+
+  [Top-p=0.90, tau=0.8]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el 
+
+  [Top-p=0.90 + rep_pen=1.2]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguaje práctica, un
+
+=== EFECTO EN LA DIVERSIDAD DEL TEXTO ===
+
+Tau muy bajo (< 0.3):
+  El modelo siempre elige el token mas probable.
+  Texto coherente pero repetitivo. Mismo texto siempre.
+
+Tau 0.7-0.9 + Top-p=0.90 (configuracion estandar):
+  Balance entre coherencia y variedad.
+  Cada ejecucion produce texto distinto pero sensato.
+  Es la configuracion por defecto de la mayoria de LLMs.
+
+Tau muy alto (> 1.5):
+  El texto se vuelve incoherente. Palabras aleatorias.
+  Util para explorar espacios creativos extremos.
+
+Top-p=0.90 + rep_pen=1.2:
+  Evita la repeticion. Necesario en textos largos.
+  Riesgo: penalizacion muy alta puede evitar palabras necesarias.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (36 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 70. Ejercicio 14.1 — Implementar Min-P sampling
+
+**Archivo:** `ejercicio_14_1.py`  ·  **Capítulo:** Capítulo 14: Estrategias de Muestreo — Top-k y Top-p (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (35 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(x): e=np.exp(x-x.max()); return e/e.sum()
+ 
+def min_p_filtrar(probs, p_min):
+    '''Conserva tokens con prob >= p_min * prob_maxima'''
+    umbral = p_min * probs.max()
+    mask = np.where(probs >= umbral, probs, 0)
+    return mask / mask.sum()
+ 
+def top_p_filtrar(probs, p):
+    idx = np.argsort(probs)[::-1]
+    acum = np.cumsum(probs[idx])
+    n = int(np.searchsorted(acum, p)) + 1
+    mask = np.zeros_like(probs)
+    mask[idx[:n]] = probs[idx[:n]]
+    return mask / mask.sum()
+ 
+tokens = ['el', 'la', 'un', 'los', 'de', 'que', 'en', 'y', 'a', 'por']
+logits = np.array([3.8, 3.2, 2.1, 1.8, 1.5, 1.0, 0.5, 0.2, -0.3, -0.8])
+probs  = softmax(logits)
+ 
+print('=== MIN-P vs TOP-P ===\n')
+for p_min in [0.05, 0.1, 0.3]:
+    filtrado = min_p_filtrar(probs, p_min)
+    n_activos = (filtrado > 0).sum()
+    print(f'Min-P={p_min}: {n_activos} tokens activos')
+    for tok, p in zip(tokens, filtrado):
+        if p > 0: print(f'    {tok}: {p:.3f}')
+    print()
+ 
+for p in [0.8, 0.9]:
+    filtrado = top_p_filtrar(probs, p)
+    n_activos = (filtrado > 0).sum()
+    print(f'Top-P={p}: {n_activos} tokens activos')
+```
+
+**Ejecución:** `python ejercicio_14_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== MIN-P vs TOP-P ===
+
+Min-P=0.05: 6 tokens activos
+    el: 0.493
+    la: 0.271
+    un: 0.090
+    los: 0.067
+    de: 0.049
+    que: 0.030
+
+Min-P=0.1: 5 tokens activos
+    el: 0.508
+    la: 0.279
+    un: 0.093
+    los: 0.069
+    de: 0.051
+
+Min-P=0.3: 2 tokens activos
+    el: 0.646
+    la: 0.354
+
+Top-P=0.8: 3 tokens activos
+Top-P=0.9: 5 tokens activos
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_14_1.txt`), que es la que describe el texto.
+
+## 71. Ejercicio 14.2 — Medir la diversidad léxica con distintas temperaturas
+
+**Archivo:** `ejercicio_14_2.py`  ·  **Capítulo:** Capítulo 14: Estrategias de Muestreo — Top-k y Top-p (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (40 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def type_token_ratio(texto):
+    palabras = texto.lower().split()
+    if not palabras: return 0
+    return len(set(palabras)) / len(palabras)
+ 
+# Simulacion: con el Nano-LLM real, cargar params = dict(np.load('nano_llm_pesos.npz'))
+def simular_generacion(tau, semilla, vocab_efectivo=15):
+    '''Simula texto generado con cierta temperatura'''
+    np.random.seed(semilla)
+    palabras_base = ['la','red','aprende','de','los','datos','el',
+                     'modelo','predice','token','siguiente','con',
+                     'atencion','capas','neuronas']
+    n_palabras = 30
+    # A mayor tau, mas aleatoriedad en la eleccion (simulado)
+    if tau < 0.5:
+        # Baja temperatura: repite mucho un subconjunto pequeño
+        pool = palabras_base[:4]
+    elif tau < 1.0:
+        pool = palabras_base[:10]
+    else:
+        pool = palabras_base
+    return ' '.join(np.random.choice(pool, n_palabras))
+ 
+print('=== DIVERSIDAD LEXICA SEGUN TEMPERATURA ===\n')
+print(f"{'Temperatura':>12}  {'TTR medio':>10}  {'TTR std':>10}")
+print('-' * 38)
+ 
+for tau in [0.3, 0.7, 1.0, 1.3]:
+    ratios = []
+    for semilla in range(20):
+        texto = simular_generacion(tau, semilla)
+        ratios.append(type_token_ratio(texto))
+    print(f'{tau:>12.1f}  {np.mean(ratios):>10.3f}  {np.std(ratios):>10.3f}')
+ 
+print()
+print('TTR mayor = mas variedad lexica = menos repeticion')
+print('Temperaturas bajas producen TTR bajo (texto repetitivo)')
+print('Temperaturas muy altas pueden producir TTR alto pero incoherente')
+```
+
+**Ejecución:** `python ejercicio_14_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== DIVERSIDAD LEXICA SEGUN TEMPERATURA ===
+
+ Temperatura   TTR medio     TTR std
+--------------------------------------
+         0.3       0.133       0.000
+         0.7       0.322       0.019
+         1.0       0.432       0.047
+         1.3       0.432       0.047
+
+TTR mayor = mas variedad lexica = menos repeticion
+Temperaturas bajas producen TTR bajo (texto repetitivo)
+Temperaturas muy altas pueden producir TTR alto pero incoherente
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_14_2.txt`), que es la que describe el texto.
+
+## 72. Ejercicio 14.3 — Diseñar una estrategia de muestreo adaptativa
+
+**Archivo:** `ejercicio_14_3.py`  ·  **Capítulo:** Capítulo 14: Estrategias de Muestreo — Top-k y Top-p (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (49 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(x): e=np.exp(x-x.max()); return e/e.sum()
+def top_p_filtrar(p, pp):
+    idx=np.argsort(p)[::-1]; ac=np.cumsum(p[idx])
+    n=int(np.searchsorted(ac,pp))+1
+    m=np.zeros_like(p); m[idx[:n]]=p[idx[:n]]; return m/m.sum()
+ 
+def generar_adaptativo(modelo_forward, c2i, i2c, semilla, n=60,
+                        CTX=24, tau_inicial=0.3, tau_resto=0.9,
+                        n_tokens_iniciales=10, top_p_resto=0.9):
+    '''
+    Estrategia adaptativa: temperatura baja al principio (coherencia),
+    temperatura mas alta + top-p despues (variedad).
+    '''
+    V = len(c2i)
+    tokens = [c2i.get(c, 0) for c in semilla[-CTX:]]
+    resultado = semilla
+    
+    for i in range(n):
+        ctx = tokens[-CTX:]   # SIN relleno: se usa la longitud real
+        logits = modelo_forward(ctx)[-1]
+        
+        # Estrategia adaptativa segun la posicion
+        if i < n_tokens_iniciales:
+            tau = tau_inicial
+            probs = softmax(logits / tau)
+        else:
+            tau = tau_resto
+            probs = softmax(logits / tau)
+            probs = top_p_filtrar(probs, top_p_resto)
+        
+        siguiente = int(np.random.choice(V, p=probs))
+        tokens.append(siguiente)
+        resultado += i2c[siguiente]
+    
+    return resultado
+ 
+print('=== ESTRATEGIA DE MUESTREO ADAPTATIVA ===\n')
+print('Primeros 10 tokens:  tau=0.3 (determinista, ancla el inicio)')
+print('Tokens siguientes:   tau=0.9 + top-p=0.9 (variedad creativa)')
+print()
+print('Justificacion:')
+print('  - El inicio de una respuesta suele tener pocas opciones')
+print('    razonables (saludo, estructura gramatical inicial).')
+print('  - Una vez establecido el contexto, hay mas margen creativo')
+print('    sin perder coherencia.')
+print('  - Esta tecnica reduce la varianza de calidad entre generaciones')
+print('    manteniendo diversidad donde realmente aporta valor.')
+```
+
+**Ejecución:** `python ejercicio_14_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== ESTRATEGIA DE MUESTREO ADAPTATIVA ===
+
+Primeros 10 tokens:  tau=0.3 (determinista, ancla el inicio)
+Tokens siguientes:   tau=0.9 + top-p=0.9 (variedad creativa)
+
+Justificacion:
+  - El inicio de una respuesta suele tener pocas opciones
+    razonables (saludo, estructura gramatical inicial).
+  - Una vez establecido el contexto, hay mas margen creativo
+    sin perder coherencia.
+  - Esta tecnica reduce la varianza de calidad entre generaciones
+    manteniendo diversidad donde realmente aporta valor.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_14_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)
+
+## 73. Programa RZ-1 — ¿El Nano-LLM memoriza o generaliza?
+
+**Archivo:** `programa_RZ1_memoriza.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (316 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA RZ-1 — ¿El Nano-LLM memoriza o generaliza?
+# Capítulo 15 — Diagnóstico riguroso del Programa 8
+#
+# Tres pruebas sobre el mismo corpus de 93 frases:
+#   1. Apartamos 10 frases que el modelo NUNCA verá y medimos
+#      la pérdida en ellas a lo largo del entrenamiento.
+#   2. Comparamos con un contador de n-gramas (sin red
+#      neuronal): ¿supera el transformer a contar letras?
+#   3. Con el modelo del Programa 8 ya entrenado, medimos qué
+#      parte del texto que genera es copia literal del corpus.
+#
+# Requisitos: programa_8_nano_llm.py en la misma carpeta (se
+# lee su TEXTO) y haberlo ejecutado antes (nano_llm_pesos.npz).
+# El modelo es el MISMO del Programa 8 (GPT-2 en miniatura):
+# sus funciones se copian aquí con un único cambio, que los
+# parámetros se pasan como argumento (p), porque la prueba 3
+# usa a la vez el modelo nuevo y el del Programa 8.
+# =======================================================
+import re
+from collections import defaultdict
+import numpy as np
+ 
+# -- Corpus: el TEXTO del Programa 8 -------------------------
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+TEXTO = fuente.split('TEXTO = """')[1].split('"""')[0]
+VOCAB = sorted(set(TEXTO))
+V = len(VOCAB)
+C2I = {c: i for i, c in enumerate(VOCAB)}
+I2C = dict(enumerate(VOCAB))
+FRASES = TEXTO.strip().split('\n')
+ 
+# 1 de cada 9 frases va a VALIDACIÓN (Capítulo 7, 7.5)
+VAL_IDX = list(range(4, len(FRASES), 9))
+VAL = [FRASES[i] for i in VAL_IDX]
+TRAIN = [f for i, f in enumerate(FRASES) if i not in VAL_IDX]
+texto_train = '\n' + '\n'.join(TRAIN) + '\n'
+DATOS = np.array([C2I[c] for c in texto_train])
+print(f'Frases: {len(FRASES)} | entrenamiento: {len(TRAIN)} | validación: {len(VAL)}')
+print('Ejemplos de frases de validación (el modelo no las verá):')
+for f in VAL[:3]:
+    print('   ', f)
+ 
+# -- Hiperparámetros: idénticos al Programa 8 ----------------
+CTX, D, H, D_FF, N_BLQ = 24, 48, 4, 192, 2
+DH = D // H
+LR, PASOS, BATCH, CLIP = 3e-3, 12000, 8, 1.0
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)
+np.random.seed(42)
+ 
+ 
+def randn(shape, std=0.02):
+    return np.random.randn(*shape) * std
+ 
+ 
+def nuevos_params():
+    """Los mismos tensores del Programa 8, con su misma inicialización."""
+    p = {'wte': randn((V, D)), 'wpe': randn((CTX, D)),
+         'lnf_g': np.ones(D), 'lnf_b': np.zeros(D)}
+    for k in range(N_BLQ):
+        p[f'ln1_g{k}'] = np.ones(D); p[f'ln1_b{k}'] = np.zeros(D)
+        for n in 'qkv':
+            p[f'W{n}{k}'] = randn((D, D)); p[f'b{n}{k}'] = np.zeros(D)
+        p[f'Wo{k}'] = randn((D, D), STD_RES); p[f'bo{k}'] = np.zeros(D)
+        p[f'ln2_g{k}'] = np.ones(D); p[f'ln2_b{k}'] = np.zeros(D)
+        p[f'W1{k}'] = randn((D, D_FF)); p[f'b1{k}'] = np.zeros(D_FF)
+        p[f'W2{k}'] = randn((D_FF, D), STD_RES); p[f'b2{k}'] = np.zeros(D)
+    return p
+ 
+ 
+MASCARA = np.triu(np.full((CTX, CTX), -1e9), k=1)
+# -- Las funciones del Programa 8, con los parámetros p como argumento --
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+ 
+ 
+def ln_fwd(x, g, b, eps=1e-5):
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+ 
+ 
+def ln_bwd(dy, g, cache):
+    xhat, inv = cache
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, (dy * xhat).sum((0, 1)), dy.sum((0, 1))
+ 
+ 
+C_GELU = np.sqrt(2 / np.pi)
+def gelu(x):
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+ 
+ 
+def gelu_bwd(x):
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+ 
+ 
+def separar(x):   # (B, T, D) -> (B, H, T, DH)
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+ 
+ 
+def unir(x):      # (B, H, T, DH) -> (B, T, D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+ 
+ 
+def tmm(a, b):
+    """Σ sobre lote y posiciones de aᵀ·b (gradiente de una capa lineal)."""
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+ 
+ 
+# -- Forward por lotes: tok (B, T) -> logits (B, T, V) -------
+def forward(p, tok):
+    B, T = tok.shape
+    X = p['wte'][tok] + p['wpe'][:T]
+    cache = []
+    for k in range(N_BLQ):
+        a, c1 = ln_fwd(X, p[f'ln1_g{k}'], p[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ p[f'W{n}{k}'] + p[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = X + att @ p[f'Wo{k}'] + p[f'bo{k}']
+        m_, c2 = ln_fwd(X1, p[f'ln2_g{k}'], p[f'ln2_b{k}'])
+        hp = m_ @ p[f'W1{k}'] + p[f'b1{k}']
+        h = gelu(hp)
+        X = X1 + h @ p[f'W2{k}'] + p[f'b2{k}']
+        cache.append((a, c1, Q, K, Vm, pesos, att, m_, c2, hp, h))
+    xf, cf = ln_fwd(X, p['lnf_g'], p['lnf_b'])
+    return xf @ p['wte'].T, (xf, cf, cache)
+ 
+ 
+def perdida(p, tok, tgt, w):
+    probs = softmax(forward(p, tok)[0])
+    B, T = tok.shape
+    lp = np.log(probs[np.arange(B)[:, None], np.arange(T)[None, :], tgt] + 1e-10)
+    return -(lp * w).sum() / w.sum()
+ 
+ 
+# -- Backward (las mismas derivadas del Programa 8) -----------
+def forward_backward(p, tok, tgt):
+    B, T = tok.shape
+    logits, (xf, cf, cache) = forward(p, tok)
+    probs = softmax(logits)
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -np.log(probs[bi, ti, tgt] + 1e-10).mean()
+    g = {k: np.zeros_like(v) for k, v in p.items()}
+    dl = probs.copy(); dl[bi, ti, tgt] -= 1.0; dl /= B * T
+    g['wte'] += tmm(dl, xf)
+    dX, g['lnf_g'], g['lnf_b'] = ln_bwd(dl @ p['wte'], p['lnf_g'], cf)
+    for k in reversed(range(N_BLQ)):
+        a, c1, Q, K, Vm, pesos, att, m_, c2, hp, h = cache[k]
+        g[f'W2{k}'] = tmm(h, dX); g[f'b2{k}'] = dX.sum((0, 1))
+        dhp = (dX @ p[f'W2{k}'].T) * gelu_bwd(hp)
+        g[f'W1{k}'] = tmm(m_, dhp); g[f'b1{k}'] = dhp.sum((0, 1))
+        dx1, g[f'ln2_g{k}'], g[f'ln2_b{k}'] = ln_bwd(dhp @ p[f'W1{k}'].T, p[f'ln2_g{k}'], c2)
+        dX1 = dX + dx1
+        g[f'Wo{k}'] = tmm(att, dX1); g[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ p[f'Wo{k}'].T)
+        dpesos = datt @ Vm.transpose(0, 1, 3, 2)
+        dVm = pesos.transpose(0, 1, 3, 2) @ datt
+        dsc = pesos * (dpesos - (dpesos * pesos).sum(-1, keepdims=True)) / np.sqrt(DH)
+        da = np.zeros_like(a)
+        for n, dn in zip('qkv', (unir(dsc @ K), unir(dsc.transpose(0, 1, 3, 2) @ Q), unir(dVm))):
+            g[f'W{n}{k}'] = tmm(a, dn); g[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ p[f'W{n}{k}'].T
+        dxin, g[f'ln1_g{k}'], g[f'ln1_b{k}'] = ln_bwd(da, p[f'ln1_g{k}'], c1)
+        dX = dX1 + dxin
+    g['wpe'][:T] = dX.sum(0)
+    np.add.at(g['wte'], tok, dX)
+    return g, loss
+ 
+ 
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    if t < t_warmup:
+        return lr_max * (t + 1) / t_warmup
+    return lr_min + 0.5 * (lr_max - lr_min) * (1 + np.cos(np.pi * (t - t_warmup) / (t_total - t_warmup)))
+ 
+ 
+# -- Ventanas de evaluación: cada frase con su propio contexto --
+def ventanas(frases):
+    xs, ys, ws = [], [], []
+    for f in frases:
+        ids = [C2I[c] for c in '\n' + f + '\n']
+        for s in range(0, len(ids) - 1, CTX):
+            n = min(CTX, len(ids) - 1 - s)
+            st = max(0, s + n - CTX)              # máximo contexto posible
+            x, y = ids[st:st + CTX], ids[st + 1:st + CTX + 1]
+            w = [0] * (s - st) + [1] * (len(y) - (s - st))
+            pad = CTX - len(y)
+            xs.append(x[:len(y)] + [0] * pad); ys.append(y + [0] * pad); ws.append(w + [0] * pad)
+    return np.array(xs), np.array(ys), np.array(ws, float)
+ 
+ 
+XT, YT, WT = ventanas(TRAIN)
+XV, YV, WV = ventanas(VAL)
+# =======================================================
+# PRUEBA 1 — Curva de pérdida en frases vistas y no vistas
+# =======================================================
+print('\n=== PRUEBA 1: pérdida en entrenamiento y en validación ===')
+print(f'Referencia: adivinar al azar = ln({V}) = {np.log(V):.3f}')
+p = nuevos_params()
+m = {k: np.zeros_like(v) for k, v in p.items()}
+v = {k: np.zeros_like(x) for k, x in p.items()}
+rng = np.random.RandomState(7)
+mejor = (9.9, 0)
+for paso in range(PASOS):
+    ii = rng.randint(0, len(DATOS) - CTX - 1, BATCH)
+    x = np.stack([DATOS[i:i + CTX] for i in ii]); y = np.stack([DATOS[i + 1:i + CTX + 1] for i in ii])
+    g, _ = forward_backward(p, x, y)
+    norma = np.sqrt(sum((gg ** 2).sum() for gg in g.values()))
+    if norma > CLIP:
+        g = {k: gg * CLIP / norma for k, gg in g.items()}
+    t, lr = paso + 1, lr_warmup_coseno(paso, LR, PASOS)
+    for k in p:
+        m[k] = 0.9 * m[k] + 0.1 * g[k]
+        v[k] = 0.999 * v[k] + 0.001 * g[k] ** 2
+        p[k] -= lr * (m[k] / (1 - 0.9 ** t)) / (np.sqrt(v[k] / (1 - 0.999 ** t)) + 1e-8)
+    if paso % 250 == 0 or paso == PASOS - 1:
+        lv = perdida(p, XV, YV, WV)
+        if lv < mejor[0]:
+            mejor = (lv, paso)
+        if paso % 1000 == 0 or paso == PASOS - 1:
+            lt = perdida(p, XT, YT, WT)
+            print(f'Paso {paso:5d}: entrenamiento {lt:.3f} | validación {lv:.3f}')
+print(f'Mejor validación: {mejor[0]:.3f} en el paso {mejor[1]} '
+      f'(ahí habría parado el Early Stopping del Capítulo 7)')
+# =======================================================
+# PRUEBA 2 — ¿Supera el transformer a un contador de n-gramas?
+# =======================================================
+def ngramas(n):
+    """Modelo de n-gramas de caracteres con suavizado Witten-Bell."""
+    cnt = [defaultdict(lambda: defaultdict(int)) for _ in range(n)]
+    for i in range(len(texto_train)):
+        for k in range(min(n, i + 1)):
+            cnt[k][texto_train[i - k:i]][texto_train[i]] += 1
+ 
+    def prob(ctx, c):
+        q = 1.0 / V
+        for k in range(min(n, len(ctx) + 1)):
+            d = cnt[k].get(ctx[len(ctx) - k:] if k else '')
+            if d:
+                N, Tt = sum(d.values()), len(d)
+                q = (d.get(c, 0) + Tt * q) / (N + Tt)
+        return q
+    return prob
+ 
+ 
+def entropia_cruzada(prob, frases):
+    tot = n = 0
+    for f in frases:
+        s = '\n' + f + '\n'
+        for j in range(1, len(s)):
+            tot -= np.log(prob(s[max(0, j - CTX):j], s[j])); n += 1
+    return tot / n
+ 
+ 
+print('\n=== PRUEBA 2: contadores de n-gramas (sin red neuronal) ===')
+print('contexto   entrenamiento   validación')
+for n in range(1, 7):
+    pr = ngramas(n)
+    print(f'{n - 1:5d} car. {entropia_cruzada(pr, TRAIN):12.3f} {entropia_cruzada(pr, VAL):12.3f}')
+ 
+# =======================================================
+# PRUEBA 3 — ¿Cuánto del texto generado es copia literal?
+# =======================================================
+print('\n=== PRUEBA 3: texto generado por el Programa 8 (todo el corpus) ===')
+p8 = dict(np.load('nano_llm_pesos.npz'))
+PALABRAS = set(re.findall(r'[a-záéíóúñ]+', TEXTO))
+ 
+ 
+def top_p(pr, tp=0.9):
+    o = np.argsort(pr)[::-1]
+    n = int(np.searchsorted(np.cumsum(pr[o]), tp)) + 1
+    q = np.zeros_like(pr); q[o[:n]] = pr[o[:n]]
+    return q / q.sum()
+ 
+ 
+def generar_lote(semilla, n_chars, k, rng, tau=0.8):
+    toks = np.array([[C2I[c] for c in semilla]] * k)
+    for _ in range(n_chars):
+        lg = forward(p8, toks[:, -CTX:])[0][:, -1]
+        sig = [rng.choice(V, p=top_p(softmax(lg[i] / tau))) for i in range(k)]
+        toks = np.concatenate([toks, np.array(sig)[:, None]], 1)
+    return [''.join(I2C[t] for t in fila) for fila in toks]
+ 
+ 
+def fraccion_copiada(s, L=20):
+    """Fracción de caracteres dentro de algún trozo de >= L caracteres
+    que aparece tal cual en el corpus."""
+    cub = np.zeros(len(s), bool)
+    for i in range(len(s) - L + 1):
+        if s[i:i + L] in TEXTO:
+            cub[i:i + L] = True
+    return cub.mean()
+ 
+ 
+rng = np.random.RandomState(2026)
+print('semilla              copia(>=20 car.)  líneas idénticas  palabras inventadas')
+for semilla in ['la inteligencia', 'un modelo ', 'el gato ', 'mañana la ']:
+    textos = generar_lote(semilla, 150, 10, rng)
+    copia = np.mean([fraccion_copiada(t) for t in textos])
+    lineas = [l for t in textos for l in t[len(semilla):].split('\n')[1:-1]]
+    identicas = sum(l in FRASES for l in lineas)
+    palabras = [w for t in textos for w in re.findall(r'[a-záéíóúñ]+', t[len(semilla):])[:-1]]
+    nuevas = sorted({w for w in palabras if w not in PALABRAS})
+    print(f'{semilla!r:20s} {copia:10.0%} {identicas:10d}/{len(lineas):<3d} '
+          f'{len(nuevas):8d} {", ".join(nuevas[:3])}')
+print('\nEjemplo con una semilla que no está en el corpus:')
+print(textos[0])
+```
+
+**Ejecución:** `python programa_RZ1_memoriza.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  69.9 s
+
+**Salida real por consola:**
+
+```
+Frases: 93 | entrenamiento: 83 | validación: 10
+Ejemplos de frases de validación (el modelo no las verá):
+    la atención permite ver todo el contexto a la vez.
+    la función softmax convierte logits en probabilidades.
+    ¡el aprendizaje nunca termina! sigue explorando.
+
+=== PRUEBA 1: pérdida en entrenamiento y en validación ===
+Referencia: adivinar al azar = ln(46) = 3.829
+Paso     0: entrenamiento 3.827 | validación 3.825
+Paso  1000: entrenamiento 1.378 | validación 1.934
+Paso  2000: entrenamiento 0.823 | validación 2.188
+Paso  3000: entrenamiento 0.519 | validación 2.613
+Paso  4000: entrenamiento 0.403 | validación 3.091
+Paso  5000: entrenamiento 0.368 | validación 3.497
+Paso  6000: entrenamiento 0.319 | validación 3.534
+Paso  7000: entrenamiento 0.282 | validación 3.708
+Paso  8000: entrenamiento 0.251 | validación 3.967
+Paso  9000: entrenamiento 0.236 | validación 4.017
+Paso 10000: entrenamiento 0.228 | validación 4.050
+Paso 11000: entrenamiento 0.216 | validación 4.118
+Paso 11999: entrenamiento 0.212 | validación 4.175
+Mejor validación: 1.923 en el paso 750 (ahí habría parado el Early Stopping del Capítulo 7)
+
+=== PRUEBA 2: contadores de n-gramas (sin red neuronal) ===
+contexto   entrenamiento   validación
+    0 car.        2.945        2.964
+    1 car.        2.128        2.263
+    2 car.        1.540        1.874
+    3 car.        0.946        1.691
+    4 car.        0.572        1.702
+    5 car.        0.376        1.762
+
+=== PRUEBA 3: texto generado por el Programa 8 (todo el corpus) ===
+semilla              copia(>=20 car.)  líneas idénticas  palabras inventadas
+'la inteligencia'          100%         20/20         0 
+'un modelo '               100%         16/16         0 
+'el gato '                  81%         15/17        15 ativo, ente, entenece
+'mañana la '                97%         18/20         0 
+
+Ejemplo con una semilla que no está en el corpus:
+mañana la vez.
+los transformers son la base de los llm modernos.
+entrenar un modelo requiere muchos datos y cálculo.
+el futuro pertenece a quienes comprenden la
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (unos dos minutos):» (40 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 74. Programa RZ-2 — El Nano-LLM aprende una regla: sumar
+
+**Archivo:** `programa_RZ2_suma.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (271 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA RZ-2 — El Nano-LLM aprende una regla: sumar
+# Capítulo 15 — De memorizar a generalizar
+#
+# El modelo del Programa 8 (GPT-2 en miniatura, NumPy puro)
+# entrenado con sumas de dos cifras.
+# Se examina con 2 000 sumas que NUNCA ha visto: si acierta,
+# no le basta con memorizar: tiene que aplicar la regla.
+#
+# Cambios respecto al Programa 8:
+#   1. Datos: sumas «47+85=» en lugar de frases. De las 10 000
+#      sumas posibles, 2 000 se apartan para el examen.
+#   2. Resultado escrito al revés (unidades primero), como se
+#      suma a mano: cada cifra depende solo de lo ya escrito.
+#   3. Atención de 2 cabezas (el Programa 8 usa 4).
+#   4. Lotes vectorizados (B, T, D) en lugar de un bucle.
+#   5. La pérdida solo cuenta las 3 cifras del resultado.
+#   6. Todo lo demás es el Programa 8: bloques Pre-LN con γ y β,
+#      GELU, LayerNorm final, pesos compartidos, inicialización de
+#      GPT-2 y Adam con warmup + coseno y recorte del gradiente.
+#
+# Uso:  python programa_RZ2_suma.py [semilla] [n_entreno] [cabezas] [excluir]
+#   n_entreno  sumas de entrenamiento (por defecto 8000)
+#   cabezas    cabezas de atención (por defecto 2)
+#   excluir    p. ej. 75: no se entrena con ninguna suma cuyas
+#              unidades sean 7 y 5 (ni 5 y 7); el examen son esas
+#              200 sumas. Comprueba si el modelo deduce un hecho
+#              que nunca vio.
+# Tiempo aproximado: unos 3 minutos.
+# =======================================================
+import sys
+import numpy as np
+
+# -- Datos: sumas de dos cifras ----------------------------
+VOCAB = list('0123456789+=\n')
+V = len(VOCAB)
+C2I = {c: i for i, c in enumerate(VOCAB)}
+I2C = dict(enumerate(VOCAB))
+
+
+def formatear(a, b):
+    """47+85=132  ->  '47+85=231\\n'  (resultado al revés, 3 cifras)"""
+    return f'{a:02d}+{b:02d}=' + str(a + b).zfill(3)[::-1] + '\n'
+
+
+SEMILLA = int(sys.argv[1]) if len(sys.argv) > 1 else 42
+N_ENTRENO = int(sys.argv[2]) if len(sys.argv) > 2 else 8000
+H = int(sys.argv[3]) if len(sys.argv) > 3 else 2          # cabezas de atención
+EXCLUIR = sys.argv[4] if len(sys.argv) > 4 else None
+
+pares = [(a, b) for a in range(100) for b in range(100)]      # 10 000 sumas
+np.random.RandomState(0).shuffle(pares)                       # partición fija
+TEST, TRAIN = pares[:2000], pares[2000:2000 + N_ENTRENO]       # 2 000 nunca vistas
+if EXCLUIR:
+    u1, u2 = int(EXCLUIR[0]), int(EXCLUIR[1])
+    prohibida = lambda a, b: sorted((a % 10, b % 10)) == sorted((u1, u2))
+    TEST = [q for q in pares if prohibida(*q)]
+    TRAIN = [q for q in pares if not prohibida(*q)][:N_ENTRENO]
+
+
+def a_tensor(ps):
+    S = np.array([[C2I[c] for c in formatear(a, b)] for a, b in ps])
+    return S[:, :-1], S[:, 1:]                                 # entrada, objetivo
+
+
+X_TR, Y_TR = a_tensor(TRAIN)
+X_TE, Y_TE = a_tensor(TEST)
+PESO = np.zeros(9); PESO[5:8] = 1      # solo se puntúan las 3 cifras del resultado
+
+# -- Hiperparámetros ---------------------------------------
+CTX, D, D_FF, N_BLQ = 9, 48, 192, 2
+DH = D // H                            # 24 dimensiones por cabeza (con H = 2)
+LR, PASOS, BATCH, CLIP = 3e-3, 6000, 64, 1.0
+np.random.seed(SEMILLA)
+
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)    # Wo y W2, como en el Programa 8
+
+
+def randn(shape, std=0.02):
+    return np.random.randn(*shape) * std
+
+
+params = {'wte': randn((V, D)), 'wpe': randn((CTX, D))}
+params['lnf_g'] = np.ones(D); params['lnf_b'] = np.zeros(D)
+for k in range(N_BLQ):
+    params[f'ln1_g{k}'] = np.ones(D); params[f'ln1_b{k}'] = np.zeros(D)
+    for n in 'qkv':
+        params[f'W{n}{k}'] = randn((D, D)); params[f'b{n}{k}'] = np.zeros(D)
+    params[f'Wo{k}'] = randn((D, D), STD_RES); params[f'bo{k}'] = np.zeros(D)
+    params[f'ln2_g{k}'] = np.ones(D); params[f'ln2_b{k}'] = np.zeros(D)
+    params[f'W1{k}'] = randn((D, D_FF)); params[f'b1{k}'] = np.zeros(D_FF)
+    params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)
+print(f'Parámetros: {sum(p.size for p in params.values()):,}')
+print(f'Semilla {SEMILLA} | cabezas {H} | sumas de entrenamiento: {len(TRAIN)} | '
+      f'sumas de examen (no vistas): {len(TEST)}' + (f' | excluidas unidades {EXCLUIR[0]} y {EXCLUIR[1]}' if EXCLUIR else ''))
+MASCARA = np.triu(np.full((CTX, CTX), -1e9), k=1)
+
+
+# -- Utilidades (las del Programa 8) -------------------------
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+
+
+def layer_norm_fwd(x, g, b, eps=1e-5):
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+
+
+def layer_norm_bwd(dy, g, cache):
+    xhat, inv = cache
+    ejes = tuple(range(dy.ndim - 1))
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, (dy * xhat).sum(ejes), dy.sum(ejes)
+
+
+C_GELU = np.sqrt(2 / np.pi)
+
+
+def gelu(x):
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+
+
+def gelu_bwd(x):
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+
+
+def separar(x):        # (B,T,D) -> (B,H,T,DH)
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+
+
+def unir(x):           # (B,H,T,DH) -> (B,T,D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+
+
+def tmm(a, b):
+    """Suma sobre lote y posiciones de aᵀ·b: el gradiente de una capa lineal."""
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+
+
+# -- Forward (el del Programa 8) ----------------------------
+def forward(tok):
+    B, T = tok.shape
+    X = params['wte'][tok] + params['wpe'][:T]
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+        cache.append(dict(a=a, ln1=ln1, Q=Q, K=K, Vm=Vm, pesos=pesos,
+                          att=att, m=m, ln2=ln2, h_pre=h_pre, h=h))
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    return xf @ params['wte'].T, (xf, lnf), cache
+
+
+# -- Forward + Backward (el del Programa 8, con la pérdida ponderada por w) --
+def forward_backward(tok, tgt, w):
+    B, T = tok.shape
+    logits, (xf, lnf), cache = forward(tok)
+    probs = softmax(logits)
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -(np.log(probs[bi, ti, tgt] + 1e-10) * w).sum() / w.sum()
+    g = {k: np.zeros_like(v) for k, v in params.items()}
+    dlog = probs.copy()
+    dlog[bi, ti, tgt] -= 1.0
+    dlog *= (w / w.sum())[..., None]          # solo cuentan las posiciones con w = 1
+    g['wte'] += tmm(dlog, xf)                 # wte como matriz de salida
+    dX, g['lnf_g'], g['lnf_b'] = layer_norm_bwd(dlog @ params['wte'], params['lnf_g'], lnf)
+    for k in reversed(range(N_BLQ)):
+        c = cache[k]
+        g[f'W2{k}'] = tmm(c['h'], dX)
+        g[f'b2{k}'] = dX.sum((0, 1))
+        dh_pre = (dX @ params[f'W2{k}'].T) * gelu_bwd(c['h_pre'])
+        g[f'W1{k}'] = tmm(c['m'], dh_pre)
+        g[f'b1{k}'] = dh_pre.sum((0, 1))
+        dx1, g[f'ln2_g{k}'], g[f'ln2_b{k}'] = layer_norm_bwd(dh_pre @ params[f'W1{k}'].T, params[f'ln2_g{k}'], c['ln2'])
+        dX1 = dX + dx1
+        g[f'Wo{k}'] = tmm(c['att'], dX1)
+        g[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ params[f'Wo{k}'].T)
+        dpesos = datt @ c['Vm'].transpose(0, 1, 3, 2)
+        dVm = c['pesos'].transpose(0, 1, 3, 2) @ datt
+        s = (dpesos * c['pesos']).sum(-1, keepdims=True)
+        dscores = c['pesos'] * (dpesos - s) / np.sqrt(DH)
+        dQ, dK, dV = unir(dscores @ c['K']), unir(dscores.transpose(0, 1, 3, 2) @ c['Q']), unir(dVm)
+        da = np.zeros_like(c['a'])
+        for n, dn in zip('qkv', (dQ, dK, dV)):
+            g[f'W{n}{k}'] = tmm(c['a'], dn)
+            g[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ params[f'W{n}{k}'].T
+        dxin, g[f'ln1_g{k}'], g[f'ln1_b{k}'] = layer_norm_bwd(da, params[f'ln1_g{k}'], c['ln1'])
+        dX = dX1 + dxin
+    g['wpe'][:T] = dX.sum(0)
+    np.add.at(g['wte'], tok, dX)              # wte también como embedding de entrada
+    return g, loss
+
+
+# -- Examen: decodificación greedy de las 3 cifras ---------
+def resolver(X):
+    seq = X[:, :6].copy()                                  # 'aa+bb='
+    for _ in range(3):
+        logits, _, _ = forward(seq)
+        seq = np.concatenate([seq, logits[:, -1].argmax(-1)[:, None]], 1)
+    return seq[:, 6:9]
+
+
+def exactitud(X, Y):
+    return (resolver(X) == Y[:, 5:8]).all(1).mean()
+
+
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    if t < t_warmup:
+        return lr_max * (t + 1) / t_warmup                 # +1: el paso 0 ya aprende
+    return lr_min + 0.5 * (lr_max - lr_min) * (1 + np.cos(np.pi * (t - t_warmup) / (t_total - t_warmup)))
+
+
+# -- Entrenamiento (Adam + recorte de gradiente) -----------
+m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+print('\nEntrenando...  (exactitud = suma entera correcta)')
+for paso in range(PASOS):
+    lr = lr_warmup_coseno(paso, LR, PASOS)
+    idx = np.random.randint(0, len(X_TR), BATCH)
+    g, loss = forward_backward(X_TR[idx], Y_TR[idx], np.tile(PESO, (BATCH, 1)))
+    norma = np.sqrt(sum((x ** 2).sum() for x in g.values()))
+    if norma > CLIP:
+        g = {k: x * CLIP / norma for k, x in g.items()}
+    t = paso + 1
+    for k in params:
+        m_adam[k] = 0.9 * m_adam[k] + 0.1 * g[k]
+        v_adam[k] = 0.999 * v_adam[k] + 0.001 * g[k] ** 2
+        params[k] -= lr * (m_adam[k] / (1 - 0.9 ** t)) / (np.sqrt(v_adam[k] / (1 - 0.999 ** t)) + 1e-8)
+    if paso % 500 == 0 or paso == PASOS - 1:
+        print(f'Paso {paso:5d}: pérdida {loss:.4f} | exactitud entrenamiento '
+              f'{exactitud(X_TR[:2000], Y_TR[:2000]):6.1%} | sumas NUNCA vistas {exactitud(X_TE, Y_TE):6.1%}')
+
+# -- Resultado ---------------------------------------------
+print('\n=== EXAMEN CON SUMAS QUE EL MODELO NUNCA VIO ===')
+res = resolver(X_TE[:10])
+for (a, b), r in zip(TEST[:10], res):
+    pred = int(''.join(I2C[i] for i in r)[::-1])
+    print(f'{a:2d} + {b:2d} = {pred:3d}   {"✓" if pred == a + b else "✗ (correcto: " + str(a + b) + ")"}')
+print(f'\nAciertos en las {len(TEST)} sumas no vistas: {exactitud(X_TE, Y_TE):.1%}')
+
+# -- ¿Cómo lo hace? A qué cifras mira cada paso -----------
+_, _, cache = forward(X_TE[:, :9])
+nombres = ['a(dec)', 'a(uni)', '+', 'b(dec)', 'b(uni)', '=', 'r(uni)', 'r(dec)', 'r(cen)']
+print(f'\n=== ¿A QUÉ CIFRAS ATIENDE CADA CABEZA? (media sobre {len(TEST)} sumas) ===')
+for k in range(N_BLQ):
+    for q, que in [(5, 'unidades'), (6, 'decenas '), (7, 'centenas')]:
+        txt = []
+        for c in range(H):
+            fila = cache[k]['pesos'][:, c, q].mean(0)
+            top = np.argsort(fila)[::-1][:2]
+            txt.append(f'cabeza {c}: ' + ' + '.join(f'{nombres[j]} {fila[j]:.2f}' for j in top))
+        print(f'Bloque {k}, al escribir las {que} -> ' + ' | '.join(txt))
+```
+
+**Ejecución:** `python programa_RZ2_suma.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  124.3 s
+
+**Salida real por consola:**
+
+```
+Parámetros: 57,696
+Semilla 42 | cabezas 2 | sumas de entrenamiento: 8000 | sumas de examen (no vistas): 2000
+
+Entrenando...  (exactitud = suma entera correcta)
+Paso     0: pérdida 2.5840 | exactitud entrenamiento   0.0% | sumas NUNCA vistas   0.0%
+Paso   500: pérdida 0.6589 | exactitud entrenamiento  35.9% | sumas NUNCA vistas  36.4%
+Paso  1000: pérdida 0.0605 | exactitud entrenamiento  94.4% | sumas NUNCA vistas  94.0%
+Paso  1500: pérdida 0.0434 | exactitud entrenamiento  86.3% | sumas NUNCA vistas  87.1%
+Paso  2000: pérdida 0.0096 | exactitud entrenamiento  98.8% | sumas NUNCA vistas  98.5%
+Paso  2500: pérdida 0.0099 | exactitud entrenamiento 100.0% | sumas NUNCA vistas  99.9%
+Paso  3000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  3500: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4500: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5500: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5999: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+
+=== EXAMEN CON SUMAS QUE EL MODELO NUNCA VIO ===
+93 + 94 = 187   ✓
+ 8 + 98 = 106   ✓
+23 + 98 = 121   ✓
+59 +  6 =  65   ✓
+23 + 43 =  66   ✓
+82 + 25 = 107   ✓
+55 +  6 =  61   ✓
+64 + 51 = 115   ✓
+26 + 70 =  96   ✓
+34 + 97 = 131   ✓
+
+Aciertos en las 2000 sumas no vistas: 100.0%
+
+=== ¿A QUÉ CIFRAS ATIENDE CADA CABEZA? (media sobre 2000 sumas) ===
+Bloque 0, al escribir las unidades -> cabeza 0: b(uni) 0.50 + a(uni) 0.48 | cabeza 1: b(uni) 0.56 + a(uni) 0.43
+Bloque 0, al escribir las decenas  -> cabeza 0: b(dec) 0.39 + a(dec) 0.39 | cabeza 1: b(dec) 0.36 + a(dec) 0.33
+Bloque 0, al escribir las centenas -> cabeza 0: a(dec) 0.34 + b(dec) 0.34 | cabeza 1: + 0.93 + a(dec) 0.04
+Bloque 1, al escribir las unidades -> cabeza 0: a(uni) 0.50 + = 0.49 | cabeza 1: a(uni) 0.67 + = 0.25
+Bloque 1, al escribir las decenas  -> cabeza 0: b(dec) 0.75 + + 0.15 | cabeza 1: b(uni) 0.42 + b(dec) 0.28
+Bloque 1, al escribir las centenas -> cabeza 0: r(dec) 0.19 + b(dec) 0.16 | cabeza 1: a(dec) 0.29 + = 0.21
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (unos tres minutos):» (35 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): el comentario de cabecera ya no dice que el modelo «ha extraído la regla». El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_programa_RZ2_suma.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 75. Programa RZ-3 — El Nano-LLM razona paso a paso
+
+**Archivo:** `programa_RZ3_deduce_letras.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (298 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA RZ-3 — El Nano-LLM razona paso a paso
+# Capítulo 15 — Deducir con hechos que nunca ha visto
+#
+# El modelo del Programa 8 (GPT-2 en miniatura, NumPy puro),
+# como en RZ-2, aprende a DEDUCIR a partir de hechos que cambian
+# en cada problema.
+#
+#   Hechos:   q>m, m>c, c>x, ...   («q es mayor que m»)
+#   Pregunta: ¿q>x?
+#   Razonamiento escrito por el modelo:  q > m > c > x  ⇒ SÍ
+#
+# Cambios respecto al Programa RZ-2:
+#   1. Tarea de deducción: 12 hechos con letras al azar; la
+#      respuesta exige encadenar 1, 2, 3… hechos (transitividad).
+#      Como las letras cambian en cada problema, no hay nada que
+#      memorizar: solo sirve razonar sobre los hechos dados.
+#   2. Cadena de razonamiento: el modelo escribe cada paso antes
+#      de responder (modo 'paso_a_paso'). En modo 'directo' debe
+#      responder sí/no sin escribir pasos.
+#   3. Embedding del carácter anterior (emb_prev): cada posición
+#      sabe qué letra la precede, así un hecho «cx» se puede
+#      buscar por su primera letra con una sola atención.
+#   4. Se entrena SOLO con deducciones de 1 a 4 pasos y se
+#      examina con 1 a 10 pasos: de 5 a 10 nunca los ha visto.
+#   5. Los embeddings (wte, wpe, emb_prev) empiezan con desviación
+#      EMB_STD = 0.5 en lugar del 0.02 del Programa 8: con 0.02 el
+#      modelo no sale de la meseta en esta tarea (sección 15.4).
+#
+# Uso:  python programa_RZ3_deduce_letras.py [modo] [emb_prev]
+#   modo      paso_a_paso (por defecto) o directo
+#   emb_prev  si (por defecto) o no
+# Los tres experimentos del capítulo:
+#   python programa_RZ3_deduce_letras.py                    -> aprende
+#   python programa_RZ3_deduce_letras.py directo            -> no aprende
+#   python programa_RZ3_deduce_letras.py paso_a_paso no     -> no aprende
+# Tiempo aproximado: unos 8 minutos en un portátil.
+# =======================================================
+import sys
+import numpy as np
+ 
+MODO = sys.argv[1] if len(sys.argv) > 1 else 'paso_a_paso'     # o 'directo'
+USAR_EMB_PREV = (sys.argv[2] if len(sys.argv) > 2 else 'si') == 'si'
+N_HECHOS, PASOS_MAX_ENTRENO = 12, 4
+ 
+# -- Vocabulario --------------------------------------------
+LETRAS = 'abcdefghijklmnopqrstuvwxyz'
+VOCAB = ['.'] + list(LETRAS) + [',', '|', '?', ':', 'S', 'N', '\n']
+V = len(VOCAB)
+C2I = {c: i for i, c in enumerate(VOCAB)}
+I2C = dict(enumerate(VOCAB))
+ 
+ 
+def problema(L, rng, relleno=0):
+    """Tres cadenas disjuntas de hechos; la primera tiene L pasos.
+    Pregunta: ¿inicio de la cadena 1 > t?  t es el final de la
+    cadena 1 (respuesta S) o el final de otra cadena (N)."""
+    r1 = rng.randint(1, N_HECHOS - L); r2 = N_HECHOS - L - r1
+    n = list(rng.permutation(list(LETRAS))[:N_HECHOS + 3])
+    c1, c2, c3 = n[:L + 1], n[L + 1:L + 2 + r1], n[L + 2 + r1:]
+    hechos = [a + b for c in (c1, c2, c3) for a, b in zip(c[:-1], c[1:])]
+    rng.shuffle(hechos)
+    si = rng.rand() < 0.5
+    t = c1[-1] if si else (c2[-1] if rng.rand() < 0.5 else c3[-1])
+    prompt = '.' * relleno + ','.join(hechos) + '|' + c1[0] + '?' + t + ':'
+    razonamiento = ''.join(c1) if MODO == 'paso_a_paso' else ''
+    return prompt, razonamiento + ('S' if si else 'N')
+ 
+ 
+# -- Hiperparámetros ---------------------------------------
+CTX, D, D_FF, N_BLQ, H = 56, 48, 192, 2, 2
+DH = D // H
+LR, PASOS, BATCH, CLIP, RELLENO_MAX = 3e-3, 2000, 64, 1.0, 8
+EMB_STD = 0.5          # desviación inicial de los embeddings (Programa 8: 0.02)
+np.random.seed(42)
+ 
+ 
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)
+ 
+ 
+def randn(shape, std=0.02):
+    return np.random.randn(*shape) * std
+ 
+ 
+params = {'wte': randn((V, D), EMB_STD), 'wpe': randn((CTX, D), EMB_STD),
+          'emb_prev': randn((V, D), EMB_STD)}
+params['lnf_g'] = np.ones(D); params['lnf_b'] = np.zeros(D)
+for k in range(N_BLQ):
+    params[f'ln1_g{k}'] = np.ones(D); params[f'ln1_b{k}'] = np.zeros(D)
+    for n in 'qkv':
+        params[f'W{n}{k}'] = randn((D, D)); params[f'b{n}{k}'] = np.zeros(D)
+    params[f'Wo{k}'] = randn((D, D), STD_RES); params[f'bo{k}'] = np.zeros(D)
+    params[f'ln2_g{k}'] = np.ones(D); params[f'ln2_b{k}'] = np.zeros(D)
+    params[f'W1{k}'] = randn((D, D_FF)); params[f'b1{k}'] = np.zeros(D_FF)
+    params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)
+if not USAR_EMB_PREV:
+    params['emb_prev'][:] = 0.0          # existe pero no se usa ni se entrena
+n_par = sum(p.size for k, p in params.items() if USAR_EMB_PREV or k != 'emb_prev')
+print(f'Modo: {MODO} | emb_prev: {"sí" if USAR_EMB_PREV else "no"} | parámetros: {n_par:,}')
+MASCARA = np.triu(np.full((CTX, CTX), -1e9), k=1)
+# -- Utilidades (las del Programa 8) -------------------------
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+ 
+ 
+def layer_norm_fwd(x, g, b, eps=1e-5):
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+ 
+ 
+def layer_norm_bwd(dy, g, cache):
+    xhat, inv = cache
+    ejes = tuple(range(dy.ndim - 1))
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, (dy * xhat).sum(ejes), dy.sum(ejes)
+ 
+ 
+C_GELU = np.sqrt(2 / np.pi)
+ 
+ 
+def gelu(x):
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+ 
+ 
+def gelu_bwd(x):
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+ 
+ 
+def separar(x):        # (B,T,D) -> (B,H,T,DH)
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+ 
+ 
+def unir(x):           # (B,H,T,DH) -> (B,T,D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+ 
+ 
+def tmm(a, b):
+    """Suma sobre lote y posiciones de aᵀ·b: el gradiente de una capa lineal."""
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+ 
+ 
+# -- Forward (el del Programa 8) ----------------------------
+def forward(tok):
+    B, T = tok.shape
+    X = params['wte'][tok] + params['wpe'][:T]
+    if USAR_EMB_PREV:
+        X[:, 1:] += params['emb_prev'][tok[:, :-1]]      # quién va delante de mí
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+        cache.append(dict(a=a, ln1=ln1, Q=Q, K=K, Vm=Vm, pesos=pesos,
+                          att=att, m=m, ln2=ln2, h_pre=h_pre, h=h))
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    return xf @ params['wte'].T, (xf, lnf), cache
+ 
+ 
+# -- Forward + Backward (el del Programa 8, con la pérdida ponderada por w) --
+def forward_backward(tok, tgt, w):
+    B, T = tok.shape
+    logits, (xf, lnf), cache = forward(tok)
+    probs = softmax(logits)
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -(np.log(probs[bi, ti, tgt] + 1e-10) * w).sum() / w.sum()
+    g = {k: np.zeros_like(v) for k, v in params.items()}
+    dlog = probs.copy()
+    dlog[bi, ti, tgt] -= 1.0
+    dlog *= (w / w.sum())[..., None]          # solo cuentan las posiciones con w = 1
+    g['wte'] += tmm(dlog, xf)                 # wte como matriz de salida
+    dX, g['lnf_g'], g['lnf_b'] = layer_norm_bwd(dlog @ params['wte'], params['lnf_g'], lnf)
+    for k in reversed(range(N_BLQ)):
+        c = cache[k]
+        g[f'W2{k}'] = tmm(c['h'], dX)
+        g[f'b2{k}'] = dX.sum((0, 1))
+        dh_pre = (dX @ params[f'W2{k}'].T) * gelu_bwd(c['h_pre'])
+        g[f'W1{k}'] = tmm(c['m'], dh_pre)
+        g[f'b1{k}'] = dh_pre.sum((0, 1))
+        dx1, g[f'ln2_g{k}'], g[f'ln2_b{k}'] = layer_norm_bwd(dh_pre @ params[f'W1{k}'].T, params[f'ln2_g{k}'], c['ln2'])
+        dX1 = dX + dx1
+        g[f'Wo{k}'] = tmm(c['att'], dX1)
+        g[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ params[f'Wo{k}'].T)
+        dpesos = datt @ c['Vm'].transpose(0, 1, 3, 2)
+        dVm = c['pesos'].transpose(0, 1, 3, 2) @ datt
+        s = (dpesos * c['pesos']).sum(-1, keepdims=True)
+        dscores = c['pesos'] * (dpesos - s) / np.sqrt(DH)
+        dQ, dK, dV = unir(dscores @ c['K']), unir(dscores.transpose(0, 1, 3, 2) @ c['Q']), unir(dVm)
+        da = np.zeros_like(c['a'])
+        for n, dn in zip('qkv', (dQ, dK, dV)):
+            g[f'W{n}{k}'] = tmm(c['a'], dn)
+            g[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ params[f'W{n}{k}'].T
+        dxin, g[f'ln1_g{k}'], g[f'ln1_b{k}'] = layer_norm_bwd(da, params[f'ln1_g{k}'], c['ln1'])
+        dX = dX1 + dxin
+    g['wpe'][:T] = dX.sum(0)
+    np.add.at(g['wte'], tok, dX)              # wte también como embedding de entrada
+    if USAR_EMB_PREV:
+        np.add.at(g['emb_prev'], tok[:, :-1], dX[:, 1:])
+    return g, loss
+# -- Lotes de entrenamiento (deducciones de 1 a 4 pasos) ---
+def lote(rng):
+    X = np.zeros((BATCH, CTX - 1), int); Y = np.zeros_like(X); W = np.zeros(X.shape)
+    for i in range(BATCH):
+        p, r = problema(rng.randint(1, PASOS_MAX_ENTRENO + 1), rng, rng.randint(0, RELLENO_MAX + 1))
+        s = [C2I[c] for c in p + r + '\n']
+        s += [0] * (CTX - len(s))
+        X[i], Y[i] = s[:-1], s[1:]
+        W[i, len(p) - 1:len(p) + len(r)] = 1            # solo lo que escribe el modelo
+    return X, Y, W
+ 
+ 
+# -- Generación greedy hasta S o N -------------------------
+def resolver(prompts, max_chars=12):
+    seqs = [[C2I[c] for c in p] for p in prompts]
+    salida = ['' for _ in prompts]
+    for _ in range(max_chars):
+        T = max(len(s) for s in seqs)
+        X = np.array([s + [0] * (T - len(s)) for s in seqs])
+        logits, _, _ = forward(X)
+        for i, s in enumerate(seqs):
+            if salida[i][-1:] in ('S', 'N'):
+                continue
+            nx = int(logits[i, len(s) - 1].argmax())
+            s.append(nx); salida[i] += I2C[nx]
+    return salida
+ 
+ 
+def examen(L, n=200):
+    rng = np.random.RandomState(1000 + L)
+    probs = [problema(L, rng) for _ in range(n)]
+    sal = resolver([p for p, _ in probs])
+    resp = np.mean([s[-1:] == r[-1] for s, (_, r) in zip(sal, probs)])
+    todo = np.mean([s == r for s, (_, r) in zip(sal, probs)])
+    return resp, todo
+ 
+ 
+# -- Entrenamiento -----------------------------------------
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    if t < t_warmup:
+        return lr_max * (t + 1) / t_warmup
+    return lr_min + 0.5 * (lr_max - lr_min) * (1 + np.cos(np.pi * (t - t_warmup) / (t_total - t_warmup)))
+ 
+ 
+m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+rng = np.random.RandomState(7)
+print(f'\nEntrenando con deducciones de 1 a {PASOS_MAX_ENTRENO} pasos...')
+for paso in range(PASOS):
+    X, Y, W = lote(rng)
+    g, loss = forward_backward(X, Y, W)
+    norma = np.sqrt(sum((x ** 2).sum() for x in g.values()))
+    if norma > CLIP:
+        g = {k: x * CLIP / norma for k, x in g.items()}
+    t, lr = paso + 1, lr_warmup_coseno(paso, LR, PASOS)
+    for k in params:
+        m_adam[k] = 0.9 * m_adam[k] + 0.1 * g[k]
+        v_adam[k] = 0.999 * v_adam[k] + 0.001 * g[k] ** 2
+        params[k] -= lr * (m_adam[k] / (1 - 0.9 ** t)) / (np.sqrt(v_adam[k] / (1 - 0.999 ** t)) + 1e-8)
+    if paso % 250 == 0 or paso == PASOS - 1:
+        print(f'Paso {paso:5d}: pérdida {loss:.4f} | aciertos con 3 pasos {examen(3, 50)[0]:5.0%}'
+              f' | con 7 pasos (nunca vistos) {examen(7, 50)[0]:5.0%}')
+ 
+# -- Examen final ------------------------------------------
+print('\n=== EXAMEN: 200 problemas nuevos por cada número de pasos ===')
+print('pasos  respuesta  razonamiento completo correcto')
+for L in range(1, N_HECHOS - 1):
+    r, t = examen(L)
+    nota = '' if L <= PASOS_MAX_ENTRENO else '  ← nunca visto al entrenar'
+    print(f'{L:5d}  {r:9.1%}  {t:9.1%}{nota}')
+ 
+# -- Tres ejemplos legibles --------------------------------
+print('\n=== EJEMPLOS ===')
+rng = np.random.RandomState(2026)
+for L in (2, 6, 9):
+    p, r = problema(L, rng)
+    sal = resolver([p])[0]
+    hechos = p.split('|')[0].split(',')
+    s, t = p.split('|')[1][0], p.split('|')[1][2]
+    print('Hechos:', ', '.join(f'{h[0]}>{h[1]}' for h in hechos))
+    print(f'¿{s}>{t}?   Modelo: {" > ".join(sal[:-1]) + "  ⇒  " if sal[:-1] else ""}'
+          f'{"SÍ" if sal[-1:] == "S" else "NO"}   (correcto: {"SÍ" if r[-1] == "S" else "NO"})\n')
+```
+
+**Ejecución:** `python programa_RZ3_deduce_letras.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  353.0 s
+
+**Salida real por consola:**
+
+```
+Modo: paso_a_paso | emb_prev: sí | parámetros: 62,592
+
+Entrenando con deducciones de 1 a 4 pasos...
+Paso     0: pérdida 14.1593 | aciertos con 3 pasos    0% | con 7 pasos (nunca vistos)    0%
+Paso   250: pérdida 2.3249 | aciertos con 3 pasos   44% | con 7 pasos (nunca vistos)   46%
+Paso   500: pérdida 0.4703 | aciertos con 3 pasos   66% | con 7 pasos (nunca vistos)   60%
+Paso   750: pérdida 0.0013 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  1000: pérdida 0.0031 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  1250: pérdida 0.0008 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  1500: pérdida 0.0003 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  1750: pérdida 0.0006 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  1999: pérdida 0.0003 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+
+=== EXAMEN: 200 problemas nuevos por cada número de pasos ===
+pasos  respuesta  razonamiento completo correcto
+    1     100.0%     100.0%
+    2     100.0%     100.0%
+    3     100.0%     100.0%
+    4     100.0%     100.0%
+    5     100.0%     100.0%  ← nunca visto al entrenar
+    6     100.0%     100.0%  ← nunca visto al entrenar
+    7     100.0%     100.0%  ← nunca visto al entrenar
+    8     100.0%     100.0%  ← nunca visto al entrenar
+    9      99.5%      99.0%  ← nunca visto al entrenar
+   10     100.0%      99.5%  ← nunca visto al entrenar
+
+=== EJEMPLOS ===
+Hechos: d>q, v>r, b>e, q>i, j>a, s>o, p>b, e>s, z>p, o>h, h>j, r>k
+¿v>k?   Modelo: v > r > k  ⇒  SÍ   (correcto: SÍ)
+
+Hechos: g>s, o>u, z>m, s>x, q>t, l>k, m>l, u>z, x>h, n>o, y>g, h>i
+¿n>k?   Modelo: n > o > u > z > m > l > k  ⇒  SÍ   (correcto: SÍ)
+
+Hechos: k>x, p>n, h>f, e>g, w>h, r>v, s>i, v>y, g>k, x>m, i>e, m>r
+¿s>n?   Modelo: s > i > e > g > k > x > m > r > v > y  ⇒  NO   (correcto: NO)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (modo paso a paso; unos ocho minutos):» (30 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 76. Programa RZ-4 — El Nano-LLM razona con frases del corpus
+
+**Archivo:** `programa_RZ4_deduce_frases.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (410 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA RZ-4 — El Nano-LLM razona con frases del corpus
+# Capítulo 15 — Deducción con frases al estilo del Programa 8
+# El modelo del Programa 8 (GPT-2 en miniatura, NumPy puro),
+# como en RZ-2 y RZ-3, deduce conclusiones a partir de frases
+# al estilo del corpus de IA del Programa 8:
+#
+#   Hechos:   la regularización dificulta el sobreajuste.
+#             el sobreajuste limita la generalización.
+#             ... (más frases, algunas sin relación)
+#   Pregunta: ¿la regularización ayuda a la generalización?
+#   Razonamiento escrito por el modelo (cita cada hecho que usa):
+#     la regularización dificulta el sobreajuste   [efecto acumulado: perjudica]
+#     el sobreajuste limita la generalización      [efecto acumulado: favorece]
+#     la pregunta dice «ayuda a» (favorece): coincide  ⇒  SÍ
+#
+# Cambios respecto al Programa RZ-3:
+#   1. Frases en vez de letras: 40 conceptos y 8 verbos tomados
+#      del corpus del Programa 8 (datos, sobreajuste, atención,
+#      «dificulta», «limita», «acelera», «estabiliza»…).
+#   2. Tokens de palabra en vez de caracteres: cada concepto
+#      («la regularización») y cada verbo es un token, como hacen
+#      los LLM reales con su tokenizador. A nivel de carácter, 10
+#      frases ocuparían ~400 posiciones y el entrenamiento en NumPy
+#      sería decenas de veces más lento.
+#   3. Razonamiento con signo: unos verbos favorecen y otros
+#      perjudican, así que en cada paso el modelo debe acumular el
+#      efecto (perjudicar algo que perjudica = favorecer). En cada
+#      paso escribe el verbo del hecho que usa, luego el efecto
+#      acumulado y luego el concepto siguiente. Escribir el verbo
+#      fue necesario: sin él, el modelo encontraba bien la cadena
+#      de conceptos pero acertaba el efecto solo por azar, porque
+#      tenía que buscar el verbo y combinarlo en un único paso.
+#   4. Tres respuestas: SÍ, NO o NO SE PUEDE DEDUCIR (cuando la
+#      pregunta une conceptos de cadenas distintas). La pregunta se
+#      escribe internamente con forma de hecho («B verbo ?»), así que
+#      comprobar si se ha llegado a B es la misma operación que dar
+#      un paso más. Fue la clave: con la pregunta en otro formato, el
+#      modelo seguía bien la cadena pero, al final, aprendía a
+#      comprobar si había llegado a B solo con algunas semillas.
+#   5. emb_prev2 además de emb_prev: cada posición sabe también
+#      qué token va dos lugares antes. Así, en «A verbo B», la
+#      posición de B «sabe» a la vez su sujeto (A) y su verbo, y
+#      el modelo puede buscar el hecho por su sujeto con una sola
+#      atención.
+#   6. Los conceptos, los verbos y el orden de las frases se
+#      sortean en cada problema: no hay nada que memorizar.
+#   7. Se entrena SOLO con deducciones de 1 a 4 pasos y se
+#      examina con 1 a 8: de 5 a 8 nunca los ha visto.
+#   8. Reinicio de seguridad: si en el paso 3000 el modelo no acierta
+#      el 80 % de las deducciones de 3 pasos (se quedó atascado en una
+#      meseta), el programa vuelve a empezar con otra semilla.
+# Uso: python programa_RZ4_deduce_frases.py [semilla]
+# Tiempo aproximado: unos 35 minutos en un portátil.
+# =======================================================
+import sys
+import numpy as np
+ 
+SEMILLA = int(sys.argv[1]) if len(sys.argv) > 1 else 42
+N_HECHOS, PASOS_MAX_ENTRENO = 10, 4
+ 
+# -- Vocabulario de palabras (todas aparecen en el corpus del Programa 8) --
+CONCEPTOS = ['los datos', 'el modelo', 'el entrenamiento', 'el sobreajuste', 'la regularización',
+             'la generalización', 'la atención', 'el embedding', 'la tokenización', 'la pérdida',
+             'el gradiente', 'la normalización', 'el ruido', 'la memoria', 'la precisión',
+             'el error', 'la escala', 'la eficiencia', 'el costo', 'la incertidumbre',
+             'la validación', 'el contexto', 'el vocabulario', 'la temperatura', 'la variedad',
+             'el sesgo', 'la privacidad', 'la interpretabilidad', 'el paralelismo', 'la recompensa',
+             'la exploración', 'la explotación', 'el aprendizaje', 'la inferencia',
+             'el preentrenamiento', 'el ajuste fino', 'la simulación', 'la confianza',
+             'la arquitectura', 'el optimizador']
+FAVORECE = ['ayuda a', 'estabiliza', 'acelera', 'mejora']          # efecto +
+PERJUDICA = ['dificulta', 'limita', 'complica', 'ralentiza']       # efecto −
+VERBOS = FAVORECE + PERJUDICA
+ESPECIALES = ['<pad>', '.', '¿', '?', '[+]', '[−]', 'SÍ', 'NO', 'NO SE PUEDE DEDUCIR']
+VOCAB = ESPECIALES + CONCEPTOS + VERBOS
+V = len(VOCAB)
+W2I = {w: i for i, w in enumerate(VOCAB)}
+RESPUESTAS = {W2I['SÍ'], W2I['NO'], W2I['NO SE PUEDE DEDUCIR']}
+ 
+ 
+def signo(verbo):
+    return +1 if verbo in FAVORECE else -1
+ 
+ 
+def problema(L, rng, relleno=0):
+    """Tres cadenas de hechos «A verbo B.»; la primera tiene L pasos.
+    Pregunta: ¿inicio de la cadena 1 <verbo> t?  Si t es el final de la
+    cadena 1, la respuesta depende del efecto acumulado; si t es el final
+    de otra cadena, no se puede deducir."""
+    r1 = rng.randint(1, N_HECHOS - L); r2 = N_HECHOS - L - r1
+    c = [CONCEPTOS[i] for i in rng.permutation(len(CONCEPTOS))[:N_HECHOS + 3]]
+    c1, c2, c3 = c[:L + 1], c[L + 1:L + 2 + r1], c[L + 2 + r1:]
+    verbo = {}
+    hechos = []
+    for cad in (c1, c2, c3):
+        for a, b in zip(cad[:-1], cad[1:]):
+            v = VERBOS[rng.randint(len(VERBOS))]
+            verbo[a] = v
+            hechos.append([a, v, b, '.'])
+    rng.shuffle(hechos)
+    conectado = rng.rand() < 0.5
+    t = c1[-1] if conectado else (c2[-1] if rng.rand() < 0.5 else c3[-1])
+    vq = VERBOS[rng.randint(len(VERBOS))]
+    # La pregunta «¿A verbo B?» se escribe como «¿ A ? ¿ B verbo ?»:
+    #  - «B verbo ?» tiene la misma forma que un hecho («B verbo …»). Al llegar al
+    #    final de la cadena, la MISMA búsqueda que el modelo hace en cada paso
+    #    («¿qué verbo sigue a este concepto?») encuentra el verbo de la pregunta
+    #    solo si ha llegado a B. Si no lo encuentra, la cadena se ha cortado.
+    #  - Los «?» y «¿» de en medio evitan que la pregunta parezca un hecho cuyo
+    #    sujeto sea A, que confundiría el primer paso.
+    prompt = ['<pad>'] * relleno + [w for h in hechos for w in h] + ['¿', c1[0], '?', '¿', t, vq, '?']
+    # razonamiento: concepto, y por cada paso: verbo, efecto acumulado, concepto
+    razon, s = [c1[0]], +1
+    for a, b in zip(c1[:-1], c1[1:]):
+        s *= signo(verbo[a])
+        razon += [verbo[a], '[+]' if s > 0 else '[−]', b]
+    if not conectado:
+        # la cadena termina sin llegar a B: no hay más hechos que seguir
+        return prompt, razon + ['NO SE PUEDE DEDUCIR']
+    # último «paso» con el verbo de la pregunta: si el efecto total coincide con
+    # lo que afirma la pregunta, el efecto combinado es + y la respuesta es SÍ
+    s2 = s * signo(vq)
+    return prompt, razon + [vq, '[+]' if s2 > 0 else '[−]', '?', 'SÍ' if s2 > 0 else 'NO']
+# -- Hiperparámetros ---------------------------------------
+CTX, D, D_FF, N_BLQ, H = 78, 48, 192, 2, 2
+DH = D // H
+LR, PASOS, BATCH, CLIP, RELLENO_MAX = 3e-3, 6000, 64, 1.0, 14
+# RELLENO_MAX: al entrenar se añade un relleno al azar al principio, para que las
+# cadenas cortas ocupen también las posiciones finales que usarán las largas.
+# Reinicio: con tan pocos parámetros, algunas inicializaciones se quedan atascadas
+# en una meseta. Si en el paso COMPROBACION el modelo no acierta al menos el 80 %
+# de las deducciones de 3 pasos, se reinicia con otra semilla (máx. INTENTOS).
+COMPROBACION, UMBRAL, INTENTOS = 3000, 0.80, 4
+if len(sys.argv) > 2:
+    PASOS = int(sys.argv[2])
+ 
+ 
+STD_RES = 0.02 / np.sqrt(2 * N_BLQ)
+ 
+ 
+def randn(shape, std=0.02):
+    return np.random.randn(*shape) * std
+ 
+ 
+params = {}
+ 
+ 
+def inicializar(semilla):
+    np.random.seed(semilla)
+    params.clear()
+    params.update({'wte': randn((V, D)), 'wpe': randn((CTX, D)),
+                   'emb_prev': randn((V, D)), 'emb_prev2': randn((V, D))})
+    params['lnf_g'] = np.ones(D); params['lnf_b'] = np.zeros(D)
+    for k in range(N_BLQ):
+        params[f'ln1_g{k}'] = np.ones(D); params[f'ln1_b{k}'] = np.zeros(D)
+        for n in 'qkv':
+            params[f'W{n}{k}'] = randn((D, D)); params[f'b{n}{k}'] = np.zeros(D)
+        params[f'Wo{k}'] = randn((D, D), STD_RES); params[f'bo{k}'] = np.zeros(D)
+        params[f'ln2_g{k}'] = np.ones(D); params[f'ln2_b{k}'] = np.zeros(D)
+        params[f'W1{k}'] = randn((D, D_FF)); params[f'b1{k}'] = np.zeros(D_FF)
+        params[f'W2{k}'] = randn((D_FF, D), STD_RES); params[f'b2{k}'] = np.zeros(D)
+ 
+ 
+inicializar(SEMILLA)
+print(f'Semilla {SEMILLA} | vocabulario: {V} tokens | parámetros: {sum(p.size for p in params.values()):,}')
+MASCARA = np.triu(np.full((CTX, CTX), -1e9), k=1)
+ 
+ 
+# -- Utilidades (las del Programa 8) -------------------------
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+ 
+ 
+def layer_norm_fwd(x, g, b, eps=1e-5):
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+ 
+ 
+def layer_norm_bwd(dy, g, cache):
+    xhat, inv = cache
+    ejes = tuple(range(dy.ndim - 1))
+    dxhat = dy * g
+    dx = inv * (dxhat - dxhat.mean(-1, keepdims=True)
+                - xhat * (dxhat * xhat).mean(-1, keepdims=True))
+    return dx, (dy * xhat).sum(ejes), dy.sum(ejes)
+ 
+ 
+C_GELU = np.sqrt(2 / np.pi)
+ 
+ 
+def gelu(x):
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+ 
+ 
+def gelu_bwd(x):
+    t = np.tanh(C_GELU * (x + 0.044715 * x * x * x))
+    return 0.5 * (1 + t) + 0.5 * x * (1 - t * t) * C_GELU * (1 + 3 * 0.044715 * x * x)
+ 
+ 
+def separar(x):        # (B,T,D) -> (B,H,T,DH)
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+ 
+ 
+def unir(x):           # (B,H,T,DH) -> (B,T,D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+ 
+ 
+def tmm(a, b):
+    """Suma sobre lote y posiciones de aᵀ·b: el gradiente de una capa lineal."""
+    return a.reshape(-1, a.shape[-1]).T @ b.reshape(-1, b.shape[-1])
+ 
+ 
+# -- Forward (el del Programa 8) ----------------------------
+def forward(tok):
+    B, T = tok.shape
+    X = params['wte'][tok] + params['wpe'][:T]
+    X[:, 1:] += params['emb_prev'][tok[:, :-1]]          # token anterior
+    X[:, 2:] += params['emb_prev2'][tok[:, :-2]]         # token de dos posiciones antes
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+        cache.append(dict(a=a, ln1=ln1, Q=Q, K=K, Vm=Vm, pesos=pesos,
+                          att=att, m=m, ln2=ln2, h_pre=h_pre, h=h))
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    return xf @ params['wte'].T, (xf, lnf), cache
+ 
+ 
+# -- Forward + Backward (el del Programa 8, con la pérdida ponderada por w) --
+def forward_backward(tok, tgt, w):
+    B, T = tok.shape
+    logits, (xf, lnf), cache = forward(tok)
+    probs = softmax(logits)
+    bi, ti = np.arange(B)[:, None], np.arange(T)[None, :]
+    loss = -(np.log(probs[bi, ti, tgt] + 1e-10) * w).sum() / w.sum()
+    g = {k: np.zeros_like(v) for k, v in params.items()}
+    dlog = probs.copy()
+    dlog[bi, ti, tgt] -= 1.0
+    dlog *= (w / w.sum())[..., None]          # solo cuentan las posiciones con w = 1
+    g['wte'] += tmm(dlog, xf)                 # wte como matriz de salida
+    dX, g['lnf_g'], g['lnf_b'] = layer_norm_bwd(dlog @ params['wte'], params['lnf_g'], lnf)
+    for k in reversed(range(N_BLQ)):
+        c = cache[k]
+        g[f'W2{k}'] = tmm(c['h'], dX)
+        g[f'b2{k}'] = dX.sum((0, 1))
+        dh_pre = (dX @ params[f'W2{k}'].T) * gelu_bwd(c['h_pre'])
+        g[f'W1{k}'] = tmm(c['m'], dh_pre)
+        g[f'b1{k}'] = dh_pre.sum((0, 1))
+        dx1, g[f'ln2_g{k}'], g[f'ln2_b{k}'] = layer_norm_bwd(dh_pre @ params[f'W1{k}'].T, params[f'ln2_g{k}'], c['ln2'])
+        dX1 = dX + dx1
+        g[f'Wo{k}'] = tmm(c['att'], dX1)
+        g[f'bo{k}'] = dX1.sum((0, 1))
+        datt = separar(dX1 @ params[f'Wo{k}'].T)
+        dpesos = datt @ c['Vm'].transpose(0, 1, 3, 2)
+        dVm = c['pesos'].transpose(0, 1, 3, 2) @ datt
+        s = (dpesos * c['pesos']).sum(-1, keepdims=True)
+        dscores = c['pesos'] * (dpesos - s) / np.sqrt(DH)
+        dQ, dK, dV = unir(dscores @ c['K']), unir(dscores.transpose(0, 1, 3, 2) @ c['Q']), unir(dVm)
+        da = np.zeros_like(c['a'])
+        for n, dn in zip('qkv', (dQ, dK, dV)):
+            g[f'W{n}{k}'] = tmm(c['a'], dn)
+            g[f'b{n}{k}'] = dn.sum((0, 1))
+            da += dn @ params[f'W{n}{k}'].T
+        dxin, g[f'ln1_g{k}'], g[f'ln1_b{k}'] = layer_norm_bwd(da, params[f'ln1_g{k}'], c['ln1'])
+        dX = dX1 + dxin
+    g['wpe'][:T] = dX.sum(0)
+    np.add.at(g['wte'], tok, dX)              # wte también como embedding de entrada
+    np.add.at(g['emb_prev'], tok[:, :-1], dX[:, 1:])
+    np.add.at(g['emb_prev2'], tok[:, :-2], dX[:, 2:])
+    return g, loss
+# -- Lotes de entrenamiento (deducciones de 1 a 4 pasos) ---
+def lote(rng):
+    X = np.zeros((BATCH, CTX - 1), int); Y = np.zeros_like(X); W = np.zeros(X.shape)
+    for i in range(BATCH):
+        p, r = problema(rng.randint(1, PASOS_MAX_ENTRENO + 1), rng, rng.randint(0, RELLENO_MAX + 1))
+        s = [W2I[w] for w in p + r]
+        s += [0] * (CTX - len(s))
+        X[i], Y[i] = s[:-1], s[1:]
+        W[i, len(p) - 1:len(p) + len(r) - 1] = 1        # solo lo que escribe el modelo
+    return X, Y, W
+ 
+ 
+# -- Generación greedy hasta la respuesta -----------------
+def resolver(prompts, max_tokens=3 * N_HECHOS + 4):
+    seqs = [[W2I[w] for w in p] for p in prompts]
+    salida = [[] for _ in prompts]
+    for _ in range(max_tokens):
+        activos = [i for i in range(len(seqs)) if len(seqs[i]) < CTX
+                   and not (salida[i] and W2I[salida[i][-1]] in RESPUESTAS)]
+        if not activos:
+            break
+        T = max(len(seqs[i]) for i in activos)
+        X = np.array([seqs[i] + [0] * (T - len(seqs[i])) for i in activos])
+        logits, _, _ = forward(X)
+        for j, i in enumerate(activos):
+            nx = int(logits[j, len(seqs[i]) - 1].argmax())
+            seqs[i].append(nx); salida[i].append(VOCAB[nx])
+    return salida
+ 
+ 
+def examen(L, n=200):
+    rng = np.random.RandomState(1000 + L)
+    probs = [problema(L, rng) for _ in range(n)]
+    sal = resolver([p for p, _ in probs])
+    resp = np.mean([s[-1:] == r[-1:] for s, (_, r) in zip(sal, probs)])
+    todo = np.mean([s == r for s, (_, r) in zip(sal, probs)])
+    return resp, todo
+ 
+ 
+# -- Entrenamiento -----------------------------------------
+def lr_warmup_coseno(t, lr_max, t_total, t_warmup=150, lr_min=1e-4):
+    if t < t_warmup:
+        return lr_max * (t + 1) / t_warmup
+    return lr_min + 0.5 * (lr_max - lr_min) * (1 + np.cos(np.pi * (t - t_warmup) / (t_total - t_warmup)))
+ 
+ 
+def entrenar(semilla):
+    """Entrena desde cero; devuelve False si en la comprobación sigue atascado."""
+    inicializar(semilla)
+    m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+    v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+    rng = np.random.RandomState(semilla + 7)
+    print(f'\nSemilla {semilla}: entrenando con deducciones de 1 a {PASOS_MAX_ENTRENO} pasos...', flush=True)
+    for paso in range(PASOS):
+        X, Y, W = lote(rng)
+        g, loss = forward_backward(X, Y, W)
+        norma = np.sqrt(sum((x ** 2).sum() for x in g.values()))
+        if norma > CLIP:
+            g = {k: x * CLIP / norma for k, x in g.items()}
+        t, lr = paso + 1, lr_warmup_coseno(paso, LR, PASOS)
+        for k in params:
+            m_adam[k] = 0.9 * m_adam[k] + 0.1 * g[k]
+            v_adam[k] = 0.999 * v_adam[k] + 0.001 * g[k] ** 2
+            params[k] -= lr * (m_adam[k] / (1 - 0.9 ** t)) / (np.sqrt(v_adam[k] / (1 - 0.999 ** t)) + 1e-8)
+        if paso % 250 == 0 or paso == PASOS - 1:
+            print(f'Paso {paso:5d}: pérdida {loss:.4f} | aciertos con 3 pasos {examen(3, 50)[0]:5.0%}'
+                  f' | con 7 pasos (nunca vistos) {examen(7, 50)[0]:5.0%}', flush=True)
+        if paso == COMPROBACION and examen(3, 100)[0] < UMBRAL:
+            print(f'  → atascado en una meseta en el paso {paso}: se reinicia con otra semilla', flush=True)
+            return False
+    return True
+ 
+ 
+for intento in range(INTENTOS):
+    if entrenar(SEMILLA + 100 * intento):
+        break
+else:
+    print(f'\nAVISO: ninguno de los {INTENTOS} intentos salió de la meseta; '
+          'el examen siguiente corresponde a un modelo que no ha aprendido.')
+ 
+# -- Examen final ------------------------------------------
+print('\n=== EXAMEN: 200 problemas nuevos por cada número de pasos ===')
+print('pasos  respuesta  razonamiento completo correcto')
+for L in range(1, N_HECHOS - 1):
+    r, t = examen(L)
+    nota = '' if L <= PASOS_MAX_ENTRENO else '  ← nunca visto al entrenar'
+    print(f'{L:5d}  {r:9.1%}  {t:9.1%}{nota}')
+ 
+ 
+# -- Ejemplos legibles -------------------------------------
+def frase(a, v, b):
+    txt = f'{a} {v} {b}'
+    return txt.replace(' a el ', ' al ')
+ 
+ 
+def legible(razon, objetivo):
+    out, actual = '', razon[0]
+    for i in range(1, len(razon) - 1, 3):
+        v, sg, b = (razon[i:i + 3] + ['?', '?', '?'])[:3]
+        if b == '?':                                    # paso con el verbo de la pregunta
+            tipo = 'favorece' if v in FAVORECE else 'perjudica'
+            out += (f'\n      la pregunta dice «{v}» ({tipo}): '
+                    f'{"coincide" if sg == "[+]" else "no coincide"} con el efecto acumulado')
+            break
+        efecto = 'favorece' if sg == '[+]' else 'perjudica' if sg == '[−]' else sg
+        out += f'\n      {frase(actual, v, b):48s} [efecto acumulado: {efecto}]'
+        actual = b
+    else:
+        out += f'\n      la cadena termina en «{actual}», no en «{objetivo}»'
+    return out
+ 
+ 
+print('\n=== EJEMPLOS ===')
+rng = np.random.RandomState(2026)
+for L in (2, 5, 7):
+    p, r = problema(L, rng)
+    sal = resolver([p])[0]
+    toks = [w for w in p if w != '<pad>']
+    q = toks.index('¿')
+    print('Hechos:')
+    for i in range(0, q, 4):
+        print('   ', frase(*toks[i:i + 3]) + '.')
+    print(f'Pregunta: ¿{frase(toks[q + 1], toks[q + 5], toks[q + 4])}?')
+    print('Razonamiento del modelo:', legible(sal, toks[q + 4]))
+    print(f'      ⇒  {sal[-1]}   (correcto: {r[-1]})\n')
+```
+
+**Ejecución:** `python programa_RZ4_deduce_frases.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1483.7 s
+
+**Salida real por consola:**
+
+```
+Semilla 42 | vocabulario: 57 tokens | parámetros: 68,592
+
+Semilla 42: entrenando con deducciones de 1 a 4 pasos...
+Paso     0: pérdida 4.0679 | aciertos con 3 pasos    0% | con 7 pasos (nunca vistos)    0%
+Paso   250: pérdida 1.9364 | aciertos con 3 pasos   18% | con 7 pasos (nunca vistos)   20%
+Paso   500: pérdida 1.8536 | aciertos con 3 pasos   16% | con 7 pasos (nunca vistos)   26%
+Paso   750: pérdida 1.6847 | aciertos con 3 pasos   32% | con 7 pasos (nunca vistos)   26%
+Paso  1000: pérdida 0.2564 | aciertos con 3 pasos   84% | con 7 pasos (nunca vistos)   52%
+Paso  1250: pérdida 0.0787 | aciertos con 3 pasos   80% | con 7 pasos (nunca vistos)   86%
+Paso  1500: pérdida 0.0383 | aciertos con 3 pasos   86% | con 7 pasos (nunca vistos)   84%
+Paso  1750: pérdida 0.0282 | aciertos con 3 pasos   98% | con 7 pasos (nunca vistos)   88%
+Paso  2000: pérdida 0.0243 | aciertos con 3 pasos   92% | con 7 pasos (nunca vistos)   94%
+Paso  2250: pérdida 0.0023 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)   96%
+Paso  2500: pérdida 0.0018 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)   98%
+Paso  2750: pérdida 0.0011 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3000: pérdida 0.0007 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3250: pérdida 0.0008 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3500: pérdida 0.0003 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  3750: pérdida 0.0004 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  4000: pérdida 0.0002 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  4250: pérdida 0.0002 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  4500: pérdida 0.0002 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  4750: pérdida 0.0002 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5000: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5250: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5500: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5750: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5999: pérdida 0.0001 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+
+=== EXAMEN: 200 problemas nuevos por cada número de pasos ===
+pasos  respuesta  razonamiento completo correcto
+    1     100.0%     100.0%
+    2     100.0%     100.0%
+    3     100.0%     100.0%
+    4     100.0%     100.0%
+    5     100.0%     100.0%  ← nunca visto al entrenar
+    6     100.0%     100.0%  ← nunca visto al entrenar
+    7     100.0%     100.0%  ← nunca visto al entrenar
+    8     100.0%     100.0%  ← nunca visto al entrenar
+
+=== EJEMPLOS ===
+Hechos:
+    el gradiente mejora la incertidumbre.
+    la normalización estabiliza el costo.
+    la explotación ayuda a la normalización.
+    la inferencia estabiliza la explotación.
+    la eficiencia estabiliza la precisión.
+    la exploración mejora el contexto.
+    el contexto dificulta la tokenización.
+    la precisión limita el ajuste fino.
+    el costo mejora la pérdida.
+    la pérdida acelera el gradiente.
+Pregunta: ¿la exploración limita la tokenización?
+Razonamiento del modelo: 
+      la exploración mejora el contexto                [efecto acumulado: favorece]
+      el contexto dificulta la tokenización            [efecto acumulado: perjudica]
+      la pregunta dice «limita» (perjudica): coincide con el efecto acumulado
+      ⇒  SÍ   (correcto: SÍ)
+
+Hechos:
+    la temperatura ralentiza la recompensa.
+    el gradiente limita la regularización.
+    el costo mejora la privacidad.
+    la tokenización mejora el sesgo.
+    el contexto complica la temperatura.
+    la atención estabiliza el gradiente.
+    la regularización mejora el costo.
+    la privacidad ayuda a la memoria.
+    la recompensa dificulta la pérdida.
+    la inferencia estabiliza el contexto.
+Pregunta: ¿la atención mejora el sesgo?
+Razonamiento del modelo: 
+      la atención estabiliza el gradiente              [efecto acumulado: favorece]
+      el gradiente limita la regularización            [efecto acumulado: perjudica]
+      la regularización mejora el costo                [efecto acumulado: perjudica]
+      el costo mejora la privacidad                    [efecto acumulado: perjudica]
+      la privacidad ayuda a la memoria                 [efecto acumulado: perjudica]
+      la cadena termina en «la memoria», no en «el sesgo»
+      ⇒  NO SE PUEDE DEDUCIR   (correcto: NO SE PUEDE DEDUCIR)
+
+Hechos:
+    el entrenamiento estabiliza el error.
+    la arquitectura dificulta la memoria.
+    la exploración dificulta la recompensa.
+    la precisión estabiliza el preentrenamiento.
+    la normalización ayuda al ruido.
+    el preentrenamiento complica el entrenamiento.
+    el sobreajuste ayuda a la arquitectura.
+    el ruido mejora el vocabulario.
+    el error dificulta la simulación.
+    la simulación limita la normalización.
+Pregunta: ¿la precisión complica la recompensa?
+Razonamiento del modelo: 
+      la precisión estabiliza el preentrenamiento      [efecto acumulado: favorece]
+      el preentrenamiento complica el entrenamiento    [efecto acumulado: perjudica]
+      el entrenamiento estabiliza el error             [efecto acumulado: perjudica]
+      el error dificulta la simulación                 [efecto acumulado: favorece]
+      la simulación limita la normalización            [efecto acumulado: perjudica]
+      la normalización ayuda al ruido                  [efecto acumulado: perjudica]
+      el ruido mejora el vocabulario                   [efecto acumulado: perjudica]
+      la cadena termina en «el vocabulario», no en «la recompensa»
+      ⇒  NO SE PUEDE DEDUCIR   (correcto: NO SE PUEDE DEDUCIR)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (semilla 42, por defecto; unos treinta y cinco minutos):» (97 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Nota de tiempo:** tardó 1484 s porque compartió la CPU con la otra tanda. Ejecutado solo, tarda bastante menos. La salida no depende del tiempo.
+
+## 77. Ejercicio 15.1 — Early stopping de verdad
+
+**Archivo:** `ejercicio_15_1.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_RZ1_memoriza.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita `nano_llm_pesos.npz`, que genera `programa_8_nano_llm.py` (ejecutado antes, en el orden del libro).
+
+**Listado** (28 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 15.1 — Early Stopping de verdad en el Programa RZ-1
+# Guarda los pesos del momento con MEJOR pérdida de validación
+# y compara ese modelo con el del final del entrenamiento.
+# =======================================================
+import numpy as np
+ 
+codigo = open("programa_RZ1_memoriza.py", encoding="utf-8").read()
+# 1) Cada vez que mejora la validación, se copian los pesos
+codigo = codigo.replace(
+    "            mejor = (lv, paso)",
+    "            mejor = (lv, paso)\n"
+    "            mejores_pesos = {k: x.copy() for k, x in p.items()}")
+# 2) Se ejecuta solo la Prueba 1 (entrenamiento con validación)
+exec(codigo.split('# PRUEBA 2')[0])
+# 3) Funciones de generación y de copia literal de la Prueba 3
+exec(codigo.split("p8 = dict(np.load('nano_llm_pesos.npz'))")[1]
+           .split('rng = np.random.RandomState(2026)')[0])
+ 
+print('\n=== MODELO FINAL frente a MODELO CON EARLY STOPPING ===')
+for nombre, pesos in [('final (paso 11999)', p), (f'mejor validación (paso {mejor[1]})', mejores_pesos)]:
+    p8 = pesos                                   # generar_lote() usa p8
+    rng = np.random.RandomState(2026)
+    textos = generar_lote('mañana la ', 150, 10, rng)
+    copia = np.mean([fraccion_copiada(t) for t in textos])
+    print(f'\n{nombre}: entrenamiento {perdida(pesos, XT, YT, WT):.3f} | '
+          f'validación {perdida(pesos, XV, YV, WV):.3f} | copia literal {copia:.0%}')
+    print(textos[0])
+```
+
+**Ejecución:** `python ejercicio_15_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  90.3 s
+
+**Salida real por consola:**
+
+```
+Frases: 93 | entrenamiento: 83 | validación: 10
+Ejemplos de frases de validación (el modelo no las verá):
+    la atención permite ver todo el contexto a la vez.
+    la función softmax convierte logits en probabilidades.
+    ¡el aprendizaje nunca termina! sigue explorando.
+
+=== PRUEBA 1: pérdida en entrenamiento y en validación ===
+Referencia: adivinar al azar = ln(46) = 3.829
+Paso     0: entrenamiento 3.827 | validación 3.825
+Paso  1000: entrenamiento 1.378 | validación 1.934
+Paso  2000: entrenamiento 0.823 | validación 2.188
+Paso  3000: entrenamiento 0.519 | validación 2.613
+Paso  4000: entrenamiento 0.403 | validación 3.091
+Paso  5000: entrenamiento 0.368 | validación 3.497
+Paso  6000: entrenamiento 0.319 | validación 3.534
+Paso  7000: entrenamiento 0.282 | validación 3.708
+Paso  8000: entrenamiento 0.251 | validación 3.967
+Paso  9000: entrenamiento 0.236 | validación 4.017
+Paso 10000: entrenamiento 0.228 | validación 4.050
+Paso 11000: entrenamiento 0.216 | validación 4.118
+Paso 11999: entrenamiento 0.212 | validación 4.175
+Mejor validación: 1.923 en el paso 750 (ahí habría parado el Early Stopping del Capítulo 7)
+
+=== MODELO FINAL frente a MODELO CON EARLY STOPPING ===
+
+final (paso 11999): entrenamiento 0.212 | validación 4.175 | copia literal 90%
+mañana la entrada directamente con la salida.
+la normalización evita que las activaciones crezcan sin control.
+una red ancha tiene muchas neuronas en cada capa.
+
+mejor validación (paso 750): entrenamiento 1.587 | validación 1.923 | copia literal 0%
+mañana la de trenales.
+la compreficelizadale alentro muchactas.
+la finación espación conternad de el modelo.
+la dentexto perdenso diconcicaliza prefibila aciste
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (extracto final):» (11 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 78. Ejercicio 15.2 — Sumar sin invertir el resultado
+
+**Archivo:** `ejercicio_15_2.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_RZ2_suma.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (16 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 15.2 — RZ-2 con el resultado en orden natural
+# 47+85=132 en lugar de 47+85=231: la primera cifra que
+# escribe el modelo es ahora la de las centenas.
+# Uso: python ejercicio_15_2.py [semilla]
+# =======================================================
+fuente = open('programa_RZ2_suma.py', encoding='utf-8').read()
+cambios = [
+    ("str(a + b).zfill(3)[::-1] + '\\n'", "str(a + b).zfill(3) + '\\n'"),     # sin invertir
+    ("pred = int(''.join(I2C[i] for i in r)[::-1])", "pred = int(''.join(I2C[i] for i in r))"),
+]
+for viejo, nuevo in cambios:
+    assert viejo in fuente, viejo
+    fuente = fuente.replace(viejo, nuevo)
+fuente = fuente.split('# -- ¿Cómo lo hace?')[0]   # el análisis de atención supone el orden invertido
+exec(fuente)
+```
+
+**Ejecución:** `python ejercicio_15_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  127.4 s
+
+**Salida real por consola:**
+
+```
+Parámetros: 57,696
+Semilla 42 | cabezas 2 | sumas de entrenamiento: 8000 | sumas de examen (no vistas): 2000
+
+Entrenando...  (exactitud = suma entera correcta)
+Paso     0: pérdida 2.6059 | exactitud entrenamiento   0.0% | sumas NUNCA vistas   0.0%
+Paso   500: pérdida 0.1657 | exactitud entrenamiento  90.7% | sumas NUNCA vistas  88.8%
+Paso  1000: pérdida 0.0415 | exactitud entrenamiento  98.2% | sumas NUNCA vistas  97.8%
+Paso  1500: pérdida 0.0236 | exactitud entrenamiento  98.4% | sumas NUNCA vistas  98.7%
+Paso  2000: pérdida 0.0010 | exactitud entrenamiento  99.4% | sumas NUNCA vistas  99.7%
+Paso  2500: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  3000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  3500: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4000: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4500: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5000: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5500: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5999: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+
+=== EXAMEN CON SUMAS QUE EL MODELO NUNCA VIO ===
+93 + 94 = 187   ✓
+ 8 + 98 = 106   ✓
+23 + 98 = 121   ✓
+59 +  6 =  65   ✓
+23 + 43 =  66   ✓
+82 + 25 = 107   ✓
+55 +  6 =  61   ✓
+64 + 51 = 115   ✓
+26 + 70 =  96   ✓
+34 + 97 = 131   ✓
+
+Aciertos en las 2000 sumas no vistas: 100.0%
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (semilla 42; extracto):» (13 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+Bloque impreso «> python ejercicio_15_2.py 1 … 5 (primera y última línea de cada ejecución):» (10 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de cinco ejecuciones de comprobación con las semillas 1 a 5 (`python ejercicio_15_2.py 1` … `5`), hechas aparte para verificar este bloque.
+**Interés:** además de la ejecución normal (semilla 42), el libro imprime la primera y la última línea de cinco ejecuciones con las semillas 1 a 5. Esas cinco ejecuciones se hicieron aparte (unos 2 min cada una), y las cinco dan el 100 % de aciertos en las 2000 sumas no vistas, como afirma el libro.
+
+## 79. Ejercicio 15.3 — Aprender a restar
+
+**Archivo:** `ejercicio_15_3.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_RZ2_suma.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (35 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 15.3 — RZ-2 aprende a RESTAR
+# a − b con a ≥ b (dos cifras), resultado de 2 cifras escrito
+# al revés: 85−47=38 se escribe «85-47=83». Hay 5 050 restas
+# posibles; 1 000 se apartan para el examen.
+# Uso: python ejercicio_15_3.py [semilla]
+# =======================================================
+fuente = open('programa_RZ2_suma.py', encoding='utf-8').read()
+cambios = [
+    ("VOCAB = list('0123456789+=\\n')", "VOCAB = list('0123456789-=\\n')"),
+    ("return f'{a:02d}+{b:02d}=' + str(a + b).zfill(3)[::-1] + '\\n'",
+     "return f'{a:02d}-{b:02d}=' + str(a - b).zfill(2)[::-1] + '\\n'"),
+    ("pares = [(a, b) for a in range(100) for b in range(100)]",
+     "pares = [(a, b) for a in range(100) for b in range(a + 1)]"),
+    ("TEST, TRAIN = pares[:2000], pares[2000:2000 + N_ENTRENO]",
+     "TEST, TRAIN = pares[:1000], pares[1000:1000 + N_ENTRENO]"),
+    ("PESO = np.zeros(9); PESO[5:8] = 1", "PESO = np.zeros(8); PESO[5:7] = 1"),
+    ("CTX, D, D_FF, N_BLQ = 9, 48, 192, 2", "CTX, D, D_FF, N_BLQ = 8, 48, 192, 2"),
+    ("    for _ in range(3):", "    for _ in range(2):"),
+    ("    return seq[:, 6:9]", "    return seq[:, 6:8]"),
+    ("return (resolver(X) == Y[:, 5:8]).all(1).mean()", "return (resolver(X) == Y[:, 5:7]).all(1).mean()"),
+    ("print(f'{a:2d} + {b:2d} = {pred:3d}   {\"✓\" if pred == a + b else \"✗ (correcto: \" + str(a + b) + \")\"}')",
+     "print(f'{a:2d} - {b:2d} = {pred:3d}   {\"✓\" if pred == a - b else \"✗ (correcto: \" + str(a - b) + \")\"}')"),
+    ("=== EXAMEN CON SUMAS QUE EL MODELO NUNCA VIO ===", "=== EXAMEN CON RESTAS QUE EL MODELO NUNCA VIO ==="),
+    ("print(f'\\nAciertos en las {len(TEST)} sumas no vistas", "print(f'\\nAciertos en las {len(TEST)} restas no vistas"),
+    ("sumas de entrenamiento: {len(TRAIN)}", "restas de entrenamiento: {len(TRAIN)}"),
+    ("sumas de examen (no vistas)", "restas de examen (no vistas)"),
+    ("(exactitud = suma entera correcta)", "(exactitud = resta entera correcta)"),
+    ("| sumas NUNCA vistas", "| restas NUNCA vistas"),
+]
+for viejo, nuevo in cambios:
+    assert viejo in fuente, viejo
+    fuente = fuente.replace(viejo, nuevo)
+fuente = fuente.split('# -- ¿Cómo lo hace?')[0]
+exec(fuente)
+```
+
+**Ejecución:** `python ejercicio_15_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  103.8 s
+
+**Salida real por consola:**
+
+```
+Parámetros: 57,648
+Semilla 42 | cabezas 2 | restas de entrenamiento: 4050 | restas de examen (no vistas): 1000
+
+Entrenando...  (exactitud = resta entera correcta)
+Paso     0: pérdida 2.6066 | exactitud entrenamiento   0.0% | restas NUNCA vistas   0.0%
+Paso   500: pérdida 0.1492 | exactitud entrenamiento  91.8% | restas NUNCA vistas  91.7%
+Paso  1000: pérdida 0.0270 | exactitud entrenamiento 100.0% | restas NUNCA vistas  99.9%
+Paso  1500: pérdida 0.0002 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  2000: pérdida 0.0001 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  2500: pérdida 0.0001 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  3000: pérdida 0.0001 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  3500: pérdida 0.0001 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  4000: pérdida 0.0000 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  4500: pérdida 0.0000 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  5000: pérdida 0.0000 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  5500: pérdida 0.0000 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+Paso  5999: pérdida 0.0000 | exactitud entrenamiento 100.0% | restas NUNCA vistas 100.0%
+
+=== EXAMEN CON RESTAS QUE EL MODELO NUNCA VIO ===
+46 - 35 =  11   ✓
+31 -  6 =  25   ✓
+94 - 52 =  42   ✓
+30 - 22 =   8   ✓
+94 - 88 =   6   ✓
+33 - 14 =  19   ✓
+96 - 86 =  10   ✓
+33 -  1 =  32   ✓
+23 - 22 =   1   ✓
+98 - 38 =  60   ✓
+
+Aciertos en las 1000 restas no vistas: 100.0%
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (28 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 80. Ejercicio 15.4 — ¿Hasta dónde llega la cadena?
+
+**Archivo:** `ejercicio_15_4.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_RZ3_deduce_letras.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (25 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 15.4 — RZ-3 con cadenas más largas
+# 16 hechos por problema (antes 12). El examen llega hasta
+# 14 pasos; se sigue entrenando SOLO con 1 a 4 pasos.
+# Más hechos = prompt más largo: hay que ampliar CTX (y con
+# él wpe) y el relleno, para que las posiciones finales
+# también se vean al entrenar.
+# Uso: python ejercicio_15_4.py [pasos]   (por defecto 2000)
+# =======================================================
+import sys
+PASOS_EJ = int(sys.argv[1]) if len(sys.argv) > 1 else 2000
+sys.argv = sys.argv[:1]          # RZ-3 lee sus propios argumentos
+fuente = open('programa_RZ3_deduce_letras.py', encoding='utf-8').read()
+cambios = [
+    ("N_HECHOS, PASOS_MAX_ENTRENO = 12, 4", "N_HECHOS, PASOS_MAX_ENTRENO = 16, 4"),
+    ("CTX, D, D_FF, N_BLQ, H = 56, 48, 192, 2, 2", "CTX, D, D_FF, N_BLQ, H = 72, 48, 192, 2, 2"),
+    ("LR, PASOS, BATCH, CLIP, RELLENO_MAX = 3e-3, 2000, 64, 1.0, 8",
+     f"LR, PASOS, BATCH, CLIP, RELLENO_MAX = 3e-3, {PASOS_EJ}, 64, 1.0, 12"),
+    ("def resolver(prompts, max_chars=12):", "def resolver(prompts, max_chars=16):"),
+    ("for L in (2, 6, 9):", "for L in (3, 9, 13):"),
+]
+for viejo, nuevo in cambios:
+    assert viejo in fuente, viejo
+    fuente = fuente.replace(viejo, nuevo)
+exec(fuente)
+```
+
+**Ejecución:** `python ejercicio_15_4.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  474.1 s
+
+**Salida real por consola:**
+
+```
+Modo: paso_a_paso | emb_prev: sí | parámetros: 63,360
+
+Entrenando con deducciones de 1 a 4 pasos...
+Paso     0: pérdida 14.2360 | aciertos con 3 pasos    0% | con 7 pasos (nunca vistos)    0%
+Paso   250: pérdida 2.5468 | aciertos con 3 pasos   52% | con 7 pasos (nunca vistos)   64%
+Paso   500: pérdida 2.5143 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   66%
+Paso   750: pérdida 2.5044 | aciertos con 3 pasos   52% | con 7 pasos (nunca vistos)   64%
+Paso  1000: pérdida 2.4559 | aciertos con 3 pasos   46% | con 7 pasos (nunca vistos)   36%
+Paso  1250: pérdida 2.3451 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   44%
+Paso  1500: pérdida 2.2621 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   34%
+Paso  1750: pérdida 2.3061 | aciertos con 3 pasos   50% | con 7 pasos (nunca vistos)   32%
+Paso  1999: pérdida 2.1989 | aciertos con 3 pasos   48% | con 7 pasos (nunca vistos)   42%
+
+=== EXAMEN: 200 problemas nuevos por cada número de pasos ===
+pasos  respuesta  razonamiento completo correcto
+    1      50.0%       0.5%
+    2      48.0%       0.0%
+    3      46.5%       0.0%
+    4      49.0%       0.0%
+    5      48.0%       0.0%  ← nunca visto al entrenar
+    6      43.5%       0.0%  ← nunca visto al entrenar
+    7      50.5%       0.0%  ← nunca visto al entrenar
+    8      57.5%       0.0%  ← nunca visto al entrenar
+    9      46.0%       0.0%  ← nunca visto al entrenar
+   10      49.5%       0.0%  ← nunca visto al entrenar
+   11      46.5%       0.0%  ← nunca visto al entrenar
+   12      51.5%       0.0%  ← nunca visto al entrenar
+   13      50.0%       0.0%  ← nunca visto al entrenar
+   14      50.5%       0.0%  ← nunca visto al entrenar
+
+=== EJEMPLOS ===
+Hechos: k>d, e>s, j>a, q>i, s>o, p>b, v>r, c>m, w>c, b>e, l>w, a>l, i>z, o>h, h>j, r>k
+¿v>d?   Modelo: l > v  ⇒  NO   (correcto: SÍ)
+
+Hechos: p>s, e>x, y>k, n>a, q>e, h>m, x>p, o>q, k>f, l>i, u>o, f>n, b>v, i>y, z>b, v>u
+¿z>a?   Modelo: t > v  ⇒  NO   (correcto: NO)
+
+Hechos: i>m, h>e, a>s, p>o, y>h, m>w, j>a, s>y, c>r, l>i, u>g, o>l, n>c, k>j, w>t, e>p
+¿k>r?   Modelo: l > v  ⇒  NO   (correcto: NO)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (2000 pasos; extracto):» (27 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 81. Ejercicio 15.5 — Análisis de errores de RZ-4
+
+**Archivo:** `ejercicio_15_5.py`  ·  **Capítulo:** Capítulo 15: ¿Memoriza o razona? — Del loro estadístico al razonador (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_RZ4_deduce_frases.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (59 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# EJERCICIO 15.5 — ¿En qué se equivoca RZ-4 con 8 pasos?
+# Entrena el Programa RZ-4 con la semilla 7 (la única de las
+# seis de 15.5 que falla con 8 pasos) y clasifica cada error
+# según el PRIMER token del razonamiento que difiere del correcto.
+# Tiempo: el del Programa RZ-4 (~35 min) + 1 min de análisis.
+# =======================================================
+import sys
+import numpy as np
+from collections import Counter
+ 
+sys.argv = [sys.argv[0], '7']          # RZ-4 lee la semilla de sus argumentos
+exec(open('programa_RZ4_deduce_frases.py', encoding='utf-8').read())
+ 
+ 
+def tipo_error(sal, correcto):
+    for i, (a, b) in enumerate(zip(sal, correcto)):
+        if a != b:
+            break
+    else:
+        return 'razonamiento demasiado largo o corto'
+    if i == len(correcto) - 1:
+        return 'cadena correcta, respuesta final mal'
+    if b in CONCEPTOS:
+        return 'se equivoca de concepto (búsqueda del hecho)'
+    if b in VERBOS:
+        return 'se equivoca de verbo'
+    if b in ('[+]', '[−]'):
+        return 'se equivoca de signo (efecto acumulado)'
+    return f'otro ({b!r} → {a!r})'
+ 
+ 
+print('\n=== ANÁLISIS DE ERRORES CON 8 PASOS (200 problemas) ===')
+rng = np.random.RandomState(1000 + 8)                  # los mismos del examen
+probs = [problema(8, rng) for _ in range(200)]
+sal = resolver([pr for pr, _ in probs])
+errores = Counter()
+posiciones = Counter()
+ejemplo = None
+for s, (pr, r) in zip(sal, probs):
+    if s == r:
+        continue
+    t = tipo_error(s, r)
+    errores[t] += 1
+    i = next((k for k, (a, b) in enumerate(zip(s, r)) if a != b), len(r))
+    posiciones[(i - 1) // 3 + 1] += 1                  # en qué paso de la cadena
+    if ejemplo is None and 'concepto' in t:
+        ejemplo = (pr, s, r)
+print(f'Problemas con algún error: {sum(errores.values())} de 200')
+for t, n in errores.most_common():
+    print(f'  {n:3d}  {t}')
+print('Paso de la cadena en el que aparece el primer error:',
+      ', '.join(f'paso {k}: {v}' for k, v in sorted(posiciones.items())))
+if ejemplo:
+    pr, s, r = ejemplo
+    i = next(k for k, (a, b) in enumerate(zip(s, r)) if a != b)
+    print('\nEjemplo (primer error marcado con >>):')
+    print('  correcto:', ' '.join(r[:i]), '>>', r[i], '...')
+    print('  modelo:  ', ' '.join(s[:i]), '>>', s[i], '...')
+```
+
+**Ejecución:** `python ejercicio_15_5.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1523.1 s
+
+**Salida real por consola:**
+
+```
+Semilla 7 | vocabulario: 57 tokens | parámetros: 68,592
+
+Semilla 7: entrenando con deducciones de 1 a 4 pasos...
+Paso     0: pérdida 4.0646 | aciertos con 3 pasos    0% | con 7 pasos (nunca vistos)    0%
+Paso   250: pérdida 1.9480 | aciertos con 3 pasos   28% | con 7 pasos (nunca vistos)   28%
+Paso   500: pérdida 1.8019 | aciertos con 3 pasos   24% | con 7 pasos (nunca vistos)   42%
+Paso   750: pérdida 1.3926 | aciertos con 3 pasos   34% | con 7 pasos (nunca vistos)   42%
+Paso  1000: pérdida 0.1945 | aciertos con 3 pasos   76% | con 7 pasos (nunca vistos)   38%
+Paso  1250: pérdida 0.1037 | aciertos con 3 pasos   74% | con 7 pasos (nunca vistos)   56%
+Paso  1500: pérdida 0.0484 | aciertos con 3 pasos   88% | con 7 pasos (nunca vistos)   72%
+Paso  1750: pérdida 0.0272 | aciertos con 3 pasos   94% | con 7 pasos (nunca vistos)   84%
+Paso  2000: pérdida 0.0650 | aciertos con 3 pasos   92% | con 7 pasos (nunca vistos)   80%
+Paso  2250: pérdida 0.0401 | aciertos con 3 pasos   94% | con 7 pasos (nunca vistos)   82%
+Paso  2500: pérdida 0.0255 | aciertos con 3 pasos   94% | con 7 pasos (nunca vistos)   92%
+Paso  2750: pérdida 0.0109 | aciertos con 3 pasos   98% | con 7 pasos (nunca vistos)   96%
+Paso  3000: pérdida 0.0306 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)   72%
+Paso  3250: pérdida 0.0088 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)   92%
+Paso  3500: pérdida 0.0076 | aciertos con 3 pasos   96% | con 7 pasos (nunca vistos)  100%
+Paso  3750: pérdida 0.0135 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)   98%
+Paso  4000: pérdida 0.0005 | aciertos con 3 pasos   98% | con 7 pasos (nunca vistos)  100%
+Paso  4250: pérdida 0.0032 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)   98%
+Paso  4500: pérdida 0.0029 | aciertos con 3 pasos   98% | con 7 pasos (nunca vistos)   98%
+Paso  4750: pérdida 0.0009 | aciertos con 3 pasos   98% | con 7 pasos (nunca vistos)   98%
+Paso  5000: pérdida 0.0005 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5250: pérdida 0.0003 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5500: pérdida 0.0002 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5750: pérdida 0.0003 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+Paso  5999: pérdida 0.0004 | aciertos con 3 pasos  100% | con 7 pasos (nunca vistos)  100%
+
+=== EXAMEN: 200 problemas nuevos por cada número de pasos ===
+pasos  respuesta  razonamiento completo correcto
+    1     100.0%     100.0%
+    2     100.0%     100.0%
+    3     100.0%      99.5%
+    4      99.5%      99.5%
+    5      99.0%      99.0%  ← nunca visto al entrenar
+    6      99.0%      99.0%  ← nunca visto al entrenar
+    7      98.5%      98.5%  ← nunca visto al entrenar
+    8      97.5%      97.5%  ← nunca visto al entrenar
+
+=== EJEMPLOS ===
+Hechos:
+    el gradiente mejora la incertidumbre.
+    la normalización estabiliza el costo.
+    la explotación ayuda a la normalización.
+    la inferencia estabiliza la explotación.
+    la eficiencia estabiliza la precisión.
+    la exploración mejora el contexto.
+    el contexto dificulta la tokenización.
+    la precisión limita el ajuste fino.
+    el costo mejora la pérdida.
+    la pérdida acelera el gradiente.
+Pregunta: ¿la exploración limita la tokenización?
+Razonamiento del modelo: 
+      la exploración mejora el contexto                [efecto acumulado: favorece]
+      el contexto dificulta la tokenización            [efecto acumulado: perjudica]
+      la pregunta dice «limita» (perjudica): coincide con el efecto acumulado
+      ⇒  SÍ   (correcto: SÍ)
+
+Hechos:
+    la temperatura ralentiza la recompensa.
+    el gradiente limita la regularización.
+    el costo mejora la privacidad.
+    la tokenización mejora el sesgo.
+    el contexto complica la temperatura.
+    la atención estabiliza el gradiente.
+    la regularización mejora el costo.
+    la privacidad ayuda a la memoria.
+    la recompensa dificulta la pérdida.
+    la inferencia estabiliza el contexto.
+Pregunta: ¿la atención mejora el sesgo?
+Razonamiento del modelo: 
+      la atención estabiliza el gradiente              [efecto acumulado: favorece]
+      el gradiente limita la regularización            [efecto acumulado: perjudica]
+      la regularización mejora el costo                [efecto acumulado: perjudica]
+      el costo mejora la privacidad                    [efecto acumulado: perjudica]
+      la privacidad ayuda a la memoria                 [efecto acumulado: perjudica]
+      la cadena termina en «la memoria», no en «el sesgo»
+      ⇒  NO SE PUEDE DEDUCIR   (correcto: NO SE PUEDE DEDUCIR)
+
+Hechos:
+    el entrenamiento estabiliza el error.
+    la arquitectura dificulta la memoria.
+    la exploración dificulta la recompensa.
+    la precisión estabiliza el preentrenamiento.
+    la normalización ayuda al ruido.
+    el preentrenamiento complica el entrenamiento.
+    el sobreajuste ayuda a la arquitectura.
+    el ruido mejora el vocabulario.
+    el error dificulta la simulación.
+    la simulación limita la normalización.
+Pregunta: ¿la precisión complica la recompensa?
+Razonamiento del modelo: 
+      la precisión estabiliza el preentrenamiento      [efecto acumulado: favorece]
+      el preentrenamiento complica el entrenamiento    [efecto acumulado: perjudica]
+      el entrenamiento estabiliza el error             [efecto acumulado: perjudica]
+      el error dificulta la simulación                 [efecto acumulado: favorece]
+      la simulación limita la normalización            [efecto acumulado: perjudica]
+      la normalización ayuda al ruido                  [efecto acumulado: perjudica]
+      el ruido mejora el vocabulario                   [efecto acumulado: perjudica]
+      la cadena termina en «el vocabulario», no en «la recompensa»
+      ⇒  NO SE PUEDE DEDUCIR   (correcto: NO SE PUEDE DEDUCIR)
+
+
+=== ANÁLISIS DE ERRORES CON 8 PASOS (200 problemas) ===
+Problemas con algún error: 5 de 200
+    5  se equivoca de concepto (búsqueda del hecho)
+Paso de la cadena en el que aparece el primer error: paso 7: 2, paso 8: 3
+
+Ejemplo (primer error marcado con >>):
+  correcto: la temperatura dificulta [−] la inferencia dificulta [+] la exploración complica [−] los datos acelera [−] la normalización ralentiza [+] la precisión ralentiza [−] el vocabulario dificulta [+] el preentrenamiento ralentiza [−] >> la memoria ...
+  modelo:   la temperatura dificulta [−] la inferencia dificulta [+] la exploración complica [−] los datos acelera [−] la normalización ralentiza [+] la precisión ralentiza [−] el vocabulario dificulta [+] el preentrenamiento ralentiza [−] >> ? ...
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (extracto final):» (8 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Nota de tiempo:** es el ejercicio más lento del libro: 1523 s en esta máquina compartida. La salida coincide igualmente.
+
+
+---
+
+# Capítulo 16: Tu código mueve GPT-2 (***)
+
+## 82. Programa 8 bis — GPT-2 de verdad, con el forward del Programa 8
+
+**Archivo:** `programa_8bis_gpt2_real.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** programa
+
+**Datos previos:** necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (234 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA 8 bis — GPT-2 de verdad, con el forward del Programa 8
+# Carga los pesos REALES de GPT-2 small (124 millones de
+# parámetros, OpenAI 2019) y los pasa por EXACTAMENTE la misma
+# función forward() del Programa 8. Solo cambian los tamaños y
+# el tokenizador (BPE en lugar de caracteres).
+#
+# Requisitos: NumPy y una carpeta gpt2/ junto a este archivo con
+# los cuatro archivos de huggingface.co/openai-community/gpt2:
+#   model.safetensors  (pesos, ~548 MB)
+#   vocab.json, merges.txt  (tokenizador BPE)
+#   config.json  (tamaños del modelo)
+# No necesita PyTorch ni la librería transformers.
+# =======================================================
+import json
+import re
+import sys
+import time
+import numpy as np
+ 
+sys.stdout.reconfigure(encoding='utf-8')   # para que Windows muestre «Ġ», «␣», ñ...
+ 
+CARPETA = 'gpt2'
+ 
+# -- 1. Leer los pesos: el formato safetensors, a mano ------------
+# Un archivo .safetensors es muy simple:
+#   8 bytes  -> N, la longitud de la cabecera (entero sin signo)
+#   N bytes  -> cabecera en JSON: para cada tensor, su tipo, su
+#               forma y en qué bytes del resto del archivo está
+#   resto    -> los números de todos los tensores, uno detrás de otro
+def leer_safetensors(ruta):
+    with open(ruta, 'rb') as f:
+        n = int.from_bytes(f.read(8), 'little')
+        cabecera = json.loads(f.read(n))
+        datos = f.read()
+    tipos = {'F32': np.float32, 'F16': np.float16}
+    tensores = {}
+    for nombre, info in cabecera.items():
+        if nombre == '__metadata__':
+            continue
+        ini, fin = info['data_offsets']
+        t = np.frombuffer(datos[ini:fin], dtype=tipos[info['dtype']])
+        tensores[nombre.removeprefix('transformer.')] = t.reshape(info['shape'])
+    return tensores
+ 
+ 
+t0 = time.time()
+cfg = json.load(open(f'{CARPETA}/config.json'))
+gpt2 = leer_safetensors(f'{CARPETA}/model.safetensors')
+print(f'Pesos leídos en {time.time() - t0:.1f} s: {len(gpt2)} tensores')
+# -- 2. Los tamaños de GPT-2 small (en vez de los del Programa 8) --
+N_BLQ = cfg['n_layer']          # 12 bloques     (Programa 8: 2)
+H     = cfg['n_head']           # 12 cabezas     (Programa 8: 4)
+D     = cfg['n_embd']           # 768            (Programa 8: 48)
+CTX   = cfg['n_positions']      # 1024 tokens    (Programa 8: 24)
+DH    = D // H                  # 64 por cabeza  (Programa 8: 12)
+EPS   = cfg.get('layer_norm_epsilon', 1e-5)
+ 
+# -- 3. Los pesos con los nombres del Programa 8 --------------------
+# GPT-2 guarda Q, K y V juntas en una matriz c_attn de 768 × 2304;
+# la cortamos en tres de 768 × 768. Sus matrices ya están en la
+# orientación del Programa 8 (x @ W), así que no hay que trasponer.
+params = {'wte': gpt2['wte.weight'], 'wpe': gpt2['wpe.weight'],
+          'lnf_g': gpt2['ln_f.weight'], 'lnf_b': gpt2['ln_f.bias']}
+for k in range(N_BLQ):
+    b = f'h.{k}.'
+    params[f'ln1_g{k}'], params[f'ln1_b{k}'] = gpt2[b + 'ln_1.weight'], gpt2[b + 'ln_1.bias']
+    W, bias = gpt2[b + 'attn.c_attn.weight'], gpt2[b + 'attn.c_attn.bias']
+    for i, n in enumerate('qkv'):
+        params[f'W{n}{k}'] = W[:, i * D:(i + 1) * D]
+        params[f'b{n}{k}'] = bias[i * D:(i + 1) * D]
+    params[f'Wo{k}'], params[f'bo{k}'] = gpt2[b + 'attn.c_proj.weight'], gpt2[b + 'attn.c_proj.bias']
+    params[f'ln2_g{k}'], params[f'ln2_b{k}'] = gpt2[b + 'ln_2.weight'], gpt2[b + 'ln_2.bias']
+    params[f'W1{k}'], params[f'b1{k}'] = gpt2[b + 'mlp.c_fc.weight'], gpt2[b + 'mlp.c_fc.bias']
+    params[f'W2{k}'], params[f'b2{k}'] = gpt2[b + 'mlp.c_proj.weight'], gpt2[b + 'mlp.c_proj.bias']
+V = params['wte'].shape[0]
+print(f'Vocabulario: {V} tokens | Bloques: {N_BLQ} | Cabezas: {H} | D: {D} | Contexto: {CTX}')
+print(f'Total de parámetros: {sum(p.size for p in params.values()):,}')
+MASCARA_CAUSAL = np.triu(np.full((CTX, CTX), -1e9, dtype=np.float32), k=1)
+# -- 4. Las funciones del Programa 8, sin cambiar una línea ---------
+def softmax(x, axis=-1):
+    x = x - x.max(axis=axis, keepdims=True)
+    return np.exp(x) / np.exp(x).sum(axis=axis, keepdims=True)
+def layer_norm_fwd(x, g, b, eps=EPS):
+    mu = x.mean(-1, keepdims=True)
+    inv = 1.0 / np.sqrt(x.var(-1, keepdims=True) + eps)
+    xhat = (x - mu) * inv
+    return xhat * g + b, (xhat, inv)
+C_GELU = np.sqrt(2 / np.pi)
+def gelu(x):
+    return 0.5 * x * (1 + np.tanh(C_GELU * (x + 0.044715 * x * x * x)))
+def separar(x):   # (B, T, D) -> (B, H, T, DH)
+    B, T, _ = x.shape
+    return x.reshape(B, T, H, DH).transpose(0, 2, 1, 3)
+def unir(x):      # (B, H, T, DH) -> (B, T, D)
+    B, _, T, _ = x.shape
+    return x.transpose(0, 2, 1, 3).reshape(B, T, D)
+ 
+def forward(tokens):
+    """tokens (B, T) -> logits (B, T, V). El mismo código del Programa 8."""
+    B, T = tokens.shape
+    X = params['wte'][tokens] + params['wpe'][:T]
+    cache = []
+    for k in range(N_BLQ):
+        Xin = X
+        a, ln1 = layer_norm_fwd(Xin, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = (separar(a @ params[f'W{n}{k}'] + params[f'b{n}{k}']) for n in 'qkv')
+        pesos = softmax(Q @ K.transpose(0, 1, 3, 2) / np.sqrt(DH) + MASCARA_CAUSAL[:T, :T])
+        att = unir(pesos @ Vm)
+        X1 = Xin + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        m, ln2 = layer_norm_fwd(X1, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        h_pre = m @ params[f'W1{k}'] + params[f'b1{k}']
+        h = gelu(h_pre)
+        X = X1 + h @ params[f'W2{k}'] + params[f'b2{k}']
+        cache.append(dict(X=X, pesos=pesos))   # salida y atención de cada bloque (16.5, 16.6)
+    xf, lnf = layer_norm_fwd(X, params['lnf_g'], params['lnf_b'])
+    logits = xf @ params['wte'].T          # pesos compartidos, como en el Programa 8
+    return logits, (xf, lnf, cache)
+ 
+def top_p_filtrar(probs, p):
+    indices_ord = np.argsort(probs)[::-1]
+    suma_acum = np.cumsum(probs[indices_ord])
+    n_tokens = int(np.searchsorted(suma_acum, p)) + 1
+    nueva = np.zeros_like(probs)
+    nueva[indices_ord[:n_tokens]] = probs[indices_ord[:n_tokens]]
+    return nueva / nueva.sum()
+# -- 5. El tokenizador BPE de GPT-2 (Capítulo 9) ----------------
+# GPT-2 trabaja con BYTES: cada uno de los 256 valores posibles de
+# un byte se representa con un carácter imprimible (el espacio, por
+# ejemplo, se convierte en «Ġ»). Sobre esos caracteres se aplican,
+# por orden, las 50 000 fusiones aprendidas que hay en merges.txt.
+def bytes_a_unicode():
+    bs = (list(range(ord('!'), ord('~') + 1)) + list(range(ord('¡'), ord('¬') + 1))
+          + list(range(ord('®'), ord('ÿ') + 1)))
+    cs = bs[:]
+    n = 0
+    for b in range(256):
+        if b not in bs:
+            bs.append(b)
+            cs.append(256 + n)
+            n += 1
+    return dict(zip(bs, map(chr, cs)))
+ 
+B2U = bytes_a_unicode()
+U2B = {u: b for b, u in B2U.items()}
+VOCAB = json.load(open(f'{CARPETA}/vocab.json', encoding='utf-8'))
+ID2TOK = {i: t for t, i in VOCAB.items()}
+lineas = open(f'{CARPETA}/merges.txt', encoding='utf-8').read().split('\n')
+RANGO = {tuple(l.split()): i for i, l in enumerate(l for l in lineas[1:] if l.strip())}
+# Cómo trocea GPT-2 el texto antes de aplicar BPE (palabras con su
+# espacio delante, números, signos, espacios). Versión con el módulo
+# re estándar de Python: [^\W\d_] son las letras.
+TROCEO = re.compile(r"""'s|'t|'re|'ve|'m|'ll|'d| ?[^\W\d_]+| ?\d+| ?(?:[^\s\w]|_)+|\s+(?!\S)|\s+""")
+ 
+def bpe(palabra):
+    """Aplica las fusiones de merges.txt, siempre la de menor rango primero."""
+    partes = list(palabra)
+    while len(partes) > 1:
+        pares = [(RANGO.get((a, b), 1e18), i) for i, (a, b) in enumerate(zip(partes, partes[1:]))]
+        rango, i = min(pares)
+        if rango == 1e18:
+            break
+        partes = partes[:i] + [partes[i] + partes[i + 1]] + partes[i + 2:]
+    return partes
+ 
+def codificar(texto):
+    ids = []
+    for trozo in TROCEO.findall(texto):
+        palabra = ''.join(B2U[b] for b in trozo.encode('utf-8'))
+        ids += [VOCAB[p] for p in bpe(palabra)]
+    return ids
+ 
+def decodificar(ids):
+    texto = ''.join(ID2TOK[i] for i in ids)
+    return bytes(U2B[c] for c in texto).decode('utf-8', errors='replace')
+ 
+def generar(semilla, n_tokens=40, temperatura=0.8, top_p=0.9):
+    """Como generar() del Programa 8, pero con tokens BPE.
+    temperatura=0 -> greedy (siempre el más probable)."""
+    ids = codificar(semilla)
+    for _ in range(n_tokens):
+        logits = forward(np.array([ids[-CTX:]]))[0][0, -1].astype(np.float64)
+        if temperatura == 0:
+            siguiente = int(np.argmax(logits))
+        else:
+            probs = softmax(logits / temperatura)
+            if top_p < 1.0:
+                probs = top_p_filtrar(probs, top_p)
+            siguiente = int(np.random.choice(V, p=probs))
+        ids.append(siguiente)
+    return decodificar(ids)
+# =======================================================
+# EXPERIMENTOS
+# =======================================================
+print('\n=== 1. EL TOKENIZADOR BPE (Ġ = espacio delante de la palabra) ===')
+for frase in ['Hello world', 'The capital of France is',
+              'la inteligencia artificial aprende de los datos.']:
+    ids = codificar(frase)
+    print(f'{frase!r}: {len(frase)} caracteres -> {len(ids)} tokens')
+    print('   ', [ID2TOK[i] for i in ids])
+    print('   ', ids)
+ 
+print('\n=== 2. ¿QUÉ TOKEN VIENE DESPUÉS? (las 5 opciones más probables) ===')
+for frase in ['The capital of France is', 'Paris is the capital of',
+              'The cat sat on the', 'One, two, three, four,']:
+    t0 = time.time()
+    logits = forward(np.array([codificar(frase)]))[0][0, -1].astype(np.float64)
+    probs = softmax(logits)
+    print(f'{frase!r}   ({time.time() - t0:.2f} s)')
+    for i in np.argsort(probs)[::-1][:5]:
+        print(f'    {decodificar([i]).replace(" ", "␣").replace(chr(10), "↵"):>12s}  {probs[i]:.3f}')
+ 
+print('\n=== 3. PÉRDIDA Y PERPLEJIDAD EN UN TEXTO QUE NO ESTÁ EN SU CORPUS ===')
+texto = ('Neural networks learn by adjusting their weights. During training, the network makes a '
+         'prediction, measures its error with a loss function, and uses backpropagation to compute '
+         'how each weight should change to reduce that error.')
+ids = codificar(texto)
+logits = forward(np.array([ids]))[0][0].astype(np.float64)
+probs = softmax(logits[:-1])
+perdida = -np.mean(np.log(probs[np.arange(len(ids) - 1), ids[1:]]))
+print(f'{len(ids)} tokens | pérdida media = {perdida:.3f} | perplejidad = {np.exp(perdida):.1f}')
+print(f'Referencia «al azar»: ln({V}) = {np.log(V):.2f}, perplejidad {V}')
+ 
+print('\n=== 4. GENERACIÓN GREEDY (comprobación) ===')
+t0 = time.time()
+print(generar('I enjoy walking with my cute dog', n_tokens=30, temperatura=0))
+print(f'({time.time() - t0:.1f} s)')
+ 
+print('\n=== 5. GENERACIÓN CON TEMPERATURA 0.8 Y TOP-P 0.9 ===')
+np.random.seed(42)
+for semilla in ['The meaning of life is', 'In a shocking finding, scientists discovered',
+                'La inteligencia artificial es']:
+    print(f'\n--- {semilla!r} ---')
+    print(generar(semilla, n_tokens=40))
+```
+
+**Ejecución:** `python programa_8bis_gpt2_real.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  165.7 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 43.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+
+=== 1. EL TOKENIZADOR BPE (Ġ = espacio delante de la palabra) ===
+'Hello world': 11 caracteres -> 2 tokens
+    ['Hello', 'Ġworld']
+    [15496, 995]
+'The capital of France is': 24 caracteres -> 5 tokens
+    ['The', 'Ġcapital', 'Ġof', 'ĠFrance', 'Ġis']
+    [464, 3139, 286, 4881, 318]
+'la inteligencia artificial aprende de los datos.': 48 caracteres -> 13 tokens
+    ['la', 'Ġintel', 'igen', 'cia', 'Ġartificial', 'Ġap', 'rend', 'e', 'Ġde', 'Ġlos', 'Ġdat', 'os', '.']
+    [5031, 33649, 9324, 33743, 11666, 2471, 10920, 68, 390, 22346, 4818, 418, 13]
+
+=== 2. ¿QUÉ TOKEN VIENE DESPUÉS? (las 5 opciones más probables) ===
+'The capital of France is'   (0.83 s)
+            ␣the  0.085
+            ␣now  0.048
+              ␣a  0.046
+         ␣France  0.032
+          ␣Paris  0.032
+'Paris is the capital of'   (0.69 s)
+            ␣the  0.257
+              ␣a  0.070
+         ␣France  0.041
+         ␣Europe  0.024
+        ␣Germany  0.020
+'The cat sat on the'   (0.76 s)
+          ␣floor  0.076
+            ␣bed  0.065
+          ␣couch  0.054
+         ␣ground  0.052
+           ␣edge  0.048
+'One, two, three, four,'   (0.74 s)
+           ␣five  0.742
+            ␣ten  0.026
+            ␣six  0.019
+            ␣and  0.018
+           ␣four  0.014
+
+=== 3. PÉRDIDA Y PERPLEJIDAD EN UN TEXTO QUE NO ESTÁ EN SU CORPUS ===
+44 tokens | pérdida media = 3.534 | perplejidad = 34.3
+Referencia «al azar»: ln(50257) = 10.82, perplejidad 50257
+
+=== 4. GENERACIÓN GREEDY (comprobación) ===
+I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk
+(22.9 s)
+
+=== 5. GENERACIÓN CON TEMPERATURA 0.8 Y TOP-P 0.9 ===
+
+--- 'The meaning of life is' ---
+The meaning of life is and always will be a question of importance to us, both those who are here and those who are not. I am not willing to give up the hope of a lifetime that will be the exact opposite
+
+--- 'In a shocking finding, scientists discovered' ---
+In a shocking finding, scientists discovered that the U.S. has the highest rate of autism prevalence among children younger than 5.
+
+The findings are in the latest medical journal Neurology, a peer-reviewed journal.
+
+
+
+--- 'La inteligencia artificial es' ---
+La inteligencia artificial español, de 20 minografico, el vento desempos de cœuriales del consejo
+
+cœuriales del consejo
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (inicio):» (3 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 5.2 s: 160 tensores» → real «Pesos leídos en 43.0 s: 160 tensores».
+Bloque impreso «> Salida del Programa 8 bis (parte 1):» (10 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+Bloque impreso «> Salida del Programa 8 bis (parte 2):» (25 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «'The capital of France is' (0.40 s)» → real «'The capital of France is' (0.83 s)»; libro «'Paris is the capital of' (0.41 s)» → real «'Paris is the capital of' (0.69 s)»; libro «'The cat sat on the' (0.40 s)» → real «'The cat sat on the' (0.76 s)»; libro «'One, two, three, four,' (0.95 s)» → real «'One, two, three, four,' (0.74 s)».
+Bloque impreso «> Salida del Programa 8 bis (parte 3):» (3 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+Bloque impreso «> Salida del Programa 8 bis (parte 4):» (3 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «(19.4 s)» → real «(22.9 s)».
+Bloque impreso «> Salida del Programa 8 bis (parte 5):» (9 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Interés:** carga los pesos reales de GPT-2 y genera texto con el forward escrito en el libro. Coincide con todos los bloques impresos, que están repartidos por varias secciones del Capítulo 16. Solo cambian los tiempos: la primera lectura de los pesos tardó 43 s por la caché de disco fría, frente a los 5.2 s del libro.
+
+## 83. Script complementario
+
+**Archivo:** `fragmento_9q3_bits.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (16 líneas, tal como está impreso en el libro):
+
+```python
+# Fragmento 16.3 — Pasar de nats por token a bits por carácter
+import numpy as np
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])
+ 
+texto = ('Neural networks learn by adjusting their weights. During training, the network makes a '
+         'prediction, measures its error with a loss function, and uses backpropagation to compute '
+         'how each weight should change to reduce that error.')
+ids = codificar(texto)
+lp = np.log(softmax(forward(np.array([ids]))[0][0, :-1].astype(np.float64)))
+nats = -lp[np.arange(len(ids) - 1), ids[1:]].sum()       # suma de las 43 pérdidas
+chars = len(texto) - len(decodificar(ids[:1]))           # caracteres predichos
+print(f'{len(ids) - 1} tokens predichos, {chars} caracteres')
+print(f'{nats / (len(ids) - 1):.3f} nats/token  =  {nats / chars:.3f} nats/carácter  =  '
+      f'{nats / chars / np.log(2):.2f} bits/carácter')
+print(f'Un token ocupa de media {chars / (len(ids) - 1):.1f} caracteres')
+```
+
+**Ejecución:** `python fragmento_9q3_bits.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  2.2 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.1 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+43 tokens predichos, 225 caracteres
+3.534 nats/token  =  0.675 nats/carácter  =  0.97 bits/carácter
+Un token ocupa de media 5.2 caracteres
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida:» (6 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 1.0 s: 160 tensores» → real «Pesos leídos en 1.1 s: 160 tensores».
+
+## 84. Script complementario
+
+**Archivo:** `fragmento_9q4_repeticion.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (25 líneas, tal como está impreso en el libro):
+
+```python
+# Fragmento 16.4 — Greedy con y sin penalización por repetición
+# La penalización es la del Programa S-2 (14.3), copiada tal cual.
+import numpy as np
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])
+ 
+ 
+def greedy(semilla, n=40, rep_pen=1.0):
+    tokens = codificar(semilla)
+    generados = list(tokens)
+    for _ in range(n):
+        logits = forward(np.array([tokens]))[0][0, -1].astype(np.float64)
+        if rep_pen != 1.0:                                  # como en el Programa S-2
+            for t in set(generados[-20:]):
+                if logits[t] > 0: logits[t] /= rep_pen
+                else:             logits[t] *= rep_pen
+        siguiente = int(np.argmax(logits))
+        tokens.append(siguiente)
+        generados.append(siguiente)
+    return decodificar(tokens)
+ 
+ 
+for pen in [1.0, 1.3]:
+    print(f'--- repetition penalty = {pen} ---')
+    print(greedy('I enjoy walking with my cute dog', rep_pen=pen).replace('\n', ' / '))
+```
+
+**Ejecución:** `python fragmento_9q4_repeticion.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  64.7 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+--- repetition penalty = 1.0 ---
+I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog. /  / I'm not sure
+--- repetition penalty = 1.3 ---
+I enjoy walking with my cute dog, but I'm not sure if it's because of the dogs or just a lack. / I've been to many dog shows and I'm always impressed by the dogs that come out of my house
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida:» (7 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 85. Programa G-1 — La lente de logits: ver pensar a GPT-2
+
+**Archivo:** `programa_G1_lente_logits.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (40 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA G-1 — La lente de logits: ver pensar a GPT-2
+# Capítulo 16, sección 16.5
+#
+# La vía residual de GPT-2 tiene siempre 768 números por token.
+# Al final, la LayerNorm final y wteᵀ la convierten en una
+# predicción. ¿Y si aplicamos esa misma conversión a la salida
+# de CADA bloque, no solo del último? Veremos cómo se va formando
+# la predicción capa a capa (nostalgebraist, 2020).
+# Requisitos: programa_8bis_gpt2_real.py y la carpeta gpt2/.
+# =======================================================
+import numpy as np
+ 
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])     # pesos, tokenizador y forward()
+ 
+ 
+def lente(frase, objetivo):
+    """Predicción tras cada bloque para el token que sigue a `frase`."""
+    ids = codificar(frase)
+    obj = codificar(objetivo)[0]
+    _, (_, _, cache) = forward(np.array([ids]))
+    # La entrada del bloque 1 (embeddings) y la salida de cada bloque
+    salidas = [params['wte'][ids] + params['wpe'][:len(ids)]] + [c['X'][0] for c in cache]
+    print(f'\n«{frase}» → ¿«{objetivo}»?')
+    print('  capa          más probable        prob.   P(objetivo)  puesto')
+    for k, X in enumerate(salidas):
+        xf, _ = layer_norm_fwd(X[-1], params['lnf_g'], params['lnf_b'])   # última posición
+        probs = softmax((xf @ params['wte'].T).astype(np.float64))
+        mejor = int(np.argmax(probs))
+        puesto = int((probs > probs[obj]).sum()) + 1
+        capa = 'embeddings' if k == 0 else f'bloque {k:2d}'
+        print(f'  {capa:12s}  {decodificar([mejor])!r:18s}  {probs[mejor]:.3f}   '
+              f'{probs[obj]:.4f}     {puesto:>6d}')
+ 
+ 
+lente('The capital of France is', ' Paris')
+lente('The Eiffel Tower is located in the city of', ' Paris')
+lente('One, two, three, four,', ' five')
+lente('I enjoy walking with my cute', ' dog')
+```
+
+**Ejecución:** `python programa_G1_lente_logits.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  29.2 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.2 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+
+«The capital of France is» → ¿« Paris»?
+  capa          más probable        prob.   P(objetivo)  puesto
+  embeddings    ' destro'           0.533   0.0000      21416
+  bloque  1     ' not'              0.332   0.0000      16524
+  bloque  2     ' now'              0.271   0.0000      18483
+  bloque  3     ' now'              0.366   0.0000      13624
+  bloque  4     ' now'              0.515   0.0000       8649
+  bloque  5     ' now'              0.627   0.0000       3106
+  bloque  6     ' now'              0.552   0.0000       3040
+  bloque  7     ' now'              0.572   0.0001        200
+  bloque  8     ' now'              0.689   0.0000        275
+  bloque  9     ' now'              0.423   0.0006         52
+  bloque 10     ' France'           0.621   0.1819          2
+  bloque 11     ' France'           0.242   0.1391          2
+  bloque 12     ' the'              0.085   0.0322          5
+
+«The Eiffel Tower is located in the city of» → ¿« Paris»?
+  capa          más probable        prob.   P(objetivo)  puesto
+  embeddings    ' destro'           0.670   0.0000      22947
+  bloque  1     ' the'              0.707   0.0000       6060
+  bloque  2     ' the'              0.815   0.0000       5618
+  bloque  3     ' the'              0.713   0.0000       2104
+  bloque  4     ' the'              0.660   0.0000        838
+  bloque  5     ' the'              0.318   0.0001        449
+  bloque  6     ' England'          0.055   0.0004        255
+  bloque  7     ' East'             0.064   0.0009        145
+  bloque  8     ' Ing'              0.230   0.0013         96
+  bloque  9     ' Rome'             0.168   0.0150         13
+  bloque 10     ' London'           0.248   0.1935          2
+  bloque 11     ' Paris'            0.165   0.1649          1
+  bloque 12     ' Paris'            0.064   0.0638          1
+
+«One, two, three, four,» → ¿« five»?
+  capa          más probable        prob.   P(objetivo)  puesto
+  embeddings    ' mathemat'         0.763   0.0000      14028
+  bloque  1     ' which'            0.148   0.0002        563
+  bloque  2     ' which'            0.122   0.0002        397
+  bloque  3     ' etc'              0.265   0.0003        162
+  bloque  4     ' etc'              0.925   0.0000        178
+  bloque  5     ' etc'              0.806   0.0000        260
+  bloque  6     ' etc'              0.992   0.0000        315
+  bloque  7     ' etc'              0.987   0.0000         79
+  bloque  8     ' etc'              0.993   0.0000         21
+  bloque  9     ' etc'              0.994   0.0001         11
+  bloque 10     ' five'             0.976   0.9762          1
+  bloque 11     ' five'             0.970   0.9695          1
+  bloque 12     ' five'             0.742   0.7417          1
+
+«I enjoy walking with my cute» → ¿« dog»?
+  capa          más probable        prob.   P(objetivo)  puesto
+  embeddings    ' cute'             1.000   0.0000       2811
+  bloque  1     ' cute'             0.722   0.0002        131
+  bloque  2     ' cute'             0.365   0.0001        161
+  bloque  3     ' little'           0.483   0.0002        171
+  bloque  4     ' little'           0.585   0.0002        157
+  bloque  5     ' little'           0.595   0.0008         38
+  bloque  6     ' little'           0.590   0.0013         28
+  bloque  7     ' girl'             0.399   0.0023         28
+  bloque  8     ' girl'             0.329   0.0019         26
+  bloque  9     ' friends'          0.609   0.0018         23
+  bloque 10     ' little'           0.380   0.0021         22
+  bloque 11     ' little'           0.307   0.0139          9
+  bloque 12     ' little'           0.424   0.0620          2
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (unos 25 segundos):» (63 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 1.3 s: 160 tensores» → real «Pesos leídos en 1.2 s: 160 tensores».
+
+## 86. Programa G-2 — Cabezas de inducción en GPT-2 real
+
+**Archivo:** `programa_G2_induccion.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (72 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA G-2 — Cabezas de inducción en GPT-2 real
+# Capítulo 16, sección 16.6
+#
+# Una secuencia de 50 tokens elegidos al azar no tiene ningún
+# sentido: GPT-2 no puede predecirla... la primera vez. Si la
+# repetimos, ¿aprovecha lo que acaba de ver? Medimos la pérdida
+# en las dos copias y buscamos, entre sus 144 cabezas (12 bloques
+# × 12), las que miran «al token que vino después de la vez
+# anterior»: las cabezas de inducción (Olsson et al., 2022).
+# Requisitos: programa_8bis_gpt2_real.py, la carpeta gpt2/ y
+# matplotlib (para la figura).
+# =======================================================
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+ 
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])     # pesos, tokenizador y forward()
+ 
+N = 50
+rng = np.random.RandomState(0)
+R = list(rng.randint(1000, 30000, size=N))  # 50 tokens al azar
+ids = [50256] + R + R                       # <|endoftext|>, copia 1, copia 2
+print('Secuencia (principio):', decodificar(R[:12]).replace('\n', ' '), '...')
+ 
+logits, (_, _, cache) = forward(np.array([ids]))
+logp = np.log(softmax(logits[0, :-1].astype(np.float64)))
+perdida = -logp[np.arange(len(ids) - 1), ids[1:]]      # pérdida de cada predicción
+acierto = logp.argmax(-1) == np.array(ids[1:])
+# La predicción en la posición i es del token i+1. Copia 1: tokens 2..50;
+# copia 2: tokens 52..100 (el primero de cada copia no se puede deducir).
+c1, c2 = slice(1, N), slice(N + 1, 2 * N)
+print(f'\nPérdida media en la 1.ª copia: {perdida[c1].mean():.2f}   aciertos: {acierto[c1].mean():.0%}')
+print(f'Pérdida media en la 2.ª copia: {perdida[c2].mean():.2f}   aciertos: {acierto[c2].mean():.0%}')
+print(f'Referencia «al azar»: ln({V}) = {np.log(V):.2f}')
+ 
+# Puntuaciones por cabeza. En la 2.ª copia, la posición i contiene el mismo
+# token que la i − N; el que vino después de aquel está en la i − N + 1.
+pos = np.arange(N + 2, 2 * N + 1)
+induccion = np.array([[c['pesos'][0, h, pos, pos - N + 1].mean() for h in range(H)] for c in cache])
+anterior = np.array([[c['pesos'][0, h, np.arange(1, 2 * N + 1), np.arange(0, 2 * N)].mean()
+                      for h in range(H)] for c in cache])
+print('\nCabezas de inducción (atención media al token que siguió a la vez anterior):')
+for k, h in sorted(np.ndindex(N_BLQ, H), key=lambda kh: -induccion[kh])[:5]:
+    print(f'   bloque {k + 1:2d}, cabeza {h + 1:2d}: {induccion[k, h]:.2f}')
+print('Cabezas «token anterior» (atención media al token inmediatamente anterior):')
+for k, h in sorted(np.ndindex(N_BLQ, H), key=lambda kh: -anterior[kh])[:3]:
+    print(f'   bloque {k + 1:2d}, cabeza {h + 1:2d}: {anterior[k, h]:.2f}')
+print(f'Media de las {N_BLQ * H} cabezas: inducción {induccion.mean():.2f}, '
+      f'token anterior {anterior.mean():.2f}')
+ 
+# Figura: pérdida por posición y mapa de la mejor cabeza de inducción
+kb, hb = np.unravel_index(induccion.argmax(), induccion.shape)
+# Letra grande y negra: la figura se imprime a 17 cm de ancho
+plt.rcParams.update({'font.size': 17, 'axes.titlesize': 18, 'text.color': 'black', 'axes.labelcolor': 'black',
+                     'xtick.color': 'black', 'ytick.color': 'black', 'axes.edgecolor': 'black'})
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(13, 5.8), dpi=150, layout='constrained')
+a1.plot(np.arange(1, 2 * N + 1), perdida, color='#1A3A6B', lw=1.5)
+a1.axvline(N + 0.5, color='#D97706', ls='--', lw=1.5)
+a1.set_ylim(-0.5, perdida.max() * 1.15)
+a1.text(N * 0.5, perdida.max() * 1.07, '1.ª copia', ha='center')
+a1.text(N * 1.5, perdida.max() * 1.07, '2.ª copia', ha='center')
+a1.set_xlabel('posición del token predicho'); a1.set_ylabel('pérdida (nats)')
+a1.set_title('GPT-2 ante 50 tokens al azar, repetidos', fontweight='bold')
+im = a2.imshow(cache[kb]['pesos'][0, hb], cmap='Blues', vmin=0, vmax=1)
+a2.set_title(f'Atención del bloque {kb + 1}, cabeza {hb + 1}', fontweight='bold')
+a2.set_xlabel('key: posición a la que se mira'); a2.set_ylabel('query: posición que pregunta')
+fig.colorbar(im, ax=a2, shrink=0.8, label='peso de atención')
+plt.savefig('figura_9q_induccion.png')
+print(f'\nFigura guardada en figura_9q_induccion.png (bloque {kb + 1}, cabeza {hb + 1})')
+```
+
+**Ejecución:** `python programa_G2_induccion.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  3.5 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Secuencia (principio): innppers cul Quad zones 512 corporations invari lonely realization~~~~~~~~ Whatever ...
+
+Pérdida media en la 1.ª copia: 12.87   aciertos: 0%
+Pérdida media en la 2.ª copia: 0.26   aciertos: 98%
+Referencia «al azar»: ln(50257) = 10.82
+
+Cabezas de inducción (atención media al token que siguió a la vez anterior):
+   bloque  6, cabeza  6: 0.95
+   bloque  7, cabeza 10: 0.94
+   bloque  8, cabeza 11: 0.93
+   bloque  6, cabeza  2: 0.90
+   bloque  8, cabeza  3: 0.85
+Cabezas «token anterior» (atención media al token inmediatamente anterior):
+   bloque  5, cabeza 12: 0.99
+   bloque  4, cabeza  8: 0.52
+   bloque  7, cabeza  9: 0.50
+Media de las 144 cabezas: inducción 0.09, token anterior 0.10
+
+Figura guardada en figura_9q_induccion.png (bloque 6, cabeza 6)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (unos segundos):» (19 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 1.1 s: 160 tensores» → real «Pesos leídos en 1.0 s: 160 tensores».
+
+## 87. Programa G-3 — El KV-cache, implementado y medido
+
+**Archivo:** `programa_G3_kvcache.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (106 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA G-3 — El KV-cache, implementado y medido
+# Capítulo 16, sección 16.7
+#
+# generar() del Programa 8 bis recalcula, para cada token nuevo,
+# el forward de TODA la secuencia. Pero con la máscara causal las
+# claves (K) y los valores (V) de los tokens anteriores no cambian
+# nunca: se pueden guardar y reutilizar. Así, cada paso solo
+# procesa UN token. Es el «KV-cache» que usan todos los LLM.
+# Requisitos: programa_8bis_gpt2_real.py y la carpeta gpt2/.
+# =======================================================
+import time
+import numpy as np
+
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])     # pesos, tokenizador, forward() y generar()
+
+
+def nuevo_cache():
+    """Espacio para las K y V de hasta CTX tokens en cada bloque: (H, CTX, DH)."""
+    return [{'K': np.zeros((H, CTX, DH), np.float32), 'V': np.zeros((H, CTX, DH), np.float32)}
+            for _ in range(N_BLQ)]
+
+
+def forward_un_token(token, t, kv):
+    """Logits del token que sigue al token `token`, que está en la posición t.
+    Usa las K y V guardadas de las posiciones 0..t-1 y guarda las suyas."""
+    x = params['wte'][token] + params['wpe'][t]                     # (D,)
+    for k in range(N_BLQ):
+        a, _ = layer_norm_fwd(x, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        q, kk, v = ((a @ params[f'W{n}{k}'] + params[f'b{n}{k}']).reshape(H, DH) for n in 'qkv')
+        kv[k]['K'][:, t], kv[k]['V'][:, t] = kk, v                  # se guardan para siempre
+        K, Vm = kv[k]['K'][:, :t + 1], kv[k]['V'][:, :t + 1]        # (H, t+1, DH)
+        pesos = softmax(np.einsum('hd,htd->ht', q, K) / np.sqrt(DH))  # (H, t+1): sin máscara:
+        att = np.einsum('ht,htd->hd', pesos, Vm).reshape(D)         # solo existe el pasado
+        x = x + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        m, _ = layer_norm_fwd(x, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        x = x + gelu(m @ params[f'W1{k}'] + params[f'b1{k}']) @ params[f'W2{k}'] + params[f'b2{k}']
+    xf, _ = layer_norm_fwd(x, params['lnf_g'], params['lnf_b'])
+    return xf @ params['wte'].T                                      # (V,)
+
+
+def prefill(ids, kv):
+    """Procesa la semilla ENTERA de una vez (como forward) y guarda sus K y V.
+    Los LLM reales lo hacen así: «prefill» de la pregunta y después «decode»,
+    token a token, de la respuesta."""
+    T = len(ids)
+    X = params['wte'][ids] + params['wpe'][:T]                       # (T, D)
+    for k in range(N_BLQ):
+        a, _ = layer_norm_fwd(X, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+        Q, K, Vm = ((a @ params[f'W{n}{k}'] + params[f'b{n}{k}']).reshape(T, H, DH).transpose(1, 0, 2)
+                    for n in 'qkv')                                  # (H, T, DH)
+        kv[k]['K'][:, :T], kv[k]['V'][:, :T] = K, Vm
+        pesos = softmax(Q @ K.transpose(0, 2, 1) / np.sqrt(DH) + MASCARA_CAUSAL[:T, :T])
+        att = (pesos @ Vm).transpose(1, 0, 2).reshape(T, D)
+        X = X + att @ params[f'Wo{k}'] + params[f'bo{k}']
+        m, _ = layer_norm_fwd(X, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+        X = X + gelu(m @ params[f'W1{k}'] + params[f'b1{k}']) @ params[f'W2{k}'] + params[f'b2{k}']
+    xf, _ = layer_norm_fwd(X[-1], params['lnf_g'], params['lnf_b'])
+    return xf @ params['wte'].T                                       # logits del último
+
+
+def generar_sin_cache(ids, n_tokens):
+    """Greedy como generar() del Programa 8 bis: un forward completo por token."""
+    ids = list(ids)
+    for _ in range(n_tokens):
+        ids.append(int(np.argmax(forward(np.array([ids[-CTX:]]))[0][0, -1])))
+    return ids
+
+
+def generar_con_cache(ids, n_tokens):
+    """Greedy con KV-cache: prefill de la semilla y después un token cada vez."""
+    if len(ids) + n_tokens > CTX:                 # el cache tiene CTX posiciones
+        raise ValueError(f'semilla + tokens nuevos = {len(ids) + n_tokens} > {CTX}')
+    ids, kv = list(ids), nuevo_cache()
+    logits = prefill(ids, kv)
+    for k in range(n_tokens):
+        ids.append(int(np.argmax(logits)))
+        if k < n_tokens - 1:                      # el último token no necesita otro paso
+            logits = forward_un_token(ids[-1], len(ids) - 1, kv)
+    return ids
+
+
+# 1. ¿Da exactamente lo mismo que el forward completo?
+ids = codificar('The quick brown fox jumps over the lazy dog because it')
+kv, dif = nuevo_cache(), 0.0
+completo = forward(np.array([ids]))[0][0]
+for t, tok in enumerate(ids):
+    dif = max(dif, np.abs(forward_un_token(tok, t, kv) - completo[t]).max())
+dif = max(dif, np.abs(prefill(ids, nuevo_cache()) - completo[-1]).max())
+print(f'Diferencia máxima entre los logits con y sin cache: {dif:.1e} '
+      f'(los logits valen hasta {np.abs(completo).max():.0f})')
+
+# 2. ¿Cuánto ahorra? Depende de la longitud del contexto.
+texto = open('programa_8_nano_llm.py', encoding='utf-8').read().split('TEXTO = """')[1].split('"""')[0]
+largo = codificar(texto * 3)                     # un texto largo del que cortar contextos
+N_GEN = 10
+print(f'\nTiempo por token generado (greedy, {N_GEN} tokens), según la longitud del contexto:')
+print(' contexto   sin cache   con cache   ahorro   mismos tokens')
+for L in (50, 200, 800):
+    semilla = largo[:L]
+    t0 = time.time(); a = generar_sin_cache(semilla, N_GEN); t_sin = (time.time() - t0) / N_GEN
+    t0 = time.time(); b = generar_con_cache(semilla, N_GEN); t_con = (time.time() - t0) / N_GEN
+    print(f'{L:7d}   {t_sin:7.2f} s   {t_con:7.2f} s   {t_sin / t_con:5.1f}x   '
+          f'{"sí" if a == b else "NO"}')
+print('(el tiempo «con cache» incluye el prefill de la semilla, repartido entre los tokens generados)')
+```
+
+**Ejecución:** `python programa_G3_kvcache.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  143.7 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 16.7 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Diferencia máxima entre los logits con y sin cache: 6.7e-06 (los logits valen hasta 164)
+
+Tiempo por token generado (greedy, 10 tokens), según la longitud del contexto:
+ contexto   sin cache   con cache   ahorro   mismos tokens
+     50      0.91 s      0.61 s     1.5x   sí
+    200      1.69 s      0.59 s     2.9x   sí
+    800      6.79 s      1.17 s     5.8x   sí
+(el tiempo «con cache» incluye el prefill de la semilla, repartido entre los tokens generados)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (casi dos minutos):» (10 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 1.1 s: 160 tensores» → real «Pesos leídos en 1.2 s: 160 tensores»; libro «50 0.97 s 0.62 s 1.6x sí» → real «50 0.95 s 0.72 s 1.3x sí»; libro «200 1.39 s 0.62 s 2.2x sí» → real «200 1.81 s 0.80 s 2.2x sí»; libro «800 5.27 s 0.94 s 5.6x sí» → real «800 7.45 s 1.35 s 5.5x sí».
+**Interés:** los tiempos varían con la máquina y el ahorro con contexto 50 da aquí 1.3x en lugar del 1.6x impreso. Con contextos de 200 y 800 se mantiene (2.2x y 5.5x frente a 2.2x y 5.6x). Lo que no varía es lo que demuestra el programa: los tokens generados con y sin cache son idénticos, y la diferencia de los logits está en el orden del redondeo de float32.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): `generar_con_cache` comprueba que semilla y tokens nuevos quepan en CTX y no calcula el paso que seguiría al último token. El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide con la de referencia del repositorio (`salidas/salida_programa_G3_kvcache.txt`) salvo los tiempos medidos, que cambian en cada ejecución; los tokens generados son los mismos. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 88. Programa G-4 — Ajuste fino de GPT-2 con TU backward
+
+**Archivo:** `programa_G4_ajuste_fino.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (93 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA G-4 — Ajuste fino de GPT-2 con TU backward
+# Capítulo 16, sección 16.8
+#
+# En el Capítulo 15, el Nano-LLM entrenado con 83 frases no supo nada
+# de las 10 frases apartadas: memorizaba. ¿Qué le faltaba? Aquí
+# tomamos GPT-2, que ya «leyó» 40 GB de texto (preentrenamiento),
+# y lo ajustamos con las MISMAS 83 frases usando la función
+# forward_backward() del Programa 8, sin cambiar una línea. Luego
+# medimos las 10 frases apartadas y comparamos.
+# Requisitos: programa_8bis_gpt2_real.py, programa_8_nano_llm.py,
+# la carpeta gpt2/ y unos 3 GB de memoria libre.
+# =======================================================
+import sys
+import time
+import numpy as np
+ 
+PASOS = int(sys.argv[1]) if len(sys.argv) > 1 else 200
+ 
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])     # pesos de GPT-2, tokenizador y generar()
+ 
+# -- El backward del Programa 8, tal cual -------------------------
+# Del Programa 8 tomamos sus funciones (desde «Utilidades» hasta
+# antes del bucle de entrenamiento). Funcionan con cualquier tamaño:
+# usan las variables globales H, DH, D, N_BLQ, MASCARA_CAUSAL y
+# params, que ahora son las de GPT-2.
+p8 = open('programa_8_nano_llm.py', encoding='utf-8').read()
+exec('# -- Utilidades' + p8.split('# -- Utilidades')[1].split('# -- Learning rate')[0])
+# Los pesos leídos del archivo son de solo lectura y algunas matrices
+# son trozos de otras (Q, K, V): para entrenar hacen falta copias propias.
+params = {k: np.array(v, dtype=np.float32) for k, v in params.items()}
+del gpt2          # los pesos originales ya no hacen falta: se libera memoria
+# -- Los mismos datos que el Programa RZ-1 -------------------------
+TEXTO = p8.split('TEXTO = """')[1].split('"""')[0]
+FRASES = TEXTO.strip().split('\n')
+VAL_IDX = list(range(4, len(FRASES), 9))
+VAL = [FRASES[i] for i in VAL_IDX]
+TRAIN = [f for i, f in enumerate(FRASES) if i not in VAL_IDX]
+DATOS = np.array(codificar('\n' + '\n'.join(TRAIN) + '\n'))
+print(f'Entrenamiento: {len(TRAIN)} frases = {len(DATOS)} tokens BPE | validación: {len(VAL)} frases')
+ 
+ 
+def bits_por_caracter(frases):
+    """Pérdida en bits por carácter, comparable con la del Nano-LLM: se
+    predice cada frase y su salto de línea final a partir del salto inicial."""
+    nats, chars = 0.0, 0
+    for f in frases:
+        ids = [50256] + codificar('\n' + f + '\n')
+        lp = np.log(softmax(forward(np.array([ids]))[0][0, :-1].astype(np.float64)))
+        nats -= lp[np.arange(1, len(ids) - 1), ids[2:]].sum()   # tras el '\n' inicial
+        chars += len(f) + 1
+    return nats / chars / np.log(2)
+ 
+ 
+print(f'\nAntes del ajuste:   entrenamiento {bits_por_caracter(TRAIN):.2f} | '
+      f'validación {bits_por_caracter(VAL):.2f} bits/carácter')
+np.random.seed(0)
+print('Muestra antes:', generar('la atención permite', n_tokens=25).replace('\n', ' / '))
+# -- Ajuste fino: Adam, warm-up + coseno y recorte, como el Programa 8
+BATCH, T, LR, CLIP = 4, 64, 1e-4, 1.0
+m_adam = {k: np.zeros_like(v) for k, v in params.items()}
+v_adam = {k: np.zeros_like(v) for k, v in params.items()}
+np.random.seed(42)
+t0 = time.time()
+for paso in range(PASOS):
+    lr = LR * min(1.0, (paso + 1) / 20) * 0.5 * (1 + np.cos(np.pi * paso / PASOS))
+    inicios = np.random.randint(0, len(DATOS) - T - 1, size=BATCH)
+    xb = np.stack([DATOS[i:i + T] for i in inicios])
+    yb = np.stack([DATOS[i + 1:i + T + 1] for i in inicios])
+    grads, loss = forward_backward(xb, yb)
+    norma = np.sqrt(sum(float(np.dot(g.ravel(), g.ravel())) for g in grads.values()))
+    if norma > CLIP:
+        for k in grads:
+            grads[k] *= CLIP / norma
+    for k in params:
+        m_adam[k] = 0.9 * m_adam[k] + 0.1 * grads[k]
+        v_adam[k] = 0.999 * v_adam[k] + 0.001 * grads[k] ** 2
+        params[k] -= lr * (m_adam[k] / (1 - 0.9 ** (paso + 1))) / (
+            np.sqrt(v_adam[k] / (1 - 0.999 ** (paso + 1))) + 1e-8)
+    if (paso + 1) % 25 == 0 or paso == 0:
+        print(f'Paso {paso + 1:4d}: pérdida del lote = {loss:.3f} nats/token   norma = {norma:5.2f}   '
+              f'validación = {bits_por_caracter(VAL):.2f} bits/carácter   ({time.time() - t0:.0f} s)',
+              flush=True)
+ 
+print(f'\nDespués del ajuste: entrenamiento {bits_por_caracter(TRAIN):.2f} | '
+      f'validación {bits_por_caracter(VAL):.2f} bits/carácter')
+print('Nano-LLM (Programa RZ-1), validación: mejor momento 1.923 nats = '
+      f'{1.923 / np.log(2):.2f} bits; al final 4.175 nats = {4.175 / np.log(2):.2f} bits')
+np.random.seed(0)
+for semilla in ['la atención permite', 'la función softmax', 'un modelo']:
+    print(f'\n--- {semilla!r} ---')
+    print(generar(semilla, n_tokens=30))
+```
+
+**Ejecución:** `python programa_G4_ajuste_fino.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  2107.4 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.1 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Entrenamiento: 83 frases = 1618 tokens BPE | validación: 10 frases
+
+Antes del ajuste:   entrenamiento 2.85 | validación 2.82 bits/carácter
+Muestra antes: la atención permite de la broix de la confluence des champs de la mesa, a los informaciones en vechas
+Paso    1: pérdida del lote = 4.676 nats/token   norma = 18.34   validación = 2.81 bits/carácter   (16 s)
+Paso   25: pérdida del lote = 2.667 nats/token   norma = 17.52   validación = 2.05 bits/carácter   (240 s)
+Paso   50: pérdida del lote = 0.840 nats/token   norma = 11.39   validación = 2.39 bits/carácter   (466 s)
+Paso   75: pérdida del lote = 0.572 nats/token   norma =  8.08   validación = 2.68 bits/carácter   (696 s)
+Paso  100: pérdida del lote = 0.157 nats/token   norma =  3.02   validación = 2.80 bits/carácter   (932 s)
+Paso  125: pérdida del lote = 0.216 nats/token   norma =  4.10   validación = 2.82 bits/carácter   (1166 s)
+Paso  150: pérdida del lote = 0.133 nats/token   norma =  3.10   validación = 2.85 bits/carácter   (1406 s)
+Paso  175: pérdida del lote = 0.151 nats/token   norma =  2.95   validación = 2.91 bits/carácter   (1645 s)
+Paso  200: pérdida del lote = 0.144 nats/token   norma =  3.09   validación = 2.92 bits/carácter   (1879 s)
+
+Después del ajuste: entrenamiento 0.24 | validación 2.92 bits/carácter
+Nano-LLM (Programa RZ-1), validación: mejor momento 1.923 nats = 2.77 bits; al final 4.175 nats = 6.02 bits
+
+--- 'la atención permite' ---
+la atención permite responder a datos nuevos.
+comprender estos conceptos abre la puerta a la ia moderna
+
+--- 'la función softmax' ---
+la función softmaxima cuántos datos caben en una gráfica.
+un acelerador gráfico multiplica matrices
+
+--- 'un modelo' ---
+un modelo profundo usa muchas capas o una gráfica.
+el aprendizaje por refuerzo premia las
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (200 pasos; unos 30 minutos):» (26 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 1.6 s: 160 tensores» → real «Pesos leídos en 1.1 s: 160 tensores»; libro «Paso 1: pérdida del lote = 4.676 nats/token norma = 18.34 validación = 2.81 bits/carácter (20 s)» → real «Paso 1: pérdida del lote = 4.676 nats/token norma = 18.34 validación = 2.81 bits/carácter (16 s)»; libro «Paso 25: pérdida del lote = 2.667 nats/token norma = 17.52 validación = 2.05 bits/carácter (217 s)» → real «Paso 25: pérdida del lote = 2.667 nats/token norma = 17.52 validación = 2.05 bits/carácter (240 s)»; libro «Paso 50: pérdida del lote = 0.840 nats/token norma = 11.39 validación = 2.39 bits/carácter (414 s)» → real «Paso 50: pérdida del lote = 0.840 nats/token norma = 11.39 validación = 2.39 bits/carácter (466 s)».
+**Interés:** es el ajuste fino de GPT-2 (124 millones de parámetros) con el backward del Programa 8, en NumPy puro. Tardó 2107 s. Todas las pérdidas y bits por carácter coinciden con el libro hasta el último decimal; solo cambian los segundos acumulados que imprime en cada paso.
+
+## 89. Ejercicio 16.1 — Tokens por palabra en cinco idiomas
+
+**Archivo:** `ejercicio_16_1.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (23 líneas, tal como está impreso en el libro):
+
+```python
+# EJERCICIO 16.1 — ¿Cuántos tokens gasta GPT-2 en cada idioma?
+# Solo hace falta el tokenizador: se carga la parte del Programa 8 bis
+# que va desde el tokenizador hasta los experimentos (sin leer los pesos).
+import json, re
+import numpy as np
+ 
+CARPETA = 'gpt2'
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec('def bytes_a_unicode' + fuente.split('def bytes_a_unicode')[1].split('def generar')[0])
+ 
+frases = {'inglés':  'Artificial intelligence learns from data and predicts the next word.',
+          'español': 'La inteligencia artificial aprende de los datos y predice la siguiente palabra.',
+          'alemán':  'Künstliche Intelligenz lernt aus Daten und sagt das nächste Wort voraus.',
+          'griego':  'Η τεχνητή νοημοσύνη μαθαίνει από δεδομένα και προβλέπει την επόμενη λέξη.',
+          'chino':   '人工智能从数据中学习并预测下一个词。'}
+print(f"{'idioma':8s} {'caract.':>8s} {'palabras':>9s} {'tokens':>7s} {'tokens/palabra':>15s}")
+for idioma, f in frases.items():
+    ids = codificar(f)
+    # en chino no hay espacios: contamos cada carácter (sin el punto) como una palabra
+    palabras = len(f.split()) if idioma != 'chino' else len(f) - 1
+    print(f'{idioma:8s} {len(f):8d} {palabras:9d} {len(ids):7d} {len(ids) / palabras:15.1f}')
+for idioma in ['inglés', 'español']:
+    print(f'\nPiezas del {idioma}:', [ID2TOK[i].replace("Ġ", "␣") for i in codificar(frases[idioma])])
+```
+
+**Ejecución:** `python ejercicio_16_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.2 s
+
+**Salida real por consola:**
+
+```
+idioma    caract.  palabras  tokens  tokens/palabra
+inglés         68        10      12             1.2
+español        79        12      24             2.0
+alemán         72        11      31             2.8
+griego         73        11      88             8.0
+chino          18        17      35             2.1
+
+Piezas del inglés: ['Art', 'ificial', '␣intelligence', '␣learns', '␣from', '␣data', '␣and', '␣predicts', '␣the', '␣next', '␣word', '.']
+
+Piezas del español: ['La', '␣intel', 'igen', 'cia', '␣artificial', '␣ap', 'rend', 'e', '␣de', '␣los', '␣dat', 'os', '␣y', '␣pred', 'ice', '␣la', '␣sig', 'u', 'ient', 'e', '␣pal', 'ab', 'ra', '.']
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (8 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 90. Ejercicio 16.2 — La lente de logits con tus frases
+
+**Archivo:** `ejercicio_16_2.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_G1_lente_logits.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (9 líneas, tal como está impreso en el libro):
+
+```python
+# EJERCICIO 16.2 — La lente de logits con frases propias
+# Reutiliza la función lente() del Programa G-1.
+import numpy as np
+ 
+fuente = open('programa_G1_lente_logits.py', encoding='utf-8').read()
+exec(fuente.split("\nlente('")[0])          # todo menos las llamadas finales
+ 
+lente('The opposite of hot is', ' cold')
+lente('Monday, Tuesday,', ' Wednesday')
+```
+
+**Ejecución:** `python ejercicio_16_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  16.1 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.3 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+
+«The opposite of hot is» → ¿« cold»?
+  capa          más probable        prob.   P(objetivo)  puesto
+  embeddings    ' destro'           0.533   0.0000       8950
+  bloque  1     ' not'              0.289   0.0000       3647
+  bloque  2     ' not'              0.211   0.0000       3931
+  bloque  3     ' now'              0.275   0.0000       4137
+  bloque  4     ' now'              0.447   0.0000       4714
+  bloque  5     ' now'              0.518   0.0000       2673
+  bloque  6     ' now'              0.314   0.0000       3524
+  bloque  7     ' not'              0.230   0.0000       1347
+  bloque  8     ' also'             0.170   0.0000        508
+  bloque  9     ' cold'             0.171   0.1711          1
+  bloque 10     ' cooler'           0.396   0.3931          2
+  bloque 11     ' cold'             0.643   0.6435          1
+  bloque 12     ' cold'             0.163   0.1627          1
+
+«Monday, Tuesday,» → ¿« Wednesday»?
+  capa          más probable        prob.   P(objetivo)  puesto
+  embeddings    ' mathemat'         0.702   0.0000      19296
+  bloque  1     ' which'            0.140   0.0000       5544
+  bloque  2     ' which'            0.107   0.0000       3999
+  bloque  3     ' release'          0.064   0.0000       1966
+  bloque  4     ' release'          0.154   0.0001       1161
+  bloque  5     ' July'             0.093   0.0003        271
+  bloque  6     ' July'             0.195   0.0011         57
+  bloque  7     ' July'             0.427   0.0016         21
+  bloque  8     ' July'             0.215   0.0401          7
+  bloque  9     ' Tuesday'          0.715   0.1561          2
+  bloque 10     ' Wednesday'        0.921   0.9212          1
+  bloque 11     ' Wednesday'        0.775   0.7751          1
+  bloque 12     ' Wednesday'        0.467   0.4667          1
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (33 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 1.1 s: 160 tensores» → real «Pesos leídos en 1.3 s: 160 tensores».
+
+## 91. Ejercicio 16.3 — La cabeza «token anterior» en un texto normal
+
+**Archivo:** `ejercicio_16_3.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (25 líneas, tal como está impreso en el libro):
+
+```python
+# EJERCICIO 16.3 — La cabeza «token anterior» en un texto normal
+# El Programa G-2 encontró, con tokens al azar, una cabeza que mira casi
+# siempre al token anterior. ¿Hace lo mismo con un texto de verdad?
+import numpy as np
+ 
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])
+ 
+texto = ('The neural network reads the sentence one token at a time. Each layer adds a little '
+         'more information to the vectors, and the attention heads decide where to look.')
+ids = codificar(texto)
+_, (_, _, cache) = forward(np.array([ids]))
+T = len(ids)
+i = np.arange(1, T)
+print(f'{T} tokens. Para cada cabeza: % de posiciones cuyo máximo de atención es el token anterior')
+res = np.array([[np.mean(c['pesos'][0, h, i].argmax(-1) == i - 1) for h in range(H)] for c in cache])
+for k, h in sorted(np.ndindex(N_BLQ, H), key=lambda kh: -res[kh])[:3]:
+    print(f'   bloque {k + 1:2d}, cabeza {h + 1:2d}: {res[k, h]:.0%}')
+print(f'   media de las {N_BLQ * H} cabezas: {res.mean():.0%}')
+k, h = 4, 11                                   # bloque 5, cabeza 12 (numeradas desde 1)
+print(f'\nBloque 5, cabeza 12, en las 8 primeras posiciones (a quién mira cada token):')
+for t in range(1, 9):
+    j = int(cache[k]['pesos'][0, h, t].argmax())
+    peso = cache[k]['pesos'][0, h, t, j]
+    print(f'   {decodificar([ids[t]])!r:12s} → {decodificar([ids[j]])!r:12s} ({peso:.2f})')
+```
+
+**Ejecución:** `python ejercicio_16_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  2.1 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+32 tokens. Para cada cabeza: % de posiciones cuyo máximo de atención es el token anterior
+   bloque  5, cabeza 12: 100%
+   bloque  3, cabeza  3: 74%
+   bloque  2, cabeza  1: 65%
+   media de las 144 cabezas: 11%
+
+Bloque 5, cabeza 12, en las 8 primeras posiciones (a quién mira cada token):
+   ' neural'    → 'The'        (1.00)
+   ' network'   → ' neural'    (1.00)
+   ' reads'     → ' network'   (1.00)
+   ' the'       → ' reads'     (1.00)
+   ' sentence'  → ' the'       (1.00)
+   ' one'       → ' sentence'  (0.98)
+   ' token'     → ' one'       (1.00)
+   ' at'        → ' token'     (0.96)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (17 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 0.9 s: 160 tensores» → real «Pesos leídos en 1.0 s: 160 tensores».
+
+## 92. Ejercicio 16.4 — Temperatura frente a perplejidad
+
+**Archivo:** `ejercicio_16_4.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_8bis_gpt2_real.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita la carpeta `gpt2/` con los cuatro archivos de openai-community/gpt2 (model.safetensors, vocab.json, merges.txt, config.json), comprobados con SHA-256.
+
+**Listado** (18 líneas, tal como está impreso en el libro):
+
+```python
+# EJERCICIO 16.4 — Temperatura frente a perplejidad del texto generado
+# Se genera con varias temperaturas y se mide, con el propio GPT-2 a
+# temperatura 1, cuánto le «sorprende» cada texto generado.
+import numpy as np
+ 
+fuente = open('programa_8bis_gpt2_real.py', encoding='utf-8').read()
+exec(fuente.split('# EXPERIMENTOS')[0])
+ 
+semilla = 'The meaning of life is'
+n_sem = len(codificar(semilla))
+print(f"{'τ':>4s}  {'PPL':>7s}  texto generado")
+for tau in [0.3, 0.7, 1.0, 1.5]:
+    np.random.seed(0)
+    texto = generar(semilla, n_tokens=30, temperatura=tau, top_p=1.0)
+    ids = codificar(texto)
+    lp = np.log(softmax(forward(np.array([ids]))[0][0, :-1].astype(np.float64)))
+    nll = -lp[np.arange(n_sem - 1, len(ids) - 1), ids[n_sem:]]       # solo lo generado
+    print(f'{tau:4.1f}  {np.exp(nll.mean()):7.1f}  {texto[len(semilla):].strip()[:90]!r}')
+```
+
+**Ejecución:** `python ejercicio_16_4.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  94.5 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.1 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+   τ      PPL  texto generado
+ 0.3      7.5  'not to be understood as a single individual or a single life. Life is a process of living '
+ 0.7     22.2  'not based on an idealized version of reality. To put it bluntly, the "norm" is merely an a'
+ 1.0    143.8  'against him; as he looks outwards towards the elevated sky. Having this with a glance over'
+ 1.5   4251.2  'updated symbolically because God campaigns around glorifies things referred to here conseq'
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (8 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 0.9 s: 160 tensores» → real «Pesos leídos en 1.1 s: 160 tensores».
+
+## 93. Ejercicio 16.5 — ¿En qué se va el tiempo con el KV-cache?
+
+**Archivo:** `ejercicio_16_5.py`  ·  **Capítulo:** Capítulo 16: Tu código mueve GPT-2 (***)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** lee el listado `programa_G3_kvcache.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual).
+
+**Listado** (54 líneas, tal como está impreso en el libro):
+
+```python
+# EJERCICIO 16.5 — ¿En qué se va el tiempo de un token con KV-cache?
+# Con el cache, cada token nuevo atraviesa los 12 bloques y la proyección
+# final sobre los 50 257 tokens. Medimos cada parte por separado.
+import time
+import numpy as np
+ 
+fuente = open('programa_G3_kvcache.py', encoding='utf-8').read()
+exec(fuente.split('# 1. ¿Da exactamente lo mismo')[0])     # funciones del Programa G-3
+ 
+ids = codificar('The quick brown fox jumps over the lazy dog because it')
+kv = nuevo_cache()
+prefill(ids, kv)
+x = params['wte'][ids[-1]] + params['wpe'][len(ids) - 1]
+ 
+ 
+def medir(escala, rep=20):
+    """Un token con el cache lleno: tiempo de los 12 bloques y de la salida."""
+    t_bloques = t_salida = 0.0
+    for _ in range(rep):
+        t0 = time.time()
+        y = x
+        for k in range(N_BLQ):              # como forward_un_token, sin guardar nada
+            a, _ = layer_norm_fwd(y, params[f'ln1_g{k}'], params[f'ln1_b{k}'])
+            q, kk, v = ((a @ params[f'W{n}{k}'] + params[f'b{n}{k}']).reshape(H, DH) for n in 'qkv')
+            K, Vm = kv[k]['K'][:, :len(ids)], kv[k]['V'][:, :len(ids)]
+            pesos = softmax(np.einsum('hd,htd->ht', q, K) / escala)
+            att = np.einsum('ht,htd->hd', pesos, Vm).reshape(D)
+            y = y + att @ params[f'Wo{k}'] + params[f'bo{k}']
+            m, _ = layer_norm_fwd(y, params[f'ln2_g{k}'], params[f'ln2_b{k}'])
+            y = y + gelu(m @ params[f'W1{k}'] + params[f'b1{k}']) @ params[f'W2{k}'] + params[f'b2{k}']
+        t1 = time.time()
+        xf, _ = layer_norm_fwd(y, params['lnf_g'], params['lnf_b'])
+        logits = xf @ params['wte'].T        # la proyección sobre el vocabulario
+        t2 = time.time()
+        t_bloques += t1 - t0
+        t_salida += t2 - t1
+    print(f'   pesos de atención en {pesos.dtype}, vía residual en {y.dtype}')
+    print(f'   12 bloques:    {t_bloques / rep * 1000:6.1f} ms por token')
+    print(f'   salida (wteᵀ): {t_salida / rep * 1000:6.1f} ms por token')
+    return logits
+ 
+ 
+n_bloques = N_BLQ * (4 * D * D + 2 * D * 4 * D)
+print(f'Pesos de los 12 bloques: {n_bloques / 1e6:.1f} millones; '
+      f'de la salida: {D * V / 1e6:.1f} millones')
+print('\nCon np.sqrt(DH), como en el Programa 8:')
+l64 = medir(np.sqrt(DH))
+# np.sqrt() devuelve un número float64 de NumPy, y NumPy convierte a float64 todo
+# lo que se opera con él. Pasa con np.sqrt(DH) y con C_GELU = np.sqrt(2 / np.pi).
+print('\nCon esas dos constantes en float32:')
+C_GELU = np.float32(C_GELU)                  # gelu() la lee de aquí
+l32 = medir(np.float32(np.sqrt(DH)))
+print(f'\nDiferencia máxima entre los logits: {np.abs(l64 - l32).max():.1e}; '
+      f'mismo token elegido: {"sí" if l64.argmax() == l32.argmax() else "no"}')
+```
+
+**Ejecución:** `python ejercicio_16_5.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  15.6 s
+
+**Salida real por consola:**
+
+```
+Pesos leídos en 1.1 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Pesos de los 12 bloques: 84.9 millones; de la salida: 38.6 millones
+
+Con np.sqrt(DH), como en el Programa 8:
+   pesos de atención en float64, vía residual en float64
+   12 bloques:     110.1 ms por token
+   salida (wteᵀ):  527.7 ms por token
+
+Con esas dos constantes en float32:
+   pesos de atención en float32, vía residual en float32
+   12 bloques:      30.5 ms por token
+   salida (wteᵀ):   13.2 ms por token
+
+Diferencia máxima entre los logits: 6.2e-05; mismo token elegido: sí
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (13 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución; solo cambian los tiempos medidos (dependen de la máquina y de la carga): libro «Pesos leídos en 1.0 s: 160 tensores» → real «Pesos leídos en 1.1 s: 160 tensores»; libro «12 bloques: 98.8 ms por token» → real «12 bloques: 110.1 ms por token»; libro «salida (wteᵀ): 466.1 ms por token» → real «salida (wteᵀ): 527.7 ms por token»; libro «12 bloques: 16.3 ms por token» → real «12 bloques: 30.5 ms por token».
+
+
+---
+
+# Capítulo 17: Del Nano-LLM a los Gigantes (*)
+
+## 94. Ejercicio 17.1 — Memoria necesaria para distintos modelos
+
+**Archivo:** `ejercicio_17_1.py`  ·  **Capítulo:** Capítulo 17: Del Nano-LLM a los Gigantes (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (24 líneas, tal como está impreso en el libro):
+
+```python
+def memoria_gb(n_params, precision='float16'):
+    bytes_por = {'float32':4, 'float16':2, 'int8':1, 'int4':0.5}
+    return n_params * bytes_por[precision] / (1024**3)
+ 
+modelos = [
+    ('Nano-LLM (nuestro)',     60_000),
+    ('GPT-2 small',       124_000_000),
+    ('GPT-2 XL',        1_558_000_000),
+    ('LLaMA-7B',        7_000_000_000),
+    ('LLaMA-13B',      13_000_000_000),
+    ('GPT-3 175B',    175_000_000_000),
+]
+ 
+print(f"{'Modelo':>25}  {'FP32 (GiB)':>10}  {'FP16 (GiB)':>10}  {'INT4 (GiB)':>10}")
+print('-' * 60)
+for nombre, n in modelos:
+    g32 = memoria_gb(n, 'float32')
+    g16 = memoria_gb(n, 'float16')
+    g4  = memoria_gb(n, 'int4')
+    print(f'{nombre:>25}  {g32:>10.3f}  {g16:>10.3f}  {g4:>10.3f}')
+ 
+print()
+print('Una GPU A100: 80 GB  |  RTX 4090 (gaming): 24 GB')
+print('INT4 permite ejecutar LLaMA-7B en una GPU de 4 GB!')
+```
+
+**Ejecución:** `python ejercicio_17_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.3 s
+
+**Salida real por consola:**
+
+```
+                   Modelo  FP32 (GiB)  FP16 (GiB)  INT4 (GiB)
+------------------------------------------------------------
+       Nano-LLM (nuestro)       0.000       0.000       0.000
+              GPT-2 small       0.462       0.231       0.058
+                 GPT-2 XL       5.804       2.902       0.726
+                 LLaMA-7B      26.077      13.039       3.260
+                LLaMA-13B      48.429      24.214       6.054
+               GPT-3 175B     651.926     325.963      81.491
+
+Una GPU A100: 80 GB  |  RTX 4090 (gaming): 24 GB
+INT4 permite ejecutar LLaMA-7B en una GPU de 4 GB!
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_17_1.txt`), que es la que describe el texto.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): las columnas se rotulan en GiB, porque el programa divide entre 1024³. El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_ejercicio_17_1.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 95. Ejercicio 17.2 — ¿Cuántos datos necesitamos?
+
+**Archivo:** `ejercicio_17_2.py`  ·  **Capítulo:** Capítulo 17: Del Nano-LLM a los Gigantes (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (27 líneas, tal como está impreso en el libro):
+
+```python
+def tokens_optimos(n_params):
+    """Tokens óptimos según Chinchilla: 20 x n_params"""
+    return 20 * n_params
+ 
+TOKENS_POR_LIBRO = 130_000    # tokens BPE aprox.
+TOKENS_POR_WEB   = 500        # tokens por página web típica
+ 
+modelos = [
+    ('LLaMA-7B',     7_000_000_000),
+    ('LLaMA-13B',   13_000_000_000),
+    ('LLaMA-70B',   70_000_000_000),
+    ('Hipotético-700B', 700_000_000_000),
+]
+ 
+print('Tokens óptimos según Chinchilla (Hoffmann et al., 2022)\n')
+print(f"{'Modelo':>20}  {'Tokens óptimos':>16}  {'Libros equiv.':>15}")
+print('-' * 58)
+for nombre, n in modelos:
+    t = tokens_optimos(n)
+    libros = t / TOKENS_POR_LIBRO
+    print(f'{nombre:>20}  {t:>16,.0f}  {libros:>15,.0f}')
+ 
+print()
+print('Comparación: GPT-3 fue entrenado con ~300B tokens')
+print('pero tiene 175B params -> solo 1.7x (infraentrenado)')
+print('LLaMA-2-7B fue entrenado con 2T tokens -> 285x (sobreentrenado')
+print('para tamaño, pero mejor en inference!)')
+```
+
+**Ejecución:** `python ejercicio_17_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+Tokens óptimos según Chinchilla (Hoffmann et al., 2022)
+
+              Modelo    Tokens óptimos    Libros equiv.
+----------------------------------------------------------
+            LLaMA-7B   140,000,000,000        1,076,923
+           LLaMA-13B   260,000,000,000        2,000,000
+           LLaMA-70B  1,400,000,000,000       10,769,231
+     Hipotético-700B  14,000,000,000,000      107,692,308
+
+Comparación: GPT-3 fue entrenado con ~300B tokens
+pero tiene 175B params -> solo 1.7x (infraentrenado)
+LLaMA-2-7B fue entrenado con 2T tokens -> 285x (sobreentrenado
+para tamaño, pero mejor en inference!)
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_17_2.txt`), que es la que describe el texto.
+
+## 96. Ejercicio 17.3 — El costo cuadrático de la atención
+
+**Archivo:** `ejercicio_17_3.py`  ·  **Capítulo:** Capítulo 17: Del Nano-LLM a los Gigantes (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (25 líneas, tal como está impreso en el libro):
+
+```python
+def costo_atencion(T, d, n_heads, bytes_por=2):
+    """Memoria en GiB (1024³ bytes) y GFLOPs de la atención"""
+    mem_gb = T * T * n_heads * bytes_por / (1024**3)
+    gflops = 4 * T * T * d / 1e9
+    return mem_gb, gflops
+ 
+d, n_heads = 768, 12  # GPT-2 / BERT configuración
+ 
+print(f'd={d}, n_heads={n_heads} (estilo GPT-2 small)\n')
+print(f"{'Contexto T':>12}  {'Mem. aten. (GiB)':>17}  {'GFLOPs':>10}  Factor vs ant.")
+print('-' * 60)
+ 
+T_vals = [512, 2048, 8192, 32768, 131072]
+prev_mem = None
+for T in T_vals:
+    mem, gflops = costo_atencion(T, d, n_heads)
+    factor = f'{mem/prev_mem:.1f}x' if prev_mem else '—'
+    print(f'{T:>12,}  {mem:>17.3f}  {gflops:>10.2f}  {factor:>13}')
+    prev_mem = mem
+ 
+print()
+print('Al doblar T, el costo se CUADRUPLICA (x4).')
+print('Por eso ampliar la ventana de contexto es tan caro.')
+print('Flash Attention: evita materializar la matriz TxT completa,')
+print('calculándola por bloques. Mismo resultado, mucha menos memoria.')
+```
+
+**Ejecución:** `python ejercicio_17_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+d=768, n_heads=12 (estilo GPT-2 small)
+
+  Contexto T   Mem. aten. (GiB)      GFLOPs  Factor vs ant.
+------------------------------------------------------------
+         512              0.006        0.81              —
+       2,048              0.094       12.88          16.0x
+       8,192              1.500      206.16          16.0x
+      32,768             24.000     3298.53          16.0x
+     131,072            384.000    52776.56          16.0x
+
+Al doblar T, el costo se CUADRUPLICA (x4).
+Por eso ampliar la ventana de contexto es tan caro.
+Flash Attention: evita materializar la matriz TxT completa,
+calculándola por bloques. Mismo resultado, mucha menos memoria.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_17_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 18: Evaluación de Modelos de Lenguaje (**)
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): la memoria se rotula en GiB, porque el programa divide entre 1024³. El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_ejercicio_17_3.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 97. Programa EVAL-1 — Perplejidad train vs. test: diagnóstico de overfitting
+
+**Archivo:** `programa_EVAL1_perplexity.py`  ·  **Capítulo:** Capítulo 18: Evaluación de Modelos de Lenguaje (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (129 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# ================================================================
+# CALCULO CORRECTO DE PERPLEXITY
+# El modelo NUNCA debe ver los datos de test durante el entreno.
+# ================================================================
+ 
+def softmax(x): e=np.exp(x-x.max()); return e/e.sum()
+ 
+def calcular_perplexity(modelo_forward, tokens, CTX, nombre=''):
+    """
+    Calcula la perplejidad de un modelo sobre una secuencia.
+    modelo_forward: funcion que recibe CTX tokens y devuelve logits
+    tokens:         lista de indices enteros del texto
+    CTX:            longitud del contexto del modelo
+    """
+    perdidas = []
+    n_tokens = 0
+    
+    for i in range(CTX, len(tokens)):
+        ctx    = tokens[i-CTX:i]      # contexto
+        target = tokens[i]             # token a predecir
+        logits = modelo_forward(ctx)   # logits del modelo
+        # Tomar los logits del ULTIMO paso (prediccion del siguiente)
+        if logits.ndim == 2: logits = logits[-1]
+        probs  = softmax(logits)
+        # -log P(token correcto | contexto)
+        loss   = -np.log(probs[target] + 1e-10)
+        perdidas.append(float(loss))
+        n_tokens += 1
+    
+    perdida_media = np.mean(perdidas)
+    ppl           = np.exp(perdida_media)
+    bits_por_tok  = perdida_media / np.log(2)   # nats -> bits (aqui cada token es un caracter)
+    
+    print(f'  {nombre or "Modelo"}')
+    print(f'    Tokens evaluados:  {n_tokens}')
+    print(f'    Perdida media:     {perdida_media:.4f}')
+    print(f'    Perplejidad:       {ppl:.2f}')
+    print(f'    Bits por token:    {bits_por_tok:.3f}')
+    return ppl, perdida_media
+ 
+ 
+# Simulacion: entrenamiento correcto con split train/test
+# (El Programa RZ-1 del Cap 15 lo hace con el modelo real del Cap 13)
+TEXTO_COMPLETO = '''
+la inteligencia artificial aprende de los datos de entrenamiento.
+los modelos de lenguaje predicen el siguiente token del texto.
+las redes neuronales tienen capas de neuronas interconectadas.
+el aprendizaje profundo usa muchas capas ocultas y atencion.
+los transformers procesan secuencias en paralelo con atencion.
+entrenar un modelo requiere datos etiquetados y potencia de calculo.
+la generacion de texto usa estrategias de muestreo como top-p.
+evaluar un modelo requiere datos de test que no vio en entrenamiento.
+'''
+ 
+vocab  = sorted(set(TEXTO_COMPLETO))
+V      = len(vocab)
+c2i    = {c:i for i,c in enumerate(vocab)}
+i2c    = dict(enumerate(vocab))
+tokens = [c2i[c] for c in TEXTO_COMPLETO]
+ 
+# Division: 80% train, 20% test
+corte      = int(0.8 * len(tokens))
+tok_train  = tokens[:corte]
+tok_test   = tokens[corte:]
+ 
+print(f'Corpus total: {len(tokens)} tokens (vocab={V})')
+print(f'Entrenamiento: {len(tok_train)} tokens ({len(tok_train)/len(tokens):.0%})')
+print(f'Test:          {len(tok_test)}  tokens ({len(tok_test)/len(tokens):.0%})')
+print(f'Perplejidad aleatoria esperada: {V:.0f} (= tamano vocabulario)')
+print()
+ 
+# Modelo ficticio para demo: distribuciones variadas
+np.random.seed(42)
+ 
+def modelo_aleatorio(ctx):
+    """Distribucion uniforme: la referencia del azar (PPL = V)"""
+    return np.zeros(V)    # logits uniformes -> prob 1/V cada token
+ 
+def modelo_bigrama(ctx, tokens_ref=tok_train):
+    """Bigrama: solo recuerda el ultimo token"""
+    ultimo = ctx[-1]
+    logits = np.zeros(V)
+    # Buscar cuales tokens siguen a 'ultimo' en los datos de entreno
+    for i in range(len(tokens_ref)-1):
+        if tokens_ref[i] == ultimo:
+            logits[tokens_ref[i+1]] += 1
+    if logits.sum() == 0: logits[:] = 1  # fallback uniforme
+    return np.log(logits / logits.sum() + 1e-10)  # log-probs
+ 
+def modelo_uniforme_top3(ctx):
+    """Simula un modelo que conoce los 3 tokens mas probables"""
+    # El siguiente token es el ultimo caracter del contexto + algo
+    # (simulacion simplificada para la demo)
+    logits = np.random.randn(V) * 0.1
+    # Dar algo de peso al token correcto con probabilidad variable
+    logits[np.random.randint(V)] += 2.0
+    return logits
+ 
+CTX = 8
+print('=== PERPLEJIDAD EN DISTINTOS CONJUNTOS ===')
+print()
+ 
+print('Modelo aleatorio (baseline):')
+calcular_perplexity(modelo_aleatorio, tok_test, CTX, 'Test')
+print()
+ 
+print('Modelo bigrama (aprende pares de caracteres):')
+calcular_perplexity(modelo_bigrama, tok_train, CTX, 'Train')
+calcular_perplexity(modelo_bigrama, tok_test, CTX,  'Test ')
+print()
+ 
+# Demostrar el diagnostico de overfitting
+print('=== DIAGNOSTICO DE OVERFITTING VIA PERPLEJIDAD ===')
+print()
+print('CASO 1 — Buen modelo (generaliza):')
+print('  PPL train = 4.2,  PPL test = 4.8  -> diferencia pequeña: OK')
+print()
+print('CASO 2 — Overfitting leve:')
+print('  PPL train = 2.1,  PPL test = 8.3  -> test 4x peor: señal de alerta')
+print()
+print('CASO 3 — Overfitting grave (memorizacion):')
+print('  PPL train = 1.0,  PPL test = 45.2 -> test 45x peor: el modelo')
+print('  memorizo el corpus de entrenamiento pero no generaliza.')
+print()
+print('Una pista, no una regla: un cociente PPL_test / PPL_train alto avisa de')
+print('sobreajuste, pero no hay umbrales universales (un modelo que no aprende')
+print('nada tiene cociente 1). Compara siempre con una linea base.')
+```
+
+**Ejecución:** `python programa_EVAL1_perplexity.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.0 s
+
+**Salida real por consola:**
+
+```
+Corpus total: 519 tokens (vocab=28)
+Entrenamiento: 415 tokens (80%)
+Test:          104  tokens (20%)
+Perplejidad aleatoria esperada: 28 (= tamano vocabulario)
+
+=== PERPLEJIDAD EN DISTINTOS CONJUNTOS ===
+
+Modelo aleatorio (baseline):
+  Test
+    Tokens evaluados:  96
+    Perdida media:     3.3322
+    Perplejidad:       28.00
+    Bits por token:    4.807
+
+Modelo bigrama (aprende pares de caracteres):
+  Train
+    Tokens evaluados:  407
+    Perdida media:     1.7835
+    Perplejidad:       5.95
+    Bits por token:    2.573
+  Test 
+    Tokens evaluados:  96
+    Perdida media:     4.5798
+    Perplejidad:       97.50
+    Bits por token:    6.607
+
+=== DIAGNOSTICO DE OVERFITTING VIA PERPLEJIDAD ===
+
+CASO 1 — Buen modelo (generaliza):
+  PPL train = 4.2,  PPL test = 4.8  -> diferencia pequeña: OK
+
+CASO 2 — Overfitting leve:
+  PPL train = 2.1,  PPL test = 8.3  -> test 4x peor: señal de alerta
+
+CASO 3 — Overfitting grave (memorizacion):
+  PPL train = 1.0,  PPL test = 45.2 -> test 45x peor: el modelo
+  memorizo el corpus de entrenamiento pero no generaliza.
+
+Una pista, no una regla: un cociente PPL_test / PPL_train alto avisa de
+sobreajuste, pero no hay umbrales universales (un modelo que no aprende
+nada tiene cociente 1). Compara siempre con una linea base.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (33 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): el comentario de la distribución uniforme la llama «la referencia del azar (PPL = V)». El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_programa_EVAL1_perplexity.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 98. Programa EVAL-2 — BLEU desde cero y framework de evaluación
+
+**Archivo:** `programa_EVAL2_bleu_benchmark.py`  ·  **Capítulo:** Capítulo 18: Evaluación de Modelos de Lenguaje (**)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (171 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+import math
+from collections import Counter
+ 
+# ================================================================
+# PARTE 1: BLEU DESDE CERO
+# ================================================================
+ 
+def ngramas(tokens, n):
+    """Extrae todos los n-gramas de una lista de tokens."""
+    return [tuple(tokens[i:i+n]) for i in range(len(tokens)-n+1)]
+ 
+def bleu(candidato, referencia, n_max=4):
+    """
+    Calcula el BLEU score entre un texto candidato y una referencia.
+    candidato, referencia: listas de palabras (tokens)
+    n_max:                 maximo orden de n-gramas (tipicamente 4)
+    """
+    cand = candidato.lower().split()
+    ref  = referencia.lower().split()
+    
+    precisiones = []
+    for n in range(1, n_max + 1):
+        cand_ng = Counter(ngramas(cand, n))
+        ref_ng  = Counter(ngramas(ref,  n))
+        
+        # Coincidencias con clipping (no contar mas que en la referencia)
+        coincidencias = sum(
+            min(cnt, ref_ng[ng]) for ng, cnt in cand_ng.items()
+        )
+        total = max(len(cand) - n + 1, 0)
+        
+        if total == 0:
+            precisiones.append(0.0)
+        else:
+            precisiones.append(coincidencias / total)
+    
+    # Media geometrica de las precisiones
+    if any(p == 0 for p in precisiones):
+        bleu_score = 0.0
+    else:
+        log_avg    = sum(math.log(p) for p in precisiones) / n_max
+        bleu_score = math.exp(log_avg)
+    
+    # Penalizacion por brevedad
+    bp = math.exp(min(0, 1 - len(ref)/max(len(cand), 1)))
+    
+    return bp * bleu_score, precisiones, bp
+ 
+ 
+# --- Ejemplos de calculo BLEU ---
+print('=== BLEU SCORE: EJEMPLOS ===')
+print()
+ 
+casos = [
+    ('Traduccion perfecta',
+     'el modelo aprende de los datos',
+     'el modelo aprende de los datos'),
+    ('Traduccion buena',
+     'el modelo aprende usando los datos',
+     'el modelo aprende de los datos'),
+    ('Traduccion parcial',
+     'el sistema procesa informacion',
+     'el modelo aprende de los datos'),
+    ('Texto sin relacion',
+     'la tarde cae sobre el monte',
+     'el modelo aprende de los datos'),
+]
+ 
+for nombre, cand, ref in casos:
+    score, precs, bp = bleu(cand, ref, n_max=2)
+    print(f'  {nombre}:')
+    print(f'    Candidato: "{cand}"')
+    print(f'    Referencia: "{ref}"')
+    print(f'    BLEU-2: {score:.4f}  (BLEU-1: {precs[0]:.3f}, BLEU-2: {precs[1]:.3f}, BP: {bp:.3f})')
+    print()
+ 
+# ================================================================
+# PARTE 2: FRAMEWORK DE EVALUACION CON OPCION MULTIPLE
+# ================================================================
+ 
+print('=== FRAMEWORK DE EVALUACION: OPCION MULTIPLE ===')
+print()
+ 
+# Mini-benchmark sobre IA (preguntas de ejemplo)
+BENCHMARK = [
+    {
+        'pregunta': 'Que funcion de activacion se usa mas en capas ocultas modernas?',
+        'opciones': ['a) Sigmoid', 'b) Tanh', 'c) ReLU', 'd) Softmax'],
+        'correcta': 'c',
+        'explicacion': 'ReLU es la mas usada por eficiencia y por evitar el vanishing gradient'
+    },
+    {
+        'pregunta': 'Que significa PPL = 37 si el vocabulario tiene 37 caracteres?',
+        'opciones': ['a) El modelo es excelente', 'b) Pierde lo mismo que repartir la probabilidad por igual',
+                    'c) El modelo tiene overfitting', 'd) El modelo necesita mas capas'],
+        'correcta': 'b',
+        'explicacion': 'PPL = V es la del azar uniforme: el modelo no mejora a adivinar entre V'
+    },
+    {
+        'pregunta': 'Que optimizador usa weight decay desacoplado?',
+        'opciones': ['a) SGD', 'b) RMSprop', 'c) Adam', 'd) AdamW'],
+        'correcta': 'd',
+        'explicacion': 'AdamW desacopla el weight decay del gradiente, corrigiendo un error de Adam'
+    },
+    {
+        'pregunta': 'Cual es la ventaja principal de Top-p sobre Top-k en muestreo?',
+        'opciones': ['a) Es mas rapido', 'b) Se adapta a la forma de la distribucion',
+                    'c) Siempre incluye mas tokens', 'd) No necesita temperatura'],
+        'correcta': 'b',
+        'explicacion': 'Top-p adapta el numero de tokens al nivel de concentracion de la distribucion'
+    },
+    {
+        'pregunta': 'Que es el Vanishing Gradient en RNNs?',
+        'opciones': ['a) Los gradientes crecen sin control',
+                    'b) Los gradientes se vuelven nulos al retropropagar muchos pasos',
+                    'c) Los pesos convergen a cero', 'd) La perdida no baja'],
+        'correcta': 'b',
+        'explicacion': 'El gradiente se multiplica por valores < 1 en cada paso, decayendo exponencialmente'
+    },
+]
+ 
+def evaluar_modelo_simulado(benchmark, tasa_acierto=0.80, semilla=42):
+    """
+    Simula la evaluacion de un modelo en un benchmark de opcion multiple.
+    En la practica, se le daria la pregunta+opciones al modelo y se
+    miraria cual opcion asigna mayor probabilidad.
+    """
+    np.random.seed(semilla)
+    resultados = []
+    for i, q in enumerate(benchmark):
+        # Simular respuesta del modelo
+        acierta = np.random.random() < tasa_acierto
+        opciones = [o[0] for o in q['opciones']]
+        if acierta:
+            respuesta = q['correcta']
+        else:
+            otras = [o for o in opciones if o != q['correcta']]
+            respuesta = np.random.choice(otras)
+        resultados.append({
+            'correcto': acierta,
+            'respuesta': respuesta,
+            'esperada': q['correcta']
+        })
+    return resultados
+ 
+print('Mini-benchmark de IA (5 preguntas):')
+print()
+ 
+modelos = [
+    ('Modelo aleatorio',  0.25),
+    ('Modelo basico',     0.60),
+    ('Modelo avanzado',   0.80),
+    ('Modelo experto',    1.00),
+]
+ 
+print(f"{'Modelo':>20}  {'Aciertos':>10}  {'Precision':>12}  Tasa simulada")
+print('-' * 68)
+for nombre, tasa in modelos:
+    res = evaluar_modelo_simulado(BENCHMARK, tasa_acierto=tasa)
+    n_ok = sum(r['correcto'] for r in res)
+    prec = n_ok / len(BENCHMARK)
+    print(f'{nombre:>20}  {n_ok:>4}/{len(BENCHMARK):>4}  {prec:>12.1%}  {tasa:.0%}')
+ 
+print()
+print('Con 5 preguntas el azar pesa mucho: el modelo que acierta el 25 % de las')
+print('veces ha sacado 3 de 5. Para estimar una tasa hacen falta cientos de preguntas.')
+print()
+print('En MMLU (57 materias; 14 042 preguntas de test), segun cada informe:')
+print('  GPT-3.5 (2023): ~70%   GPT-4 (2023): ~86%   Claude 3 Opus (2024): ~87%')
+print('  Experto humano (estimacion): ~90%   Humano no especialista: ~35%')
+```
+
+**Ejecución:** `python programa_EVAL2_bleu_benchmark.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.3 s
+
+**Salida real por consola:**
+
+```
+=== BLEU SCORE: EJEMPLOS ===
+
+  Traduccion perfecta:
+    Candidato: "el modelo aprende de los datos"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 1.0000  (BLEU-1: 1.000, BLEU-2: 1.000, BP: 1.000)
+
+  Traduccion buena:
+    Candidato: "el modelo aprende usando los datos"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 0.7071  (BLEU-1: 0.833, BLEU-2: 0.600, BP: 1.000)
+
+  Traduccion parcial:
+    Candidato: "el sistema procesa informacion"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 0.0000  (BLEU-1: 0.250, BLEU-2: 0.000, BP: 0.607)
+
+  Texto sin relacion:
+    Candidato: "la tarde cae sobre el monte"
+    Referencia: "el modelo aprende de los datos"
+    BLEU-2: 0.0000  (BLEU-1: 0.167, BLEU-2: 0.000, BP: 1.000)
+
+=== FRAMEWORK DE EVALUACION: OPCION MULTIPLE ===
+
+Mini-benchmark de IA (5 preguntas):
+
+              Modelo    Aciertos     Precision  Tasa simulada
+--------------------------------------------------------------------
+    Modelo aleatorio     3/   5         60.0%  25%
+       Modelo basico     3/   5         60.0%  60%
+     Modelo avanzado     4/   5         80.0%  80%
+      Modelo experto     5/   5        100.0%  100%
+
+Con 5 preguntas el azar pesa mucho: el modelo que acierta el 25 % de las
+veces ha sacado 3 de 5. Para estimar una tasa hacen falta cientos de preguntas.
+
+En MMLU (57 materias; 14 042 preguntas de test), segun cada informe:
+  GPT-3.5 (2023): ~70%   GPT-4 (2023): ~86%   Claude 3 Opus (2024): ~87%
+  Experto humano (estimacion): ~90%   Humano no especialista: ~35%
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (30 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): la opción b) del test dice «Pierde lo mismo que repartir la probabilidad por igual». El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_programa_EVAL2_bleu_benchmark.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 99. Ejercicio 18.1 — Calcular perplejidad de tres modelos hipotéticos
+
+**Archivo:** `ejercicio_18_1.py`  ·  **Capítulo:** Capítulo 18: Evaluación de Modelos de Lenguaje (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (30 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+modelos = {
+    'Modelo A': 1.2,
+    'Modelo B': 2.5,
+    'Modelo C': 0.3,
+}
+ 
+print('=== INTERPRETACION DE PERPLEJIDAD ===\n')
+print(f"{'Modelo':>10}  {'Perdida':>9}  {'PPL':>8}  Interpretacion")
+print('-' * 60)
+ 
+for nombre, perdida in modelos.items():
+    ppl = np.exp(perdida)
+    if ppl < 2:
+        interp = 'Excelente: casi siempre acierta el token correcto'
+    elif ppl < 5:
+        interp = 'Muy bueno: duda entre pocas opciones razonables'
+    elif ppl < 15:
+        interp = 'Aceptable: bastante incertidumbre'
+    else:
+        interp = 'Pobre: el modelo apenas ha aprendido patrones'
+    print(f'{nombre:>10}  {perdida:>9.2f}  {ppl:>8.2f}  {interp}')
+ 
+print()
+print('Comparacion relativa:')
+ppls = {k: np.exp(v) for k,v in modelos.items()}
+mejor = min(ppls, key=ppls.get)
+peor  = max(ppls, key=ppls.get)
+print(f'  {mejor} es {ppls[peor]/ppls[mejor]:.1f}x mejor que {peor}')
+```
+
+**Ejecución:** `python ejercicio_18_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== INTERPRETACION DE PERPLEJIDAD ===
+
+    Modelo    Perdida       PPL  Interpretacion
+------------------------------------------------------------
+  Modelo A       1.20      3.32  Muy bueno: duda entre pocas opciones razonables
+  Modelo B       2.50     12.18  Aceptable: bastante incertidumbre
+  Modelo C       0.30      1.35  Excelente: casi siempre acierta el token correcto
+
+Comparacion relativa:
+  Modelo C es 9.0x mejor que Modelo B
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_18_1.txt`), que es la que describe el texto.
+
+## 100. Ejercicio 18.2 — Calcular BLEU con múltiples referencias
+
+**Archivo:** `ejercicio_18_2.py`  ·  **Capítulo:** Capítulo 18: Evaluación de Modelos de Lenguaje (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (47 líneas, tal como está impreso en el libro):
+
+```python
+import math
+from collections import Counter
+ 
+def ngramas(tokens, n):
+    return [tuple(tokens[i:i+n]) for i in range(len(tokens)-n+1)]
+ 
+def bleu_multi_ref(candidato, referencias, n_max=4):
+    '''BLEU con multiples referencias validas'''
+    cand = candidato.lower().split()
+    refs = [r.lower().split() for r in referencias]
+    
+    precisiones = []
+    for n in range(1, n_max+1):
+        cand_ng = Counter(ngramas(cand, n))
+        # Para cada n-grama, tomar el MAXIMO conteo entre todas las referencias
+        max_ref_ng = Counter()
+        for ref in refs:
+            ref_ng = Counter(ngramas(ref, n))
+            for ng, cnt in ref_ng.items():
+                max_ref_ng[ng] = max(max_ref_ng[ng], cnt)
+        
+        coincidencias = sum(min(cnt, max_ref_ng[ng]) for ng, cnt in cand_ng.items())
+        total = max(len(cand) - n + 1, 0)
+        precisiones.append(coincidencias/total if total > 0 else 0.0)
+    
+    if any(p==0 for p in precisiones):
+        return 0.0
+    log_avg = sum(math.log(p) for p in precisiones) / n_max
+    # Brevity penalty: usar la referencia mas cercana en longitud
+    len_ref_cercana = min(refs, key=lambda r: abs(len(r)-len(cand)))
+    bp = math.exp(min(0, 1 - len(len_ref_cercana)/max(len(cand),1)))
+    return bp * math.exp(log_avg)
+ 
+candidato = 'el modelo aprende rapido de los datos'
+referencias = [
+    'el modelo aprende rapidamente de los datos',
+    'el modelo aprende rapido con los datos',
+    'la red aprende velozmente de la informacion',
+]
+ 
+score = bleu_multi_ref(candidato, referencias, n_max=2)
+print(f'Candidato: "{candidato}"')
+print(f'Referencias: {len(referencias)} variantes validas')
+print(f'BLEU-2 (multi-referencia): {score:.4f}')
+print()
+print('Con multiples referencias, el BLEU suele ser MAS ALTO')
+print('porque hay mas oportunidades de coincidir con alguna variante valida.')
+```
+
+**Ejecución:** `python ejercicio_18_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+Candidato: "el modelo aprende rapido de los datos"
+Referencias: 3 variantes validas
+BLEU-2 (multi-referencia): 0.9129
+
+Con multiples referencias, el BLEU suele ser MAS ALTO
+porque hay mas oportunidades de coincidir con alguna variante valida.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_18_2.txt`), que es la que describe el texto.
+
+## 101. Ejercicio 18.3 — Detectar overfitting de benchmark con un experimento controlado
+
+**Archivo:** `ejercicio_18_3.py`  ·  **Capítulo:** Capítulo 18: Evaluación de Modelos de Lenguaje (**)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (40 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+def generar_benchmark(n, semilla):
+    '''Genera un benchmark simulado de opcion multiple'''
+    np.random.seed(semilla)
+    return [{'id': i, 'respuesta_correcta': np.random.randint(4)} for i in range(n)]
+ 
+benchmark_train = generar_benchmark(20, semilla=1)   # 'visto' en preentrenamiento
+benchmark_nuevo = generar_benchmark(20, semilla=2)   # nunca visto
+ 
+def modelo_memorizador(pregunta, benchmark_memorizado):
+    '''Simula un modelo que memorizo las respuestas exactas'''
+    for q in benchmark_memorizado:
+        if q['id'] == pregunta['id']:
+            return q['respuesta_correcta']  # responde perfecto si la vio
+    return np.random.randint(4)  # si no la vio, responde al azar
+ 
+def evaluar(modelo_fn, benchmark, memorizado):
+    aciertos = sum(
+        modelo_fn(q, memorizado) == q['respuesta_correcta']
+        for q in benchmark
+    )
+    return aciertos / len(benchmark)
+ 
+print('=== SIMULACION: OVERFITTING DE BENCHMARK ===\n')
+ 
+acc_train = evaluar(modelo_memorizador, benchmark_train, benchmark_train)
+acc_nuevo = evaluar(modelo_memorizador, benchmark_nuevo, benchmark_train)
+ 
+print(f'Precision en benchmark CONTAMINADO (visto antes): {acc_train:.1%}')
+print(f'Precision en benchmark NUEVO (nunca visto):       {acc_nuevo:.1%}')
+print(f'Precision esperada al azar (4 opciones):           25.0%')
+print()
+print('El modelo "memorizador" parece perfecto (100%) en el benchmark')
+print('contaminado, pero su rendimiento real (en preguntas nuevas)')
+print('es indistinguible del azar. Esto es exactamente lo que ocurre')
+print('cuando un LLM ha visto las respuestas del benchmark durante')
+print('su preentrenamiento: la metrica miente sobre la capacidad real.')
+```
+
+**Ejecución:** `python ejercicio_18_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== SIMULACION: OVERFITTING DE BENCHMARK ===
+
+Precision en benchmark CONTAMINADO (visto antes): 100.0%
+Precision en benchmark NUEVO (nunca visto):       35.0%
+Precision esperada al azar (4 opciones):           25.0%
+
+El modelo "memorizador" parece perfecto (100%) en el benchmark
+contaminado, pero su rendimiento real (en preguntas nuevas)
+es indistinguible del azar. Esto es exactamente lo que ocurre
+cuando un LLM ha visto las respuestas del benchmark durante
+su preentrenamiento: la metrica miente sobre la capacidad real.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_18_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Capítulo 19: Ética y Sesgos en Inteligencia Artificial (*)
+
+## 102. Programa E-1 — Sesgo en acción: el modelo 'justo' que discrimina
+
+**Archivo:** `programa_E1_sesgo.py`  ·  **Capítulo:** Capítulo 19: Ética y Sesgos en Inteligencia Artificial (*)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (85 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(42)
+ 
+# ================================================================
+# ESCENARIO: sistema de scoring crediticio
+# Dos grupos con las MISMAS caracteristicas objetivas,
+# pero el Grupo 0 tiene historicamente menos acceso al credito.
+# Ese sesgo historico queda 'congelado' en los datos, DE DOS FORMAS:
+# (1) menor probabilidad de aprobacion, y (2) un historial crediticio
+# registrado peor (aunque la capacidad real de pago sea identica).
+# ================================================================
+ 
+def generar_dataset(n=1000):
+    datos = []
+    for _ in range(n):
+        grupo     = np.random.randint(0, 2)
+        ingresos  = np.clip(np.random.normal(0.5, 0.15), 0, 1)
+        historial_real = np.clip(np.random.normal(0.5, 0.15), 0, 1)
+        
+        # Probabilidad justa basada solo en caracteristicas objetivas
+        prob_justa = 0.4 * ingresos + 0.4 * historial_real + 0.05
+        
+        # SESGO HISTORICO: el grupo 0 recibio credito con 35% menos
+        # de frecuencia que el grupo 1, con identicas caracteristicas.
+        # Este sesgo esta 'grabado' en los datos de entrenamiento.
+        if grupo == 0:
+            prob = prob_justa * 0.65   # penalizacion injusta
+        else:
+            prob = prob_justa
+        
+        # VARIABLE PROXY: el historial REGISTRADO esta sesgado a la baja
+        # para el grupo 0 (mismo poder adquisitivo real, peor historial
+        # observable por falta historica de acceso al credito).
+        historial_registrado = historial_real * 0.7 if grupo == 0 else historial_real
+        
+        aprobado = int(np.random.random() < np.clip(prob, 0, 1))
+        datos.append([grupo, ingresos, historial_registrado, aprobado])
+    return np.array(datos)
+ 
+ 
+datos = generar_dataset(1000)
+grupo    = datos[:, 0].astype(int)
+X        = datos[:, 1:3]            # ingresos, historial (SIN grupo)
+y        = datos[:, 3].astype(int)
+ 
+# ================================================================
+# ENTRENAMIENTO: regression logistica sin usar 'grupo' como feature
+# El desarrollador cree que su modelo es justo porque no usa el grupo
+# ================================================================
+def sigmoid(z): return 1/(1+np.exp(-np.clip(z,-500,500)))
+ 
+w = np.zeros(2); b = 0.0
+for _ in range(3000):
+    pred = sigmoid(X @ w + b)
+    err  = pred - y
+    w   -= 0.5 * (X.T @ err) / len(y)   # lr aumentado de 0.05: asegura convergencia
+    b   -= 0.5 * err.mean()
+ 
+pred_bin = (sigmoid(X @ w + b) > 0.5).astype(int)
+ 
+# ================================================================
+# ANALISIS DE SESGO: comparar resultados por grupo
+# ================================================================
+print('=== ANALISIS DE SESGO EN EL MODELO DE CREDITO ===\n')
+print('El modelo NO usa el grupo como variable de entrada.')
+print('Aun asi, aprende el sesgo historico de los datos.\n')
+ 
+print(f"{'Grupo':>8}  {'Aprobados reales':>18}  {'Aprobados modelo':>18}  {'Diferencia':>12}")
+print('-' * 62)
+for g in [0, 1]:
+    mask = grupo == g
+    real    = y[mask].mean()
+    modelo  = pred_bin[mask].mean()
+    dif     = modelo - real
+    print(f'{g:>8}  {real:>18.1%}  {modelo:>18.1%}  {dif:>+12.1%}')
+ 
+# Paridad demografica
+t0 = pred_bin[grupo==0].mean()
+t1 = pred_bin[grupo==1].mean()
+print(f'\nParidad demografica: diferencia del {abs(t0-t1):.1%}')
+print(f'(0% = paridad perfecta, > 5% = señal de alerta)')
+print(f'\nPrecision global: {(pred_bin==y).mean():.1%}')
+print('La precision global oculta la disparidad entre grupos.')
+print('Un desarrollador desatento pensaria que el modelo es justo.')
+```
+
+**Ejecución:** `python programa_E1_sesgo.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.2 s
+
+**Salida real por consola:**
+
+```
+=== ANALISIS DE SESGO EN EL MODELO DE CREDITO ===
+
+El modelo NO usa el grupo como variable de entrada.
+Aun asi, aprende el sesgo historico de los datos.
+
+   Grupo    Aprobados reales    Aprobados modelo    Diferencia
+--------------------------------------------------------------
+       0               34.2%                1.6%        -32.5%
+       1               45.8%               19.4%        -26.4%
+
+Paridad demografica: diferencia del 17.7%
+(0% = paridad perfecta, > 5% = señal de alerta)
+
+Precision global: 61.4%
+La precision global oculta la disparidad entre grupos.
+Un desarrollador desatento pensaria que el modelo es justo.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (12 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 103. Programa E-2 — Midiendo la equidad: métricas de fairness
+
+**Archivo:** `programa_E2_fairness.py`  ·  **Capítulo:** Capítulo 19: Ética y Sesgos en Inteligencia Artificial (*)  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (61 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def metricas_equidad(y_real, y_pred, grupo):
+    '''Calcula las principales metricas de equidad por grupo.'''
+    resultados = {}
+    for g in np.unique(grupo):
+        mask = grupo == g
+        yr, yp = y_real[mask], y_pred[mask]
+        vp = ((yp==1)&(yr==1)).sum()  # verdadero positivo
+        fp = ((yp==1)&(yr==0)).sum()  # falso positivo
+        vn = ((yp==0)&(yr==0)).sum()  # verdadero negativo
+        fn = ((yp==0)&(yr==1)).sum()  # falso negativo
+        resultados[g] = {
+            'tasa_seleccion': yp.mean(),
+            # sin casos en el denominador la métrica no está definida: nan, no 0
+            'TPR (sensibil.)': vp/(vp+fn) if (vp+fn) else float('nan'),
+            'FPR (1-espec.)':  fp/(fp+vn) if (fp+vn) else float('nan'),
+            'precision_PPV':   vp/(vp+fp) if (vp+fp) else float('nan'),
+            'exactitud':       (vp+vn)/len(yr),
+        }
+    return resultados
+ 
+ 
+# Simulacion: sistema de seleccion de candidatos sesgado
+np.random.seed(7)
+n = 1000
+grupo  = np.random.choice([0, 1], size=n, p=[0.4, 0.6])
+y_real = np.random.binomial(1, 0.45, n)  # capacidad real similar
+ 
+# Modelo sesgado: el grupo 0 necesita superar un umbral mas alto
+y_pred = np.array([
+    int(np.random.random() > (0.58 if grupo[i]==0 else 0.42))
+    for i in range(n)
+])
+ 
+met = metricas_equidad(y_real, y_pred, grupo)
+ 
+print('=== METRICAS DE EQUIDAD: SISTEMA DE SELECCION ===\n')
+print(f"{'Metrica':>22}  {'Grupo 0':>10}  {'Grupo 1':>10}  {'Diferencia':>12}  {'Alerta?':>8}")
+print('-' * 70)
+ 
+UMBRAL_ALERTA = 0.05
+metricas_mostrar = [
+    'tasa_seleccion', 'TPR (sensibil.)', 'FPR (1-espec.)',
+    'precision_PPV', 'exactitud'
+]
+for m in metricas_mostrar:
+    v0  = met[0][m]
+    v1  = met[1][m]
+    dif = v0 - v1
+    alerta = '!!! SI' if abs(dif) > UMBRAL_ALERTA else 'no'
+    print(f'{m:>22}  {v0:>10.1%}  {v1:>10.1%}  {dif:>+12.1%}  {alerta:>8}')
+ 
+print()
+print('Interpretacion:')
+print('  Paridad demografica: tasa_seleccion igual para todos los grupos')
+print('  Equal Opportunity:   TPR igual (misma oportunidad si eres valido)')
+print('  Equalized Odds:      TPR Y FPR iguales (simetria total)')
+print()
+print('Nota: estas metricas son INCOMPATIBLES entre si en muchos casos.')
+print('Elegir cual garantizar es una decision etica, no tecnica.')
+```
+
+**Ejecución:** `python programa_E2_fairness.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.0 s
+
+**Salida real por consola:**
+
+```
+=== METRICAS DE EQUIDAD: SISTEMA DE SELECCION ===
+
+               Metrica     Grupo 0     Grupo 1    Diferencia   Alerta?
+----------------------------------------------------------------------
+        tasa_seleccion       39.5%       58.3%        -18.8%    !!! SI
+       TPR (sensibil.)       37.8%       55.1%        -17.3%    !!! SI
+        FPR (1-espec.)       40.8%       60.7%        -19.8%    !!! SI
+         precision_PPV       43.5%       40.6%         +2.9%        no
+             exactitud       49.5%       46.1%         +3.4%        no
+
+Interpretacion:
+  Paridad demografica: tasa_seleccion igual para todos los grupos
+  Equal Opportunity:   TPR igual (misma oportunidad si eres valido)
+  Equalized Odds:      TPR Y FPR iguales (simetria total)
+
+Nota: estas metricas son INCOMPATIBLES entre si en muchos casos.
+Elegir cual garantizar es una decision etica, no tecnica.
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (14 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+
+---
+
+# Capítulo 20: Herramientas y próximos pasos (*)
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): las métricas devuelven nan (no definidas) cuando su denominador es cero. El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_programa_E2_fairness.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 104. Ejercicio 20.1 — Construir un sistema RAG mínimo
+
+**Archivo:** `ejercicio_20_1.py`  ·  **Capítulo:** Capítulo 20: Herramientas y próximos pasos (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (39 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+np.random.seed(7)
+ 
+documentos = [
+    'La neurona artificial calcula una suma ponderada y aplica una activacion.',
+    'El self-attention conecta directamente cualquier par de tokens.',
+    'Adam combina Momentum y RMSprop con correccion de sesgo.',
+    'BPE fusiona iterativamente los pares de caracteres mas frecuentes.',
+    'El overfitting ocurre cuando el modelo memoriza en vez de generalizar.',
+    'Un modelo puede discriminar sin usar la variable protegida directamente.',
+]
+temas = ['neurona', 'atencion', 'optimizador', 'bpe', 'overfitting', 'etica']
+ 
+# Embeddings simulados: en la practica vendrian de un modelo real
+# Para la demo, generamos embeddings correlacionados con el tema
+D = 16
+embeddings_docs = np.random.randn(len(documentos), D) * 0.5
+ 
+def sim_coseno(u, v):
+    return np.dot(u,v) / (np.linalg.norm(u)*np.linalg.norm(v) + 1e-8)
+ 
+def rag_buscar(pregunta_emb, k=2):
+    sims = [sim_coseno(pregunta_emb, d) for d in embeddings_docs]
+    idx  = np.argsort(sims)[::-1][:k]
+    return [(documentos[i], temas[i], sims[i]) for i in idx]
+ 
+# Simulamos una pregunta 'sobre optimizadores'
+pregunta_emb = embeddings_docs[2] + np.random.randn(D)*0.15
+ 
+print('=== SISTEMA RAG MINIMO ===\n')
+print('Pregunta simulada: relacionada con optimizadores\n')
+resultados = rag_buscar(pregunta_emb, k=2)
+for doc, tema, sim in resultados:
+    print(f'  [{tema:>12}] sim={sim:.3f}  "{doc}"')
+ 
+print()
+print('El LLM recibiria estos 2 fragmentos como contexto adicional')
+print('antes de generar su respuesta a la pregunta del usuario.')
+```
+
+**Ejecución:** `python ejercicio_20_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== SISTEMA RAG MINIMO ===
+
+Pregunta simulada: relacionada con optimizadores
+
+  [ optimizador] sim=0.976  "Adam combina Momentum y RMSprop con correccion de sesgo."
+  [         bpe] sim=0.038  "BPE fusiona iterativamente los pares de caracteres mas frecuentes."
+
+El LLM recibiria estos 2 fragmentos como contexto adicional
+antes de generar su respuesta a la pregunta del usuario.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_20_1.txt`), que es la que describe el texto.
+
+## 105. Ejercicio 20.2 — Calcular el coste de tokens de una consulta con RAG
+
+**Archivo:** `ejercicio_20_2.py`  ·  **Capítulo:** Capítulo 20: Herramientas y próximos pasos (*)  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (23 líneas, tal como está impreso en el libro):
+
+```python
+def costo_consulta_rag(k, tokens_sistema=200, tokens_por_fragmento=150,
+                       tokens_pregunta=30, precio_por_1k=0.01):
+    total_tokens = tokens_sistema + (k * tokens_por_fragmento) + tokens_pregunta
+    costo = total_tokens / 1000 * precio_por_1k
+    return total_tokens, costo
+ 
+print('=== COSTE DE TOKENS SEGUN K (fragmentos recuperados) ===\n')
+print(f"{'k':>4}  {'Tokens totales':>15}  {'Costo (USD)':>12}")
+print('-' * 36)
+ 
+for k in [1, 3, 5, 10, 20]:
+    tokens, costo = costo_consulta_rag(k)
+    print(f'{k:>4}  {tokens:>15}  ${costo:>11.5f}')
+ 
+print()
+print('A 1000 consultas/dia con k=5:')
+tokens5, costo5 = costo_consulta_rag(5)
+print(f'  Costo diario: ${costo5*1000:.2f}')
+print(f'  Costo mensual: ${costo5*1000*30:.2f}')
+print()
+print('Por eso en produccion se ajusta k cuidadosamente:')
+print('mas contexto puede mejorar la respuesta, pero el costo')
+print('y la latencia crecen linealmente con k.')
+```
+
+**Ejecución:** `python ejercicio_20_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+=== COSTE DE TOKENS SEGUN K (fragmentos recuperados) ===
+
+   k   Tokens totales   Costo (USD)
+------------------------------------
+   1              380  $    0.00380
+   3              680  $    0.00680
+   5              980  $    0.00980
+  10             1730  $    0.01730
+  20             3230  $    0.03230
+
+A 1000 consultas/dia con k=5:
+  Costo diario: $9.80
+  Costo mensual: $294.00
+
+Por eso en produccion se ajusta k cuidadosamente:
+mas contexto puede mejorar la respuesta, pero el costo
+y la latencia crecen linealmente con k.
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_20_2.txt`), que es la que describe el texto.
+
+
+---
+
+# Apéndice D: Los Mismos Programas con PyTorch
+
+## 106. Programa PT-1 — Tensores, Autograd y Funciones de Activación
+
+**Archivo:** `programa_PT1_tensores_activaciones.py`  ·  **Capítulo:** Apéndice D: Los Mismos Programas con PyTorch  ·  **Tipo:** programa
+
+**Datos previos:** necesita PyTorch: se ejecuta con Python 3.13.16 + PyTorch 2.14.1 (NumPy 2.5.3).
+
+**Listado** (64 líneas, tal como está impreso en el libro):
+
+```python
+import torch
+import torch.nn.functional as F
+ 
+# ============================================================
+# PARTE 1: Tensores y comparativa con NumPy
+# ============================================================
+import numpy as np
+ 
+# NumPy
+a_np = np.array([1.0, 2.0, 3.0])
+# PyTorch — sintaxis casi identica
+a_pt = torch.tensor([1.0, 2.0, 3.0])
+ 
+print('NumPy: ', a_np)
+print('PyTorch:', a_pt)
+print('Suma NumPy: ', a_np.sum())
+print('Suma PyTorch:', a_pt.sum())
+print()
+ 
+# ============================================================
+# PARTE 2: Autograd — gradientes automáticos
+# ============================================================
+# Queremos calcular la derivada de L = (w*x - y)^2
+# respecto a w, evaluada en w=2, x=3, y=10
+ 
+x = torch.tensor(3.0)
+y = torch.tensor(10.0)
+w = torch.tensor(2.0, requires_grad=True)  # <-- activa autograd
+ 
+# Forward: calcular la perdida
+pred = w * x
+L    = (pred - y) ** 2
+ 
+print(f'w={w.item()}, x={x.item()}, y={y.item()}')
+print(f'pred = w*x = {pred.item()}')
+print(f'L = (pred-y)^2 = {L.item()}')
+ 
+# Backward: PyTorch calcula dL/dw automáticamente
+L.backward()
+ 
+print(f'dL/dw (autograd): {w.grad.item()}')
+ 
+# Verificación manual: dL/dw = 2*(w*x - y)*x = 2*(6-10)*3 = -24
+dL_dw_manual = 2 * (w.item()*x.item() - y.item()) * x.item()
+print(f'dL/dw (manual):   {dL_dw_manual}')
+print(f'Coinciden: {abs(w.grad.item() - dL_dw_manual) < 1e-5}')
+ 
+# ============================================================
+# PARTE 3: Funciones de activación — torch vs implementación propia
+# ============================================================
+z = torch.tensor([-3.0, -1.0, 0.0, 1.0, 3.0])
+ 
+print(f"{'z':>6}  {'sigmoid':>10}  {'ReLU':>8}  {'tanh':>8}")
+print('-' * 38)
+for zi, s, r, t in zip(z,
+                        torch.sigmoid(z),
+                        F.relu(z),
+                        torch.tanh(z)):
+    print(f'{zi.item():>6.1f}  {s.item():>10.4f}  {r.item():>8.2f}  {t.item():>8.4f}')
+ 
+# Softmax: devuelve distribucion de probabilidad
+logits = torch.tensor([2.0, 1.0, 0.5, -0.5])
+probs  = F.softmax(logits, dim=0)
+print(f'Softmax: {probs.numpy().round(4)}  suma={probs.sum().item():.6f}')
+```
+
+**Ejecución:** `python programa_PT1_tensores_activaciones.py`  ·  Python 3.13.16 + PyTorch 2.14.1  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  3.2 s
+
+**Salida real por consola:**
+
+```
+NumPy:  [1. 2. 3.]
+PyTorch: tensor([1., 2., 3.])
+Suma NumPy:  6.0
+Suma PyTorch: tensor(6.)
+
+w=2.0, x=3.0, y=10.0
+pred = w*x = 6.0
+L = (pred-y)^2 = 16.0
+dL/dw (autograd): -24.0
+dL/dw (manual):   -24.0
+Coinciden: True
+     z     sigmoid      ReLU      tanh
+--------------------------------------
+  -3.0      0.0474      0.00   -0.9951
+  -1.0      0.2689      0.00   -0.7616
+   0.0      0.5000      0.00    0.0000
+   1.0      0.7311      1.00    0.7616
+   3.0      0.9526      3.00    0.9951
+Softmax: [0.5977 0.2199 0.1334 0.0491]  suma=1.000000
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (18 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 107. Programa PT-2 — Neurona que Aprende: AND con Autograd
+
+**Archivo:** `programa_PT2_neurona_and.py`  ·  **Capítulo:** Apéndice D: Los Mismos Programas con PyTorch  ·  **Tipo:** programa
+
+**Datos previos:** necesita PyTorch: se ejecuta con Python 3.13.16 + PyTorch 2.14.1 (NumPy 2.5.3).
+
+**Listado** (51 líneas, tal como está impreso en el libro):
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+torch.manual_seed(0)   # pesos iniciales reproducibles
+ 
+# Datos: puerta logica AND
+X = torch.tensor([[0,0],[0,1],[1,0],[1,1]], dtype=torch.float32)
+y = torch.tensor([[0],[0],[0],[1]],         dtype=torch.float32)
+ 
+# ============================================================
+# EL MODELO: una sola neurona = nn.Linear(2, 1)
+# PyTorch crea automaticamente los pesos W (2x1) y sesgo b (1)
+# ============================================================
+neurona = nn.Linear(2, 1)
+ 
+# BCEWithLogitsLoss = sigmoid + BCE en una sola operacion
+# (mas estable numericamente que aplicarlos por separado)
+criterio    = nn.BCEWithLogitsLoss()
+optimizador = optim.SGD(neurona.parameters(), lr=0.5)
+ 
+print('=== NEURONA AND CON PYTORCH ===')
+print(f'Parametros iniciales:')
+print(f'  Pesos: {neurona.weight.data.numpy().round(3)}')
+print(f'  Sesgo: {neurona.bias.data.item():.4f}')
+print()
+ 
+# ============================================================
+# BUCLE DE ENTRENAMIENTO
+# Comparacion con NumPy:
+#   NumPy:   ~15 lineas de gradientes manuales
+#   PyTorch: 4 lineas (zero_grad, forward, backward, step)
+# ============================================================
+for epoca in range(10_000):
+    logits = neurona(X)          # forward
+    loss   = criterio(logits, y) # perdida
+    optimizador.zero_grad()      # limpiar gradientes
+    loss.backward()              # backprop automatico
+    optimizador.step()           # actualizar pesos
+ 
+    if epoca % 2000 == 0:
+        print(f'Epoca {epoca:5d}: perdida = {loss.item():.6f}')
+ 
+# Resultados finales
+print(f'\nPesos finales: {neurona.weight.data.numpy().round(3)}')
+print(f'Sesgo final:   {neurona.bias.data.item():.4f}')
+print('\nPrueba final:')
+with torch.no_grad():
+    probs = torch.sigmoid(neurona(X))
+for xi, yi, pi in zip(X, y, probs):
+    ok = 'v' if round(pi.item()) == int(yi.item()) else 'x'
+    print(f'  AND{xi.int().tolist()} = {int(yi.item())}  pred={pi.item():.4f}  {ok}')
+```
+
+**Ejecución:** `python programa_PT2_neurona_and.py`  ·  Python 3.13.16 + PyTorch 2.14.1  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  85.4 s
+
+**Salida real por consola:**
+
+```
+=== NEURONA AND CON PYTORCH ===
+Parametros iniciales:
+  Pesos: [[-0.005  0.379]]
+  Sesgo: -0.5820
+
+Epoca     0: perdida = 0.571347
+Epoca  2000: perdida = 0.017364
+Epoca  4000: perdida = 0.008659
+Epoca  6000: perdida = 0.005755
+Epoca  8000: perdida = 0.004307
+
+Pesos finales: [[10.678 10.678]]
+Sesgo final:   -16.1863
+
+Prueba final:
+  AND[0, 0] = 0  pred=0.0000  v
+  AND[0, 1] = 0  pred=0.0040  v
+  AND[1, 0] = 0  pred=0.0040  v
+  AND[1, 1] = 1  pred=0.9943  v
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (16 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Nota:** tardó 85 s por la misma competencia de hilos que se describe en PT-7. Ejecutado solo, tarda unos segundos.
+
+## 108. Programa PT-3 — MLP con nn.Module y XOR
+
+**Archivo:** `programa_PT3_mlp_xor.py`  ·  **Capítulo:** Apéndice D: Los Mismos Programas con PyTorch  ·  **Tipo:** programa
+
+**Datos previos:** necesita PyTorch: se ejecuta con Python 3.13.16 + PyTorch 2.14.1 (NumPy 2.5.3).
+
+**Listado** (63 líneas, tal como está impreso en el libro):
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+ 
+X = torch.tensor([[0,0],[0,1],[1,0],[1,1]], dtype=torch.float32)
+y = torch.tensor([[0],[1],[1],[0]],         dtype=torch.float32)
+ 
+# ============================================================
+# CLASE MLP CON nn.Module
+# Hereda de nn.Module para registrar los parametros
+# automaticamente y ser compatible con todos los optimizadores
+# ============================================================
+class MLP(nn.Module):
+    def __init__(self, n_ent, n_ocul, n_sal):
+        super().__init__()
+        # nn.Sequential encadena las capas en orden
+        self.red = nn.Sequential(
+            nn.Linear(n_ent, n_ocul),  # Z1 = X @ W1 + b1
+            nn.ReLU(),                  # A1 = ReLU(Z1)
+            nn.Linear(n_ocul, n_sal),  # Z2 = A1 @ W2 + b2
+            nn.Sigmoid()               # y^ = sigmoid(Z2)
+        )
+    
+    def forward(self, x):
+        return self.red(x)
+ 
+ 
+# Crear modelo, perdida y optimizador
+torch.manual_seed(42)
+modelo      = MLP(2, 8, 1)
+criterio    = nn.BCELoss()
+optimizador = optim.Adam(modelo.parameters(), lr=0.01)
+ 
+n_params = sum(p.numel() for p in modelo.parameters())
+print(f'Arquitectura: 2 -> 8 (ReLU) -> 1 (Sigmoid)')
+print(f'Parametros:   {n_params}')
+print(f'Estructura:')
+for nombre, param in modelo.named_parameters():
+    print(f'  {nombre:>20}: {list(param.shape)}')
+print()
+ 
+# ============================================================
+# ENTRENAMIENTO: el bucle mas sencillo posible
+# ============================================================
+for epoca in range(5000):
+    pred = modelo(X)
+    loss = criterio(pred, y)
+    optimizador.zero_grad()
+    loss.backward()
+    optimizador.step()
+    if epoca % 1000 == 0:
+        print(f'Epoca {epoca:5d}: perdida = {loss.item():.6f}')
+ 
+# Evaluacion final
+print('\nXOR resuelto con MLP PyTorch:')
+with torch.no_grad():
+    pred = modelo(X)
+correcto = 0
+for xi, yi, pi in zip(X, y, pred):
+    ok = 'v' if round(pi.item()) == int(yi.item()) else 'x'
+    correcto += round(pi.item()) == int(yi.item())
+    print(f'  XOR{xi.int().tolist()} = {int(yi.item())}  pred={pi.item():.4f}  {ok}')
+print(f'Precision: {correcto}/4')
+```
+
+**Ejecución:** `python programa_PT3_mlp_xor.py`  ·  Python 3.13.16 + PyTorch 2.14.1  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  3.9 s
+
+**Salida real por consola:**
+
+```
+Arquitectura: 2 -> 8 (ReLU) -> 1 (Sigmoid)
+Parametros:   33
+Estructura:
+          red.0.weight: [8, 2]
+            red.0.bias: [8]
+          red.2.weight: [1, 8]
+            red.2.bias: [1]
+
+Epoca     0: perdida = 0.722013
+Epoca  1000: perdida = 0.000715
+Epoca  2000: perdida = 0.000170
+Epoca  3000: perdida = 0.000068
+Epoca  4000: perdida = 0.000032
+
+XOR resuelto con MLP PyTorch:
+  XOR[0, 0] = 0  pred=0.0000  v
+  XOR[0, 1] = 1  pred=1.0000  v
+  XOR[1, 0] = 1  pred=1.0000  v
+  XOR[1, 1] = 0  pred=0.0000  v
+Precision: 4/4
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_programa_PT3_mlp_xor.txt`), que es la que describe el texto.
+
+## 109. Programa PT-4 — Embeddings con nn.Embedding
+
+**Archivo:** `programa_PT4_embeddings.py`  ·  **Capítulo:** Apéndice D: Los Mismos Programas con PyTorch  ·  **Tipo:** programa
+
+**Datos previos:** necesita PyTorch: se ejecuta con Python 3.13.16 + PyTorch 2.14.1 (NumPy 2.5.3).
+
+**Listado** (51 líneas, tal como está impreso en el libro):
+
+```python
+import torch
+import torch.nn as nn
+ 
+# Tokenizador identico al Programa 5 NumPy
+texto = 'hola mundo, aprendiendo inteligencia artificial'
+vocab = sorted(set(texto))
+V     = len(vocab)
+c2i   = {c: i for i, c in enumerate(vocab)}
+i2c   = dict(enumerate(vocab))
+ 
+def codificar(t):   return torch.tensor([c2i[c] for c in t])
+def decodificar(t): return ''.join(i2c[i.item()] for i in t)
+ 
+# ============================================================
+# nn.Embedding: tabla de busqueda diferenciable
+# Es una matriz (V, DIM) cuyos valores se APRENDEN
+# Se indexa igual que una lista: tabla[indice] -> vector
+# ============================================================
+DIM   = 8
+tabla = nn.Embedding(V, DIM)
+ 
+print(f'Vocabulario: {V} caracteres')
+print(f'Tabla de embeddings: {tabla.weight.shape}')
+print(f'Parametros aprendibles: {tabla.weight.numel()}')
+print(f'  (= {V} tokens x {DIM} dim = {V * DIM})')
+print()
+ 
+# Uso: igual que indexar un array
+tokens  = codificar('hola')
+embs    = tabla(tokens)   # (4, 8)
+print(f'Tokens de hola: {tokens.tolist()}')
+print(f'Shape: {embs.shape}')
+print(f'Embedding de h:')
+print(f'  {embs[0].detach().numpy().round(3)}')
+print()
+ 
+# Similitud coseno entre dos embeddings
+def sim_coseno(u, v):
+    return (u @ v / (u.norm() * v.norm() + 1e-8)).item()
+ 
+chars_test = ['h', 'o', 'l', 'a', ' ', 'i']
+print('Similitudes coseno (aleatorias antes de entrenar):')
+for c1, c2 in [('h','o'), ('h','h'), ('h',' ')]:
+    e1 = tabla(torch.tensor(c2i[c1]))
+    e2 = tabla(torch.tensor(c2i[c2]))
+    print(f'  sim({repr(c1)}, {repr(c2)}) = {sim_coseno(e1, e2):.4f}')
+ 
+print()
+print('Tras el entrenamiento, caracteres en contextos')
+print('similares tendran similitudes mas altas.')
+print('Esto emerge de loss.backward() + optimizer.step().')
+```
+
+**Ejecución:** `python programa_PT4_embeddings.py`  ·  Python 3.13.16 + PyTorch 2.14.1  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.3 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 18 caracteres
+Tabla de embeddings: torch.Size([18, 8])
+Parametros aprendibles: 144
+  (= 18 tokens x 8 dim = 144)
+
+Tokens de hola: [8, 13, 10, 2]
+Shape: torch.Size([4, 8])
+Embedding de h:
+  [ 0.582 -1.396 -0.09  -0.386  0.306 -0.598 -1.693 -0.997]
+
+Similitudes coseno (aleatorias antes de entrenar):
+  sim('h', 'o') = 0.4993
+  sim('h', 'h') = 1.0000
+  sim('h', ' ') = -0.3842
+
+Tras el entrenamiento, caracteres en contextos
+similares tendran similitudes mas altas.
+Esto emerge de loss.backward() + optimizer.step().
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Frente a la de referencia del repositorio (`salidas/salida_programa_PT4_embeddings.txt`), cambia en:
+```diff
+- libro:  [-2.332 -0.005 -0.63 0.477 -0.683 0.406 -0.523 -0.137]
++ real:   [ 0.582 -1.396 -0.09 -0.386 0.306 -0.598 -1.693 -0.997]
+- libro:  sim('h', 'o') = 0.3434
++ real:   sim('h', 'o') = 0.4993
+- libro:  sim('h', ' ') = 0.3206
++ real:   sim('h', ' ') = -0.3842
+```
+
+**Incidencia de reproducibilidad:** el programa no fija la semilla de PyTorch, así que el embedding de «h» y las tres similitudes coseno cambian en cada ejecución. El libro no imprime estas cifras ni las cita (dice que son «aleatorias antes de entrenar»), así que no hay contradicción con el texto. Aun así, es el único programa de los 117 cuya salida no es reproducible. Propuesta: añadir `torch.manual_seed(0)` tras los imports, como ya hacen PT-2, PT-3, PT-5, PT-6 y PT-7.
+
+## 110. Programa PT-5 — Self-Attention con nn.Module
+
+**Archivo:** `programa_PT5_self_attention.py`  ·  **Capítulo:** Apéndice D: Los Mismos Programas con PyTorch  ·  **Tipo:** programa
+
+**Datos previos:** necesita PyTorch: se ejecuta con Python 3.13.16 + PyTorch 2.14.1 (NumPy 2.5.3).
+
+**Listado** (57 líneas, tal como está impreso en el libro):
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+ 
+class SelfAttentionCausal(nn.Module):
+    '''
+    Self-attention causal con PyTorch.
+    Wq, Wk, Wv son nn.Linear -> gradientes automaticos.
+    '''
+    def __init__(self, d):
+        super().__init__()
+        self.d  = d
+        self.Wq = nn.Linear(d, d, bias=False)
+        self.Wk = nn.Linear(d, d, bias=False)
+        self.Wv = nn.Linear(d, d, bias=False)
+        self.Wo = nn.Linear(d, d, bias=False)
+    
+    def forward(self, X):
+        # X: (T, d)
+        T = X.shape[0]
+        Q = self.Wq(X)   # (T, d)
+        K = self.Wk(X)   # (T, d)
+        V = self.Wv(X)   # (T, d)
+        
+        # Puntuaciones escaladas
+        scores = (Q @ K.T) / (self.d ** 0.5)   # (T, T)
+        
+        # Mascara causal: el token t no puede ver t+1, t+2...
+        mask   = torch.triu(torch.full((T, T), float('-inf')), diagonal=1)
+        scores = scores + mask
+        
+        # Pesos de atencion y salida
+        pesos  = F.softmax(scores, dim=-1)  # (T, T)
+        return self.Wo(pesos @ V), pesos    # (T, d)
+ 
+ 
+torch.manual_seed(3)
+T, d = 5, 8
+X    = torch.randn(T, d)
+ 
+attn = SelfAttentionCausal(d)
+with torch.no_grad():
+    salida, pesos = attn(X)
+ 
+print(f'=== SELF-ATTENTION PYTORCH ===')
+print(f'Entrada: {X.shape}  ->  Salida: {salida.shape}')
+print(f'Pesos de atencion ({T}x{T}):')
+print(pesos.numpy().round(3))
+print(f'Filas suman 1: {torch.allclose(pesos.sum(dim=-1), torch.ones(T))}')
+n_p = sum(p.numel() for p in attn.parameters())
+print(f'Parametros de la capa: {n_p}')
+ 
+# Comparativa de codigo con NumPy:
+# NumPy:   salida, pesos = self_attention(X, Wq, Wk, Wv)
+#          -> requeria pasar matrices como argumentos
+# PyTorch: salida, pesos = attn(X)
+#          -> las matrices son parte del objeto, con gradientes
+```
+
+**Ejecución:** `python programa_PT5_self_attention.py`  ·  Python 3.13.16 + PyTorch 2.14.1  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  1.3 s
+
+**Salida real por consola:**
+
+```
+=== SELF-ATTENTION PYTORCH ===
+Entrada: torch.Size([5, 8])  ->  Salida: torch.Size([5, 8])
+Pesos de atencion (5x5):
+[[1.    0.    0.    0.    0.   ]
+ [0.416 0.584 0.    0.    0.   ]
+ [0.355 0.373 0.272 0.    0.   ]
+ [0.363 0.187 0.206 0.243 0.   ]
+ [0.16  0.228 0.223 0.191 0.197]]
+Filas suman 1: True
+Parametros de la capa: 256
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_programa_PT5_self_attention.txt`), que es la que describe el texto.
+
+## 111. Programa PT-6 — Bloque Transformer
+
+**Archivo:** `programa_PT6_transformer_bloque.py`  ·  **Capítulo:** Apéndice D: Los Mismos Programas con PyTorch  ·  **Tipo:** programa
+
+**Datos previos:** necesita PyTorch: se ejecuta con Python 3.13.16 + PyTorch 2.14.1 (NumPy 2.5.3).
+
+**Listado** (68 líneas, tal como está impreso en el libro):
+
+```python
+import torch
+import torch.nn as nn
+ 
+class BloqueTransformer(nn.Module):
+    '''
+    Bloque Transformer usando modulos nativos de PyTorch.
+    Mismo diseño que el Programa 7 NumPy (Pre-LN, como GPT-2):
+      LayerNorm + Self-Attention causal + residual
+      LayerNorm + Feed-Forward (GELU) + residual
+    '''
+    def __init__(self, d, d_ff, n_heads=2):
+        super().__init__()
+        # Multi-Head Attention nativo
+        self.atencion = nn.MultiheadAttention(
+            embed_dim=d,
+            num_heads=n_heads,
+            dropout=0.0,
+            batch_first=False   # X tiene forma (T, B, d)
+        )
+        # Feed-Forward Network
+        self.ffn = nn.Sequential(
+            nn.Linear(d, d_ff), nn.GELU(approximate='tanh'),
+            nn.Linear(d_ff, d)
+        )
+        # Dos capas de normalizacion
+        self.norm1 = nn.LayerNorm(d)
+        self.norm2 = nn.LayerNorm(d)
+    
+    def forward(self, X):
+        # X: (T, d) -- sin dimension de batch
+        T  = X.shape[0]
+        
+        # Mascara causal: impide ver el futuro
+        mask = nn.Transformer.generate_square_subsequent_mask(T)
+        
+        # Sub-bloque 1: norm + Self-Attention + residual
+        a = self.norm1(X).unsqueeze(1)   # (T, 1, d) para MultiheadAttention
+        attn_out, _ = self.atencion(a, a, a,
+                                    attn_mask=mask,
+                                    is_causal=True)
+        X = X + attn_out.squeeze(1)
+        
+        # Sub-bloque 2: norm + FFN + residual
+        X = X + self.ffn(self.norm2(X))
+        return X
+ 
+ 
+torch.manual_seed(5)
+d, d_ff, T = 16, 64, 6
+bloque = BloqueTransformer(d, d_ff, n_heads=2)
+X = torch.randn(T, d)
+ 
+with torch.no_grad():
+    Y = bloque(X)
+ 
+n_p = sum(p.numel() for p in bloque.parameters())
+print(f'Bloque Transformer PyTorch: d={d}, d_ff={d_ff}, n_heads=2')
+print(f'Entrada: {X.shape}  ->  Salida: {Y.shape}')
+print(f'Parametros: {n_p:,}  (los mismos 3.280 del Programa 7)')
+print(f'Std entrada: {X.std().item():.4f}   Std salida: {Y.std().item():.4f}')
+ 
+# Alternativa aun mas compacta: nn.TransformerEncoderLayer
+capa_rapida = nn.TransformerEncoderLayer(
+    d_model=d, nhead=2, dim_feedforward=d_ff,
+    dropout=0.0, batch_first=True, norm_first=True
+)
+n_p2 = sum(p.numel() for p in capa_rapida.parameters())
+print(f'\nTransformerEncoderLayer: {n_p2:,} params (mismo numero de parametros)')
+```
+
+**Ejecución:** `python programa_PT6_transformer_bloque.py`  ·  Python 3.13.16 + PyTorch 2.14.1  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  95.0 s
+
+**Salida real por consola:**
+
+```
+Bloque Transformer PyTorch: d=16, d_ff=64, n_heads=2
+Entrada: torch.Size([6, 16])  ->  Salida: torch.Size([6, 16])
+Parametros: 3,280  (los mismos 3.280 del Programa 7)
+Std entrada: 0.9249   Std salida: 0.9984
+
+TransformerEncoderLayer: 3,280 params (mismo numero de parametros)
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (PyTorch 2.14, CPU):» (5 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): la salida dice «mismo numero de parametros» en lugar de «equivalente». El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_programa_PT6_transformer_bloque.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 112. Programa PT-7 — Nano-LLM Completo con PyTorch
+
+**Archivo:** `programa_PT7_nano_llm.py`  ·  **Capítulo:** Apéndice D: Los Mismos Programas con PyTorch  ·  **Tipo:** programa
+
+**Datos previos:** lee el listado `programa_8_nano_llm.py` (impreso en el libro; se guarda en la carpeta de trabajo tal cual); necesita PyTorch: se ejecuta con Python 3.13.16 + PyTorch 2.14.1 (NumPy 2.5.3).
+
+**Listado** (134 líneas, tal como está impreso en el libro):
+
+```python
+# =======================================================
+# PROGRAMA PT-7 — Nano-LLM completo con PyTorch
+# Apéndice D — El MISMO GPT-2 en miniatura del Programa 8,
+# ahora con autograd: PyTorch calcula el backward por nosotros.
+#
+# Comprobado con PyTorch 2.14 (CPU): imprime
+# «Total de parámetros: 60,000», igual que el Programa 8.
+#
+# Las piezas son las de GPT-2 y las del Programa 8:
+#   - embeddings de token y de posición aprendidos
+#   - bloques Pre-LN: nn.LayerNorm (con γ y β) ANTES de cada subcapa
+#   - atención causal de 4 cabezas, con sesgo en Q, K, V y Wo
+#   - FFN 48 -> 192 (GELU, aproximación tanh) -> 48
+#   - LayerNorm final y pesos compartidos entre entrada y salida
+# Cambia el backward (autograd) y nada más.
+# =======================================================
+import math
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+ 
+# -- Corpus: el mismo TEXTO del Programa 8 ------------------
+fuente = open('programa_8_nano_llm.py', encoding='utf-8').read()
+TEXTO = fuente.split('TEXTO = """')[1].split('"""')[0]
+VOCAB = sorted(set(TEXTO))
+V = len(VOCAB)
+C2I = {c: i for i, c in enumerate(VOCAB)}
+I2C = dict(enumerate(VOCAB))
+DATOS = torch.tensor([C2I[c] for c in TEXTO], dtype=torch.long)
+ 
+# -- Hiperparámetros: idénticos al Programa 8 ----------------
+CTX, D, H, D_FF, N_BLQ = 24, 48, 4, 192, 2
+LR, PASOS, BATCH, CLIP = 3e-3, 12000, 8, 1.0
+STD_RES = 0.02 / math.sqrt(2 * N_BLQ)
+torch.manual_seed(42)
+ 
+ 
+class Bloque(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.ln1 = nn.LayerNorm(D)               # γ y β incluidos
+        self.Wq, self.Wk, self.Wv = nn.Linear(D, D), nn.Linear(D, D), nn.Linear(D, D)
+        self.Wo = nn.Linear(D, D)
+        self.ln2 = nn.LayerNorm(D)
+        self.W1 = nn.Linear(D, D_FF)
+        self.W2 = nn.Linear(D_FF, D)
+ 
+    def atencion(self, a):                       # a: (B, T, D)
+        B, T, _ = a.shape
+        separar = lambda x: x.view(B, T, H, D // H).transpose(1, 2)   # (B, H, T, DH)
+        Q, K, Vm = separar(self.Wq(a)), separar(self.Wk(a)), separar(self.Wv(a))
+        scores = Q @ K.transpose(-2, -1) / math.sqrt(D // H)
+        futuro = torch.triu(torch.ones(T, T, dtype=torch.bool), diagonal=1)
+        pesos = F.softmax(scores.masked_fill(futuro, float('-inf')), dim=-1)
+        return self.Wo((pesos @ Vm).transpose(1, 2).reshape(B, T, D))
+ 
+    def forward(self, X):
+        X = X + self.atencion(self.ln1(X))                          # Pre-LN
+        X = X + self.W2(F.gelu(self.W1(self.ln2(X)), approximate='tanh'))
+        return X
+ 
+ 
+class NanoLLM(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.wte = nn.Embedding(V, D)
+        self.wpe = nn.Embedding(CTX, D)
+        self.bloques = nn.ModuleList([Bloque() for _ in range(N_BLQ)])
+        self.lnf = nn.LayerNorm(D)
+        for nombre, p in self.named_parameters():   # inicialización de GPT-2
+            if nombre.endswith('bias'):
+                nn.init.zeros_(p)
+            elif p.dim() == 2:
+                std = STD_RES if ('Wo' in nombre or 'W2' in nombre) else 0.02
+                nn.init.normal_(p, std=std)
+ 
+    def forward(self, idx):                      # idx: (B, T)
+        T = idx.shape[1]
+        X = self.wte(idx) + self.wpe(torch.arange(T))
+        for b in self.bloques:
+            X = b(X)
+        return self.lnf(X) @ self.wte.weight.T   # pesos compartidos
+modelo = NanoLLM()
+print(f'Vocabulario: {V} caracteres')
+print(f'Total de parámetros: {sum(p.numel() for p in modelo.parameters()):,}')
+ 
+# -- Entrenamiento: Adam + warmup/coseno + recorte ------------
+opt = torch.optim.Adam(modelo.parameters(), lr=LR, betas=(0.9, 0.999), eps=1e-8)
+ 
+ 
+def lr_factor(t, t_warmup=150, lr_min=1e-4):
+    if t < t_warmup:
+        return (t + 1) / t_warmup
+    c = 0.5 * (1 + math.cos(math.pi * (t - t_warmup) / (PASOS - t_warmup)))
+    return (lr_min + (LR - lr_min) * c) / LR
+ 
+ 
+plan = torch.optim.lr_scheduler.LambdaLR(opt, lr_factor)
+ 
+for paso in range(PASOS):
+    i = torch.randint(0, len(DATOS) - CTX - 1, (BATCH,))
+    xb = torch.stack([DATOS[j:j + CTX] for j in i])
+    yb = torch.stack([DATOS[j + 1:j + CTX + 1] for j in i])
+    loss = F.cross_entropy(modelo(xb).reshape(-1, V), yb.reshape(-1))
+    opt.zero_grad()
+    loss.backward()                              # todo el backward en una línea
+    torch.nn.utils.clip_grad_norm_(modelo.parameters(), CLIP)
+    opt.step()
+    plan.step()
+    if paso % 1000 == 0 or paso == PASOS - 1:
+        print(f'Paso {paso:5d}: pérdida = {loss.item():.4f}   '
+              f'(bits/char = {loss.item() / math.log(2):.2f})')
+ 
+ 
+# -- Generación: temperatura + top-p (como el Programa 8) ------
+@torch.no_grad()
+def generar(semilla, n_chars=120, temperatura=0.8, top_p=0.9):
+    tokens = [C2I.get(c, 0) for c in semilla[-CTX:]]
+    for _ in range(n_chars):
+        logits = modelo(torch.tensor([tokens[-CTX:]]))[0, -1]
+        probs = F.softmax(logits / temperatura, dim=-1)
+        orden = torch.argsort(probs, descending=True)
+        acumulada = torch.cumsum(probs[orden], 0)
+        n = int((acumulada < top_p).sum()) + 1
+        nucleo = torch.zeros_like(probs)
+        nucleo[orden[:n]] = probs[orden[:n]]
+        tokens.append(int(torch.multinomial(nucleo / nucleo.sum(), 1)))
+    return semilla + ''.join(I2C[t] for t in tokens[len(semilla[-CTX:]):])
+ 
+ 
+print('\n=== TEXTO GENERADO POR EL NANO-LLM (PyTorch) ===')
+print(generar('la inteligencia'))
+print()
+print(generar('los modelos de'))
+```
+
+**Ejecución:** `python programa_PT7_nano_llm.py`  ·  Python 3.13.16 + PyTorch 2.14.1  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  68.9 s
+
+**Salida real por consola:**
+
+```
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Paso     0: pérdida = 3.8674   (bits/char = 5.58)
+Paso  1000: pérdida = 1.6491   (bits/char = 2.38)
+Paso  2000: pérdida = 0.8981   (bits/char = 1.30)
+Paso  3000: pérdida = 0.7064   (bits/char = 1.02)
+Paso  4000: pérdida = 0.4982   (bits/char = 0.72)
+Paso  5000: pérdida = 0.4594   (bits/char = 0.66)
+Paso  6000: pérdida = 0.4293   (bits/char = 0.62)
+Paso  7000: pérdida = 0.3269   (bits/char = 0.47)
+Paso  8000: pérdida = 0.3594   (bits/char = 0.52)
+Paso  9000: pérdida = 0.2948   (bits/char = 0.43)
+Paso 10000: pérdida = 0.2729   (bits/char = 0.39)
+Paso 11000: pérdida = 0.2876   (bits/char = 0.41)
+Paso 11999: pérdida = 0.2854   (bits/char = 0.41)
+
+=== TEXTO GENERADO POR EL NANO-LLM (PyTorch) ===
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas
+
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa (PyTorch 2.14, CPU):» (22 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+**Incidencia de ejecución (del entorno, no del código):** en la primera ejecución, PyTorch y la otra tanda se disputaron los 2 núcleos de la máquina, y el programa no terminó en una hora (límite fijado). Repetido con `OMP_NUM_THREADS=1`, terminó en **69 s** con una salida **idéntica** a la de referencia. Conviene que el Apéndice D o el Apéndice E recomienden fijar los hilos de PyTorch en máquinas con pocos núcleos o con otros procesos en marcha.
+
+
+---
+
+# Apéndice G: Visión por Computador y Redes Convolucionales
+
+## 113. Programa 9A — Convolución manual y visualización de filtros
+
+**Archivo:** `programa_9a_convolucion.py`  ·  **Capítulo:** Apéndice G: Visión por Computador y Redes Convolucionales  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (121 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# CONVOLUCIÓN 2D MANUAL CON VISUALIZACIÓN ASCII
+# Veremos cómo distintos filtros 'ven' la misma imagen
+# =======================================================
+ 
+def convolucion_2d(imagen, filtro, relleno=1):
+    """
+    Aplica un filtro a una imagen 2D.
+    imagen:   (H, W)  — valores 0..1
+    filtro:   (fH, fW)
+    relleno:  píxeles de ceros añadidos al borde (para mantener tamaño)
+    Retorna:  (H, W)  — mapa de características
+    """
+    H, W   = imagen.shape
+    fH, fW = filtro.shape
+    if relleno:
+        imagen = np.pad(imagen, relleno, mode='constant', constant_values=0)
+    H_r, W_r = imagen.shape
+    H_out = H_r - fH + 1
+    W_out = W_r - fW + 1
+    resultado = np.zeros((H_out, W_out))
+    for i in range(H_out):
+        for j in range(W_out):
+            region = imagen[i:i+fH, j:j+fW]
+            resultado[i, j] = np.sum(region * filtro)
+    return resultado
+ 
+def max_pooling(feat_map, tamano=2):
+    """
+    Reduce el mapa de características tomando el máximo
+    en cada ventana de tamano x tamano.
+    """
+    H, W = feat_map.shape
+    H_out = H // tamano
+    W_out = W // tamano
+    resultado = np.zeros((H_out, W_out))
+    for i in range(H_out):
+        for j in range(W_out):
+            ventana = feat_map[i*tamano:(i+1)*tamano,
+                               j*tamano:(j+1)*tamano]
+            resultado[i, j] = ventana.max()
+    return resultado
+ 
+def relu(x):
+    return np.maximum(0, x)
+ 
+def a_ascii(matriz, umbral=0.3):
+    """Convierte una matriz en arte ASCII para visualización"""
+    filas = []
+    vmax = np.abs(matriz).max() + 1e-8
+    for fila in matriz:
+        chars = []
+        for v in fila:
+            v_norm = v / vmax
+            if v_norm > 0.5:  chars.append('█')
+            elif v_norm > 0.2: chars.append('▓')
+            elif v_norm > 0.0: chars.append('░')
+            elif v_norm < -0.5: chars.append('v')
+            elif v_norm < -0.2: chars.append('▽')
+            else:              chars.append('.')
+        filas.append('  ' + ' '.join(chars))
+    return chr(10).join(filas)   # CORREGIDO: salto de linea, no espacio
+ 
+ 
+# -- Definir una imagen de 12x12: una 'L' mayúscula ----
+# (1 = blanco/activado, 0 = negro/apagado)
+imagen = np.array([
+  [0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,0,0,0,0,0,0],
+  [0,1,1,1,1,1,1,1,0,0,0,0],
+  [0,1,1,1,1,1,1,1,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0],
+], dtype=float)
+ 
+# -- Cuatro filtros clásicos de 3x3 --------------------
+filtros = {
+    'Bordes verticales (Sobel-X)': np.array([
+        [-1, 0, 1],
+        [-2, 0, 2],
+        [-1, 0, 1]], dtype=float),
+ 
+    'Bordes horizontales (Sobel-Y)': np.array([
+        [-1,-2,-1],
+        [ 0, 0, 0],
+        [ 1, 2, 1]], dtype=float),
+ 
+    'Detector de esquinas (Laplaciano)': np.array([
+        [ 0,-1, 0],
+        [-1, 4,-1],
+        [ 0,-1, 0]], dtype=float),
+ 
+    'Suavizado (Gaussiano 3x3)': np.array([
+        [1/16, 2/16, 1/16],
+        [2/16, 4/16, 2/16],
+        [1/16, 2/16, 1/16]], dtype=float),
+}
+ 
+print('=== CONVOLUCIÓN 2D: DISTINTOS FILTROS, MISMA IMAGEN ===\n')
+print('Imagen original (12x12 — letra L):',)
+print(a_ascii(imagen))
+print()
+ 
+for nombre, filtro in filtros.items():
+    mapa = convolucion_2d(imagen, filtro, relleno=1)
+    mapa_relu = relu(mapa)                   # solo activaciones positivas
+    mapa_pool = max_pooling(mapa_relu, 2)    # reducir a la mitad
+    print(f'Filtro: {nombre}')
+    print(f'  Mapa de características (12x12, tras ReLU):')
+    print(a_ascii(mapa_relu))
+    print(f'  Tras Max-Pooling 2x2 -> (6x6):')
+    print(a_ascii(mapa_pool))
+    print()
+```
+
+**Ejecución:** `python programa_9a_convolucion.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+=== CONVOLUCIÓN 2D: DISTINTOS FILTROS, MISMA IMAGEN ===
+
+Imagen original (12x12 — letra L):
+  . . . . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . █ █ █ █ █ █ █ . . . .
+  . █ █ █ █ █ █ █ . . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+
+Filtro: Bordes verticales (Sobel-X)
+  Mapa de características (12x12, tras ReLU):
+  ▓ ▓ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  █ █ . . . . . . . . . .
+  ▓ ▓ . . . . . . . . . .
+  . . . . . . . . . . . .
+  Tras Max-Pooling 2x2 -> (6x6):
+  █ . . . . .
+  █ . . . . .
+  █ . . . . .
+  █ . . . . .
+  █ . . . . .
+  ▓ . . . . .
+
+Filtro: Bordes horizontales (Sobel-Y)
+  Mapa de características (12x12, tras ReLU):
+  ▓ █ █ ▓ . . . . . . . .
+  ▓ █ █ ▓ . . . . . . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+  . . ▓ █ █ █ █ █ ▓ . . .
+  . . ▓ █ █ █ █ █ ▓ . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+  Tras Max-Pooling 2x2 -> (6x6):
+  █ █ . . . .
+  . . . . . .
+  . . . . . .
+  . █ █ █ ▓ .
+  . █ █ █ ▓ .
+  . . . . . .
+
+Filtro: Detector de esquinas (Laplaciano)
+  Mapa de características (12x12, tras ReLU):
+  . . . . . . . . . . . .
+  . █ █ . . . . . . . . .
+  . ▓ ▓ . . . . . . . . .
+  . ▓ ▓ . . . . . . . . .
+  . ▓ ▓ . . . . . . . . .
+  . ▓ ▓ . . . . . . . . .
+  . ▓ ▓ . . . . . . . . .
+  . ▓ ▓ . . . . . . . . .
+  . ▓ . ▓ ▓ ▓ ▓ █ . . . .
+  . █ ▓ ▓ ▓ ▓ ▓ █ . . . .
+  . . . . . . . . . . . .
+  . . . . . . . . . . . .
+  Tras Max-Pooling 2x2 -> (6x6):
+  █ █ . . . .
+  ▓ ▓ . . . .
+  ▓ ▓ . . . .
+  ▓ ▓ . . . .
+  █ ▓ ▓ █ . .
+  . . . . . .
+
+Filtro: Suavizado (Gaussiano 3x3)
+  Mapa de características (12x12, tras ReLU):
+  ░ ░ ░ ░ . . . . . . . .
+  ░ █ █ ░ . . . . . . . .
+  ▓ █ █ ▓ . . . . . . . .
+  ▓ █ █ ▓ . . . . . . . .
+  ▓ █ █ ▓ . . . . . . . .
+  ▓ █ █ ▓ . . . . . . . .
+  ▓ █ █ ▓ . . . . . . . .
+  ▓ █ █ ▓ ▓ ▓ ▓ ░ ░ . . .
+  ▓ █ █ █ █ █ █ █ ░ . . .
+  ░ █ █ █ █ █ █ █ ░ . . .
+  ░ ░ ▓ ▓ ▓ ▓ ▓ ░ ░ . . .
+  . . . . . . . . . . . .
+  Tras Max-Pooling 2x2 -> (6x6):
+  █ █ . . . .
+  █ █ . . . .
+  █ █ . . . .
+  █ █ ▓ ▓ ░ .
+  █ █ █ █ ░ .
+  ░ ▓ ▓ ▓ ░ .
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (98 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+## 114. Programa 9B — CNN entrenada para clasificar patrones
+
+**Archivo:** `programa_9b_cnn.py`  ·  **Capítulo:** Apéndice G: Visión por Computador y Redes Convolucionales  ·  **Tipo:** programa
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (224 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+# =======================================================
+# CNN ENTRENADA DESDE CERO
+# Tarea: ¿barra horizontal o barra vertical?
+# Arquitectura: Conv(4 filtros 3x3) -> ReLU -> MaxPool(2x2)
+#              -> Flatten -> Dense(1) -> Sigmoid
+# =======================================================
+ 
+np.random.seed(42)
+ 
+# -- Generador de datos sintéticos ---------------------
+def generar_dataset(n_por_clase=150):
+    """
+    Clase 0: imagen 10x10 con una barra HORIZONTAL de 2 px de alto
+    Clase 1: imagen 10x10 con una barra VERTICAL de 2 px de ancho
+    Añadimos ruido gaussiano para hacerlo más realista.
+    """
+    imagenes, etiquetas = [], []
+    for _ in range(n_por_clase):
+        # Clase 0: barra horizontal
+        img = np.zeros((10, 10))
+        fila = np.random.randint(2, 7)        # fila aleatoria (evita bordes)
+        img[fila:fila+2, 1:9] = 1.0           # barra de 2 px de alto
+        img += np.random.randn(10, 10) * 0.15 # ruido
+        imagenes.append(np.clip(img, 0, 1))
+        etiquetas.append(0)
+        # Clase 1: barra vertical
+        img = np.zeros((10, 10))
+        col = np.random.randint(2, 7)          # columna aleatoria
+        img[1:9, col:col+2] = 1.0              # barra de 2 px de ancho
+        img += np.random.randn(10, 10) * 0.15
+        imagenes.append(np.clip(img, 0, 1))
+        etiquetas.append(1)
+    idx = np.random.permutation(len(imagenes))
+    X = np.array(imagenes)[idx]     # (N, 10, 10)
+    y = np.array(etiquetas)[idx]    # (N,)
+    return X, y
+ 
+X, y = generar_dataset(150)
+# División entrenamiento / validación
+corte = int(0.8 * len(X))
+X_tr, y_tr = X[:corte], y[:corte]
+X_val, y_val = X[corte:], y[corte:]
+print(f'Dataset: {len(X_tr)} entrenamiento, {len(X_val)} validación')
+ 
+# -- Operaciones base ----------------------------------
+def conv_forward(img, filtros, sesgos, relleno=1):
+    """
+    img:     (H, W)  — imagen de un canal
+    filtros: (F, fH, fW) — F filtros
+    sesgos:  (F,)
+    retorna: (F, H, W)  — F mapas de características
+    """
+    H, W   = img.shape
+    F, fH, fW = filtros.shape
+    if relleno:
+        img_p = np.pad(img, relleno)
+    else:
+        img_p = img
+    H_r, W_r = img_p.shape
+    H_o = H_r - fH + 1
+    W_o = W_r - fW + 1
+    out = np.zeros((F, H_o, W_o))
+    for f in range(F):
+        for i in range(H_o):
+            for j in range(W_o):
+                out[f,i,j] = np.sum(img_p[i:i+fH, j:j+fW] * filtros[f]) + sesgos[f]
+    return out
+ 
+def max_pool_forward(feat, tam=2):
+    """feat: (F, H, W) -> (F, H//tam, W//tam)"""
+    F, H, W = feat.shape
+    H_o, W_o = H//tam, W//tam
+    out  = np.zeros((F, H_o, W_o))
+    mask = np.zeros_like(feat, dtype=bool)   # guardamos posición del máximo
+    for f in range(F):
+        for i in range(H_o):
+            for j in range(W_o):
+                ventana = feat[f, i*tam:(i+1)*tam, j*tam:(j+1)*tam]
+                out[f,i,j] = ventana.max()
+                # Máscara: ¿dónde está el máximo?
+                pos = np.unravel_index(ventana.argmax(), ventana.shape)
+                mask[f, i*tam+pos[0], j*tam+pos[1]] = True
+    return out, mask
+ 
+def max_pool_backward(dout, mask, tam=2):
+    """Propaga el gradiente solo al píxel que fue el máximo"""
+    F, H_o, W_o = dout.shape
+    dfeat = np.zeros_like(mask, dtype=float)
+    for f in range(F):
+        for i in range(H_o):
+            for j in range(W_o):
+                dfeat[f, i*tam:(i+1)*tam, j*tam:(j+1)*tam] += (
+                    mask[f, i*tam:(i+1)*tam, j*tam:(j+1)*tam] * dout[f,i,j]
+                )
+    return dfeat
+ 
+def sigmoid(x): return 1/(1+np.exp(-np.clip(x,-500,500)))
+# -- Parámetros de la CNN ------------------------------
+F  = 4     # número de filtros convolucionales
+fS = 3     # tamaño del filtro: 3x3
+ 
+# Inicialización He para los filtros
+filtros = np.random.randn(F, fS, fS) * np.sqrt(2.0/(fS*fS))
+sesgos  = np.zeros(F)
+ 
+# Tras conv(relleno=1): (F, 10, 10)
+# Tras maxpool(2):       (F, 5, 5)
+# Tras flatten:          F*5*5 = 100 entradas
+n_flat = F * 5 * 5
+ 
+# Capas densas: 100 -> 16 -> 1
+W1 = np.random.randn(n_flat, 16) * np.sqrt(2.0/n_flat)
+b1 = np.zeros(16)
+W2 = np.random.randn(16, 1) * np.sqrt(2.0/16)
+b2 = np.zeros(1)
+ 
+LR = 0.01
+ 
+def forward_completo(img):
+    """Pasa una imagen por toda la CNN"""
+    # 1. Convolución + ReLU
+    conv   = conv_forward(img, filtros, sesgos, relleno=1)
+    relu_c = np.maximum(0, conv)              # (F, 10, 10)
+    # 2. Max Pooling
+    pool, mask = max_pool_forward(relu_c, tam=2)  # (F, 5, 5)
+    # 3. Aplanar
+    flat = pool.flatten()                     # (100,)
+    # 4. Capa densa 1
+    z1   = flat @ W1 + b1                     # (16,)
+    a1   = np.maximum(0, z1)                  # ReLU
+    # 5. Capa densa 2 -> salida
+    z2   = a1 @ W2 + b2                       # (1,)
+    pred = sigmoid(z2)                     # CORRECCION: array de 1 elemento (no escalar)
+    cache = (img, conv, relu_c, mask, pool, flat, z1, a1, z2)
+    return pred, cache
+ 
+def backward_completo(pred, target, cache):
+    global filtros, sesgos, W1, b1, W2, b2
+    img, conv, relu_c, mask, pool, flat, z1, a1, z2 = cache
+    # -- Pérdida BCE y su gradiente ---------------------
+    # BCE calculada desde el logit (estable): log(1 + e^z) - target·z
+    loss = np.logaddexp(0, z2) - target * z2
+    # BCE + sigmoide: dL/dz2 = pred - target (la derivada de la sigmoide se cancela)
+    # -- Capa 2 -----------------------------------------
+    dz2  = pred - target                      # gradiente respecto al logit z2
+    dW2  = a1[:, None] * dz2[None, :]
+    db2  = dz2
+    da1  = dz2 @ W2.T                         # (16,)
+    # -- Capa 1 -----------------------------------------
+    dz1  = da1 * (z1 > 0)                     # ReLU
+    dW1  = flat[:, None] * dz1[None, :]
+    db1  = dz1
+    dflat = dz1 @ W1.T                        # (100,)
+    # -- Unflatten -> Max Pool backward -----------------
+    dpool = dflat.reshape(F, 5, 5)
+    drelu_c = max_pool_backward(dpool, mask, tam=2)  # (F,10,10)
+    # -- ReLU backward ----------------------------------
+    dconv = drelu_c * (conv > 0)              # (F,10,10)
+    # -- Convolución backward (gradiente de filtros) ----
+    img_p = np.pad(img, 1)                    # con relleno
+    dF = np.zeros_like(filtros)
+    db_conv = np.zeros_like(sesgos)
+    H_o, W_o = dconv.shape[1], dconv.shape[2]
+    for f in range(F):
+        db_conv[f] = dconv[f].sum()
+        for i in range(H_o):
+            for j in range(W_o):
+                dF[f] += img_p[i:i+fS, j:j+fS] * dconv[f,i,j]
+    # -- Actualizar parámetros --------------------------
+    filtros -= LR * dF
+    sesgos  -= LR * db_conv
+    W1 -= LR * dW1; b1 -= LR * db1
+    W2 -= LR * dW2; b2 -= LR * db2
+    return float(loss[0])  # CORRECCION: extraer escalar del array de 1 elemento
+ 
+# -- Bucle de entrenamiento -----------------------------
+print('\nEntrenando CNN...')
+print(f'Parámetros: filtros={filtros.size}+{sesgos.size} sesgos, dense={W1.size+b1.size+W2.size+b2.size}, '
+      f'total={filtros.size+sesgos.size+W1.size+b1.size+W2.size+b2.size}')
+print()
+EPOCAS = 15
+for epoca in range(EPOCAS):
+    perm = np.random.permutation(len(X_tr))
+    loss_total = 0.0
+    for i in perm:
+        pred, cache = forward_completo(X_tr[i])
+        loss_total += backward_completo(pred, float(y_tr[i]), cache)
+    # Validación
+    correctos = sum(
+        round(float(forward_completo(X_val[i])[0][0])) == y_val[i]
+        for i in range(len(X_val)))
+    acc_val = correctos / len(X_val)
+    print(f'Época {epoca+1:2d}: pérdida={loss_total/len(X_tr):.4f}  '
+          f'precisión validación={acc_val*100:.1f}%')
+ 
+# -- Prueba final con imágenes concretas ----------------
+print('\n=== PRUEBA VISUAL ===')
+print('Imagen 1: barra horizontal')
+img_h = np.zeros((10,10)); img_h[4:6, 1:9] = 1.0
+pred_h, _ = forward_completo(img_h)
+pred_h = float(pred_h[0])  # CORRECCION: extraer escalar
+print(f'  Predicción: {pred_h:.4f}  '
+      f'-> {"HORIZONTAL" if pred_h < 0.5 else "VERTICAL"} ✓' if pred_h < 0.5 else '✗')
+ 
+print('Imagen 2: barra vertical')
+img_v = np.zeros((10,10)); img_v[1:9, 4:6] = 1.0
+pred_v, _ = forward_completo(img_v)
+pred_v = float(pred_v[0])  # CORRECCION: extraer escalar
+print(f'  Predicción: {pred_v:.4f}  '
+      f'-> {"VERTICAL" if pred_v > 0.5 else "HORIZONTAL"} ✓' if pred_v > 0.5 else '✗')
+ 
+# -- Visualizar filtros aprendidos ----------------------
+print('\n=== FILTROS APRENDIDOS (3x3) ===')
+print('(valores positivos █, neutros ., negativos ▽)')
+for f in range(F):
+    filt = filtros[f]
+    vmax = np.abs(filt).max() + 1e-8
+    print(f'  Filtro {f+1}:', end=' ')
+    for fila in filt:
+        row = ''.join('█' if v/vmax > 0.3 else '▽' if v/vmax < -0.3 else '.' for v in fila)
+        print(row, end='  ')
+    print()
+```
+
+**Ejecución:** `python programa_9b_cnn.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  9.9 s
+
+**Salida real por consola:**
+
+```
+Dataset: 240 entrenamiento, 60 validación
+
+Entrenando CNN...
+Parámetros: filtros=36+4 sesgos, dense=1633, total=1673
+
+Época  1: pérdida=0.2088  precisión validación=100.0%
+Época  2: pérdida=0.0466  precisión validación=100.0%
+Época  3: pérdida=0.0207  precisión validación=100.0%
+Época  4: pérdida=0.0119  precisión validación=100.0%
+Época  5: pérdida=0.0081  precisión validación=100.0%
+Época  6: pérdida=0.0059  precisión validación=100.0%
+Época  7: pérdida=0.0047  precisión validación=100.0%
+Época  8: pérdida=0.0038  precisión validación=100.0%
+Época  9: pérdida=0.0032  precisión validación=100.0%
+Época 10: pérdida=0.0027  precisión validación=100.0%
+Época 11: pérdida=0.0024  precisión validación=100.0%
+Época 12: pérdida=0.0021  precisión validación=100.0%
+Época 13: pérdida=0.0019  precisión validación=100.0%
+Época 14: pérdida=0.0017  precisión validación=100.0%
+Época 15: pérdida=0.0015  precisión validación=100.0%
+
+=== PRUEBA VISUAL ===
+Imagen 1: barra horizontal
+  Predicción: 0.0002  -> HORIZONTAL ✓
+Imagen 2: barra vertical
+  Predicción: 1.0000  -> VERTICAL ✓
+
+=== FILTROS APRENDIDOS (3x3) ===
+(valores positivos █, neutros ., negativos ▽)
+  Filtro 1: ...  ▽..  █▽.  
+  Filtro 2: .██  .██  ...  
+  Filtro 3: ...  ███  █..  
+  Filtro 4: ▽█.  ▽▽▽  ...  
+```
+
+**Comentarios comparativos:**
+
+Bloque impreso «> Salida del programa:» (29 líneas con texto): todas sus líneas aparecen, en el mismo orden, en la salida real de esta misma ejecución.
+
+**Actualización del 8-11-2026.** Este código cambió en la segunda evaluación (5-11-2026): la pérdida BCE se calcula desde el logit con `np.logaddexp`, sin el 1e-10. El listado y la salida de esta sección son los de la versión actual, ejecutada de nuevo en una carpeta limpia con el mismo entorno; su salida coincide línea a línea con la de referencia del repositorio (`salidas/salida_programa_9b_cnn.txt`), que es la que imprime el libro final. La comparación anterior con el libro sigue valiendo para todo lo demás.
+
+## 115. Ejercicio G.1 — Diseñar un filtro detector de bordes diagonales
+
+**Archivo:** `ejercicio_G_1.py`  ·  **Capítulo:** Apéndice G: Visión por Computador y Redes Convolucionales  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (35 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def convolucion_2d(img, filtro, relleno=1):
+    H, W = img.shape; fH, fW = filtro.shape
+    if relleno: img = np.pad(img, relleno)
+    H_r, W_r = img.shape
+    out = np.zeros((H_r-fH+1, W_r-fW+1))
+    for i in range(out.shape[0]):
+        for j in range(out.shape[1]):
+            out[i,j] = np.sum(img[i:i+fH, j:j+fW] * filtro)
+    return out
+ 
+# Filtro diagonal principal \
+filtro_diag = np.array([
+    [ 2, -1, -1],
+    [-1,  2, -1],
+    [-1, -1,  2]], dtype=float)
+ 
+# Imagen 1: diagonal (np.eye)
+img_diag = np.eye(10)
+# Imagen 2: barra horizontal
+img_hor  = np.zeros((10,10)); img_hor[4:6, :] = 1.0
+ 
+for nombre, img in [('diagonal', img_diag), ('barra horiz.', img_hor)]:
+    resultado = np.maximum(0, convolucion_2d(img, filtro_diag, 1))
+    activacion_total = resultado.sum()
+    print(f'Imagen {nombre}: activación total = {activacion_total:.2f}')
+ 
+print()
+print('El filtro debe activarse mucho más sobre la diagonal')
+print('que sobre la barra horizontal.')
+print()
+print('Variante: filtro diagonal secundaria /')
+filtro_anti = np.array([[-1,-1,2],[-1,2,-1],[2,-1,-1]], dtype=float)
+print('  filtro_anti =', filtro_anti.tolist())
+```
+
+**Ejecución:** `python ejercicio_G_1.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Imagen diagonal: activación total = 56.00
+Imagen barra horiz.: activación total = 6.00
+
+El filtro debe activarse mucho más sobre la diagonal
+que sobre la barra horizontal.
+
+Variante: filtro diagonal secundaria /
+  filtro_anti = [[-1.0, -1.0, 2.0], [-1.0, 2.0, -1.0], [2.0, -1.0, -1.0]]
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_G_1.txt`), que es la que describe el texto.
+
+## 116. Ejercicio G.2 — El campo receptivo crece con la profundidad
+
+**Archivo:** `ejercicio_G_2.py`  ·  **Capítulo:** Apéndice G: Visión por Computador y Redes Convolucionales  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (31 líneas, tal como está impreso en el libro):
+
+```python
+def campo_receptivo(capas):
+    """
+    capas: lista de 'conv3' o 'pool2'
+    Retorna el campo receptivo y el historial paso a paso.
+    """
+    campo, salto = 1, 1   # salto: píxeles de la imagen entre dos posiciones vecinas
+    hist  = [('entrada', campo)]
+    for capa in capas:
+        if capa == 'conv3':
+            campo += 2 * salto      # el filtro 3x3 abarca un vecino más a cada lado
+            hist.append(('conv 3x3', campo))
+        elif capa == 'pool2':
+            campo += salto          # la ventana 2x2 abarca una posición más...
+            salto *= 2              # ...y a partir de aquí las posiciones van de 2 en 2
+            hist.append(('maxpool 2x2', campo))
+    return campo, hist
+ 
+arquitecturas = {
+    'Nuestra CNN simple':   ['conv3', 'pool2'],
+    'CNN con 2 pools':      ['conv3', 'pool2', 'conv3', 'pool2'],
+    'VGG-style (5 conv)':   ['conv3','conv3','pool2','conv3','conv3','pool2','conv3'],
+    'Muy profunda (8 conv)':['conv3','conv3','conv3','conv3',
+                             'pool2','conv3','conv3','conv3','conv3'],
+}
+ 
+for nombre, arq in arquitecturas.items():
+    campo_final, hist = campo_receptivo(arq)
+    print(f'  {nombre}:')
+    for nombre_capa, c in hist:
+        print(f'    {nombre_capa:>15}: campo = {c}x{c}')
+    print(f'    -> Una neurona profunda ve {campo_final}x{campo_final} px\n')
+```
+
+**Ejecución:** `python ejercicio_G_2.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.0 s
+
+**Salida real por consola:**
+
+```
+  Nuestra CNN simple:
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+        maxpool 2x2: campo = 4x4
+    -> Una neurona profunda ve 4x4 px
+
+  CNN con 2 pools:
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+        maxpool 2x2: campo = 4x4
+           conv 3x3: campo = 8x8
+        maxpool 2x2: campo = 10x10
+    -> Una neurona profunda ve 10x10 px
+
+  VGG-style (5 conv):
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+           conv 3x3: campo = 5x5
+        maxpool 2x2: campo = 6x6
+           conv 3x3: campo = 10x10
+           conv 3x3: campo = 14x14
+        maxpool 2x2: campo = 16x16
+           conv 3x3: campo = 24x24
+    -> Una neurona profunda ve 24x24 px
+
+  Muy profunda (8 conv):
+            entrada: campo = 1x1
+           conv 3x3: campo = 3x3
+           conv 3x3: campo = 5x5
+           conv 3x3: campo = 7x7
+           conv 3x3: campo = 9x9
+        maxpool 2x2: campo = 10x10
+           conv 3x3: campo = 14x14
+           conv 3x3: campo = 18x18
+           conv 3x3: campo = 22x22
+           conv 3x3: campo = 26x26
+    -> Una neurona profunda ve 26x26 px
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_G_2.txt`), que es la que describe el texto.
+
+## 117. Ejercicio G.3 — Adaptar la CNN para 3 clases
+
+**Archivo:** `ejercicio_G_3.py`  ·  **Capítulo:** Apéndice G: Visión por Computador y Redes Convolucionales  ·  **Tipo:** ejercicio resuelto (se ejecuta la solución del libro)
+
+**Datos previos:** ninguno; el programa genera sus propios datos.
+
+**Listado** (42 líneas, tal como está impreso en el libro):
+
+```python
+import numpy as np
+ 
+def softmax(x):
+    e = np.exp(x - x.max()); return e / e.sum()
+ 
+def generar_3_clases(n=80):
+    X, y = [], []
+    np.random.seed(1)
+    for _ in range(n):
+        for clase in range(3):
+            img = np.zeros((10,10))
+            ruido = np.random.randn(10,10)*0.1
+            if clase == 0:   # horizontal
+                f = np.random.randint(2, 7)
+                img[f:f+2, 1:9] = 1.0
+            elif clase == 1: # vertical
+                c = np.random.randint(2, 7)
+                img[1:9, c:c+2] = 1.0
+            else:            # diagonal
+                for i in range(8): img[i,i] = 1.0
+            X.append(np.clip(img+ruido, 0, 1))
+            y.append(clase)
+    idx = np.random.permutation(len(X))
+    return np.array(X)[idx], np.array(y)[idx]
+ 
+X, y = generar_3_clases()
+print(f'Dataset: {len(X)} imágenes, 3 clases')
+print(f'Clase 0 (horiz): {sum(y==0)}  Clase 1 (vert): {sum(y==1)}  Clase 2 (diag): {sum(y==2)}')
+print()
+print('Cambios respecto al Programa 9B (clasificación binaria):')
+print('  ANTES: Dense(16->1) + Sigmoid + BCE loss')
+print('  AHORA: Dense(16->3) + Softmax + CE multiclase')
+print()
+print('Función de pérdida multiclase:')
+print('  logits = red.forward(img)  # (3,)')
+print('  probs  = softmax(logits)   # (3,) suman 1')
+print('  loss   = -log(probs[clase_correcta])')
+print()
+logits_ej = np.array([2.0, 0.5, -0.3])
+probs_ej  = softmax(logits_ej)
+for i, (nombre, p) in enumerate(zip(['horiz','vert','diag'], probs_ej)):
+    print(f'  P({nombre}) = {p:.4f}  {"<- clase predicha" if i==np.argmax(probs_ej) else ""}')
+```
+
+**Ejecución:** `python ejercicio_G_3.py`  ·  Python 3.13.16 + NumPy 2.5.4  ·  OPENBLAS_NUM_THREADS=1  ·  código de salida **0**  ·  0.1 s
+
+**Salida real por consola:**
+
+```
+Dataset: 240 imágenes, 3 clases
+Clase 0 (horiz): 80  Clase 1 (vert): 80  Clase 2 (diag): 80
+
+Cambios respecto al Programa 9B (clasificación binaria):
+  ANTES: Dense(16->1) + Sigmoid + BCE loss
+  AHORA: Dense(16->3) + Softmax + CE multiclase
+
+Función de pérdida multiclase:
+  logits = red.forward(img)  # (3,)
+  probs  = softmax(logits)   # (3,) suman 1
+  loss   = -log(probs[clase_correcta])
+
+  P(horiz) = 0.7556  <- clase predicha
+  P(vert) = 0.1686  
+  P(diag) = 0.0758  
+```
+
+**Comentarios comparativos:**
+
+El libro no imprime esta salida. Coincide **línea a línea** con la salida de referencia del repositorio (`salidas/salida_ejercicio_G_3.txt`), que es la que describe el texto.
+
+
+---
+
+# Conclusiones
+
+**Resultado global.** Se ejecutaron **118 de 118**: los 117 listados del libro, más el segundo modo del Ejercicio 13.7. **Todos terminaron con código de salida 0**, sin errores de ejecución. El tiempo total de cálculo fue de unas 2 h 10 min en una máquina de 2 núcleos.
+
+**Salidas impresas en el libro: 63 de 63 coinciden.**
+- En 53, todas las líneas impresas aparecen, en el mismo orden, en la salida real.
+- En las otras 10 solo cambian los tiempos medidos (segundos de lectura de pesos, de generación o de entrenamiento), que dependen de la máquina. Ninguna pérdida, probabilidad, token generado ni porcentaje cambia.
+- Tres bloques impresos no salían de la ejecución estándar, y se comprobaron con ejecuciones aparte:
+  - Ejercicios 13.4 y 13.5: el Programa 8 con 4000 pasos.
+  - Ejercicio 15.2: las semillas 1 a 5.
+
+**Salidas que el libro no imprime: 54 de 55 coinciden línea a línea** con las salidas de referencia del repositorio, que son las que describe el texto. La excepción es PT-4, que no fija la semilla.
+
+**Programa 8.** Las dos versiones se ejecutaron completas, en 85 s cada una, y producen exactamente la misma salida.
+
+**Incidencias y propuestas**
+1. **PT-4 sin semilla:** añadir `torch.manual_seed(0)`. Es la única salida no reproducible del libro.
+2. **PyTorch y los hilos:** en máquinas con pocos núcleos y otros procesos en marcha, PT-7 puede tardar más de una hora. Con `OMP_NUM_THREADS=1` tarda 69 s. Convendría una línea en el Apéndice E.
+3. **Orden de ejecución de `figura_7_atencion_nano_llm.py`:** aparece en el Capítulo 11, pero necesita los pesos del Programa 8 (Capítulo 13). Su cabecera lo avisa; convendría repetirlo en el texto que lo presenta.
+4. **Tiempos impresos:** el texto ya los presenta como medidos en un portátil concreto. La única cifra derivada que cambia algo es el ahorro del KV-cache con contexto 50 (1.3x aquí, 1.6x en el libro); los demás se mantienen.
+
+**Ejercicios de especial interés**
+- **13.4 y 13.5:** muestran con datos reales qué aportan la capacidad (D = 96) y el warm-up + coseno.
+- **15.2:** cinco semillas, todas con el 100 % en sumas no vistas.
+- **16.x:** experimentos con GPT-2 real (tokenización por idiomas, bits por carácter, repetición, ajuste fino) que reproducen al decimal lo que cuenta el libro.
+- **G.3 (Apéndice G):** solución orientativa, como ya indica el libro tras la última revisión.

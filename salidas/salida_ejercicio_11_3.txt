@@ -1,0 +1,4 @@
+Multi-Head Attention: 4 cabezas x d_head=4
+Entrada:  (6, 16) -> Salida: (6, 16)
+(la forma se mantiene — condición del bloque transformer)
+Parámetros: 4x3x16x4 + 16x16 = 1024

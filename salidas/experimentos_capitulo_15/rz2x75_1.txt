@@ -1,0 +1,39 @@
+Parámetros: 57,696
+Semilla 1 | cabezas 2 | sumas de entrenamiento: 8000 | sumas de examen (no vistas): 200 | excluidas unidades 7 y 5
+
+Entrenando...  (exactitud = suma entera correcta)
+Paso     0: pérdida 2.6310 | exactitud entrenamiento   0.0% | sumas NUNCA vistas   0.0%
+Paso   500: pérdida 0.4144 | exactitud entrenamiento  57.1% | sumas NUNCA vistas  65.5%
+Paso  1000: pérdida 0.0370 | exactitud entrenamiento  93.3% | sumas NUNCA vistas  98.0%
+Paso  1500: pérdida 0.0166 | exactitud entrenamiento  95.2% | sumas NUNCA vistas  91.5%
+Paso  2000: pérdida 0.0009 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  2500: pérdida 0.0063 | exactitud entrenamiento  99.6% | sumas NUNCA vistas 100.0%
+Paso  3000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  3500: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4500: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5500: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5999: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+
+=== EXAMEN CON SUMAS QUE EL MODELO NUNCA VIO ===
+95 + 47 = 142   ✓
+47 + 95 = 142   ✓
+37 + 25 =  62   ✓
+75 + 27 = 102   ✓
+17 + 85 = 102   ✓
+97 + 15 = 112   ✓
+15 +  7 =  22   ✓
+55 + 67 = 122   ✓
+67 + 55 = 122   ✓
+57 + 25 =  82   ✓
+
+Aciertos en las 200 sumas no vistas: 100.0%
+
+=== ¿A QUÉ CIFRAS ATIENDE CADA CABEZA? (media sobre 200 sumas) ===
+Bloque 0, al escribir las unidades -> cabeza 0: b(uni) 0.51 + a(uni) 0.49 | cabeza 1: b(uni) 0.50 + a(uni) 0.48
+Bloque 0, al escribir las decenas  -> cabeza 0: b(dec) 0.49 + a(dec) 0.48 | cabeza 1: a(dec) 0.43 + b(dec) 0.42
+Bloque 0, al escribir las centenas -> cabeza 0: = 0.58 + + 0.12 | cabeza 1: b(dec) 0.42 + a(dec) 0.40
+Bloque 1, al escribir las unidades -> cabeza 0: + 0.58 + = 0.42 | cabeza 1: = 1.00 + a(uni) 0.00
+Bloque 1, al escribir las decenas  -> cabeza 0: + 0.43 + = 0.25 | cabeza 1: b(uni) 0.56 + r(uni) 0.30
+Bloque 1, al escribir las centenas -> cabeza 0: b(dec) 0.22 + a(dec) 0.18 | cabeza 1: r(dec) 0.64 + a(uni) 0.10

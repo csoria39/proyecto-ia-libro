@@ -1,0 +1,24 @@
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Paso     0: pérdida = 3.8674   (bits/char = 5.58)
+Paso  1000: pérdida = 1.6491   (bits/char = 2.38)
+Paso  2000: pérdida = 0.8981   (bits/char = 1.30)
+Paso  3000: pérdida = 0.7064   (bits/char = 1.02)
+Paso  4000: pérdida = 0.4982   (bits/char = 0.72)
+Paso  5000: pérdida = 0.4594   (bits/char = 0.66)
+Paso  6000: pérdida = 0.4293   (bits/char = 0.62)
+Paso  7000: pérdida = 0.3269   (bits/char = 0.47)
+Paso  8000: pérdida = 0.3594   (bits/char = 0.52)
+Paso  9000: pérdida = 0.2948   (bits/char = 0.43)
+Paso 10000: pérdida = 0.2729   (bits/char = 0.39)
+Paso 11000: pérdida = 0.2876   (bits/char = 0.41)
+Paso 11999: pérdida = 0.2854   (bits/char = 0.41)
+
+=== TEXTO GENERADO POR EL NANO-LLM (PyTorch) ===
+la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas
+
+los modelos de lenguaje predicen el siguiente token.
+las redes neuronales tienen capas de neuronas.
+el aprendizaje profundo usa muchas

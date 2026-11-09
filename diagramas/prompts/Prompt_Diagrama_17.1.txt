@@ -1,0 +1,345 @@
+DIAGRAMA 17.1 — DE NANO A GIGANTE
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final). Sustituye a Prompt_Diagrama_16_v18.txt y Prompt_Diagrama_17.1_v18.txt.
+
+Ubicación en el libro: Capítulo 17 (Del Nano-LLM a los Gigantes), al final de 17.5 «KV-Cache — por qué la generación
+real es rápida». Página 285 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
+Imagen de referencia: diagramas/Diagrama_17.1.png (1672 × 941 px), idéntica a la del libro una vez girada. Se
+generó con este prompt (versión del 4-11-2026) y se retocó con scripts/fix_d13_1_d17_1.py; el original del autor está
+en originales/d17_1_autor_2026-11-04.png.
+Cifras:
+  · Nano-LLM (Programa 8): 60 000 parámetros, 93 frases (5076 caracteres, 5 KB), contexto 24, unos 2.5 minutos
+    (Apéndice E.7). En la tabla de memoria, 0.24 MB = 60 000 × 4 bytes (float32), que es lo que mide esa tabla; el
+    archivo que guarda el Programa 8 está en float64 y ocupa 0.49 MB (Diagrama 13.1 y Capítulo 16).
+  · Escala del gráfico de barras: log10 de cada valor — 60 000 → 4.78 · 124 M → 8.09 · 1500 M → 9.18 · 7000 M →
+    9.85 · 175 000 M → 11.24 · 671 000 M → 11.83. Del primero al último hay 7.05 décadas (×1.1·10⁷).
+  · Capítulo 15, Programa RZ-2: «Parámetros: 57,696» (≈ 58 000), 100 % de 2000 sumas no vistas.
+  · Memoria (Ejercicio 17.1, con 1 GB = 1024³ bytes): GPT-2 small 124 439 808 × 4 = 0.46 GB; LLaMA-7B 7·10⁹ × 2 =
+    13.0 GB; int4 3.3 GB; GPT-3 175·10⁹ × 2 = 326 GB.
+  · Modelos: GPT-2 small 124 M y XL 1500 M; GPT-3 175 000 M, 96 bloques, 300 000 M tokens, contexto 2048 (Brown et al.,
+    2020); DeepSeek-V3 671 000 M totales, 37 000 M activos, 14.8 billones de tokens, 2.79 millones de horas de GPU
+    H800 (informe técnico, 2024; el Capítulo 17 cita los 671 000 millones); Kimi K2, 1 billón (2025); Llama 3.1,
+    Qwen3, Gemma 3: informes técnicos de cada modelo. Ninguna cifra de GPT-4 ni de modelos cerrados.
+  · Cómputo con la regla 6 × parámetros activos × tokens: Nano-LLM 6 × 60 000 × 12 000 × 192 ≈ 8·10¹¹ ≈ 10¹² FLOPs;
+    DeepSeek-V3 6 × 37·10⁹ × 14.8·10¹² ≈ 3.3·10²⁴ FLOPs.
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (ya están en diagramas/Diagrama_17.1.png y en el libro
+desde el 9-11-2026; scripts/repintado_2026-11-09b/f17_1.py, versión anterior en
+originales/Diagrama_17.1_antes_2026-11-09b.png). Este prompt describe esa imagen final:
+  1. ERROR GRAVE: las barras de la escala logarítmica estaban entre 2 y 3 décadas por debajo de su valor (124 M
+     dibujado a la altura de 10^5.9, 175 000 M a 10^8.3, 671 000 M a 10^8.7). Ahora cada barra llega a su altura
+     real (tabla de log10 de arriba): DeepSeek-V3 queda justo debajo de la línea del billón.
+  2. Con las barras en su sitio, la flecha horizontal «×10 millones (7 órdenes)» ya no cabía. Ahora es una flecha
+     vertical de doble punta sobre el Nano-LLM, de su tope al nivel de DeepSeek-V3, con «×10 millones» y «(7 órdenes
+     de magnitud)» al lado. Las cifras de GPT-3 y DeepSeek-V3 van en vertical, en blanco, dentro de sus barras.
+  3. Panel 2: el rótulo del eje Y del gráfico, «Resultado», estaba deformado y montado sobre la punta de la flecha
+     entre paneles. Ahora se lee bien y queda a la derecha de la flecha.
+Observación: «1 GB = 1024³ bytes» es, en rigor, un GiB. El libro lo escribe así en la pista del Ejercicio 17.1, y los
+programas de los Ejercicios 17.1 y 17.3 rotulan «GiB». Si se regenera, puede ponerse «(GiB = 1024³ bytes)».
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a professional technical educational diagram titled:
+"DIAGRAMA 17.1 — DE NANO A GIGANTE"
+
+╔══════════════════════════════════════════════════════════════════════╗
+║  ⚠ ABSOLUTE FIRST REQUIREMENT — READ BEFORE ANYTHING ELSE ⚠          ║
+║                                                                      ║
+║  THE LARGE TITLE AT THE TOP OF THE DIAGRAM MUST BE:                  ║
+║                                                                      ║
+║       DIAGRAMA 17.1 — DE NANO A GIGANTE                                ║
+║                                                                      ║
+║  Count the words after the dash:                                     ║
+║  Word 1: DE                                                          ║
+║  Word 2: NANO        ← only 4 letters: N-A-N-O. STOP HERE.           ║
+║  Word 3: A           ← the letter A alone                            ║
+║  Word 4: GIGANTE     ← 7 letters: G-I-G-A-N-T-E                      ║
+║                                                                      ║
+║  There is NO word "LLM" in the title. None.                          ║
+║  There is NO hyphen after NANO. None.                                ║
+║                                                                      ║
+║  ✓ ONLY ACCEPTABLE TITLE:  "DIAGRAMA 17.1 — DE NANO A GIGANTE"         ║
+║  ✗ FORBIDDEN FOREVER:      "DE NANO-LLM A GIGANTE"                   ║
+║  ✗ FORBIDDEN FOREVER:      "DE NANO-LLM"                             ║
+║  ✗ FORBIDDEN FOREVER:      "EL NANO-LLM"                             ║
+║  ✗ FORBIDDEN FOREVER:      "DE NANO LLM A GIGANTE"                   ║
+║                                                                      ║
+║  Subtitle line 3 may say "Del Nano-LLM de 60 000 parámetros..."      ║
+║  because there "Nano-LLM" is the model name. But the TITLE           ║
+║  contains only: DIAGRAMA 17.1 — DE NANO A GIGANTE                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Subtitle line 1 (18px dark gray):
+  "Resumen visual del Capítulo 17 — la escala de los LLM"
+Subtitle line 2 (16px #1A3A6B bold):
+  "Parámetros · Datos · Cómputo · Capacidades emergentes · Preentrenamiento → SFT → RLHF/DPO"
+Subtitle line 3 (13px black):
+  "Del Nano-LLM de 60 000 parámetros a modelos abiertos de más de un billón: la misma arquitectura de base"
+
+STRICTLY FORBIDDEN anywhere in the image:
+  ✗ "Capítulo 10" (old numbering) — this is Chapter 17
+  ✗ "9000", "~9K", "400 chars", "0.02 MB", "×10⁸", "10 órdenes de magnitud" (old figures)
+  ✗ "117M" for GPT-2 small (the correct figure is 124 M)
+  ✗ Any number for GPT-4 (">1T", "~120 bloques", "~25 000"...): its size is not public
+  ✗ "$12M", "3 meses" or any cost or duration not given below
+  ✗ "arquitectura idéntica" without nuance (see Panel 4: same base, modern details change)
+
+=== GENERAL SPECIFICATIONS ===
+Canvas: exactly 1672 × 941 px (16:9), horizontal layout, white background #FFFFFF. (The book image is 1672 × 941;
+all sizes in px below refer to a 1920 × 1080 layout and scale proportionally.)
+Four vertical panels connected by directional arrows.
+Panel header bars: dark navy #1A3A6B background, white Arial Bold 18px, 8px padding.
+ALL body text minimum 15px. ALL formula/code: Courier New 15px minimum.
+NO text smaller than 13px anywhere.
+Number format: decimal point, as in Python and in the rest of the book: "0.673", "1.414", "3.85". Thousands are NOT separated with a point: four-digit numbers go together ("3280", "1024") and longer ones are grouped in threes with a thin space ("60 000", "124 439 808"). Lists of decimals are separated with commas: [0.327, 1.509].
+In Spanish, "billón" = 10¹² (a million millions). Use "millones" and "billones" consistently: 175 000 millones = 1.75·10¹¹; 1 billón = 10¹².
+
+Color system:
+  Navy    #1A3A6B → panel headers
+  Green   #1B5E20 → Nano-LLM, small models
+  Blue    #0D47A1 → GPT-2, medium scale
+  Purple  #6A1B9A → GPT-3, LLaMA, large scale
+  Red     #A00000 → largest current models (open MoE)
+  Teal    #004D40 → preentrenamiento phase
+  Orange  #993300 → fine-tuning, emergent capabilities
+  Gold    #7A4A00 → parameters, compute, data
+  Dark gray    #333333 → annotations (never lighter)
+  Yellow  #FFF9C4 → key insight boxes
+No 3D effects. No gradients. Clean academic style. 300dpi.
+
+=== CONTRAST (MANDATORY — the image is printed in a book, so every text must be easy to read) ===
+✓ Body text, numbers, table cells and code: pure black #000000. Annotations: dark gray #333333, never lighter.
+✓ Box and table backgrounds: white or very pale tints only (at most 10 % of the box colour: #EEF3FA blue, #E0F2F1 teal,
+  #E8F5E9 green, #FFF3E0 orange, #F3E5F5 purple, #FFEBEE red, #FFF9C4 yellow). Never a mid-tone fill under black text.
+✓ SMALL TEXT RULE (it overrides any colour given further down for a text): every text smaller than 15px — body text,
+  notes, labels, captions, table cells, code, axis and tick labels, bar labels, legends and highlighted notes — is
+  BLACK #000000 (bold where this prompt says bold), on a white or light-tinted background. The background tint may be
+  of any colour of the colour system. In small text, colour appears only as background tint, border, bullet, icon,
+  bar or line, never as the colour of the letters. Coloured letters are allowed only from 15px up (titles, box titles,
+  big numbers), always in the dark shades of the colour system.
+  Never light blue, light green, light teal, bright orange (#E65100, #F57C00), gold or gray letters.
+✓ White text only on dark fills: navy #1A3A6B, #0D47A1, #004D40, #1B5E20, #993300, #6A1B9A, #A00000. Never white text
+  on orange, gold, yellow, light teal or light green.
+✓ Every text/background pair must reach a contrast ratio of at least 7:1 (WCAG AAA).
+✓ Charts: axis lines, ticks and axis labels in black; data lines at least 3px; dashed reference lines at least 2px.
+✓ Box borders 2px, in the dark shade of their colour.
+
+
+=== PANEL 1 — LA BRECHA DE ESCALA (leftmost, 24%) ===
+
+HEADER: "LA BRECHA DE ESCALA"
+Sub-label: "Del Nano-LLM a los mayores modelos actuales: unos 7 órdenes de magnitud en parámetros" — black 14px.
+
+LOG SCALE VISUALIZATION (upper two thirds of the panel):
+  Vertical logarithmic axis 10⁴ → 10¹³ (ticks and labels at every power of ten, equally spaced, ≈ 28 px per decade;
+  the bars stand on the 10⁴ line). Left label, rotated: "Parámetros (escala log)" — gold bold 15px.
+  Thin red dashed line at 10¹² across the chart, with the black 13px label above it, on two centered lines:
+  "modelos abiertos de 2025-2026 ya superan" / "el billón (p. ej., Kimi K2: 1 billón)".
+  6 bars, left to right, each drawn on the TRUE log scale (the height of every bar is log10 of its value; nothing
+  approximate):
+    Nano-LLM     · 60 000     → top at 10^4.78   (green bar)
+    GPT-2 small  · 124 M      → top at 10^8.09   (blue bar)
+    GPT-2 XL     · 1500 M     → top at 10^9.18   (dark blue bar)
+    LLaMA-7B     · 7000 M     → top at 10^9.85   (purple bar)
+    GPT-3        · 175 000 M  → top at 10^11.24  (dark purple bar)
+    DeepSeek-V3  · 671 000 M  → top at 10^11.83  (dark red bar, just below the 10¹² dashed line)
+  Value labels: black bold 13px just above the bar for "60 000", "124 M", "1500 M", "7000 M"; for the two tall
+  bars, the value written VERTICALLY (rotated 90°) in white bold INSIDE the bar, near its top: "175 000 M",
+  "671 000 M".
+  Model names under the axis, black bold, two lines where needed: "Nano-" / "LLM" · "GPT-2" / "small" · "GPT-2" /
+  "XL" · "LLaMA-" / "7B" · "GPT-3" · "DeepSeek-" / "V3".
+  Under the names, one small rounded gray-bordered note box per bar (black 12px, 3–4 short lines):
+    "tu" / "Programa 8 ·" / "CPU ·" / "2.5 minutos" · "2019 ·" / "12" / "bloques" · "2019 ·" / "48" / "bloques" ·
+    "2023 ·" / "cabe en" / "una" / "GPU" · "2020 ·" / "96" / "bloques" · "2024 ·" / "abierto ·" / "MoE: 37 000 M" /
+    "activos por" / "token"
+  Scale gap: a VERTICAL double-headed gold arrow placed just above the Nano-LLM bar, from the top of that bar up to
+  the level of the DeepSeek-V3 bar, with a dotted gold guide line at that level running right to the DeepSeek-V3
+  bar. To the right of the arrow, in the empty space above the GPT-2 bars: "×10 millones" (gold bold 17px) and below
+  it "(7 órdenes de magnitud)" (gold 12px).
+  Do NOT draw a horizontal arrow across the bars.
+
+THREE DIMENSIONS (bottom, three columns):
+  Title: "Lo que separa al Nano-LLM de un modelo grande:" — navy bold 15px.
+  Col 1: "📊 Datos"
+         "5 KB (93 frases)"
+         "→ 40 GB (GPT-2)"
+         "→ 14.8 billones de tokens (DeepSeek-V3)"
+         gold: "≈ ×10¹⁰"
+  Col 2: "🧠 Parámetros"
+         "60 000"
+         "→ 175 000 M (GPT-3)"
+         "→ 671 000 M (DeepSeek-V3)"
+         gold: "≈ ×10⁷"
+  Col 3: "⚡ Cómputo"
+         "2.5 min en un portátil"
+         "→ 2.79 millones de horas de GPU H800 (DeepSeek-V3)"
+         gold: "≈ 10¹² FLOPs → ≈ 3·10²⁴ FLOPs"
+  Black 13px under the columns: "Cómputo estimado con la regla 6 × parámetros activos × tokens."
+
+=== PANEL 2 — CAPACIDADES EMERGENTES (center-left, 24%) ===
+
+HEADER: "CAPACIDADES EMERGENTES"
+Sub-label: "Parecen aparecer de golpe al superar cierto tamaño" — black 14px.
+
+DEFINITION (yellow, orange border):
+  "¿Qué son las capacidades emergentes?"
+  "Habilidades que un modelo pequeño casi nunca muestra"
+  "y que un modelo mayor muestra a menudo (Wei et al., 2022)."
+  "Ejemplos: aritmética de varios pasos, traducción entre pares de idiomas no entrenados,"
+  "analogías, seguir instrucciones complejas."
+  Black bold: "Nadie las programa explícitamente:"
+  "salen del mismo entrenamiento, a mayor escala."
+
+EMERGENCE CHART (220×180px), two curves over the SAME model sizes:
+  X: "Tamaño del modelo (escala log)". Y: "Resultado" (rotated, black, clearly legible, placed between the y-tick
+  labels and the inter-panel arrow, never on top of the arrow), ticks 0.0, 0.2, 0.4, 0.6, 0.8, 1.0. No numbers on
+  the X axis. Legend box inside the plot, top left.
+  Orange curve, step-like: "acierto exacto (todo o nada)" — flat near 0, then a sharp jump.
+  Blue curve, smooth S rising gradually: "métrica continua (p. ej., cifras correctas)"
+  Caption (black 13px): "Esquema ilustrativo: la misma mejora parece un salto o una rampa según cómo se mida (Schaeffer et al., 2023)."
+
+NUANCE BOX (green #E8F5E9, green border):
+  Title: "💡 ¿Emergencia o medida?" — green bold 15px.
+  "① No todo depende del tamaño:"
+  "   en el Capítulo 15, un modelo de solo 58 000 parámetros"
+  "   aprende a sumar y acierta el 100 % de 2000 sumas que nunca vio."
+  "   La clave fueron los datos."
+  "② Parte del «salto» depende de la métrica:"
+  "   con métricas de todo o nada, una mejora gradual parece brusca."
+
+REASONING BOX (light purple, purple border):
+  Title: "🧩 Razonar paso a paso" — purple bold 15px.
+  "Cadena de razonamiento (Wei et al., 2022): escribir los pasos mejora el resultado."
+  "Modelos de razonamiento: OpenAI o1 (2024), DeepSeek-R1 (2025)."
+  Black 13px: "La misma idea que pruebas en el Capítulo 15 con un modelo de 2 bloques."
+
+=== PANEL 3 — LAS TRES FASES DE ENTRENAMIENTO (center-right, 28%) ===
+
+HEADER: "LAS TRES FASES DE ENTRENAMIENTO"
+Sub-label: "De modelo base a asistente: el mismo Transformer, otro dato" — black 14px.
+
+PHASE 1 (teal, large):
+  "① PREENTRENAMIENTO" — teal bold 17px.
+  "El modelo aprende a predecir texto" — italic.
+  "Datos: páginas web, libros, artículos, código (sin etiquetar)"
+  "Tarea: predecir el siguiente token"
+  "Escala: de 1 a más de 30 billones de tokens"
+  "Resultado: un MODELO BASE: predice texto plausible, no sigue instrucciones"
+  Courier 14px: "GPT-3: 300 000 M tokens · DeepSeek-V3: 14.8 billones"
+  Right badge (green filled, white bold 14px): "★ AQUÍ TERMINA ESTE LIBRO: tu Nano-LLM es un modelo base"
+  Right note: "la fase más cara: meses en miles de GPU" — black 13px.
+Arrow: "sabe mucho, pero no responde como un asistente →"
+
+PHASE 2 (orange):
+  "② AJUSTE FINO SUPERVISADO (SFT)" — orange bold 16px.
+  "El modelo aprende el formato pregunta → respuesta" — italic.
+  "Datos: miles o decenas de miles de pares (instrucción, respuesta) escritos por humanos"
+  "Tarea: la misma de siempre (siguiente token), solo sobre la respuesta (loss masking)"
+  Courier 14px: "<|im_start|>user … <|im_end|>  <|im_start|>assistant …"
+  "Resultado: sigue instrucciones"
+  Right: "mucho más barato" — black 13px.
+Arrow: "responde, pero no sabe cuál es la MEJOR respuesta →"
+
+PHASE 3 (purple):
+  "③ ALINEACIÓN CON PREFERENCIAS: RLHF o DPO" — purple bold 16px.
+  "El modelo aprende qué respuestas prefieren los humanos" — italic.
+  "Datos: miles de pares (respuesta preferida, respuesta rechazada)"
+  Two small side-by-side boxes:
+    LEFT: "RLHF (clásico)" / "modelo de recompensa + PPO" / "InstructGPT, 2022" / dark gray: "complejo: 3 modelos a la vez"
+    RIGHT: "DPO (Rafailov et al., 2023)" / "una sola función de pérdida" / dark gray: "más simple; muy usado en modelos abiertos"
+  "Resultado: un ASISTENTE tipo ChatGPT, Claude o Gemini"
+
+RESULT (green):
+  "✅ Preentrenamiento → conocimiento del lenguaje y del mundo"
+  "   SFT → formato de asistente"
+  "   RLHF / DPO → la respuesta preferida"
+  Black bold: "Las tres fases: mismo Transformer, mismo backpropagation. Cambian el dato y, en la 3.ª, la pérdida."
+
+=== PANEL 4 — DECODER-ONLY Y MODELOS ABIERTOS (rightmost, 24%) ===
+
+HEADER: "DECODER-ONLY Y MODELOS ABIERTOS"
+
+DECODER-ONLY:
+  "Arquitectura decoder-only (la de GPT):"
+  Flow: "Contexto: 'Las redes neuronales'"
+  → "[Las][ redes][ neuronales]"
+  → "Bloques Transformer (máscara causal)"
+  → "Siguiente token: 'aprenden'"
+  Insight: "Solo decoder, sin encoder."
+           "La máscara causal hace que cada token solo vea el pasado."
+           "La usan GPT, Claude, Gemini, Llama… y tu Nano-LLM."
+  Context window row (Courier 14px):
+  "Contexto:  Nano-LLM 24 car. · GPT-2 1024 · GPT-3 2048 · grandes LLM (2026) ~1 000 000 tokens"
+
+WHAT CHANGED SINCE GPT-2 (teal border):
+  Title: "La misma base, detalles nuevos:" — teal bold 15px.
+  "RMSNorm (en vez de LayerNorm) · RoPE (en vez de wpe)"
+  "SwiGLU (en vez de GELU) · GQA (comparte K y V)"
+  "MoE: cada token usa solo algunas FFN · KV-cache al generar"
+
+OPEN MODELS (green), two columns:
+  Title: "Modelos abiertos: se pueden descargar, estudiar y ajustar" — green bold 15px.
+  "Llama (Meta)"          | "Llama 3.1: 8000 M, 70 000 M, 405 000 M"
+  "Qwen (Alibaba)"        | "Qwen3: hasta 235 000 M (MoE)"
+  "DeepSeek"              | "V3 / R1: 671 000 M (37 000 M activos)"
+  "Mistral"               | "Mistral 7B y sucesores"
+  "Gemma (Google)"        | "Gemma 3: de 1000 M a 27 000 M"
+  Black 13px: "Cifras de los informes técnicos de cada modelo."
+
+MEMORY (gold border):
+  Courier 14px: "memoria = parámetros × bytes por parámetro   (1 GB = 1024³ bytes)"
+  Table:
+  "Nano-LLM · float32"      | "0.24 MB"  | "cualquier CPU (cabe en su caché)"
+  "GPT-2 small · float32"   | "0.46 GB"  | "cualquier portátil"
+  "LLaMA-7B · float16"      | "13.0 GB"  | "una GPU de 24 GB o más"
+  "LLaMA-7B · int4"         | "3.3 GB"   | "un portátil"
+  "GPT-3 · float16"         | "326 GB"   | "varias GPU de centro de datos"
+  Black 13px: "Solo los pesos; al generar se suma la memoria del KV-cache."
+
+=== BOTTOM BANNER (full width, navy #1A3A6B, height 96px) ===
+
+LEFT THIRD — white Arial 15px:
+  "Preentrenamiento  → modelo base"
+  "SFT               → sigue instrucciones"
+  "RLHF / DPO        → elige la respuesta preferida"
+
+CENTER THIRD — three pills:
+  Green  pill: "Escala: ×10⁷ en parámetros, ×10¹⁰ en datos"
+  Orange pill: "Emergencia: saltos que dependen también de la medida"
+  Purple pill: "Alineación: RLHF o DPO"
+
+RIGHT CORNER — legend in Spanish, Arial 13px white, small colored squares:
+  ■ Verde         = Nano-LLM / modelos pequeños
+  ■ Azul          = GPT-2
+  ■ Morado        = Modelos grandes (GPT-3, LLaMA)
+  ■ Rojo          = Mayores modelos abiertos (MoE)
+  ■ Verde azulado = Preentrenamiento
+  ■ Naranja       = Ajuste fino / emergencia
+  ■ Dorado        = Parámetros / datos / cómputo
+
+=== INTER-PANEL ARROWS ===
+Navy outlined arrow-shaped tags (white fill, navy border) in the gaps between panels, at mid-height, black bold text:
+Arrow 1→2: "qué cambia con la escala"
+Arrow 2→3: "cómo se entrenan"
+Arrow 3→4: "arquitectura y acceso"
+
+=== ABSOLUTE CORRECTNESS REQUIREMENTS ===
+1. SUBTITLE 1 says "Capítulo 17", NOT Chapter 10.
+2. Nano-LLM: 60 000 parámetros, 5 KB / 93 frases, contexto de 24 caracteres, 0.24 MB en float32, 2.5 minutos en un portátil. Never 9000.
+3. GPT-2 small = 124 M (never 117M); GPT-2 XL = 1500 M; GPT-3 = 175 000 M, 300 000 M tokens, contexto 2048; DeepSeek-V3 = 671 000 M totales, 37 000 M activos, 14.8 billones de tokens, 2.79 millones de horas de GPU H800.
+4. Scale gap in parameters: about 7 orders of magnitude (×10⁷), NOT 8 or 10.
+5. No number at all for GPT-4 or any closed model.
+6. Panel 2: the emergence chart is labeled as an illustrative scheme with two metrics, NOT step functions with invented thresholds. No table of "capability → número de parámetros".
+7. Panel 3: three phases = Preentrenamiento → SFT → RLHF o DPO, with "AQUÍ TERMINA ESTE LIBRO" on phase 1.
+8. Panel 4: "la misma base, detalles nuevos" (RMSNorm, RoPE, SwiGLU, GQA, MoE). Do NOT claim the architecture is identical in every detail.
+9. TEXT SIZE: nothing below 13px.
+10. NO PROMPT TEXT visible in the rendered image (no "CRITICAL", no "FORBIDDEN", no box-drawing frames).
+
+=== FINAL TITLE VERIFICATION ===
+Before rendering, read the large title aloud:
+"DIAGRAMA" — "17.1" — "DE" — "NANO" — "A" — "GIGANTE"
+That is exactly 6 words/numbers. Not 7. Not 5.
+If the title has 7 elements (DIAGRAMA 17.1 DE NANO LLM A GIGANTE), it is WRONG. Regenerate.
+If the title has "NANO-LLM" anywhere, it is WRONG. Regenerate.
+The correct title has exactly these words: DIAGRAMA · 17.1 · DE · NANO · A · GIGANTE

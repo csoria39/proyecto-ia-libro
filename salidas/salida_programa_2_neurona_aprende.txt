@@ -1,0 +1,24 @@
+=== ENTRENANDO NEURONA PARA APRENDER AND ===
+
+Pesos iniciales: [0.5292 0.12  ]  Sesgo: 0.0000
+
+Época     0 | Pérdida: 0.262964
+Época  1000 | Pérdida: 0.005612
+Época  2000 | Pérdida: 0.002616
+Época  3000 | Pérdida: 0.001684
+Época  4000 | Pérdida: 0.001236
+Época  5000 | Pérdida: 0.000974
+Época  6000 | Pérdida: 0.000802
+Época  7000 | Pérdida: 0.000681
+Época  8000 | Pérdida: 0.000592
+Época  9000 | Pérdida: 0.000523
+
+Pesos finales: [7.2846 7.2842]  Sesgo: -11.0135
+
+=== PRUEBA FINAL ===
+      Entradas         Predicción   Esperado   Correcto
+-------------------------------------------------------
+       [0, 0]              0.0000          0          ✓
+       [0, 1]              0.0234          0          ✓
+       [1, 0]              0.0235          0          ✓
+       [1, 1]              0.9722          1          ✓

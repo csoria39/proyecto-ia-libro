@@ -1,0 +1,182 @@
+DIAGRAMA 7.4 — OVERFITTING Y REGULARIZACIÓN
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
+
+Ubicación en el libro: Capítulo 7, al final del apartado 7.10 «Data Augmentation» (el texto dice «Con las técnicas de
+este capítulo (el Diagrama 7.4 las resume)»). Página 84 del PDF de KDP, vertical. Era el antiguo Diagrama 5.1, que
+la revisión técnica externa (hallazgo H42) movió del capítulo de optimizadores al 7; scripts/fix_d7_4_g1.py repintó
+el número del título. La versión anterior está en originales/d5_1_orig.png.
+Imagen de referencia: diagramas/Diagrama_7.4.png (1024 × 1536 px), idéntica a la del libro.
+Cifras: el diagrama es conceptual; sus curvas son esquemáticas. Las fórmulas son las del capítulo
+(L_total = L + λ·Σ w², 7.6) y la descomposición sesgo-varianza.
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_7.4.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final). Las 1-4 venían en la versión verificada
+externamente (con retoques de scripts/repintado_2026-11-09/d7_4.py); las 5-8 se hicieron en la revisión completa
+(scripts/repintado_2026-11-09b/f7_4_*.py; versión anterior en originales/Diagrama_7.4_antes_2026-11-09b.png).
+  1. Panel 2: la curva roja «Error en prueba» pasaba POR DEBAJO de la azul «Error en entrenamiento» en la zona de
+     «Ajuste adecuado». Ahora la roja va siempre por encima, con su mínimo en la zona central.
+  2. Panel 3, «Early Stopping»: la curva de validación estaba por debajo de la de entrenamiento y no subía nunca, y
+     el eje horizontal llevaba un «w₁» suelto. Ahora la validación va por encima, con mínimo en el punto de parada y
+     subida después; eje «Épocas» sin «w₁».
+  3. Panel 3, «Regularización L1»: el punto «Con L1 (esparso)» quedaba en el interior. Ahora está en el vértice
+     superior del rombo, sobre el eje w₂ (w₁ = 0), y los rombos están centrados en el cruce de los ejes.
+  4. Se eliminó el «+» azul suelto bajo la leyenda del panel 2.
+  5. Panel 3, «Regularización L2»: las elipses de la penalización estaban centradas en un punto que no era el origen.
+     Ahora la región permitida ‖w‖ ≤ r es un cuarto de círculo con centro en el origen (con dos arcos interiores), las
+     curvas de nivel de la pérdida son elipses alrededor del óptimo sin regularizar, y la solución con L2 es el
+     punto rojo donde la elipse exterior toca la circunferencia.
+  6. Panel 5: «Error total = Bias² + Variance + …» mezclaba inglés; el 7.1 dice «Sesgo² + Varianza». Además,
+     «Alta bias» (bias = sesgo, masculino) → «Alto sesgo»; «(alto bias)» → «(alto sesgo)»; las cajas dicen
+     «Sesgo (bias):» y «Varianza (variance):», y la cabecera «5. INTUICIÓN: SESGO–VARIANZA».
+  7. Tilde del título: la de REGULARIZACIÓN estaba desplazada. Ahora va sobre la Ó.
+  8. Título: el número es 7.4 (era el antiguo 5.1).
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a clean, professional educational infographic in Spanish, PORTRAIT, exactly 1024 × 1536 px, white background,
+flat vector style with a few small realistic cat photos (panel 3). Six numbered panels in rounded cards (radius
+≈ 14 px, light border #C9D3EA), each with a dark-blue header tab (#1F3C88, white bold uppercase 16 px "N. TITLE"),
+plus two footer bands. Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; math in serif italic.
+Render every string exactly as written; add no other text.
+
+Colors: underfitting/training blue #1F4FB0 · good fit green #2E7D32 · overfitting/test red #D32F2F · L2 purple
+#5B2A9E · L1 green #2E7D32 · dropout neutral gray-blue · early stopping orange #F57C00 · augmentation purple
+#6A1B9A · title navy #0B1440 · subtitle purple #4B2A8C.
+
+---------------------------------------------------------------------
+HEADER (y = 0–110), centered
+---------------------------------------------------------------------
+"DIAGRAMA 7.4 — OVERFITTING Y REGULARIZACIÓN"   42 px bold condensed navy
+"¿CÓMO EVITAMOS QUE LA RED MEMORICE EN LUGAR DE APRENDER?"   30 px bold condensed purple
+"El objetivo es lograr que la red generalice bien a datos nuevos, no solo a los datos de entrenamiento."   17 px gray
+
+---------------------------------------------------------------------
+PANEL 1 — "1. EL PROBLEMA: OVERFITTING"   (x ≈ 15–513, y ≈ 115–463)
+---------------------------------------------------------------------
+Text, 15 px: "Cuando la red es demasiado compleja o entrena por demasiado tiempo," / "puede memorizar el conjunto de
+entrenamiento," / "incluyendo el ruido, y fallar con datos nuevos."
+Three columns separated by thin rules:
+  blue "SUBAJUSTE" / "(Underfitting)"; "Modelo muy simple" / "No captura el patrón"; scatter (axes y, x) of ~12 blue
+    dots with a straight blue line; pink box "Error alto en entrenamiento" / "y en prueba".
+  green "AJUSTE ADECUADO" / "(Good fit)"; "Modelo con la complejidad" / "justa"; same dots with a smooth gently curved
+    green line; green box "Bajo error en entrenamiento" / "y en prueba".
+  red "SOBREAJUSTE" / "(Overfitting)"; "Modelo demasiado complejo" / "Memoriza el ruido"; same dots with a wiggly red
+    curve through every dot; pink box "Error bajo en entrenamiento" / "pero alto en prueba".
+
+---------------------------------------------------------------------
+PANEL 2 — "2. ERROR EN ENTRENAMIENTO VS. PRUEBA"   (x ≈ 524–1009, y ≈ 115–463)
+---------------------------------------------------------------------
+Plot: y-axis "Error", x-axis "Complejidad del modelo / Épocas de entrenamiento". Two dashed vertical lines split
+three zones with headers: blue "Subajuste" / "(alto sesgo)" (light-blue tint), green "Ajuste" / "adecuado", red
+"Sobreajuste" / "(alta varianza)".
+Blue curve "Error en entrenamiento": starts high at the left and decreases monotonically to the right.
+Red curve "Error en prueba": starts at the same height, decreases to a minimum inside the "Ajuste adecuado" zone,
+then rises steeply to the right; it stays ABOVE the blue curve everywhere (the gap widens in the overfitting zone).
+A small green down-arrow under the red minimum with green label "Mejor generalización".
+Legend card at the right: blue line "Error en" / "entrenamiento"; red line "Error en" / "prueba".
+Cream card below the legend: bold "Meta:" / "Minimizar el error" / "en datos nuevos" / "(prueba), no solo" / "en los
+de" / "entrenamiento."
+
+---------------------------------------------------------------------
+PANEL 3 — "3. TÉCNICAS DE REGULARIZACIÓN MÁS UTILIZADAS"   (full width, y ≈ 476–905)
+---------------------------------------------------------------------
+Five columns separated by thin vertical rules; each has a numbered colored title, 3–4 lines of 13 px description,
+an illustration, and a tinted footer box.
+ 1. purple "1. REGULARIZACIÓN L2" / "(Weight Decay)". "Penaliza pesos grandes añadiendo" / "el cuadrado de los pesos
+    a la pérdida." / "Favorece modelos más simples."
+    Plot with the origin at the bottom-left corner, axes w₂ (vertical, arrow up) and w₁ (horizontal, arrow right).
+    Centered at the ORIGIN: a light-purple filled quarter-disc (the allowed region ‖w‖ ≤ r) bounded by a thick purple
+    arc, plus two thinner purple arcs inside it (smaller circles of the L2 penalty).
+    Up-right: a black dot labelled "Sin regularización" (the unregularized optimum) with three nested gray elliptical
+    loss contours around it, tilted about 40°; the outermost one just touches the thick purple arc.
+    A purple dashed line from the black dot to that touching point, marked by a red dot: the L2 solution. Purple label
+    to the right of the arc: "Con L2" / "(más pequeño)".
+    Lavender box: bold purple "Nueva función de pérdida:" and L_total = L + λ Σ_i w_i².
+    Footer: "λ : hiperparámetro que controla" / "la fuerza de la regularización."
+ 2. green "2. REGULARIZACIÓN L1" / "(Lasso)". "Penaliza el valor absoluto de los pesos." / "Tiende a producir pesos
+    exactamente" / "iguales a cero (esparsidad)."
+    Plot with axes w₂ (vertical, arrow up) and w₁ (horizontal, arrow right) crossing in the lower middle. Three nested
+    light-green diamonds (rhombi) CENTERED ON THE AXIS CROSSING (the origin). A black dot at the top right labelled
+    "Sin regularización"; a solid dark-green line from it to a dark-green dot placed EXACTLY on the top vertex of the
+    outer diamond, on the w₂ axis (w₁ = 0), with a thin green leader line to the label "Con L1" / "(esparso)".
+    Green box: bold green "Nueva función de pérdida:" and L_total = L + λ Σ_i |w_i|.
+    Footer: "Útil para selección de características" / "y modelos interpretables."
+ 3. blue "3. DROPOUT". "Durante el entrenamiento, desactiva" / "aleatoriamente neuronas (y sus conexiones)" / "para que
+    la red no dependa de caminos" / "específicos."
+    Network: 4 blue input nodes → 4 hidden nodes (some green active, some dashed circles with an "×") → 4 red outputs;
+    links to deactivated nodes dashed.
+    Legend: green circle "Neurona activa"; dashed circle "Neurona desactivada" / "temporalmente".
+    Footer: "Reduce co-adaptación de neuronas" / "y mejora la generalización."
+ 4. orange "4. EARLY STOPPING". "Detener el entrenamiento cuando el" / "error en el conjunto de validación" / "deja de
+    mejorar."
+    Plot: y-axis "Error", x-axis "Épocas" (no other axis label). Blue "Entrenamiento" decreasing steadily; red
+    "Validación" ABOVE it, decreasing to a minimum and then rising. A dashed vertical line at the red minimum labelled
+    "Punto de" / "parada".
+    Footer: "Evita que la red continúe ajustándose" / "al ruido del entrenamiento."
+ 5. purple "5. DATA AUGMENTATION". "Aumentar artificialmente el conjunto" / "de entrenamiento aplicando" /
+    "transformaciones realistas a los datos."
+    "Ejemplo: imágenes" and six small realistic photos of the same tabby cat, in two rows with gray arrows:
+    "Original" → "Rotación" (tilted) → "Reflejo" (mirrored); "Zoom" (closer crop) → "Cambio de brillo" (brighter) →
+    "Ruido" (grainy).
+    Footer: "La red ve más variedad y aprende" / "patrones más robustos."
+
+---------------------------------------------------------------------
+PANEL 4 — "4. ¿CÓMO ELEGIR LA COMPLEJIDAD DEL MODELO?"   (x ≈ 15–513, y ≈ 918–1273)
+---------------------------------------------------------------------
+Three rows with icons:
+  target icon: "Empieza simple." / "Aumenta la complejidad solo si es necesario."
+  bar-chart icon: "Usa validación cruzada para estimar" / "el rendimiento real del modelo."
+  magnifier icon: "Observa la brecha entre entrenamiento y prueba:"
+Table (light-blue header): "Situación" | "Error entrenamiento" | "Error prueba" | "Diagnóstico" | "Qué hacer"
+  [mini blue straight-line fit]  | "Alto" | "Alto" | blue "Subajuste" | "Aumentar complejidad" / "del modelo"
+  [mini green smooth fit]        | "Bajo" | "Bajo" | green "Ajuste adecuado" | "Mantener"
+  [mini red wiggly fit]          | "Bajo" | "Alto" | red "Sobreajuste" | "Aplicar regularización /" / "Más datos /
+                                                                          Menos" / "épocas / Simplicidad"
+
+---------------------------------------------------------------------
+PANEL 5 — "5. INTUICIÓN: SESGO–VARIANZA"   (x ≈ 524–1009, y ≈ 918–1273)
+---------------------------------------------------------------------
+"El error total se puede descomponer en:"
+Boxed formula: "Error total  =  Sesgo²  +  Varianza  +  Ruido irreducible" with "(ruido de los datos)" under the last
+term (Sesgo and Varianza in serif italic).
+Three cards: blue "Sesgo (bias):" / "Error por suposiciones" / "demasiado simples." / bold "Alto sesgo →" /
+"subajuste." · green "Varianza (variance):" / "Sensibilidad a pequeñas" / "variaciones en los datos." / bold "Alta
+varianza →" / "sobreajuste." · purple "Ruido irreducible:" / "Error debido al ruido" / "inherente en los datos." /
+"No se puede eliminar."
+A horizontal double arrow with three labels under it: blue "Modelo muy simple" / "(alto sesgo)" · green "Complejidad
+adecuada" / "(mejor generalización)" · red "Modelo muy complejo" / "(alta varianza)".
+
+---------------------------------------------------------------------
+PANEL 6 — "6. RECOMENDACIONES PRÁCTICAS"   (full width, y ≈ 1287–1418)
+---------------------------------------------------------------------
+Six columns, icon on top and centered text:
+  database icon: bold "Más datos" / "Mejoran la generalización" / "de cualquier modelo."
+  small network icon: "Mantén el modelo lo" / "más simple posible" / "que aún funcione bien."
+  sliders icon: "Usa regularización" / "(L2, Dropout, etc.)" / "desde el inicio."
+  clock icon: "Monitorea con un conjunto" / "de validación y aplica" / "early stopping."
+  rising chart icon: "Visualiza curvas de" / "aprendizaje para" / "entender el modelo."
+  checklist icon: "Experimenta, mide" / "y repite: esa es la" / "mejor estrategia."
+
+---------------------------------------------------------------------
+FOOTER BANDS
+---------------------------------------------------------------------
+Band 1 (light yellow, y ≈ 1427–1482): trophy icon; bold purple "MENSAJE CLAVE:"; text "El objetivo no es memorizar
+los datos de entrenamiento," / "sino aprender patrones que generalicen a datos nuevos y desconocidos."; at the right a
+small node network → arrow → green circle with a check mark.
+Band 2 (lavender, y ≈ 1490–1530): purple square with target icon; bold purple "EN UNA FRASE:"; text "La
+regularización es lo que convierte a una red neuronal de buena en excelente."; at the right a purple node network →
+arrow → target.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 7.4 — OVERFITTING Y REGULARIZACIÓN" (not 5.1).
+✓ Panel 2 and early stopping: the test/validation curve is always ABOVE the training curve; its minimum marks the
+  best point.
+✓ L2: penalty circles centered at the origin; the solution is where a loss ellipse touches the circle.
+✓ L1: diamonds centered at the origin; solution on the w₂ axis (w₁ = 0). No stray "w₁" next to "Épocas". No stray "+".
+✓ Formulas L_total = L + λ Σ w_i² and L_total = L + λ Σ |w_i|; Error total = Sesgo² + Varianza + Ruido irreducible.
+✓ Panel 5 is all in Spanish: "SESGO–VARIANZA", "Sesgo (bias):", "Varianza (variance):", "Alto sesgo", "(alto sesgo)".
+✓ Accents: "REGULARIZACIÓN", "¿CÓMO", "TÉCNICAS", "Rotación", "INTUICIÓN", "PRÁCTICAS", "Situación", "Diagnóstico".

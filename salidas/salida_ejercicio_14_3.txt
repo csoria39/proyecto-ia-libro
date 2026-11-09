@@ -1,0 +1,12 @@
+=== ESTRATEGIA DE MUESTREO ADAPTATIVA ===
+
+Primeros 10 tokens:  tau=0.3 (determinista, ancla el inicio)
+Tokens siguientes:   tau=0.9 + top-p=0.9 (variedad creativa)
+
+Justificacion:
+  - El inicio de una respuesta suele tener pocas opciones
+    razonables (saludo, estructura gramatical inicial).
+  - Una vez establecido el contexto, hay mas margen creativo
+    sin perder coherencia.
+  - Esta tecnica reduce la varianza de calidad entre generaciones
+    manteniendo diversidad donde realmente aporta valor.

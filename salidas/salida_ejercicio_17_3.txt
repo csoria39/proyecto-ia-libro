@@ -1,0 +1,14 @@
+d=768, n_heads=12 (estilo GPT-2 small)
+
+  Contexto T   Mem. aten. (GiB)      GFLOPs  Factor vs ant.
+------------------------------------------------------------
+         512              0.006        0.81              —
+       2,048              0.094       12.88          16.0x
+       8,192              1.500      206.16          16.0x
+      32,768             24.000     3298.53          16.0x
+     131,072            384.000    52776.56          16.0x
+
+Al doblar T, el costo se CUADRUPLICA (x4).
+Por eso ampliar la ventana de contexto es tan caro.
+Flash Attention: evita materializar la matriz TxT completa,
+calculándola por bloques. Mismo resultado, mucha menos memoria.

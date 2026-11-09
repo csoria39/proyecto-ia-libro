@@ -1,0 +1,41 @@
+Corpus total: 519 tokens (vocab=28)
+Entrenamiento: 415 tokens (80%)
+Test:          104  tokens (20%)
+Perplejidad aleatoria esperada: 28 (= tamano vocabulario)
+
+=== PERPLEJIDAD EN DISTINTOS CONJUNTOS ===
+
+Modelo aleatorio (baseline):
+  Test
+    Tokens evaluados:  96
+    Perdida media:     3.3322
+    Perplejidad:       28.00
+    Bits por token:    4.807
+
+Modelo bigrama (aprende pares de caracteres):
+  Train
+    Tokens evaluados:  407
+    Perdida media:     1.7835
+    Perplejidad:       5.95
+    Bits por token:    2.573
+  Test 
+    Tokens evaluados:  96
+    Perdida media:     4.5798
+    Perplejidad:       97.50
+    Bits por token:    6.607
+
+=== DIAGNOSTICO DE OVERFITTING VIA PERPLEJIDAD ===
+
+CASO 1 — Buen modelo (generaliza):
+  PPL train = 4.2,  PPL test = 4.8  -> diferencia pequeña: OK
+
+CASO 2 — Overfitting leve:
+  PPL train = 2.1,  PPL test = 8.3  -> test 4x peor: señal de alerta
+
+CASO 3 — Overfitting grave (memorizacion):
+  PPL train = 1.0,  PPL test = 45.2 -> test 45x peor: el modelo
+  memorizo el corpus de entrenamiento pero no generaliza.
+
+Una pista, no una regla: un cociente PPL_test / PPL_train alto avisa de
+sobreajuste, pero no hay umbrales universales (un modelo que no aprende
+nada tiene cociente 1). Compara siempre con una linea base.

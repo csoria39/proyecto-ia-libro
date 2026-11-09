@@ -1,0 +1,132 @@
+DIAGRAMA 11.2 — SELF-ATTENTION: REFERENCIA COMPLETA
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final). Sustituye a Prompt_Diagrama_13_v18.txt (numeración antigua).
+
+Ubicación en el libro: Capítulo 11 (El Mecanismo de Atención), al final de 11.7 «Así atiende un modelo entrenado»,
+antes de los ejercicios. El texto lo cita en 11.3 y 11.6 («Es exactamente lo que dibujan las dos gráficas de «banco»
+del Diagrama 11.2») y en el Capítulo 19. Página 135 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
+Imagen de referencia: diagramas/Diagrama_11.2.png (1672 × 941 px). Es la del libro una vez girada, salvo un
+retoque mínimo del número del título (scripts/renumerar.py, «13» → «11.2»).
+Cifras, todas de ejecuciones impresas en el Capítulo 11:
+  · 11.2 «el gato duerme»: Query de «duerme» = [2, 0]; puntuaciones q·k/√2 = 0, 1.414, 0; softmax 0.164, 0.673,
+    0.164; salida [0.327, 1.509].
+  · 11.4, una fila con y sin máscara: scores [1.2, 0.3, 2.0, −0.5] → sin máscara [0.262, 0.107, 0.583, 0.048];
+    con máscara [0.711, 0.289, 0, 0].
+  · 11.5, varianza y escalado: d = 16 → 16.3, 0.750, 0.358 · d = 64 → 64.1, 0.873, 0.356 · d = 1024 → 1014.4,
+    0.968, 0.361.
+  · 11.6, «banco»: «el banco está cerca del río» 0.094 · 0.299 · 0.094 · 0.119 · 0.094 · 0.299 → naturaleza 0.47,
+    dinero 0.15; «el banco me dio un préstamo» 0.097 · 0.307 · 0.097 · 0.097 · 0.097 · 0.307 → naturaleza 0.15,
+    dinero 0.46.
+  · Nano-LLM (programa_8_nano_llm.py): H = 4 cabezas, DH = 12, D = 48. Capítulo 15 (RZ-2): 1 cabeza aprende a
+    sumar con 4 de 6 semillas; 2 cabezas, con 6 de 6.
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_11.2.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. Formato numérico: la imagen usaba coma decimal («0,164», «1,414», «16,3») y punto de miles («1.024»,
+     «1.014,4»). El libro (texto, código y salidas) usa punto decimal: ahora «0.164», «1.414», «16.3», «1024»,
+     «1014.4». En los vectores, coma entre componentes: [0.327, 1.509], [0.5, 0.5, 0].
+  2. «En el Capítulo 15, pasar de 1 a 2 cabezas decide si aprende a sumar» era más rotundo que la medición: con
+     1 cabeza aprende en 4 de 6 semillas. Ahora: «… con 1 cabeza aprende a sumar en 4 de 6 semillas; con 2, en 6 de 6».
+  3. Un trazo corto oscuro pisaba el borde superior de la tabla del panel 3, encima de «scores». Borrado el
+     9-11-2026 (scripts/repintado_2026-11-09b/f11_2.py; versión anterior en originales/Diagrama_11.2_antes_2026-11-09c.png).
+Observación: «con √d_k se mantiene en torno al 36 %» coincide con la tabla (0.356–0.361); el texto de 11.5 dice
+«en torno al 35 %».
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a clean, professional technical infographic in Spanish, LANDSCAPE, exactly 1672 × 941 px, white background,
+flat vector style. Four tall numbered panels side by side with small navy arrow-heads between them, plus a dark-navy
+bottom bar. Panels: rounded cards (radius ≈ 10 px, border #1A3A6B), header bar dark navy (#0A3A7A), white bold
+uppercase 16 px "N. TITLE". Fonts: Inter/Roboto bold for titles; Inter/Roboto for text; monospace (Courier-like) for
+vectors, code and numbers in tables. ALL numbers with DECIMAL POINT (0.673), never a comma. Render every string
+exactly as written; add no other text.
+
+Colors: Teal #00897B = Query (Q) · Purple #6A1B9A = Key (K) · Amber #E65100 = Value (V) · Blue #1565C0 = pesos de
+atención (barras) · Red-orange #E64A19 = máscara causal / bloqueado · Green #2E7D32 = comprobaciones.
+
+---------------------------------------------------------------------
+HEADER (y = 0–100), centered
+---------------------------------------------------------------------
+"DIAGRAMA 11.2 — SELF-ATTENTION: REFERENCIA COMPLETA"   38 px bold navy (#1A3A6B)
+"Resumen visual del Capítulo 11 — puntuar, normalizar y mezclar"   22 px regular slate gray
+"Attention(Q, K, V) = softmax(Q·Kᵀ / √d_k + Máscara) · V"   30 px bold navy (serif-style math)
+"Vaswani et al. (2017) — Attention Is All You Need"   15 px gray
+
+---------------------------------------------------------------------
+PANEL 1 — "1. LA INTUICIÓN: Q, K, V"   (x ≈ 10–375, y ≈ 110–480)
+---------------------------------------------------------------------
+Three rows, each a solid colored circle icon + colored bold label + two text lines:
+  teal person icon     "Query (Q)" / "= tu pregunta al bibliotecario" / "“¿qué busco?”"
+  purple open-book     "Key (K)" / "= la etiqueta del lomo del libro" / "“¿qué ofrezco?”"
+  amber closed-book    "Value (V)" / "= el contenido del libro" / "“la información que aporto”"
+Thin rule, bold navy "Las tres proyecciones:" and a light-blue box with monospace lines:
+  "Q = X · W_Q"  /  "K = X · W_K"  /  "V = X · W_V"
+Small gray: "Las tres salen de la MISMA secuencia X:" / "por eso se llama SELF-attention."
+
+---------------------------------------------------------------------
+PANEL 2 — "2. UN EJEMPLO A MANO: «el gato duerme»"   (x ≈ 395–765, y ≈ 110–480)
+---------------------------------------------------------------------
+Table with colored header cells (gray "Palabra", purple "Key", amber "Value"):
+  el     | [0, 1] | [1, 0]
+  gato   | [1, 0] | [0, 2]
+  duerme | [0, 0] | [1, 1]
+Teal-tinted box: bold teal "Query de «duerme» = [2, 0]" (vector monospace) / "“busco un sustantivo”".
+Three numbered steps (blue discs 1–3):
+  1 bold "Puntuar:"  "q·k / √2 →" / monospace "el 0  ·  gato 1.414  ·  duerme 0"
+  2 bold "Softmax:"  monospace "el 0.164  ·  gato 0.673  ·" / "duerme 0.164   (suman 1 ✓)"
+  3 bold "Mezclar:"  "salida de «duerme» = [0.327, 1.509]"
+Teal-tinted box, bold teal centered: "«duerme» dedica el 67 % de su" / "atención a «gato»."
+
+---------------------------------------------------------------------
+PANEL 3 — "3. LA MÁSCARA CAUSAL Y EL ESCALADO"   (x ≈ 785–1150, y ≈ 110–480)
+---------------------------------------------------------------------
+Bold navy "Una fila con y sin máscara (token 2 de 4)". Table (monospace numbers):
+  scores                 | 1.2   | 0.3   | 2.0   | −0.5
+  máscara                | 0     | 0     | −∞    | −∞      (the 0s and −∞ in red-orange)
+  sin máscara → pesos    | 0.262 | 0.107 | 0.583 | 0.048
+  con máscara → pesos    | 0.711 | 0.289 | 0     | 0       (last two cells pale red with red-orange "0" — NOT −∞)
+Red-orange: "−∞ antes del softmax → 0 después:" / "el futuro no recibe atención."
+Gray code box: "mask  = np.triu(np.full((T, T), -1e9), k=1)" / "pesos = softmax(scores + mask, axis=-1)"
+Light-blue sub-header "¿Por qué dividir entre √d_k?" and table (header: "d" | "varianza de q·k" | "peso máx. sin
+escalar" | "peso máx. ÷√d"):
+  16   | 16.3   | 0.750 | 0.358
+  64   | 64.1   | 0.873 | 0.356
+  1024 | 1014.4 | 0.968 | 0.361
+Light-blue note: "Sin escalar, la atención se vuelve un interruptor;" / "con √d_k se mantiene en torno al 36 %." (36 %
+bold).
+
+---------------------------------------------------------------------
+PANEL 4 — "4. EL CONTEXTO DESAMBIGUA: «banco»"   (x ≈ 1165–1660, y ≈ 110–480)
+---------------------------------------------------------------------
+Sub-header (light-blue strip, bold navy) "«el banco está cerca del río»". Horizontal blue bar chart (labels left,
+values right of each bar, monospace): el 0.094 · banco 0.299 · está 0.094 · cerca 0.119 · del 0.094 · río 0.299.
+To the right: a small flat illustration of a wooden park bench by a river with trees; under it a light-blue box
+"Nuevo vector de «banco»:" (bold) / "naturaleza 0.47 | dinero 0.15".
+Sub-header "«el banco me dio un préstamo»". Bars: el 0.097 · banco 0.307 · me 0.097 · dio 0.097 · un 0.097 ·
+préstamo 0.307. To the right: a navy bank-building icon with a "$" in the pediment; box "Nuevo vector de «banco»:" /
+"naturaleza 0.15 | dinero 0.46".
+Caption: "Mismo vector de entrada [0.5, 0.5, 0];" / "la atención lo inclina hacia el sentido que indica el contexto."
+Navy sub-header "Varias cabezas (Multi-Head)" and a box:
+  "Cada cabeza tiene sus propias W_Q, W_K y W_V;" / "sus salidas se concatenan y W_O las mezcla."
+  monospace "MultiHead = Concat(head₁, …, head_H) · W_O" / "d_head = d_model / H"
+  then, below a thin rule, three lines of 12 px regular text: "El Nano-LLM (Capítulo 13): 4 cabezas de 12 dimensiones" /
+  "(d = 48). En el Capítulo 15, con 1 cabeza aprende a sumar" / "en 4 de 6 semillas; con 2, en 6 de 6."
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 860–935, dark navy)
+---------------------------------------------------------------------
+Three white-outlined rounded boxes with white text, joined by white arrows:
+  bold "PUNTUAR:" + "Q·Kᵀ / √d_k"   →   bold "NORMALIZAR:" + "softmax (+ máscara causal)"   →   bold "MEZCLAR:" + "pesos · V"
+Right, after a thin vertical white rule: "Sistema de colores:" (bold) with six swatches in two columns of three: teal "Q (Query)" · purple "K (Key)" · amber "V (Value)" ·
+blue "Pesos de atención" · red-orange "Máscara causal / bloqueado" · green "Comprobaciones".
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 11.2 — SELF-ATTENTION: REFERENCIA COMPLETA"; subtitle mentions "Capítulo 11".
+✓ Decimal POINT everywhere (0.673, 1.414, 16.3, 1014.4); "1024" without separator.
+✓ No −∞ inside any table of WEIGHTS; blocked weights are 0.
+✓ Every number exactly as listed above (they come from the chapter's executions).
+✓ Multi-head note: "4 de 6 semillas" / "6 de 6".
+✓ No positional encoding anywhere (it belongs to Chapter 12).

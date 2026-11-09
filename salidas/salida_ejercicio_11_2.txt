@@ -1,0 +1,11 @@
+Dimensión d=64, T=8 tokens
+
+                            Métrica    Sin escala    Con escala
+--------------------------------------------------------------
+                 Varianza de scores        0.0292        0.0005
+               Max peso de atención        0.1673        0.1299
+              Entropía media (bits)        2.9819        2.9997
+            Máxima entropía posible        3.0000        3.0000
+
+Sin escala: scores de alta varianza -> softmax muy puntuda
+-> gradientes casi nulos -> el modelo no aprende

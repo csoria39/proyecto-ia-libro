@@ -1,0 +1,37 @@
+=== TOKENIZACION BPE EN ACCION ===
+
+  Frase: "la inteligencia artificial aprende"
+  Char:  34 tokens  ['l', 'a', '_', 'i', 'n', 't', 'e', 'l', 'i', 'g', 'e', 'n', 'c', 'i', 'a']...
+  BPE:   15 tokens  ['la+', 'in', 'te', 'l', 'ig', 'enci', 'a+', 'ar', 'ti', 'f', 'i', 'ci', 'al+', 'apren', 'de+']
+  BPE es 2.3x mas eficiente que char-level
+
+  Frase: "aprendizaje automatico"
+  Char:  22 tokens  ['a', 'p', 'r', 'e', 'n', 'd', 'i', 'z', 'a', 'j', 'e', '_', 'a', 'u', 't']...
+  BPE:   16 tokens  ['apren', 'd', 'i', 'z', 'a', 'j', 'e+', 'a', 'u', 'to', 'm', 'a', 'ti', 'c', 'o', '+']
+  BPE es 1.4x mas eficiente que char-level
+
+  Frase: "redes neuronales profundas"
+  Char:  26 tokens  ['r', 'e', 'd', 'e', 's', '_', 'n', 'e', 'u', 'r', 'o', 'n', 'a', 'l', 'e']...
+  BPE:   20 tokens  ['r', 'e', 'de', 's+', 'n', 'e', 'u', 'r', 'on', 'a', 'l', 'e', 's+', 'pr', 'o', 'f', 'u', 'n', 'da', 's+']
+  BPE es 1.3x mas eficiente que char-level
+
+  Frase: "tokenizacion de texto"
+  Char:  21 tokens  ['t', 'o', 'k', 'e', 'n', 'i', 'z', 'a', 'c', 'i', 'o', 'n', '_', 'd', 'e']...
+  BPE:   12 tokens  ['tok', 'en', 'i', 'z', 'a', 'ci', 'on', '+', 'de+', 'te', 'x', 'to+']
+  BPE es 1.8x mas eficiente que char-level
+
+--- Manejo de palabras desconocidas ---
+  Palabra rara: "supercalifragilistico"
+  BPE la descompone: ['s', 'u', 'p', 'e', 'r', 'c', 'a', 'l', 'i', 'f', 'r', 'a', 'g', 'i', 'l', 'i', 's', 'ti', 'c', 'o', '+']
+  Sin OOV mientras sus letras esten en el corpus: cae hasta nivel caracter
+
+--- Ida y vuelta (texto normalizado) ---
+  'hola mundo' -> 'hola mundo'
+  'El niño aprende, 2026.' -> 'el niño aprende'
+  Se recuperan las palabras normalizadas, no el texto literal:
+  mayusculas, cifras y puntuacion se pierden (GPT-2 lo evita con BPE por bytes).
+
+--- Compresion del corpus completo ---
+  Chars en corpus:  517
+  Tokens BPE:       350
+  Ratio de compresion: 1.48x

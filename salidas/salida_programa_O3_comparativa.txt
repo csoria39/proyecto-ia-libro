@@ -1,0 +1,11 @@
+=== COMPARATIVA DE OPTIMIZADORES ===
+Problema: clasificacion de dos lunas (no lineal)
+Red: 2 -> 16 (ReLU) -> 1 (Sigmoid)  |  500 epocas
+
+                   Optimizador    Loss ep.10   Loss ep.100    Loss ep.500   Acc val
+-------------------------------------------------------------------------------------
+      SGD              lr=0.1        0.30191       0.21244       0.02772    100.0%
+      SGD+Momentum     lr=0.1        0.20937       0.01290       0.00603    100.0%
+      RMSprop          lr=0.01       0.22907       0.01335       0.00224    100.0%
+      Adam             lr=0.01       0.25832       0.02132       0.00412    100.0%
+      AdamW            lr=0.01       0.25861       0.02355       0.00567    100.0%

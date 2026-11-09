@@ -1,0 +1,16 @@
+Pesos leídos en 1.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Pesos de los 12 bloques: 84.9 millones; de la salida: 38.6 millones
+
+Con np.sqrt(DH), como en el Programa 8:
+   pesos de atención en float64, vía residual en float64
+   12 bloques:      98.8 ms por token
+   salida (wteᵀ):  466.1 ms por token
+
+Con esas dos constantes en float32:
+   pesos de atención en float32, vía residual en float32
+   12 bloques:      16.3 ms por token
+   salida (wteᵀ):    6.1 ms por token
+
+Diferencia máxima entre los logits: 6.2e-05; mismo token elegido: sí

@@ -1,0 +1,5 @@
+scores           : [1.414 0.    0.   ]
+pesos            : [0.673 0.164 0.164]
+salida           : [0.836 0.491]
+pesos (causal)   : [0.804 0.196 0.   ]
+salida (causal)  : [0.804 0.391]

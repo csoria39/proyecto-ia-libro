@@ -1,0 +1,28 @@
+=== ENTRENANDO TOKENIZADOR BPE ===
+Corpus de 82 palabras
+
+Vocabulario inicial: 24 simbolos
+Palabras unicas:     54
+Tokens iniciales en corpus: 589
+
+ Fusion                        Par    Frec   Vocab size
+-------------------------------------------------------
+      1                 ('e', 'n')       27           25
+      2              ('s', '</w>')       23           26
+      3              ('a', '</w>')       15           27
+      4                 ('d', 'e')       15           28
+      5                 ('c', 'i')       12           29
+      6                 ('t', 'o')       11           30
+      7              ('l', '</w>')       10           31
+      8                 ('p', 'r')       10           32
+      9                 ('t', 'e')        8           33
+     10             ('de', '</w>')        8           34
+     20               ('en', 'ci')        5           44
+     30                ('to', 'k')        4           54
+
+Vocabulario final:   54 simbolos
+Tokens en corpus:    350
+Reglas aprendidas:   30
+
+Tokens aprendidos (subpalabras emergentes):
+  apren  enci  apr  tok

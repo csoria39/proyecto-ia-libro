@@ -1,0 +1,16 @@
+# Las salidas de salidas/ se obtuvieron con Python 3.13 y NumPy 2.5.3, y se han
+# reproducido igual con Python 3.11 y NumPy 2.4.6 (ver «Comprobación» en el README).
+# Imprescindible (Capítulos 1-20):
+numpy>=2.3            # probado con 2.5.3, 2.4.6 y 2.3.5 (con 2.2 cambian los decimales)
+# Opcional: gráficas (figuras de los Capítulos 7, 11 y 16)
+matplotlib>=3.8       # probado con 3.11.2
+# Opcional: Apéndice D (PyTorch) y carpeta verificaciones/
+# En Linux, pip instala por defecto PyTorch con CUDA (varios GB). Si no tienes GPU NVIDIA,
+# instala antes la versión CPU y después este archivo:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+# En un Mac Intel, PyTorch llega solo a la 2.2, que necesita NumPy 1: usa el entorno aparte
+# que crea instalar_mac.sh (ver README).
+torch>=2.1            # probado con 2.14.1 y 2.15.0
+torchvision>=0.16     # la lista el Apéndice E; ningún programa la importa
+transformers>=4.40    # probado con 5.20.1 y 5.22.1; también Capítulo 20 (Hugging Face)
+requests>=2.31

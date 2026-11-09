@@ -1,0 +1,8 @@
+Pesos leídos en 0.9 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+   τ      PPL  texto generado
+ 0.3      7.5  'not to be understood as a single individual or a single life. Life is a process of living '
+ 0.7     22.2  'not based on an idealized version of reality. To put it bluntly, the "norm" is merely an a'
+ 1.0    143.8  'against him; as he looks outwards towards the elevated sky. Having this with a glance over'
+ 1.5   4251.2  'updated symbolically because God campaigns around glorifies things referred to here conseq'

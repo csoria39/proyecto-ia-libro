@@ -1,0 +1,39 @@
+Parámetros: 57,696
+Semilla 3 | cabezas 1 | sumas de entrenamiento: 8000 | sumas de examen (no vistas): 2000
+
+Entrenando...  (exactitud = suma entera correcta)
+Paso     0: pérdida 2.5522 | exactitud entrenamiento   0.0% | sumas NUNCA vistas   0.0%
+Paso   500: pérdida 1.0470 | exactitud entrenamiento   7.6% | sumas NUNCA vistas   7.6%
+Paso  1000: pérdida 0.0564 | exactitud entrenamiento  95.6% | sumas NUNCA vistas  95.5%
+Paso  1500: pérdida 0.0362 | exactitud entrenamiento  96.0% | sumas NUNCA vistas  95.7%
+Paso  2000: pérdida 0.0319 | exactitud entrenamiento  99.8% | sumas NUNCA vistas  99.6%
+Paso  2500: pérdida 0.0349 | exactitud entrenamiento  98.9% | sumas NUNCA vistas  98.9%
+Paso  3000: pérdida 0.0076 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  3500: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  4500: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5000: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5500: pérdida 0.0001 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+Paso  5999: pérdida 0.0000 | exactitud entrenamiento 100.0% | sumas NUNCA vistas 100.0%
+
+=== EXAMEN CON SUMAS QUE EL MODELO NUNCA VIO ===
+93 + 94 = 187   ✓
+ 8 + 98 = 106   ✓
+23 + 98 = 121   ✓
+59 +  6 =  65   ✓
+23 + 43 =  66   ✓
+82 + 25 = 107   ✓
+55 +  6 =  61   ✓
+64 + 51 = 115   ✓
+26 + 70 =  96   ✓
+34 + 97 = 131   ✓
+
+Aciertos en las 2000 sumas no vistas: 100.0%
+
+=== ¿A QUÉ CIFRAS ATIENDE CADA CABEZA? (media sobre 2000 sumas) ===
+Bloque 0, al escribir las unidades -> cabeza 0: b(uni) 0.50 + a(uni) 0.49
+Bloque 0, al escribir las decenas  -> cabeza 0: b(dec) 0.40 + a(dec) 0.40
+Bloque 0, al escribir las centenas -> cabeza 0: + 0.57 + = 0.22
+Bloque 1, al escribir las unidades -> cabeza 0: b(uni) 0.46 + + 0.27
+Bloque 1, al escribir las decenas  -> cabeza 0: r(uni) 1.00 + a(uni) 0.00
+Bloque 1, al escribir las centenas -> cabeza 0: r(dec) 0.40 + b(dec) 0.29

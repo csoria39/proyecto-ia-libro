@@ -1,0 +1,61 @@
+Vocabulario inicial: ['</w>', 'a', 'b', 'c', 'j', 'o', 'r']
+
+Fusión 1: a + j -> aj  (frecuencia 13)
+   pares más frecuentes antes de fusionar: a+j:13, b+a:9, j+a:7, j+o:6
+   bajo   x6: [b] [aj] [o] [</w>]
+   bajar  x3: [b] [aj] [a] [r] [</w>]
+   caja   x4: [c] [aj] [a] [</w>]
+
+Fusión 2: b + aj -> baj  (frecuencia 9)
+   pares más frecuentes antes de fusionar: b+aj:9, aj+a:7, aj+o:6, o+</w>:6
+   bajo   x6: [baj] [o] [</w>]
+   bajar  x3: [baj] [a] [r] [</w>]
+   caja   x4: [c] [aj] [a] [</w>]
+
+Fusión 3: baj + o -> bajo  (frecuencia 6)
+   pares más frecuentes antes de fusionar: baj+o:6, o+</w>:6, c+aj:4, aj+a:4
+   bajo   x6: [bajo] [</w>]
+   bajar  x3: [baj] [a] [r] [</w>]
+   caja   x4: [c] [aj] [a] [</w>]
+
+Fusión 4: bajo + </w> -> bajo</w>  (frecuencia 6)
+   pares más frecuentes antes de fusionar: bajo+</w>:6, c+aj:4, aj+a:4, a+</w>:4
+   bajo   x6: [bajo</w>]
+   bajar  x3: [baj] [a] [r] [</w>]
+   caja   x4: [c] [aj] [a] [</w>]
+
+Fusión 5: c + aj -> caj  (frecuencia 4)
+   pares más frecuentes antes de fusionar: c+aj:4, aj+a:4, a+</w>:4, baj+a:3
+   bajo   x6: [bajo</w>]
+   bajar  x3: [baj] [a] [r] [</w>]
+   caja   x4: [caj] [a] [</w>]
+
+Fusión 6: caj + a -> caja  (frecuencia 4)
+   pares más frecuentes antes de fusionar: caj+a:4, a+</w>:4, baj+a:3, a+r:3
+   bajo   x6: [bajo</w>]
+   bajar  x3: [baj] [a] [r] [</w>]
+   caja   x4: [caja] [</w>]
+
+Fusión 7: caja + </w> -> caja</w>  (frecuencia 4)
+   pares más frecuentes antes de fusionar: caja+</w>:4, baj+a:3, a+r:3, r+</w>:3
+   bajo   x6: [bajo</w>]
+   bajar  x3: [baj] [a] [r] [</w>]
+   caja   x4: [caja</w>]
+
+Fusión 8: baj + a -> baja  (frecuencia 3)
+   pares más frecuentes antes de fusionar: baj+a:3, a+r:3, r+</w>:3
+   bajo   x6: [bajo</w>]
+   bajar  x3: [baja] [r] [</w>]
+   caja   x4: [caja</w>]
+
+Fusión 9: baja + r -> bajar  (frecuencia 3)
+   pares más frecuentes antes de fusionar: baja+r:3, r+</w>:3
+   bajo   x6: [bajo</w>]
+   bajar  x3: [bajar] [</w>]
+   caja   x4: [caja</w>]
+
+Fusión 10: bajar + </w> -> bajar</w>  (frecuencia 3)
+   pares más frecuentes antes de fusionar: bajar+</w>:3
+   bajo   x6: [bajo</w>]
+   bajar  x3: [bajar</w>]
+   caja   x4: [caja</w>]

@@ -1,0 +1,174 @@
+DIAGRAMA 10.2 — LSTM (Long Short-Term Memory)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
+
+Ubicación en el libro: Capítulo 10, apartado 10.5 «LSTM — La solución elegante al gradiente». Página 118 del PDF de
+KDP, girada 90° (1024 × 1536 en el .docx).
+Imagen de referencia: diagramas/Diagrama_10.2.png (1536 × 1024 px), idéntica a la del libro una vez girada.
+Contenido según el capítulo (10.5): «un estado de celda … controlado por TRES puertas diferenciables. Cada puerta es
+una pequeña capa con sigmoide … la de olvido … la de entrada … y la de salida». «El estado de celda C_t fluye
+directamente de un paso al siguiente, solo multiplicado por la puerta de olvido (un valor entre 0 y 1). Los
+gradientes pueden viajar por esta “autopista de gradiente” durante decenas de pasos sin decaer tan abruptamente.»
+Curva «RNN: gradiente se desvanece»: Programa RNN-2, columna «W_hh moderada» (salidas/salida_programa_RNN2_
+vanishing_gradient.txt): 1 → 0.455 (1) → 0.209 (2) → 0.018 (5) → 0.00048 (10) → < 10⁻⁶ (20).
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_10.2.png y en el
+libro; este prompt describe esa imagen final). Las 1-6 se repintaron el 8-11-2026 (scripts/repintado_2026-11-08/,
+versión anterior en originales/Diagrama_10.2_antes_repintado_2026-11-08.png); las 7-9, el 9-11-2026
+(scripts/repintado_2026-11-09b/f10_2.py, versión anterior en originales/Diagrama_10.2_antes_2026-11-09b.png).
+  1. «Cuatro puertas», «LAS CUATRO PUERTAS DE LA LSTM», «Las 4 puertas deciden», «LSTM estándar: 4 puertas»: la LSTM
+     tiene tres puertas (olvido, entrada, salida) y un candidato g_t, que no es una puerta (usa tanh, no sigmoide).
+     Así lo dice el libro. Aquí: «Tres puertas y un candidato».
+  2. «Cada puerta es una red pequeña con activación σ» seguido de un apartado ② que incluye g_t con tanh: se aclara
+     que g_t es el candidato, con tanh.
+  3. «Solo SUMAS en C_t → gradiente fluye sin atenuar» y «C_t se actualiza con SUMAS, no productos. El gradiente fluye
+     por C_t sin atenuarse»: exagerado y contrario al libro (C_{t−1} se multiplica por f_t). Aquí: «C_{t−1} solo se
+     multiplica por f_t → el gradiente decae mucho menos».
+  4. «gradiente → 0 en pocas épocas»: el gradiente se desvanece en pocos PASOS de tiempo, no en épocas.
+  5. «Peephole LSTM: las puertas también ven C_t»: ven C_{t−1} (la de salida, C_t).
+  6. Curva «RNN»: pasa a ser la medida por RNN-2 (cruza 0.001 hacia el paso 9).
+  7. Gráfica de la RNN: el rótulo del eje Y estaba superpuesto e ilegible («Magnitud» + «gradiente» encimados).
+     Ahora «Magnitud del / gradiente», en dos líneas, girado.
+  8. «i_t controla la cantidad (0-1)» y «g_t controla el contenido (-1,1)»: ahora con la notación de intervalo del
+     libro, «(0, 1)» y «(−1, 1)».
+  9. Bajo el título quedaban dos trazos sueltos (restos del generador, ya en la imagen del 7-11-2026), bajo la «n»
+     de «Long» y bajo la «r» de «Memory». Borrados el 9-11-2026 (scripts/repintado_2026-11-09b/f10_2_titulo.py;
+     versión anterior en originales/Diagrama_10.2_antes_2026-11-09c.png).
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1536 × 1024 px, white background,
+flat vector style. Four tall panels side by side, joined by small dark-navy "arrow tags", plus a dark-navy bottom
+bar. Panels: rounded cards (radius ≈ 10 px, border #2A3F7A), dark-navy header (#14295E), white bold uppercase 15 px.
+Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; ALL math in LaTeX serif italic. Render every
+string exactly as written; add no other text.
+
+Color code: Blue #1F5FAD = input x_t · Teal #138A82 = estado de celda C_t (autopista) · Green #2E7D32 = output y_t /
+salida and puerta de entrada (i_t, g_t) · Orange #F57C00 = activación sigmoid σ / candidato · Red #D32F2F = puerta de
+olvido f_t · Purple #6A1B9A = puerta de salida / h_t · Gold #E3A21A = activación tanh.
+
+---------------------------------------------------------------------
+HEADER (y = 0–100), centered
+---------------------------------------------------------------------
+"DIAGRAMA 10.2 — LSTM (Long Short-Term Memory)"   44 px bold condensed navy
+"La solución elegante al vanishing gradient"   18 px bold gray
+"Tres puertas y un candidato · Estado de celda C_t · Memoria a largo y corto plazo"   21 px bold navy (C_t serif)
+"Hochreiter & Schmidhuber (1997)  —  dominó el NLP hasta 2017"   15 px monospace gray
+
+---------------------------------------------------------------------
+PANEL 1 — "¿POR QUÉ LSTM?"   (x ≈ 8–340, y ≈ 103–915)
+---------------------------------------------------------------------
+Red-bordered card: red ✗ + bold red "La RNN clásica falla:"; framed formula h_t = tanh(W_h · h_{t−1} + W_x · x_t + b_h);
+  "Un solo estado h_t carga con TODO:" / "– la memoria a largo plazo" / "– el contexto inmediato" / "– la predicción
+  actual"; two red lines: "→ Vanishing gradient: gradiente → 0 en pocos pasos" · "→ El modelo olvida lo que ocurrió
+  hace >20 tokens".
+Orange-bordered cream card: light-bulb + bold orange "La idea clave de LSTM:" / "Separar la memoria en DOS canales:"
+  teal C_t + bold teal "— Estado de celda" / "Memoria a LARGO PLAZO." / "Fluye con mínima interferencia." / "Es la
+  autopista del gradiente."
+  green h_t + bold green "— Estado oculto" / "Memoria a CORTO PLAZO." / "Lo que la celda decide mostrar." / "Sale hacia
+  la siguiente capa."
+Orange-bordered card: brain icon + bold orange "Analogía:" / "C_t: el "disco duro" de la celda." / "Guarda información
+  durante mucho tiempo." / "h_t: lo que dices en voz alta." / "La respuesta inmediata." / "Las 3 puertas deciden:" /
+  bold "¿qué borrar? ¿qué añadir? ¿qué emitir?"
+Green card: ☑ + bold green "LSTM resuelve vanishing gradient:" / "C_{t−1} solo se multiplica por f_t, sin pasar" /
+  "por pesos ni tanh: el gradiente decae menos." / "→ Puede aprender dependencias muy largas."
+
+Arrow tag (at the height of the panel headers, between panels 1 and 2; dark-navy rounded label above a navy
+arrow): "las tres" / "puertas".
+
+---------------------------------------------------------------------
+PANEL 2 — "TRES PUERTAS Y UN CANDIDATO"   (x ≈ 348–752, y ≈ 103–915)
+---------------------------------------------------------------------
+"Las puertas usan σ (sigmoid); el candidato g_t usa tanh"
+Four stacked cards:
+ ① red border: bold red "① PUERTA DE OLVIDO (Forget Gate)" / italic red "¿Qué olvidar del pasado?"
+    f_t = σ(W_f · [h_{t−1}, x_t] + b_f)
+    Mini flow: green box h_{t−1} and blue box x_t joined into an orange box "σ" → f_t ∈ (0, 1); at the right, a small
+    red-bordered box with "Si f_t ≈ 0 →" / "borra C_{t−1}" · "Si f_t ≈ 1 →" / "mantiene C_{t−1}". Caption
+    "0 = olvidar todo · 1 = recordar todo".
+ ② green border: bold green "② PUERTA DE ENTRADA Y CANDIDATO" / italic green "¿Qué información nueva añadir?"
+    i_t = σ(W_i · [h_{t−1}, x_t] + b_i)   "← cuánto añadir (puerta)"
+    g_t = tanh(W_g · [h_{t−1}, x_t] + b_g)   "← qué añadir (candidato)"
+    "i_t controla la cantidad (0, 1)" / "g_t controla el contenido (−1, 1)"   (two lines; open intervals written with
+    a comma and a space, as in the rest of the book)
+ ③ teal border: bold teal "③ ESTADO DE CELDA (Cell State Update)" / bold teal "La autopista del gradiente"
+    C_t = f_t ⊙ C_{t−1} + i_t ⊙ g_t
+    "Donde ⊙ = multiplicación elemento a elemento (Hadamard)" / "f_t ⊙ C_{t−1}  ← parte del pasado que se conserva" /
+    "i_t ⊙ g_t  ← información nueva que se añade"
+    Yellow strip: "C_{t−1} solo se multiplica por f_t → el gradiente decae menos"
+ ④ purple border: bold purple "④ PUERTA DE SALIDA (Output Gate)" / italic purple "¿Qué emitir como h_t?"
+    o_t = σ(W_o · [h_{t−1}, x_t] + b_o)
+    h_t = o_t ⊙ tanh(C_t)
+    "o_t decide qué parte de C_t exponer" · "tanh(C_t) normaliza el estado de celda" · "h_t es lo que sale hacia la
+    siguiente capa"
+
+Arrow tag: "LSTM en el" / "contexto actual" (placed between panels 3 and 4).
+
+---------------------------------------------------------------------
+PANEL 3 — "FLUJO COMPLETO — UNA CELDA LSTM"   (x ≈ 760–1100, y ≈ 103–915)
+---------------------------------------------------------------------
+Classic LSTM cell diagram:
+  Top: a thick teal horizontal line from C_{t−1} (left, label "estado de celda" / "anterior") to C_t (right, "estado
+  de" / "celda nuevo"), with teal "autopista del gradiente →" above it. On the line: a red circle "×" (fed from below by
+  f_t, red arrow labelled f_t), then a teal circle "+".
+  Below: red box "f_t / σ / Forget"; green box "i_t / σ / Input"; orange box "g_t / tanh / Candidate"; a green circle
+  "×" combining i_t and g_t, whose output goes up into "+". From C_t a branch goes down into a teal rounded box "tanh",
+  then into a purple circle "×"; a purple box "o_t / σ / Output" feeds that "×" (purple arrow labelled o_t); the result
+  exits right as large purple h_t with "estado oculto" / "nuevo".
+  Inputs: h_{t−1} at the left (green, "estado oculto" / "anterior") with a green line feeding all four boxes; x_t at
+  the bottom (blue box, "entrada" / "actual") with a blue line feeding all four boxes.
+Two small comparison cards under the cell:
+  red border "RNN clásica:" / h_t = tanh(W·h_{t−1} + W·x_t + b) / "Un solo estado — todo mezclado" / "Gradiente: se
+  atenúa en cada paso"
+  green border "LSTM:" / C_t = f_t ⊙ C_{t−1} + i_t ⊙ g_t / "Dos estados — separación de roles" / "Gradiente: fluye por C_t (solo × f_t)"
+
+---------------------------------------------------------------------
+PANEL 4 — "LSTM EN CONTEXTO"   (x ≈ 1108–1528, y ≈ 103–915)
+---------------------------------------------------------------------
+Bold blue "Solución al vanishing gradient:" and two small log plots (ticks 1, 0.1, 0.01, 0.001; x-axis "Pasos atrás",
+ticks 0, 5, 10, 15, 20). Only the left plot has a y-axis title, rotated 90° and on two lines: "Magnitud del" /
+"gradiente" (bold, 11 px, perfectly legible, nothing overlapping):
+  left, red title "RNN: gradiente" / "se desvanece": red curve through (0, 1), (1, 0.455), (2, 0.209), (5, 0.018),
+  (10, 0.00048) — it crosses 0.001 near step 9 and then runs along the bottom; the area under it shaded light red with
+  dashed verticals; red label "zona" / "ciega" to the right of step 9.
+  right, green title "LSTM: gradiente" / "fluye": a nearly flat green line just below 1 across all 20 steps; green
+  text "C_t protege" / "el gradiente".
+Bold blue "Variantes de LSTM:" and three rows (colored label cell + text):
+  teal "LSTM estándar"  "3 puertas y un candidato."
+  blue "GRU (2014)"     "2 puertas, más simple" / "y casi igual de buena."
+  gray "Peephole LSTM"  "Las puertas también ven" / "C_{t−1} directamente."
+  "GRU ≈ LSTM en la práctica, con menos parámetros."
+Orange-bordered cream card, bold orange "¿Cuándo usar LSTM hoy?": ✓ "Series temporales con dependencias largas" ·
+  ✓ "Señales de audio y habla" · ✓ "Dispositivos con recursos limitados" · ✓ "Cuando el Transformer es excesivo" ·
+  ✗ "NLP moderno de alto rendimiento" / "→ usa Transformer (más rápido, más potente)"
+Lavender card: calendar icon + bold purple "El legado de LSTM:" / "1997–2017: LSTM dominó el procesamiento" / "de
+  secuencias en NLP, audio y video." / "2017: el Transformer la supera en NLP." / "Pero LSTM sigue siendo relevante" /
+  "en dominios donde la recurrencia" / "tiene ventajas prácticas." / bold italic purple "20 años de dominio — no es poco."
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 925–1015, dark navy)
+---------------------------------------------------------------------
+Left, white serif math, four aligned lines with "← label":
+  f_t = σ(W_f·[h_{t−1}, x_t] + b_f)   ← olvido
+  i_t = σ(W_i·[h_{t−1}, x_t] + b_i)   ← entrada
+  C_t = f_t ⊙ C_{t−1} + i_t ⊙ g_t     ← celda
+  h_t = o_t ⊙ tanh(C_t)               ← salida
+Three rounded boxes, white bold: red "f_t: puerta de olvido" · teal "C_t: autopista del gradiente" · purple
+"h_t: salida hacia" / "siguiente capa".
+Right: legend "Color", two columns: Blue = Input x_t / tokens de entrada · Teal = Estado de celda C_t (autopista) ·
+Green = Output y_t / salida · Orange = Activación sigmoid σ | Red = Puerta de olvido (f_t) · Green = Puerta de
+entrada (i_t, g_t) · Purple = Puerta de salida / h_t · Gold = Activación tanh.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 10.2 — LSTM (Long Short-Term Memory)".
+✓ "Tres puertas y un candidato" everywhere; the strings "Cuatro puertas", "CUATRO PUERTAS", "4 puertas", "Las 4
+  puertas" must NOT appear.
+✓ No "SUMAS, no productos" / "sin atenuar": C_{t−1} is multiplied by f_t.
+✓ "gradiente → 0 en pocos pasos" (not épocas). Peephole sees C_{t−1}.
+✓ RNN curve from Programa RNN-2 (0.455, 0.209, 0.018, 0.00048); its y-axis title "Magnitud del gradiente" legible.
+✓ Intervals "(0, 1)" and "(−1, 1)", never "(0-1)".
+✓ Title clean: no stray marks under it.
+✓ Accents: "solución", "información", "Analogía", "multiplicación", "¿Qué", "Señales", "dominó", "parámetros".

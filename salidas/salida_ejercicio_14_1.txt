@@ -1,0 +1,23 @@
+=== MIN-P vs TOP-P ===
+
+Min-P=0.05: 6 tokens activos
+    el: 0.493
+    la: 0.271
+    un: 0.090
+    los: 0.067
+    de: 0.049
+    que: 0.030
+
+Min-P=0.1: 5 tokens activos
+    el: 0.508
+    la: 0.279
+    un: 0.093
+    los: 0.069
+    de: 0.051
+
+Min-P=0.3: 2 tokens activos
+    el: 0.646
+    la: 0.354
+
+Top-P=0.8: 3 tokens activos
+Top-P=0.9: 5 tokens activos

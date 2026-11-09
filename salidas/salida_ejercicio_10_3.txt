@@ -1,0 +1,18 @@
+=== PASOS SECUENCIALES: RNN vs TRANSFORMER ===
+
+RNN:
+  Pasos secuenciales necesarios: 1000
+  (cada paso DEBE esperar al anterior, sin excepcion)
+  Camino mas largo entre token 1 y token 1000: 1000 pasos
+
+Transformer (con self-attention):
+  Pasos secuenciales necesarios: 1 (todos los tokens en paralelo)
+  Camino mas largo entre cualquier par de tokens: 1 paso
+  (la atencion conecta directamente cualquier par)
+
+Lo que cambia es la profundidad del camino secuencial, no un tiempo fijo:
+la RNN encadena 1000 pasos que no pueden solaparse; el Transformer
+procesa las T posiciones a la vez, a cambio de una atencion que cuesta
+O(T^2) en calculo y memoria. Cuanto se gana en tiempo hay que medirlo
+en cada maquina, pero el paralelismo es la razon fundamental por la que
+se puede entrenar con billones de tokens.

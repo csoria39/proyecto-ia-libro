@@ -1,0 +1,25 @@
+=== BPE A MANO: 2 ITERACIONES ===
+
+Vocabulario inicial:
+  ('b', 'a', 'j', 'o', '</w>') x6
+  ('b', 'a', 'j', 'a', 'r', '</w>') x3
+  ('c', 'a', 'j', 'a', '</w>') x4
+  ('c', 'a', 'j', 'o', 'n', '</w>') x2
+
+--- Iteracion 1 ---
+Pares mas frecuentes: [(('a', 'j'), 15), (('b', 'a'), 9), (('j', 'o'), 8)]
+Fusionando: ('a', 'j') (frecuencia 15)
+Vocabulario tras fusion:
+  ('b', 'aj', 'o', '</w>') x6
+  ('b', 'aj', 'a', 'r', '</w>') x3
+  ('c', 'aj', 'a', '</w>') x4
+  ('c', 'aj', 'o', 'n', '</w>') x2
+
+--- Iteracion 2 ---
+Pares mas frecuentes: [(('b', 'aj'), 9), (('aj', 'o'), 8), (('aj', 'a'), 7)]
+Fusionando: ('b', 'aj') (frecuencia 9)
+Vocabulario tras fusion:
+  ('baj', 'o', '</w>') x6
+  ('baj', 'a', 'r', '</w>') x3
+  ('c', 'aj', 'a', '</w>') x4
+  ('c', 'aj', 'o', 'n', '</w>') x2

@@ -1,0 +1,51 @@
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+
+Tensor      error relativo
+wte         1.4e-09
+wpe         6.0e-10
+lnf_g       2.1e-09
+lnf_b       1.4e-09
+ln1_g0      1.9e-09
+ln1_b0      3.5e-09
+Wq0         2.8e-09
+bq0         2.0e-09
+Wk0         1.8e-09
+bk0         gradiente ≈ 0 (numérico y analítico)
+Wv0         1.3e-09
+bv0         7.6e-09
+Wo0         3.3e-09
+bo0         6.1e-09
+ln2_g0      4.5e-09
+ln2_b0      3.3e-09
+W10         5.5e-09
+b10         4.2e-09
+W20         4.5e-09
+b20         3.1e-09
+ln1_g1      3.6e-09
+ln1_b1      6.8e-09
+Wq1         1.7e-09
+bq1         5.2e-09
+Wk1         4.3e-09
+bk1         gradiente ≈ 0 (numérico y analítico)
+Wv1         4.1e-09
+bv1         4.1e-09
+Wo1         2.7e-09
+bo1         3.5e-09
+ln2_g1      3.3e-09
+ln2_b1      2.4e-09
+W11         1.3e-09
+b11         1.3e-08
+W21         3.5e-09
+b21         2.8e-09
+
+Error relativo máximo: 1.3e-08
+
+Sin el segundo término de la derivada de GELU:
+W10         7.9e-01
+b10         1.8e-01
+W20         1.1e-01
+Wq0         1.3e-01
+wte         3.9e-02
+Error relativo máximo: 7.9e-01

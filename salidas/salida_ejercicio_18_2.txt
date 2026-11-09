@@ -1,0 +1,6 @@
+Candidato: "el modelo aprende rapido de los datos"
+Referencias: 3 variantes validas
+BLEU-2 (multi-referencia): 0.9129
+
+Con multiples referencias, el BLEU suele ser MAS ALTO
+porque hay mas oportunidades de coincidir con alguna variante valida.

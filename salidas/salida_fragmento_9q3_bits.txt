@@ -1,0 +1,6 @@
+Pesos leídos en 1.0 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+43 tokens predichos, 225 caracteres
+3.534 nats/token  =  0.675 nats/carácter  =  0.97 bits/carácter
+Un token ocupa de media 5.2 caracteres

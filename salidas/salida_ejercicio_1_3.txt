@@ -1,0 +1,12 @@
+Vector: [2.  1.5 0.5]
+     Tau      P(A)      P(B)      P(C)  Comportamiento
+----------------------------------------------------------
+     0.1    0.9933    0.0067    0.0000  muy determinista
+     0.5    0.7054    0.2595    0.0351  algo concentrada
+     1.0    0.5465    0.3315    0.1220  neutro (default)
+     2.0    0.4442    0.3460    0.2098  algo uniforme
+    10.0    0.3556    0.3383    0.3061  casi uniforme
+
+Con tau=0.1: casi todo el peso en el mayor (2.0)
+Con tau=10:  los tres tokens tienen probabilidad similar
+En generacion de LLMs: tau=0.8 da buen balance

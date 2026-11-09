@@ -1,0 +1,17 @@
+# Entorno PROBADO: las versiones exactas con las que se obtuvieron las salidas de salidas/
+# (Linux x86-64, CPU, OPENBLAS_NUM_THREADS=1). requirements.txt da los mínimos compatibles;
+# este archivo fija el entorno de referencia para reproducir las cifras al decimal.
+#
+#   python -m pip install -r requirements-probado.txt
+#   python verificaciones/verificar_entorno.py
+#
+# Python 3.13.16
+numpy==2.5.4            # con OpenBLAS 0.3.34; el libro cita la 2.5.3: las dos dan las mismas salidas
+matplotlib==3.11.2
+safetensors==0.8.0
+tokenizers==0.23.3
+huggingface_hub==2.4.0
+transformers==5.22.1    # verificaciones y Capítulo 20 (también probado con 5.20.1)
+# Apéndice D (PyTorch). En Linux sin GPU NVIDIA, instala antes la versión CPU:
+#   pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1

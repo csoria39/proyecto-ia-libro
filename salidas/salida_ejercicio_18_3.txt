@@ -1,0 +1,11 @@
+=== SIMULACION: OVERFITTING DE BENCHMARK ===
+
+Precision en benchmark CONTAMINADO (visto antes): 100.0%
+Precision en benchmark NUEVO (nunca visto):       35.0%
+Precision esperada al azar (4 opciones):           25.0%
+
+El modelo "memorizador" parece perfecto (100%) en el benchmark
+contaminado, pero su rendimiento real (en preguntas nuevas)
+es indistinguible del azar. Esto es exactamente lo que ocurre
+cuando un LLM ha visto las respuestas del benchmark durante
+su preentrenamiento: la metrica miente sobre la capacidad real.

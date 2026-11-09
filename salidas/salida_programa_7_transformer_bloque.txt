@@ -1,0 +1,10 @@
+=== BLOQUE TRANSFORMER ===
+Entrada: 6 tokens x 16 dimensiones
+Salida:  6 tokens x 16 dimensiones
+El bloque mantiene las dimensiones (T=6, d=16)
+Parámetros del bloque: 3280
+
+La vía residual conserva la entrada:
+  Std de la entrada:        1.1279
+  Std de lo que se suma:    0.0061
+  Std de la salida:         1.1264

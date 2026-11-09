@@ -1,0 +1,25 @@
+=== SELF-ATTENTION ===
+Secuencia: ['la', 'red', 'aprende', 'del', 'texto']
+T=5 tokens, dimensión d=4
+
+Pesos de atención BIDIRECCIONAL (fila=query, col=key):
+(cada fila indica cuánto atiende ese token a los demás)
+[[0.175 0.199 0.252 0.171 0.203]
+ [0.194 0.206 0.2   0.179 0.22 ]
+ [0.222 0.196 0.168 0.227 0.187]
+ [0.194 0.19  0.227 0.213 0.176]
+ [0.177 0.213 0.21  0.15  0.25 ]]
+
+Pesos de atención CAUSAL (solo mira el pasado):
+[[1.    0.    0.    0.    0.   ]
+ [0.484 0.516 0.    0.    0.   ]
+ [0.379 0.335 0.286 0.    0.   ]
+ [0.236 0.231 0.275 0.258 0.   ]
+ [0.177 0.213 0.21  0.15  0.25 ]]
+
+Interpretación del token "aprende" (fila 2):
+  -> la         0.379  ███████████████
+  -> red        0.335  █████████████
+  -> aprende    0.286  ███████████
+  -> del        0.000  
+  -> texto      0.000  

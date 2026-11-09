@@ -1,0 +1,46 @@
+Vocabulario: 46 caracteres
+Total de parámetros: 60,000
+Texto de entrenamiento: 5076 tokens, 93 líneas
+=== COMPARATIVA DE ESTRATEGIAS ===
+Semilla: "la inteligencia"  |  70 tokens a generar
+
+  [Greedy (tau=0.01)]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el 
+
+  [Solo temperatura (tau=0.8)]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguades.
+el aprendi
+
+  [Top-k=5, tau=0.8]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguades.
+el aprendi
+
+  [Top-p=0.90, tau=0.8]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguaje predicen el 
+
+  [Top-p=0.90 + rep_pen=1.2]
+  -> la inteligencia artificial aprende de los datos.
+los modelos de lenguaje práctica, un
+
+=== EFECTO EN LA DIVERSIDAD DEL TEXTO ===
+
+Tau muy bajo (< 0.3):
+  El modelo siempre elige el token mas probable.
+  Texto coherente pero repetitivo. Mismo texto siempre.
+
+Tau 0.7-0.9 + Top-p=0.90 (configuracion estandar):
+  Balance entre coherencia y variedad.
+  Cada ejecucion produce texto distinto pero sensato.
+  Es la configuracion por defecto de la mayoria de LLMs.
+
+Tau muy alto (> 1.5):
+  El texto se vuelve incoherente. Palabras aleatorias.
+  Util para explorar espacios creativos extremos.
+
+Top-p=0.90 + rep_pen=1.2:
+  Evita la repeticion. Necesario en textos largos.
+  Riesgo: penalizacion muy alta puede evitar palabras necesarias.

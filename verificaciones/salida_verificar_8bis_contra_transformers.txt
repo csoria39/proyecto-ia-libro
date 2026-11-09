@@ -1,0 +1,18 @@
+Pesos leídos en 7.3 s: 160 tensores
+Vocabulario: 50257 tokens | Bloques: 12 | Cabezas: 12 | D: 768 | Contexto: 1024
+Total de parámetros: 124,439,808
+Claves no cargadas: [] []
+1. Tokenizador: 50 de 50 textos idénticos []
+2. Forward: diferencia máxima de logits = 8.1e-05
+3. Backward: pérdida 1.82833 (nuestra) frente a 1.82832 (transformers)
+   wte    error relativo 1.3e-05
+   wpe    error relativo 4.4e-04
+   Wq0    error relativo 3.9e-04
+   Wv5    error relativo 8.4e-04
+   W111   error relativo 1.8e-04
+   ln1_g0 error relativo 3.5e-04
+   lnf_b  error relativo 3.2e-05
+
+real	0m35.644s
+user	0m18.085s
+sys	0m23.721s

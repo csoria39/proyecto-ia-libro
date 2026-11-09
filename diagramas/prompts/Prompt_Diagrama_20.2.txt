@@ -1,0 +1,162 @@
+DIAGRAMA 20.2 — MODELOS MULTIMODALES
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
+
+Ubicación en el libro: Capítulo 20, apartado 20.5 «Multimodalidad — Cuando CNN y Transformer se Unen». Página 315 del
+PDF de KDP, girada 90° (1024 × 1536 en el .docx).
+Imagen de referencia: diagramas/Diagrama_20.2.png (1536 × 1024 px). Es la del libro una vez girada, salvo el
+retoque del número del título (scripts/renumerar.py, «19» → «20.2»).
+Contenido según el libro (20.5): «Los grandes modelos actuales —GPT, Gemini, Claude y muchos modelos abiertos—
+procesan texto e imágenes a la vez. La receta más extendida … un encoder visual trocea la imagen en parches y
+convierte cada parche en un vector …»; resumen del capítulo: «Los modelos multimodales unen un encoder visual
+(CNN/ViT) con un Transformer compartido; los modelos de difusión usan una arquitectura y objetivo distintos».
+Las tablas de modelos (2024–2025) son una foto de ese momento; no se toman de ningún programa.
+
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_20.2.png y en el
+libro; este prompt describe esa imagen final). Las 1-4 se repintaron el 8-11-2026 (scripts/repintado_2026-11-08/,
+versión anterior en originales/Diagrama_20.2_antes_repintado_2026-11-08.png); las 5-8, el 9-11-2026
+(scripts/repintado_2026-11-09b/f20_2.py, versión anterior en originales/Diagrama_20.2_antes_2026-11-09b.png).
+  1. «Todo el libro en una figura» salta del Capítulo 12 al 20 y omite los Capítulos 13–16, el núcleo del libro
+     (el Nano-LLM y GPT-2 con tu propio código). Aquí la caja de los Caps. 10-12 pasa a cubrir
+     los Caps. 10-16: «Caps. 10-16: RNN → TRANSFORMER → NANO-LLM → GPT-2».
+  2. CLIP: «sim=0.92» y «sim=0.18» se presentan como medidas, pero son ilustrativas (en CLIP real, una pareja
+     imagen-texto correcta suele dar similitudes coseno en torno a 0.3). Se rotulan «(similitudes ilustrativas)».
+  3. «Con lo que sabes aquí, puedes entender cualquier paper de IA de los últimos 10 años» promete demasiado. Aquí:
+     «tienes las bases para leer los artículos de IA de la última década».
+  4. «Claude Visión» → «Claude».
+  5. «Conv → Pool × N» llevaba un subrayado suelto bajo la N (el repintado del 8-11 no llegó a borrarlo). Borrado.
+  6. CLIP: «(similitudes ilustrativas)» pisaba el borde inferior de la caja gris. Ahora va dentro del panel, debajo
+     de la caja, alineado a la derecha, y «Conecta espacio visual y textual.» baja una línea.
+  7. Barra inferior: en «imagen → CNN/ViT › [v₁, …, v_n]» la flecha estaba deformada (una «›» pequeña). Ahora «→».
+  8. Encoder visual: la flecha de «CNN clásica» a «ViT» sugería que van en serie, cuando son alternativas (o una CNN
+     o un ViT). Ahora, entre las dos cajas, «o bien» en lugar de la flecha.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a dense, professional educational infographic in Spanish, LANDSCAPE, exactly 1536 × 1024 px, white background,
+flat vector style. Four tall panels side by side, joined by dark-navy "arrow tags", plus a dark-navy bottom bar.
+Panels: rounded cards (radius ≈ 10 px, border #2A3F7A), dark-navy header (#14295E), white bold uppercase 15 px.
+Fonts: bold condensed sans-serif for the title; Inter/Roboto for text; serif italic for math (v₁, t₁, n+m). Render
+every string exactly as written; add no other text.
+
+Color code: Blue #1F5FAD = Texto / Tokenizer / embeddings · Teal #138A82 = Encoder visual (CNN / ViT) · Gold #E3A21A
+= Projection layer (dim. mapping) · Green #2E7D32 = Fusión / Cross-attention · Orange #F57C00 = Transformer Decoder ·
+Purple #6A1B9A = Respuesta generada / output.
+
+---------------------------------------------------------------------
+HEADER (y = 0–100), centered
+---------------------------------------------------------------------
+"DIAGRAMA 20.2 — MODELOS MULTIMODALES"   44 px bold condensed navy
+"Resumen visual del Capítulo 20 — Cuando CNN y Transformer se unen"   20 px bold gray
+"Imagen → Encoder Visual → Tokens Visuales ↔ Tokens de Texto → Transformer → Respuesta"   22 px bold navy
+"GPT-4V, Gemini, LLaMA-3.2V: el mismo principio que aprendiste, a escala masiva"   15 px bold gray
+
+---------------------------------------------------------------------
+PANEL 1 — "¿POR QUÉ MULTIMODAL?"   (x ≈ 8–330, y ≈ 108–910)
+---------------------------------------------------------------------
+Red card: red ✗ + bold red "LLM de solo texto:" / "Muestra una foto de un gato y pregunta:" / "“¿Qué animal hay en
+  esta imagen?”" / "→ El LLM no puede verla." / "Solo procesa secuencias de tokens." / "→ La imagen no existe para él."
+Orange card: light-bulb + bold orange "La clave conceptual:" / "Una imagen es una SECUENCIA DE VECTORES." / "Si
+  convertimos la imagen en vectores" / "con la misma dimensión que los" / "embeddings de texto, el Transformer" /
+  "puede procesarlos JUNTOS." / monospace "imagen → CNN/ViT → [v₁, v₂, …, v_n]" / "texto  → Tokenizer → [t₁, t₂, …, t_m]"
+  / bold orange "→ El Transformer ya sabe cómo" / "mezclar secuencias de vectores."
+Green card: ☑ + bold green "Todo lo que ya sabes:" / "Cap. 8 → embeddings (vectores)" / "Cap. 12 → Transformer
+  (procesa vectores)" / "Ap. G → CNN (imagen → vectores)" / bold green "Multimodal = unir las tres piezas." / bold
+  green "No es nueva arquitectura," / "es nueva forma de combinar."
+Purple card: palette icon + bold purple "Diffusion Models (DALL-E):" / "Dirección INVERSA: texto → imagen." / "Añaden
+  y quitan ruido iterativamente." / "Base: U-Net + cross-attention con texto." / "No son LLMs — son una familia distinta."
+
+Arrow tag between panels 1 and 2: a thick navy arrow at mid-height and, just below it, a dark-navy rounded label
+with white text "arquitectura" / "completa".
+
+---------------------------------------------------------------------
+PANEL 2 — "ARQUITECTURA MULTIMODAL COMPLETA"   (x ≈ 345–780, y ≈ 108–910)
+---------------------------------------------------------------------
+"Cómo GPT-4V procesa una imagen y texto simultáneamente"
+Left column:
+  blue box, photo icon: "IMAGEN DE ENTRADA" / "(H × W × 3)"
+  teal block "ENCODER VISUAL" containing: green box "CNN clásica" / "Conv → Pool × N" (no underline anywhere) /
+    "→ mapa de características"; below it, NO arrow but the words "o bien" (small bold italic, dark teal, centered),
+    because the CNN and the ViT are alternatives; then a dashed green box "ViT (Vision Transformer)" / "Divide imagen en patches 16×16" / "Cada patch → token visual" /
+    "→ Procesa con Transformer"
+  gold box "PROJECTION LAYER" / "W_proj × features → d_model" / "Mapea dim. visual → dim. texto"
+Right column:
+  blue box, speech icon: "TEXTO DE ENTRADA" / "“¿Qué animal aparece en la imagen?”"
+  blue box "TOKENIZER + EMBEDDINGS" / "texto → tokens → vectores d_model"
+  a row of blue token boxes [t₁] [t₂] [t₃] [···] [t_m] and "m tokens de texto"
+Both columns merge into a green box "FUSIÓN" (two-arrows icon): "Concatenar secuencias:" / large serif
+  "[v₁, …, v_n, t₁, …, t_m]" / "n+m tokens en total" / "El Transformer trata todos igual:" / "no distingue visual de texto"
+Orange box "TRANSFORMER DECODER": "Multi-Head Attention sobre n+m tokens" / "Cada token puede atender a:" / bullets
+  "Otros tokens de texto" · "Tokens visuales de la imagen" · "→ Cross-modal attention emergente"; a brace to the right
+  with "mismo Transformer" / "del Capítulo 12".
+A row of purple boxes [r₁] [r₂] [r₃] [···] "Generación autorregresiva del texto"
+Green rounded box with a check: "“En la imagen aparece un gato naranja" / "sentado sobre una silla de madera.”"
+
+Arrow tag between panels 2 and 3 (same style, mid-height): "modelos" / "del" / "ecosistema".
+
+---------------------------------------------------------------------
+PANEL 3 — "TIPOS DE MODELOS MULTIMODALES"   (x ≈ 790–1095, y ≈ 108–910)
+---------------------------------------------------------------------
+"El ecosistema de 2024–2025"
+Green-bordered card: image+speech icons + bold green "Visión → Lenguaje"; table ("Modelo" | "Organización" | "Capacidad"):
+  GPT-4V/GPT-4o | OpenAI    | imagen + texto + audio
+  Gemini 1.5    | Google    | imagen + texto + video
+  Claude 3.5    | Anthropic | imagen + texto
+  LLaMA-3.2V    | Meta (OS) | imagen + texto (open)
+  Qwen-VL       | Alibaba   | imagen + texto (open)
+Blue-bordered card: link icon + bold blue "CLIP — Conectar imagen y texto" / "OpenAI (2021) — base de muchos modelos";
+  flow: "Imagen" (photo) → "Image Encoder" → "Vector imagen 512D"; "Texto" (doc) → "Text Encoder" → "Vector texto 512D";
+  a vertical double arrow between the two vectors "similitud coseno". Gray rounded box with two lines:
+  "“un gato naranja” ↔ foto de gato: sim=0.92" / "“un perro blanco” ↔ foto de gato: sim=0.18". BELOW the box (not on
+  its border), right-aligned, small italic gray "(similitudes ilustrativas)"; then bold green, centered, "Conecta
+  espacio visual y textual."; then "Base de: DALL-E, Stable Diffusion, búsqueda visual"
+Purple-bordered card: palette + bold purple "Lenguaje → Imagen (Difusión)" / "Dirección inversa: texto → imagen";
+  flow "prompt" → "Text Encoder" → "U-Net + Attention" → "imagen"; table ("Modelo" | "Organización" | "Características"):
+  DALL-E 3 | OpenAI | mejor prompt following · Stable Diffusion | Stability | open-source, personalizable · Midjourney |
+  MJ Lab | más artístico, calidad alta · Imagen | Google | fotorrealismo; "Mecanismo: añaden ruido gaussiano y" /
+  "luego aprenden a eliminarlo guiados por texto"
+
+Arrow tag between panels 3 and 4 (same style, mid-height): "todo el libro" / "conectado".
+
+---------------------------------------------------------------------
+PANEL 4 — "TODO EL LIBRO EN UNA FIGURA"   (x ≈ 1105–1528, y ≈ 108–910)
+---------------------------------------------------------------------
+"De la neurona al modelo multimodal"; a vertical teal arrow at the left labelled "progresión del libro" (rotated).
+Five stacked boxes joined by down-arrows with short captions:
+  green "Caps. 2-3: LA NEURONA" / "σ(w·x + b) — la unidad básica" (neuron sketch)        ↓ "combinar en redes"
+  green "Cap. 6: MLP" / "Capas de neuronas → clasificación" (small network)              ↓ "necesitamos más capacidad"
+  blue  "Apéndice G: CNN" / "Filtros que detectan bordes → imágenes" (grid → edge image)  ↓ "¿cómo procesar texto largo?"
+  orange "Caps. 10-16: RNN → TRANSFORMER → NANO-LLM → GPT-2" / "Atención global → tu LLM y GPT-2 con tu código"
+       (chain of boxes)                                                                  ↓ "¿cómo combinar?"
+  purple (larger) "Cap. 20: MULTIMODAL" / "CNN encoder + Transformer decoder" / "= GPT-4V, Gemini, Claude" (photo + speech
+       icons → grid → purple speech bubble)
+Orange-bordered cream card: light-bulb + bold orange "El principio que une todo:" / "Una red neuronal transforma" /
+  "CUALQUIER entrada en vectores." / "Un Transformer combina CUALQUIER" / "secuencia de vectores." and a list "• Texto →
+  tokens → vectores · Imagen → patches/CNN → vectores · Audio → espectrograma → vectores · Video → frames → vectores";
+  bold green "El Deep Learning es universal" / "porque los vectores son universales."
+Navy card with a mortarboard icon: white bold "Has llegado al final del libro." / white "Con lo que sabes aquí, tienes
+  las bases" / "para leer los artículos de IA de la última década."
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 918–1015, dark navy)
+---------------------------------------------------------------------
+Left, white, condensed sans with math subscripts; all arrows are full-size "→" (none smaller than the others):
+  "imagen → CNN/ViT → [v₁, …, v_n]   (tokens visuales)"
+  "texto  → embed   → [t₁, …, t_m]   (tokens de texto)"
+  "output → Transformer([v₁, …, v_n, t₁, …, t_m])"
+Three rounded boxes, white bold: teal "CNN/ViT:" / "imagen → tokens" · green "Fusión:" / "visual + texto juntos" ·
+orange "Transformer:" / "genera la respuesta".
+Right: legend box with the six colors in two columns: Blue = Texto / Tokenizer / embeddings · Teal = Encoder visual
+(CNN / ViT) · Gold = Projection layer (dim. mapping) | Green = Fusión / Cross-attention · Orange = Transformer Decoder ·
+Purple = Respuesta generada / output.
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 20.2 — MODELOS MULTIMODALES"; subtitle mentions "Capítulo 20".
+✓ Panel 4 box "Caps. 10-16: RNN → TRANSFORMER → NANO-LLM → GPT-2" (covers the Nano-LLM and GPT-2 chapters).
+✓ CLIP similarities marked "(similitudes ilustrativas)", inside the panel, not over any border.
+✓ "o bien" between CNN and ViT (alternatives, not a pipeline). No underline under the N of "Pool × N".
+✓ Final card: "tienes las bases para leer los artículos de IA de la última década" (not "cualquier paper").
+✓ Accents: "Visión", "FUSIÓN", "características", "Dirección", "Organización", "progresión", "fotorrealismo".

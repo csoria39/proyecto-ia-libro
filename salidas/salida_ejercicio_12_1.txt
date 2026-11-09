@@ -1,0 +1,16 @@
+Nuestro bloque (d=16)
+  Atención:      1,088  FFN:      2,128  LN:     64
+  Por bloque:      3,280   x 1 bloques =           3,280 total
+
+Nano-LLM completo (2 bl.)
+  Atención:      9,408  FFN:     18,672  LN:    192
+  Por bloque:     28,272   x 2 bloques =          56,544 total
+
+GPT-2 small (d=768, 12bl)
+  Atención:  2,362,368  FFN:  4,722,432  LN:  3,072
+  Por bloque:  7,087,872   x 12 bloques =      85,054,464 total
+
+GPT-3 (d=12288, 96bl)
+  Atención: 604,028,928  FFN: 1,208,020,992  LN: 49,152
+  Por bloque: 1,812,099,072   x 96 bloques = 173,961,510,912 total
+

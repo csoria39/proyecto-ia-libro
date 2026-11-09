@@ -1,0 +1,136 @@
+DIAGRAMA 12.1 — EL BLOQUE TRANSFORMER
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final). Sustituye a Prompt_Diagrama_14_v18.txt (numeración antigua).
+
+Ubicación en el libro: Capítulo 12 (El Transformer — La Arquitectura que lo Cambió Todo), apartado 12.3 «El bloque
+Transformer completo». Página 144 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
+Imagen de referencia: diagramas/Diagrama_12.1.png (1672 × 941 px). Es la del libro una vez girada, salvo el retoque
+del número del título (scripts/renumerar.py, «14» → «12.1»).
+Cifras, todas del libro:
+  · Programa 7: bloque de d = 16, 3280 parámetros (salida «Parámetros del bloque: 3280»).
+  · Ejercicio 12.1 / tabla del Capítulo 13: Nano-LLM, 28 272 parámetros por bloque, 60 000 en total (2 bloques, d = 48).
+  · Fórmula por bloque con d_ff = 4d: atención 4d² + 4d · FFN 8d² + 5d · LayerNorm 4d → 12d² + 13d
+    (d = 48 → 28 272; d = 768 → 7 087 872, comprobado).
+  · GPT-2 small: 12 bloques, d = 768, 124 439 808 parámetros («Si aplicas la cuenta … obtienes exactamente sus
+    124 439 808 parámetros»). 12 × 7 087 872 = 85 054 464 ≈ 85 M; wte + wpe = 50 257·768 + 1024·768 = 39 383 808
+    ≈ 39 M; más 1536 de la LayerNorm final.
+  · GPT-3: 96 bloques, d = 12 288 (texto de 12.3 y Ejercicio 12.1), 175 000 M.
+  · GELU (13.4.2): gelu(x) = 0.5·x·(1 + tanh(√(2/π)·(x + 0.044715·x³))).
+
+Corrección respecto a la imagen publicada el 7-11-2026 (ya está en diagramas/Diagrama_12.1.png y en el libro desde
+el 9-11-2026; este prompt describe esa imagen final, que en la revisión completa del 9-11-2026 no necesitó más
+cambios):
+  1. Formato numérico: la imagen separaba los miles con punto («3.280», «60.000», «12.288», «175.000 M», «28.272»,
+     «7.087.872», «124.439.808») y usaba coma decimal en la GELU («0,5», «0,044715»). El libro usa espacio para los
+     miles a partir de cinco cifras («60 000», «124 439 808»), las de cuatro cifras juntas («3280») y punto decimal.
+
+======================================================================
+PROMPT
+======================================================================
+
+Create a clean, professional technical infographic in Spanish, LANDSCAPE, exactly 1672 × 941 px, white background,
+flat vector style. Four tall numbered panels side by side with navy arrow-heads between them, plus a dark-navy bottom
+bar. Panels: rounded cards (radius ≈ 10 px, border #1A3A6B), header bar dark navy (#0A3A7A) with white bold uppercase
+16 px "N. TITLE". Fonts: Inter/Roboto; monospace (Courier-like) for formulas and code. Numbers: DECIMAL POINT;
+thousands: four-digit numbers together ("3280", "1024"), five or more digits grouped in threes with a thin space
+("60 000", "124 439 808"). Render every string exactly as written; add no other text.
+
+Colors: Blue #1565C0 = input / embeddings · Teal #00897B = multi-head attention · Orange #E65100 = feed-forward (FFN)
+· Green #2E7D32 = LayerNorm and residual path · Purple #6A1B9A = salida · Gold #B8860B = parámetros / cifras ·
+Red #C62828 = warning card.
+
+---------------------------------------------------------------------
+HEADER (y = 0–100), centered
+---------------------------------------------------------------------
+"DIAGRAMA 12.1 — EL BLOQUE TRANSFORMER"   38 px bold navy
+"Resumen visual del Capítulo 12 — la arquitectura que lo cambió todo"   22 px slate gray
+"LayerNorm → Atención causal → suma residual  ·  LayerNorm → FFN (GELU) → suma residual  ·  Apilado N veces"
+   26 px bold navy
+"Diseño Pre-LN de GPT-2 — el mismo del Programa 7 y del Nano-LLM"   16 px gray
+
+---------------------------------------------------------------------
+PANEL 1 — "1. ¿POR QUÉ ESTE DISEÑO?"   (x ≈ 10–370, y ≈ 110–480)
+---------------------------------------------------------------------
+Four stacked cards, each with a colored header strip (white bold text + round white icon) and 2–3 lines of text:
+  red, "!" icon        "La atención sola no basta"   "Mezcla información ENTRE tokens," / "pero no transforma cada token."
+  teal, network icon   "Multi-Head Attention"        "Cada token consulta a los anteriores" / "(máscara causal). Varias
+                                                     cabezas," / "varios tipos de relación."
+  orange, gear icon    "Feed-Forward (FFN)"          "Red de dos capas aplicada a cada" / "posición por separado:
+                                                     transforma" / "lo que la atención ha reunido."
+  green, shield icon   "Residual + LayerNorm"        monospace "x + subcapa(LayerNorm(x)):" / "la vía residual queda
+                                                     libre y el gradiente" / "la recorre sin atenuarse."
+
+---------------------------------------------------------------------
+PANEL 2 — "2. UN BLOQUE (PRE-LN, COMO GPT-2)"   (x ≈ 385–745, y ≈ 110–480)
+---------------------------------------------------------------------
+Vertical flow of rounded boxes with numbered discs, thin navy down-arrows between them, and a thick GREEN residual
+line on the left that skips each sublayer and rejoins at a green "⊕" disc:
+  ① blue box: bold "Entrada X" + "(T × d)"
+  ② blue DASHED box (only before the first block): monospace "x = wte[tokens] + wpe[posiciones]" / "(posición APRENDIDA)"
+  ③ green box: bold "LayerNorm 1" + "(γ, β aprendibles)"
+  ④ teal box: bold "Atención causal multi-cabeza:" / "Q = x·W_Q,  K = x·W_K,  V = x·W_V" / "softmax(QKᵀ/√d_k +
+     máscara)·V · W_O"
+  ⊕ green box: monospace "x = x + MHA(LayerNorm(x))"
+  ⑤ green box: bold "LayerNorm 2"
+  ⑥ orange box: monospace "FFN(x) = GELU(x·W₁ + b₁)·W₂ + b₂" (GELU in red) / "W₁: d × 4d    W₂: 4d × d"
+  ⊕ green box: monospace "x = x + FFN(LayerNorm(x))"
+  ⑦ purple box: bold "Salida del bloque" + "(T × d)" / "— la misma forma que la entrada"
+A right bracket spanning the whole flow (from ① to ⑦) with "× N" / "bloques" next to it. The green residual line
+enters from the left with green arrowheads into ③, the first ⊕, ⑤ and the second ⊕.
+Under the flow, light-blue box: bold "LayerNorm final" + "→ logits = x · wteᵀ" / "(la misma tabla de embeddings,
+compartida) → softmax" (softmax bold).
+
+---------------------------------------------------------------------
+PANEL 3 — "3. LAS PIEZAS, DE CERCA"   (x ≈ 760–1130, y ≈ 110–480)
+---------------------------------------------------------------------
+Green-headed card "LayerNorm": monospace "LayerNorm(x) = γ · (x − μ) / √(σ² + ε) + β" / "(por fila: cada token por
+  separado)". Two small blue bar charts side by side, y-ticks −2, 0, 2: "Antes de LayerNorm" (bars of very different
+  heights, between −2 and 2) and "Después de LayerNorm" (bars centered on 0, smaller and more uniform).
+Orange-headed card "GELU": monospace "gelu(x) = 0.5·x·(1 + tanh(√(2/π)·(x + 0.044715·x³)))". Small plot, x-ticks −3, 0,
+  2; y-ticks −1, 0, 1, 2: solid orange GELU curve (slightly below 0 for negative x, smooth around 0) and a dashed gray
+  ReLU; legend "GELU" (orange), "ReLU" (dashed gray); caption "suave, sin esquina en 0".
+Blue-headed card "Post-LN frente a Pre-LN":
+  "Transformer original (2017), Post-LN:" / monospace "x = LayerNorm(x + subcapa(x))"
+  "GPT-2 y casi todos los LLM actuales, Pre-LN:" / monospace "x = x + subcapa(LayerNorm(x))" + small "← el de este libro"
+  "Los LLM recientes cambian piezas, no la idea:" / "RMSNorm, SwiGLU, RoPE, GQA."
+
+---------------------------------------------------------------------
+PANEL 4 — "4. APILADO Y ESCALA"   (x ≈ 1145–1660, y ≈ 110–480)
+---------------------------------------------------------------------
+Stack of three blocks drawn bottom-up with up-arrows between them: blue "Bloque 1" (bottom) → teal "Bloque 2" →
+purple "Bloque N" (top), and at the right
+"Cada bloque" / "refina la" / "representación."
+Light-blue card "Arquitecturas reales" with a table (header "Modelo" | "Bloques" | "d" | "Parámetros"):
+  Programa 7  | 1  | 16     | 3280
+  Nano-LLM    | 2  | 48     | 60 000
+  GPT-2 small | 12 | 768    | 124 M
+  GPT-3       | 96 | 12 288 | 175 000 M
+Light-blue card "Parámetros de un bloque (d_ff = 4d)":
+  "Atención: 4·d² + 4·d        FFN: 8·d² + 5·d"
+  "LayerNorm: 4·d"
+  "≈ 12·d²  por  bloque"
+  "Nano-LLM (d = 48):  28 272 por bloque"
+  "GPT-2 small (d = 768):  7 087 872 por bloque"
+  "GPT-2 small:  12 bloques ≈ 85 M + embeddings 39 M" / "= 124 439 808"
+
+---------------------------------------------------------------------
+BOTTOM BAR (y ≈ 860–935, dark navy)
+---------------------------------------------------------------------
+Left, white monospace with gray "← …" notes:
+  "x = x + MHA(LayerNorm(x))     ← subcapa 1"
+  "x = x + FFN(LayerNorm(x))     ← subcapa 2"
+  "params ≈ 12 · N · d²          ← regla práctica (sin embeddings)"
+Three rounded boxes with white bold text: teal "Atención:" / "relaciones entre tokens" → orange "FFN:" /
+"transformación" / "por posición" → green "Residual + LayerNorm:" / "estabilidad y gradientes".
+Right, after a thin vertical white rule: "Sistema de colores:" with seven swatches in two columns: blue "Input /
+Embeddings" · teal "Multi-Head Attention" · orange "Feed-Forward (FFN)" | light green "LayerNorm" · green "Residual /
+Conexión" · purple "Salida" · orange-gold "Parámetros / Cifras".
+
+---------------------------------------------------------------------
+FINAL CHECK
+---------------------------------------------------------------------
+✓ Title "DIAGRAMA 12.1 — EL BLOQUE TRANSFORMER"; subtitle mentions "Capítulo 12".
+✓ Main flow is Pre-LN: LayerNorm BEFORE each sublayer, residual sum AFTER it; no "Add & Norm" boxes. Post-LN only in
+  the comparison card.
+✓ Numbers: 3280 · 60 000 · 12 288 · 175 000 M · 28 272 · 7 087 872 · 124 439 808 (spaces, not points); GELU with
+  "0.5" and "0.044715".
+✓ FFN uses GELU; the position table is learned (wpe), no sinusoidal encoding.

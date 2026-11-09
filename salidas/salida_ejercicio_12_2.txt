@@ -1,0 +1,13 @@
+ANTES de LayerNorm:
+  Media global:    5.1793  (≈5)
+  Std global:      2.6965   (≈3)
+  Media por fila:  [5.93  3.627 4.629 5.549 6.161]
+
+DESPUÉS de LayerNorm:
+  Media global:    0.00000000  (≈0)
+  Std global:      0.99999552   (≈1)
+  Media por fila:  [ 0.  0. -0.  0. -0.]
+  Std por fila:    [0.999997 0.999995 0.999997 0.999994 0.999995]
+
+LayerNorm garantiza activaciones bien escaladas,
+lo cual es crucial para entrenar redes muy profundas.
