@@ -1,5 +1,5 @@
 DIAGRAMA 2.1 — LA NEURONA ARTIFICIAL
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 2 (La Neurona — Del Cerebro al Código), al final del apartado «Softmax», justo
 antes del recuadro «RESUMEN — LO ESENCIAL DE ESTE CAPÍTULO». Página 19 del PDF de KDP, girada 90° (en el .docx va
@@ -10,11 +10,11 @@ Cifras: el diagrama es conceptual. La única cifra con origen en el libro son la
 ejemplo del propio capítulo: z = [2.0, 1.0, 0.5] → softmax = [0.628, 0.231, 0.140] (comprobado con NumPy:
 0.62853, 0.23122, 0.14024).
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. Las tres barras de la mini-gráfica de softmax miden ≈ 0.95, 0.55 y 0.25: suman ≈ 1.75, cuando la caja de al lado
-     dice «Probabilidades (0, 1) que suman 1». Aquí miden 0.628, 0.231 y 0.140, las del ejemplo del capítulo.
-  2. Sobre la flecha x₁ → w₁ aparece una «z» pequeña suelta (artefacto del generador). Se elimina.
-Todo lo demás reproduce la imagen publicada tal cual.
+Correcciones respecto a la imagen publicada el 7-11-2026 (las dos ya están en diagramas/Diagrama_2.1.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. Las tres barras de la mini-gráfica de softmax medían ≈ 0.95, 0.55 y 0.25: sumaban ≈ 1.75, cuando la caja de al
+     lado dice «Probabilidades (0, 1) que suman 1». Ahora miden 0.628, 0.231 y 0.140, las del ejemplo del capítulo.
+  2. Sobre la flecha x₁ → w₁ había una «z» pequeña suelta (artefacto del generador). Eliminada.
 
 ======================================================================
 PROMPT
@@ -107,7 +107,8 @@ Each cell = an icon circle (≈ 46 px) + a bold colored title + 2–3 lines of 1
 ---------------------------------------------------------------------
 ZONE D — "FUNCIONES DE ACTIVACIÓN MÁS COMUNES" (y ≈ 645–935)
 ---------------------------------------------------------------------
-Centered heading, 24 px bold navy: "FUNCIONES DE ACTIVACIÓN MÁS COMUNES". Below it, four columns separated by thin
+Centered heading, 24 px bold navy: "FUNCIONES DE ACTIVACIÓN MÁS COMUNES", placed above columns ② and ③ (the headers
+of ①, ② and ④ sit on the same line as it; ③'s header sits just below it). Below, four columns separated by thin
 vertical rules, plus a fifth card on the right. Each column: numbered circle + colored name, the formula in serif,
 a small plot on the left, a tinted info box on the right ("Rango:" / value / "Uso:" / text, all centered, 13 px),
 and below a small white box with one ✓ (green check) line and one ✗ (red cross) line, 13 px.

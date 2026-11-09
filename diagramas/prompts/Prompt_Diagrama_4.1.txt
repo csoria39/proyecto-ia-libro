@@ -1,5 +1,5 @@
 DIAGRAMA 4.1 — GRADIENTE DESCENDENTE
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 4 (El Aprendizaje — Gradientes y Backpropagation), tras el apartado 4.5
 «Programa 2 — Una neurona que aprende» y el resumen del capítulo. Página 36 del PDF de KDP, vertical.
@@ -7,13 +7,14 @@ Imagen de referencia: diagramas/Diagrama_4.1.png (1024 × 1536 px), idéntica a 
 Cifras: el diagrama es conceptual; no muestra cifras de ningún programa. La regla de actualización es la del
 capítulo: w ← w − η·∇L(w) (Programa 2 usa lr = 0.5 en el ejemplo numérico de 4.4).
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. Panel 4: la flecha verde −∇L(w) no es la opuesta de la roja ∇L(w) (una sube a la derecha y la otra baja a la
-     derecha) y no apunta hacia el centro de las curvas de nivel. Aquí las dos flechas son colineales y de sentido
-     contrario, perpendiculares a la curva de nivel que pasa por el punto: ∇L hacia fuera, −∇L hacia el mínimo.
-  2. Panel 1: las flechas entre los puntos del recorrido tienen doble punta (↔). El descenso va en un solo sentido:
-     aquí cada flecha tiene una sola punta, hacia abajo, del Inicio al Óptimo.
-  3. Panel 1: el rótulo naranja «(actualización de pesos)» está deformado en la imagen. Se escribe bien.
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_4.1.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. Panel 4: la flecha verde −∇L(w) no era la opuesta de la roja ∇L(w) y no apuntaba al centro de las curvas de
+     nivel. Ahora las dos son colineales y de sentido contrario: ∇L hacia fuera, −∇L hacia el mínimo.
+  2. Panel 1: las flechas entre los puntos del recorrido tenían doble punta (↔). Ahora una sola punta, cuesta abajo.
+  3. Panel 1: el rótulo naranja «(actualización de pesos)» estaba deformado. Ahora se lee bien.
+  4. Panel 7: la curva de pérdida empezaba por encima de L_inicial. Ahora arranca exactamente en L_inicial, baja
+     de forma exponencial, pasa por el punto azul y se aplana sobre L_mínimo sin cruzarlo.
 
 ======================================================================
 PROMPT
@@ -51,7 +52,8 @@ Descent path: a red-ringed white dot at the top-left rim labelled in red "Inicio
 then five orange-ringed white dots going down the slope; then a green-ringed white dot at the very bottom labelled in
 green "Óptimo" and below "(mínimo de error)". Between consecutive dots, short white arrows with a dark outline and a
 SINGLE arrowhead pointing downhill (toward Óptimo).
-Orange label at the middle of the path, 15 px bold "Iteraciones" and below, 13 px orange, "(actualización" / "de pesos)".
+Orange label drawn on the surface itself, right of the middle of the path, 15 px bold "Iteraciones" and below, 13 px
+orange, "(actualización" / "de pesos)".
 Legend card (white, blue border, x ≈ 560–665, y ≈ 380–580): title "LEYENDA" (14 px bold blue) and three rows:
   red dot "Inicio" / "(pesos iniciales)" · orange dot "Iteraciones" / "(pasos del" / "algoritmo)" ·
   green dot "Óptimo" / "(mínimo de error)".
@@ -90,8 +92,9 @@ Lavender box: bold purple "Interpretación:" then "Caminamos en la dirección op
 PANEL 4 — "4. ¿QUÉ ES EL GRADIENTE?"   (x ≈ 330–655, y ≈ 836–1155)
 ---------------------------------------------------------------------
 Text, 14 px: "El gradiente apunta hacia donde el error" / "aumenta más rápidamente."
-Plot with axes w₂ (vertical) and w₁ (horizontal). Concentric closed contour curves (orange center → yellow → green →
-blue outside), centered left of the middle. A black dot on a contour, up-right of the center.
+Plot with axes w₂ (vertical) and w₁ (horizontal). Six concentric circular contour lines (small orange circle at the
+center → yellow → green → blue outside), centered left of the middle. A black dot on the third contour, up-right of
+the center.
 From the dot: a red arrow pointing straight AWAY from the center, labelled in red "∇L(w)" and "(máxima subida)";
 and a green arrow of the same length in EXACTLY the opposite direction (toward the center), labelled in green
 "−∇L(w)" and "(dirección de" / "descenso)". Both arrows lie on one straight line, perpendicular to the contour.
@@ -132,10 +135,11 @@ Five circular icons in a row joined by arrows, with labels below:
   database icon "Datos" → network icon "Red" / "(neurona)" → target icon "Predicción" / ŷ →
   bar chart with red arrow "Pérdida" / L → gear icon "Actualización" / "de pesos";
 a return arrow runs underneath from the last icon back to "Red".
-Plot titled "Evolución del error durante el entrenamiento" (14 px bold blue): vertical axis L(w) with two green
-dashed reference levels labelled L_inicial (top) and L_mínimo (bottom, green); horizontal axis "Iteraciones".
-A purple decreasing curve that starts at L_inicial, drops fast and flattens onto L_mínimo; a blue dot on the curve
-where it flattens. Green-bordered note on the right: bold green "Convergencia:" / "el error se estabiliza" /
+Plot titled "Evolución del error durante el entrenamiento" (14 px bold blue): vertical axis L(w); tick labels
+L_inicial (near the top, dark) and L_mínimo (near the bottom, green), with a green dashed horizontal line only at
+L_mínimo; horizontal axis "Iteraciones". A purple decreasing curve that starts exactly at the height of L_inicial,
+drops fast (exponential decay) and flattens just above the L_mínimo line, never crossing it; a blue dot with a dark
+ring on the curve where it starts to flatten (about one fifth of the way along). Green-bordered note on the right: bold green "Convergencia:" / "el error se estabiliza" /
 "cerca de un mínimo."
 
 ---------------------------------------------------------------------
@@ -152,5 +156,6 @@ FINAL CHECK
 ✓ Title "DIAGRAMA 4.1 — GRADIENTE DESCENDENTE".
 ✓ Update rule exactly w^{(t+1)} = w^{(t)} − η ∇L(w^{(t)}).
 ✓ Panel 4: −∇L(w) is the exact opposite of ∇L(w) and points to the center of the contours.
+✓ Panel 7: the curve starts at L_inicial and stays above L_mínimo.
 ✓ Panel 1: single-headed arrows from Inicio down to Óptimo; "(actualización de pesos)" spelled correctly.
 ✓ Accents: "DESCENDENTE", "¿CÓMO", "PÉRDIDA", "PREDICCIÓN", "Óptimo", "mínimo", "ANALOGÍA", "MONTAÑISTA".

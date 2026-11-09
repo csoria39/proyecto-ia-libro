@@ -1,5 +1,5 @@
 DIAGRAMA 12.1 — EL BLOQUE TRANSFORMER
-Prompt de regeneración (v18, 8-11-2026). Sustituye a Prompt_Diagrama_14_v18.txt (numeración antigua).
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final). Sustituye a Prompt_Diagrama_14_v18.txt (numeración antigua).
 
 Ubicación en el libro: Capítulo 12 (El Transformer — La Arquitectura que lo Cambió Todo), apartado 12.3 «El bloque
 Transformer completo». Página 144 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
@@ -16,9 +16,11 @@ Cifras, todas del libro:
   · GPT-3: 96 bloques, d = 12 288 (texto de 12.3 y Ejercicio 12.1), 175 000 M.
   · GELU (13.4.2): gelu(x) = 0.5·x·(1 + tanh(√(2/π)·(x + 0.044715·x³))).
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. Formato numérico: la imagen separa los miles con punto («3.280», «60.000», «12.288», «175.000 M», «28.272»,
-     «7.087.872», «124.439.808») y usa coma decimal en la GELU («0,5», «0,044715»). El libro usa espacio para los
+Corrección respecto a la imagen publicada el 7-11-2026 (ya está en diagramas/Diagrama_12.1.png y en el libro desde
+el 9-11-2026; este prompt describe esa imagen final, que en la revisión completa del 9-11-2026 no necesitó más
+cambios):
+  1. Formato numérico: la imagen separaba los miles con punto («3.280», «60.000», «12.288», «175.000 M», «28.272»,
+     «7.087.872», «124.439.808») y usaba coma decimal en la GELU («0,5», «0,044715»). El libro usa espacio para los
      miles a partir de cinco cifras («60 000», «124 439 808»), las de cuatro cifras juntas («3280») y punto decimal.
 
 ======================================================================
@@ -72,7 +74,8 @@ line on the left that skips each sublayer and rejoins at a green "⊕" disc:
   ⑥ orange box: monospace "FFN(x) = GELU(x·W₁ + b₁)·W₂ + b₂" (GELU in red) / "W₁: d × 4d    W₂: 4d × d"
   ⊕ green box: monospace "x = x + FFN(LayerNorm(x))"
   ⑦ purple box: bold "Salida del bloque" + "(T × d)" / "— la misma forma que la entrada"
-A right brace spanning ③–⑦ with "× N" / "bloques".
+A right bracket spanning the whole flow (from ① to ⑦) with "× N" / "bloques" next to it. The green residual line
+enters from the left with green arrowheads into ③, the first ⊕, ⑤ and the second ⊕.
 Under the flow, light-blue box: bold "LayerNorm final" + "→ logits = x · wteᵀ" / "(la misma tabla de embeddings,
 compartida) → softmax" (softmax bold).
 
@@ -93,7 +96,8 @@ Blue-headed card "Post-LN frente a Pre-LN":
 ---------------------------------------------------------------------
 PANEL 4 — "4. APILADO Y ESCALA"   (x ≈ 1145–1660, y ≈ 110–480)
 ---------------------------------------------------------------------
-Stack of three blocks with up-arrows: blue "Bloque 1" → teal "Bloque 2" → purple "Bloque N", and at the right
+Stack of three blocks drawn bottom-up with up-arrows between them: blue "Bloque 1" (bottom) → teal "Bloque 2" →
+purple "Bloque N" (top), and at the right
 "Cada bloque" / "refina la" / "representación."
 Light-blue card "Arquitecturas reales" with a table (header "Modelo" | "Bloques" | "d" | "Parámetros"):
   Programa 7  | 1  | 16     | 3280
@@ -117,9 +121,9 @@ Left, white monospace with gray "← …" notes:
   "params ≈ 12 · N · d²          ← regla práctica (sin embeddings)"
 Three rounded boxes with white bold text: teal "Atención:" / "relaciones entre tokens" → orange "FFN:" /
 "transformación" / "por posición" → green "Residual + LayerNorm:" / "estabilidad y gradientes".
-Right: "Sistema de colores:" with six swatches: blue "Input / Embeddings" · teal "Multi-Head Attention" · orange
-"Feed-Forward (FFN)" · green "LayerNorm" · green-gray "Residual / Conexión" · purple "Salida" · gold "Parámetros /
-Cifras".
+Right, after a thin vertical white rule: "Sistema de colores:" with seven swatches in two columns: blue "Input /
+Embeddings" · teal "Multi-Head Attention" · orange "Feed-Forward (FFN)" | light green "LayerNorm" · green "Residual /
+Conexión" · purple "Salida" · orange-gold "Parámetros / Cifras".
 
 ---------------------------------------------------------------------
 FINAL CHECK

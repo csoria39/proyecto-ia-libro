@@ -1,5 +1,5 @@
 DIAGRAMA 7.4 — OVERFITTING Y REGULARIZACIÓN
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 7, al final del apartado 7.10 «Data Augmentation» (el texto dice «Con las técnicas de
 este capítulo (el Diagrama 7.4 las resume)»). Página 84 del PDF de KDP, vertical. Era el antiguo Diagrama 5.1, que
@@ -9,17 +9,27 @@ Imagen de referencia: diagramas/Diagrama_7.4.png (1024 × 1536 px), idéntica a 
 Cifras: el diagrama es conceptual; sus curvas son esquemáticas. Las fórmulas son las del capítulo
 (L_total = L + λ·Σ w², 7.6) y la descomposición sesgo-varianza.
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. Panel 2: la curva roja «Error en prueba» pasa POR DEBAJO de la azul «Error en entrenamiento» en la zona de
-     «Ajuste adecuado». El error de prueba no baja del de entrenamiento: aquí la roja va siempre por encima, con su
-     mínimo en la zona central.
-  2. Panel 3, «Early Stopping»: la curva de validación (roja) está por debajo de la de entrenamiento y no sube nunca,
-     así que el «Punto de parada» no se justifica; además, el eje horizontal lleva un «w₁» suelto junto a «Épocas».
-     Aquí: validación por encima, con mínimo en el punto de parada y subida después; eje «Épocas» sin «w₁».
-  3. Panel 3, «Regularización L1»: el punto «Con L1 (esparso)» queda en el interior, no en un eje. Lo que hace
-     esparsa a la L1 es que la solución cae en un vértice del rombo, con un peso exactamente 0: aquí el punto queda
-     sobre el eje w₂ (w₁ = 0).
-  4. Se elimina el «+» azul suelto bajo la leyenda del panel 2.
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_7.4.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final). Las 1-4 venían en la versión verificada
+externamente (con retoques de scripts/repintado_2026-11-09/d7_4.py); las 5-8 se hicieron en la revisión completa
+(scripts/repintado_2026-11-09b/f7_4_*.py; versión anterior en originales/Diagrama_7.4_antes_2026-11-09b.png).
+  1. Panel 2: la curva roja «Error en prueba» pasaba POR DEBAJO de la azul «Error en entrenamiento» en la zona de
+     «Ajuste adecuado». Ahora la roja va siempre por encima, con su mínimo en la zona central.
+  2. Panel 3, «Early Stopping»: la curva de validación estaba por debajo de la de entrenamiento y no subía nunca, y
+     el eje horizontal llevaba un «w₁» suelto. Ahora la validación va por encima, con mínimo en el punto de parada y
+     subida después; eje «Épocas» sin «w₁».
+  3. Panel 3, «Regularización L1»: el punto «Con L1 (esparso)» quedaba en el interior. Ahora está en el vértice
+     superior del rombo, sobre el eje w₂ (w₁ = 0), y los rombos están centrados en el cruce de los ejes.
+  4. Se eliminó el «+» azul suelto bajo la leyenda del panel 2.
+  5. Panel 3, «Regularización L2»: las elipses de la penalización estaban centradas en un punto que no era el origen.
+     Ahora la región permitida ‖w‖ ≤ r es un cuarto de círculo con centro en el origen (con dos arcos interiores), las
+     curvas de nivel de la pérdida son elipses alrededor del óptimo sin regularizar, y la solución con L2 es el
+     punto rojo donde la elipse exterior toca la circunferencia.
+  6. Panel 5: «Error total = Bias² + Variance + …» mezclaba inglés; el 7.1 dice «Sesgo² + Varianza». Además,
+     «Alta bias» (bias = sesgo, masculino) → «Alto sesgo»; «(alto bias)» → «(alto sesgo)»; las cajas dicen
+     «Sesgo (bias):» y «Varianza (variance):», y la cabecera «5. INTUICIÓN: SESGO–VARIANZA».
+  7. Tilde del título: la de REGULARIZACIÓN estaba desplazada. Ahora va sobre la Ó.
+  8. Título: el número es 7.4 (era el antiguo 5.1).
 
 ======================================================================
 PROMPT
@@ -76,16 +86,21 @@ Five columns separated by thin vertical rules; each has a numbered colored title
 an illustration, and a tinted footer box.
  1. purple "1. REGULARIZACIÓN L2" / "(Weight Decay)". "Penaliza pesos grandes añadiendo" / "el cuadrado de los pesos
     a la pérdida." / "Favorece modelos más simples."
-    Plot axes w₂ (vertical), w₁: concentric purple ellipses (circles of the L2 penalty) around a red dot; a black
-    dot at the top-right labelled "Sin regularización"; a path to a purple dot on an inner ellipse labelled purple
-    "Con L2" / "(más pequeño)".
+    Plot with the origin at the bottom-left corner, axes w₂ (vertical, arrow up) and w₁ (horizontal, arrow right).
+    Centered at the ORIGIN: a light-purple filled quarter-disc (the allowed region ‖w‖ ≤ r) bounded by a thick purple
+    arc, plus two thinner purple arcs inside it (smaller circles of the L2 penalty).
+    Up-right: a black dot labelled "Sin regularización" (the unregularized optimum) with three nested gray elliptical
+    loss contours around it, tilted about 40°; the outermost one just touches the thick purple arc.
+    A purple dashed line from the black dot to that touching point, marked by a red dot: the L2 solution. Purple label
+    to the right of the arc: "Con L2" / "(más pequeño)".
     Lavender box: bold purple "Nueva función de pérdida:" and L_total = L + λ Σ_i w_i².
     Footer: "λ : hiperparámetro que controla" / "la fuerza de la regularización."
  2. green "2. REGULARIZACIÓN L1" / "(Lasso)". "Penaliza el valor absoluto de los pesos." / "Tiende a producir pesos
     exactamente" / "iguales a cero (esparsidad)."
-    Plot axes w₂, w₁: nested green diamonds (rhombi) centered on a dark-green dot at the origin; a black dot at the top
-    right labelled "Sin regularización"; the path ends on a green dot placed EXACTLY on the vertical w₂ axis (a corner
-    of a diamond, w₁ = 0), labelled green "Con L1" / "(esparso)".
+    Plot with axes w₂ (vertical, arrow up) and w₁ (horizontal, arrow right) crossing in the lower middle. Three nested
+    light-green diamonds (rhombi) CENTERED ON THE AXIS CROSSING (the origin). A black dot at the top right labelled
+    "Sin regularización"; a solid dark-green line from it to a dark-green dot placed EXACTLY on the top vertex of the
+    outer diamond, on the w₂ axis (w₁ = 0), with a thin green leader line to the label "Con L1" / "(esparso)".
     Green box: bold green "Nueva función de pérdida:" and L_total = L + λ Σ_i |w_i|.
     Footer: "Útil para selección de características" / "y modelos interpretables."
  3. blue "3. DROPOUT". "Durante el entrenamiento, desactiva" / "aleatoriamente neuronas (y sus conexiones)" / "para que
@@ -160,6 +175,8 @@ FINAL CHECK
 ✓ Title "DIAGRAMA 7.4 — OVERFITTING Y REGULARIZACIÓN" (not 5.1).
 ✓ Panel 2 and early stopping: the test/validation curve is always ABOVE the training curve; its minimum marks the
   best point.
-✓ L1 solution on the w₂ axis (w₁ = 0). No stray "w₁" next to "Épocas". No stray "+".
+✓ L2: penalty circles centered at the origin; the solution is where a loss ellipse touches the circle.
+✓ L1: diamonds centered at the origin; solution on the w₂ axis (w₁ = 0). No stray "w₁" next to "Épocas". No stray "+".
 ✓ Formulas L_total = L + λ Σ w_i² and L_total = L + λ Σ |w_i|; Error total = Sesgo² + Varianza + Ruido irreducible.
+✓ Panel 5 is all in Spanish: "SESGO–VARIANZA", "Sesgo (bias):", "Varianza (variance):", "Alto sesgo", "(alto sesgo)".
 ✓ Accents: "REGULARIZACIÓN", "¿CÓMO", "TÉCNICAS", "Rotación", "INTUICIÓN", "PRÁCTICAS", "Situación", "Diagnóstico".

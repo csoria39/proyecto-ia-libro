@@ -1,5 +1,5 @@
 DIAGRAMA 10.1 — REDES RECURRENTES (RNN)
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 10 (Redes Recurrentes — El Camino hacia el Transformer), apartado 10.2 «La idea de la
 recurrencia». Página 111 del PDF de KDP, girada 90° (1024 × 1536 en el .docx).
@@ -10,13 +10,19 @@ Cifras y fórmulas, según el capítulo:
   · Programa RNN-2 (salidas/salida_programa_RNN2_vanishing_gradient.txt), H = 32, T = 60, «W_hh pequeña»: norma
     del gradiente 1.0 → 0.13 (1 paso) → 6.8·10⁻⁵ (5) → por debajo de 10⁻¹⁰ antes de 20 pasos.
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. RNN desplegada: el cuarto estado oculto se rotula h₃ (repetido). Es h₄.
-  2. Fórmula del gradiente: ∂L/∂h_t = (W_hᵀ)^{T−t}·∂L/∂h_T omite la derivada de tanh, que el propio capítulo
-     incluye. Aquí: ∂L/∂h_t = ∏_{k=t+1}^{T} [ W_hᵀ · diag(1 − h_k²) ] · ∂L/∂h_T, y la condición «autovalores < 1»
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_10.1.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final). Las 1-3 venían en la versión verificada
+externamente; las 4-5 se hicieron en la revisión completa (scripts/repintado_2026-11-09b/f10_1.py; versión anterior
+en originales/Diagrama_10.1_antes_2026-11-09b.png).
+  1. RNN desplegada: el cuarto estado oculto se rotulaba h₃ (repetido). Es h₄.
+  2. Fórmula del gradiente: ∂L/∂h_t = (W_hᵀ)^{T−t}·∂L/∂h_T omitía la derivada de tanh, que el propio capítulo
+     incluye. Ahora: ∂L/∂h_t = ∏_{k=t+1}^{T} [ W_hᵀ · diag(1 − h_k²) ] · ∂L/∂h_T, y la condición «autovalores < 1»
      se refiere a ese producto.
-  3. «Contexto máximo ~20–30 tokens útiles» y «Contexto útil: ~20–30 tokens» no salen del libro. Se sustituyen por la
-     medición del Programa RNN-2: «el gradiente muere en < 20 pasos».
+  3. «Contexto máximo ~20–30 tokens útiles» y «Contexto útil: ~20–30 tokens» no salían del libro. Sustituidos por la
+     medición del Programa RNN-2: «el gradiente muere en < 20 pasos» y «pocas decenas de pasos».
+  4. El rótulo h₄ estaba dibujado con otro tipo de letra (más fino) que h₁-h₃. Ahora es igual que los otros tres.
+  5. «Procesamiento independiente en el tiempo»: las salidas de los tres MLP se rotulaban h₁, h₂, h₃, pero un MLP sin
+     memoria no tiene estado oculto que pasar: da salidas, y arriba el mismo MLP da y_t. Ahora y₁, y₂, y₃.
 
 ======================================================================
 PROMPT
@@ -52,13 +58,15 @@ Orange-bordered cream card: book icon + bold red "El problema del contexto:".
 Orange-bordered cream card: ⚠ + bold red "El MLP procesa cada token aislado:". Row: blue box x_t → gray box "MLP" →
   green box y_t. "El MLP solo ve x_t — el token actual." / "No sabe nada de lo que vino antes." Two red lines:
   "→ Imposible resolver la ambigüedad de 'banco'" · "→ Imposible modelar dependencias temporales".
-"Procesamiento independiente en el tiempo:" and three rows: blue box x₁ = "el" → "MLP" → green h₁; x₂ = "banco" →
-  "MLP" → h₂; x₃ = "del" → "MLP" → h₃; red ✕ marks between the MLP boxes; red dashed line + "no hay conexión entre
+"Procesamiento independiente en el tiempo:" and three rows: blue box x₁ = "el" → "MLP" → green box y₁; x₂ = "banco"
+  → "MLP" → y₂; x₃ = "del" → "MLP" → y₃ (outputs y, same green italic style as the y_t box above, NOT h); red ✕
+  marks between the MLP boxes; red dashed line + "no hay conexión entre
   pasos".
 Green card: ☑ + bold green "La solución: añadir un estado oculto" / "h_t que viaje de un paso al siguiente." and a
   green arrow →.
 
-Arrow tag: "la recurrencia" / "da memoria".
+Arrow tag (at the height of the panel headers, between panels 1 and 2; dark-navy rounded label above a navy
+arrow): "la recurrencia" / "da memoria".
 
 ---------------------------------------------------------------------
 PANEL 2 — "LA RNN DESPLEGADA A TRAVÉS DEL TIEMPO"   (x ≈ 352–745, y ≈ 103–915)
@@ -66,7 +74,7 @@ PANEL 2 — "LA RNN DESPLEGADA A TRAVÉS DEL TIEMPO"   (x ≈ 352–745, y ≈ 1
 "Frase:  "el     banco     del     parque""
 Unrolled RNN: four teal "RNN" boxes in a row joined by thick orange arrows (the last one continues "→ ···"). At the
 left, a gray box "h₀ =" / "[0,0,...,0]" with "(inicio)" and an orange arrow into the first RNN box. Above each RNN box
-a teal box h₁, h₂, h₃, h₄ and above it a green box y₁, y₂, y₃, y₄ (blue up-arrows). Below each RNN box a blue box:
+a teal box h₁, h₂, h₃, h₄ (all four in the same serif italic, same size) and above it a green box y₁, y₂, y₃, y₄ (blue up-arrows). Below each RNN box a blue box:
 x₁ = "el", x₂ = "banco", x₃ = "del", x₄ = "parque". Labels: blue "x_t (entrada)", green "Estado oculto h_t y salida y_t".
 Card "Ecuaciones de la RNN:" (bold navy) with two framed formulas (large serif):
   h_t = tanh(W_h · h_{t−1} + W_x · x_t + b_h)
@@ -77,7 +85,7 @@ Two small cards: light-bulb "h_t es la MEMORIA de la red." / "Resume todo lo que
   al siguiente." / "Da contexto." — and orange "Analogía:" / "Como una persona que lee una frase:" / "Recuerda lo
   anterior para entender" / "el siguiente token." / "h_t = lo que recuerda hasta ahora." / "y_t = lo que predice ahora."
 
-Arrow tag: "el problema" / "al entrenar".
+Arrow tag (top, between panels 2 and 3): "el problema" / "al entrenar".
 
 ---------------------------------------------------------------------
 PANEL 3 — "EL PROBLEMA: GRADIENTE DESAPARECE"   (x ≈ 752–1010, y ≈ 103–915)
@@ -87,8 +95,8 @@ Orange-bordered cream card: bold red "¿Qué pasa en el BPTT?" / "Para actualiza
   Chain of teal circles h₁ → h₂ → h₃ → ··· → h_T (orange arrows), and under it red arrows pointing LEFT with the
   fractions ∂L/∂h₁, ∂L/∂h₂, ∂L/∂h₃, ···, ∂L/∂h_T; red "← gradiente retropropagado".
   Framed formula (red border):  ∂L/∂h_t = ∏_{k=t+1}^{T} [ W_hᵀ · diag(1 − h_k²) ] · ∂L/∂h_T
-  "Si los autovalores de ese producto < 1 → se encoge a 0" / "Si son > 1 → explota (inestable)"
-  Bold red "Resultado típico: DESAPARECE a 0 ⚠"
+  "Si los autovalores de ese producto < 1" / "→ se encoge a 0; si son > 1 → explota (inestable)"
+  Bold red "Resultado típico: DESAPARECE a 0"
   Small gray line: "Programa RNN-2: 1 → 0.13 → 6.8·10⁻⁵ en 5 pasos"
 Red card "Consecuencias:" (bold red), bullets: "La red olvida el contexto lejano." · "Solo aprende dependencias
   cortas." · "Bajo rendimiento en secuencias largas." · "Entrenamiento inestable o ineficiente."
@@ -96,7 +104,7 @@ Green card "Soluciones históricas:" (bold green), checks: "LSTM (1997) — puer
   simplificada" · "Inicialización ortogonal" · "Clipping de gradientes" · "Normalización (LayerNorm, etc.)"
 Yellow card ⚠: "Límite fundamental de las RNN clásicas:" / "la memoria se degrada con la distancia temporal."
 
-Arrow tag: "por qué el" / "Transformer ganó".
+Arrow tag (top, between panels 3 and 4): "por qué el" / "Transformer ganó".
 
 ---------------------------------------------------------------------
 PANEL 4 — "RNN vs TRANSFORMER"   (x ≈ 1018–1528, y ≈ 103–915)
@@ -130,13 +138,16 @@ Left, white serif math:
   "Mismos pesos W en cada paso → parameter sharing" (white bold sans)
 Three rounded boxes, white bold, underlined first line: teal "h_t: memoria de la red" · orange "Recurrencia:" /
 "tiempo → pasado" · purple "Transformer:" / "lo supera en 2017".
-Right: legend "Color" with the seven entries listed above.
+Right: legend "Color", two columns: Blue = Input x_t / tokens de entrada · Teal = Estado oculto h_t (memoria) ·
+Green = Output y_t / salida · Orange = Flujo temporal / recurrencia | Red = Vanishing gradient / problemas · Gold =
+Pesos W (compartidos entre pasos) · Purple = Transformer / solución histórica.
 
 ---------------------------------------------------------------------
 FINAL CHECK
 ---------------------------------------------------------------------
 ✓ Title "DIAGRAMA 10.1 — REDES RECURRENTES (RNN)".
-✓ Unrolled states h₁, h₂, h₃, h₄ (no repeated h₃).
+✓ Unrolled states h₁, h₂, h₃, h₄ (no repeated h₃), all in the same style.
+✓ Panel 1, independent MLPs: outputs y₁, y₂, y₃ (not h).
 ✓ BPTT formula includes diag(1 − h_k²); the string "(W_hᵀ)^{T−t}" must NOT appear.
 ✓ No "~20–30 tokens"; use "el gradiente muere en < 20 pasos" and "pocas decenas de pasos".
 ✓ Accents: "préstamo", "INSTITUCIÓN", "ASIENTO", "ambigüedad", "conexión", "Analogía", "Inicialización", "Característica".

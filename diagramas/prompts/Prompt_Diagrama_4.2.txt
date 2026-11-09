@@ -1,5 +1,5 @@
 DIAGRAMA 4.2 — BACKPROPAGATION
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 4 (El Aprendizaje — Gradientes y Backpropagation), justo después del Diagrama 4.1,
 al final del capítulo. Página 37 del PDF de KDP, vertical.
@@ -8,15 +8,17 @@ Cifras: las del panel 5 (red 1-2-1) salen de calculos/diagrama_4_2_ejemplo_1_2_1
 (salida en calculos/salida_diagrama_4_2_ejemplo_1_2_1.txt): sigmoide en las dos capas, como el Programa 2, y
 pérdida L = ½(ŷ − y)². Los gradientes se han comprobado con diferencias finitas (error máximo 1.1·10⁻¹¹).
 
-Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
-del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
-originales/Diagrama_4.2_antes_repintado_2026-11-08.png.
-  1. Panel 5: las cifras de la imagen no salen de ninguna activación coherente. a⁽¹⁾ = [0.5498, −0.3799] mezcla la
-     sigmoide (σ(0.2) = 0.5498) con la tangente hiperbólica (tanh(−0.4) = −0.3799); z⁽²⁾ = 0.4833 no es
-     W²a⁽¹⁾ + b² con esos valores (daría 0.5988); y δ⁽²⁾ = −0.0439 y δ⁽¹⁾ = [−0.0067, 0.0043] no corresponden a
-     ninguna de las dos. Con sigmoide en las dos capas:
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_4.2.png y en el
+libro; este prompt describe esa imagen final). Las 1-2 se repintaron el 8-11-2026 (scripts/repintado_2026-11-08/,
+versión anterior en originales/Diagrama_4.2_antes_repintado_2026-11-08.png); la 2 se rehízo y la 3 se añadió el
+9-11-2026 (scripts/repintado_2026-11-09b/f4_2.py, versión anterior en originales/Diagrama_4.2_antes_2026-11-09b.png).
+  1. Panel 5: las cifras no salían de ninguna activación coherente. a⁽¹⁾ = [0.5498, −0.3799] mezclaba la sigmoide
+     (σ(0.2) = 0.5498) con la tangente hiperbólica (tanh(−0.4) = −0.3799); z⁽²⁾ = 0.4833 no era W²a⁽¹⁾ + b² con esos
+     valores (daría 0.5988); y δ⁽²⁾ = −0.0439 y δ⁽¹⁾ = [−0.0067, 0.0043] no correspondían a ninguna de las dos. Con
+     sigmoide en las dos capas:
         a⁽¹⁾ = [0.5498, 0.4013] · z⁽²⁾ = 0.3645 · ŷ = 0.5901 · L = 0.0220 · δ⁽²⁾ = −0.0508 · δ⁽¹⁾ = [−0.0088, 0.0037]
-  2. Panel 6: el rótulo junto a h_m está deformado («δ₁ₘ»). Es δ_m⁽¹⁾.
+  2. Panel 6: el rótulo junto a h_m estaba deformado («δ₁ₘ»). Ahora δ_m⁽¹⁾, con los mismos glifos que δ₁⁽¹⁾.
+  3. Panel 5: b¹ = [0.0  0.0] se escribía como fila, pero z⁽¹⁾ = W¹x + b¹ es una columna. Ahora b¹ = [0.0  0.0]ᵀ.
 
 ======================================================================
 PROMPT
@@ -92,6 +94,7 @@ Middle sketch between two vertical rules: hidden column h₁, ⋮, h_j, ⋮, h_m
 (red), label W²_{j,k} above; crossing gray links; ONE red arrow from h_j to y_k (highlighted).
 Right block, heading green "CAPA OCULTA (capa l)", text "Para cada neurona oculta j en la capa l:", discs:
   ① "Error propagado a la neurona j:"   δ_j^{(l)} = f′(z_j^{(l)}) Σ_k W_{j,k}^{(l+1)} δ_k^{(l+1)}
+     (written on two lines: "δ_j^{(l)} = f′(z_j^{(l)})" and, indented below it, "Σ_k W_{j,k}^{(l+1)} δ_k^{(l+1)}")
   ② "Gradiente de los pesos que vienen" / "de la capa anterior i:"   ∂L / ∂W^{(l)}_{i,j} = δ_j^{(l)} · a_i^{(l−1)}
   ③ "Gradiente del sesgo:"                                           ∂L / ∂b_j^{(l)} = δ_j^{(l)}
 Far right, card "NOTACIÓN" (14 px bold navy title), two-column list (symbol in serif : text 13 px):
@@ -119,7 +122,7 @@ PANEL 5 — "5. EJEMPLO NUMÉRICO SIMPLE (1–2–1)"   (x ≈ 375–1010, y ≈
 ---------------------------------------------------------------------
 Text: "Una entrada, dos neuronas ocultas y una salida."
 Left column: small box "Datos" (bold blue) with  x = 1.0,  y (real) = 0.8 ; then "Pesos iniciales:" and
-  W¹ = [0.2 ; −0.4] (column vector)   W² = [0.7  −0.3] (row)   b¹ = [0.0  0.0]   b² = [0.1]
+  W¹ = [0.2 ; −0.4] (column vector)   W² = [0.7  −0.3] (row)   b¹ = [0.0  0.0]ᵀ (row with a transpose sign)   b² = [0.1]
 Middle column, heading blue "Forward":
   z⁽¹⁾ = W¹ x + b¹ = [0.2 ; −0.4]
   a⁽¹⁾ = f(z⁽¹⁾) = [0.5498 ; 0.4013]
@@ -128,7 +131,8 @@ Middle column, heading blue "Forward":
   L = ½ (ŷ − y)² = 0.0220
 Right column, heading red "Backward (resumen)":
   δ⁽²⁾ = (ŷ − y) f′(z⁽²⁾) = −0.0508
-  δ⁽¹⁾ = (W²)ᵀ δ⁽²⁾ ⊙ f′(z⁽¹⁾) = [−0.0088 ; 0.0037]
+  δ⁽¹⁾ = (W²)ᵀ δ⁽²⁾ ⊙ f′(z⁽¹⁾)
+       = [−0.0088 ; 0.0037]      (the result on its own line, as a column vector)
   "Gradientes de pesos y sesgos" / "(se calculan con las fórmulas anteriores)"
   Pink box: "Con estos gradientes, actualizamos" / "W¹, W², b¹, b² y repetimos."
 Use exactly these numbers (four decimals, decimal point). f is the sigmoid in both layers.
@@ -140,9 +144,9 @@ Text: "El error (δ) se origina en la salida y se distribuye hacia atrás."
 Network: x₁, x₂, ⋮, xₙ (blue) → h₁, h₂, ⋮, h_m (green) → y₁, ⋮, y_K (red) → L (lavender). Black solid arrows for the
 forward links; red dashed arrows going backward from L to y₁ and y_K and from the outputs to the hidden nodes; one
 green dashed arrow and one green solid arrow near h_m. Red labels δ₁⁽²⁾ above y₁ and δ_K⁽²⁾ below y_K; green labels
-δ₁⁽¹⁾ above h₁ and δ_m⁽¹⁾ next to h_m.
+δ₁⁽¹⁾ above h₁ and δ_m⁽¹⁾ just below-right of h_m (same bold-italic δ and superscript (1) as δ₁⁽¹⁾).
 Legend below: black solid arrow "Flujo de activaciones (forward)"   red dashed arrow "Flujo de error (backward)".
-Right card (light green), title "¿QUÉ INDICA δ?" (bold dark green), 13 px:
+Card to the right of the network, inside panel 6 (light green), title "¿QUÉ INDICA δ?" (bold dark green), 13 px:
   "Señala en qué dirección" / "cambiar la neurona" / "(o sus entradas)" / "para reducir el error." — gap —
   "Es la “culpa” asignada" / "a cada componente."   and a target icon.
 
@@ -179,4 +183,5 @@ FINAL CHECK
   δ⁽¹⁾ = [−0.0088; 0.0037].
 ✓ Chain-rule formulas exactly as listed (δ_k, δ_j^{(l)}, ∂L/∂W, ∂L/∂b).
 ✓ Panel 6 labels δ₁⁽¹⁾, δ_m⁽¹⁾, δ₁⁽²⁾, δ_K⁽²⁾ (no "δ₁ₘ").
+✓ Panel 5: b¹ = [0.0  0.0]ᵀ (column, like z⁽¹⁾ and a⁽¹⁾).
 ✓ Accents: "¿CÓMO", "INFORMACIÓN", "CÁLCULO", "ACTUALIZACIÓN", "NUMÉRICO", "PROPAGACIÓN", "NOTACIÓN", "épocas".

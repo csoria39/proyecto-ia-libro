@@ -1,5 +1,5 @@
 DIAGRAMA 3.1 — COMPARATIVA DE FUNCIONES DE ACTIVACIÓN
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 3 (Programando Nuestra Primera Neurona), apartado 3.3 «Anatomía del código», después
 del resumen del capítulo. Página 27 del PDF de KDP, vertical (no va girada).
@@ -8,16 +8,18 @@ Cifras: el diagrama es conceptual. Las barras de softmax usan el ejemplo del Cap
 [0.628, 0.231, 0.140] (comprobado con NumPy). Las fórmulas de las derivadas son las estándar y coinciden con las del
 libro (σ′ = σ·(1 − σ) en 4.4; 1 − tanh² en el Capítulo 10; softmax en 13.4.2).
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. Barras de softmax (panel B y miniatura de la tabla C): en la imagen miden ≈ 0.95, 0.60, 0.30 (+ una casi nula),
-     y suman ≈ 1.9, aunque el texto de al lado dice «Todas las salidas suman 1». Aquí: 0.628, 0.231, 0.140 y una
-     barra K de 0.001 (suman 1.000).
-Observaciones que este prompt NO cambia (decisión del autor):
-  a. Softmax se rotula «Rango: [0, 1]» y «[0, 1] (suma = 1)». Matemáticamente es (0, 1), como dice el Diagrama 2.1;
-     si se quiere coherencia entre los dos diagramas, cambiar ambas cadenas por «(0, 1)» y «(0, 1) (suma = 1)».
-  b. En el árbol de decisión (panel D), una capa de salida que no es de clasificación lleva a «Usa TANH (o ReLU
-     según el caso)». Para regresión lo habitual es una salida lineal, sin activación; una alternativa fiel sería
-     «Salida lineal (regresión) · TANH si debe estar en (−1, 1)».
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_3.1.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. Barras de softmax (panel B y miniatura de la tabla C): medían ≈ 0.95, 0.60, 0.30 (+ una casi nula) y sumaban
+     ≈ 1.9, aunque el texto de al lado dice «Todas las salidas suman 1». Ahora: 0.628, 0.231, 0.140 y 0.001 en K.
+  2. ReLU (panel B): el codo estaba a la izquierda de z = 0 y la pendiente no era 1. Ahora el tramo plano acaba
+     exactamente en z = 0 y sube con pendiente 1 hasta (4, 4).
+  3. Tanh (panel B): era asimétrica (meseta izquierda ≈ −0.85, derecha ≈ 0.95). Ahora es la tanh real, de −1 a 1.
+  4. Softmax se rotulaba «Rango: [0, 1]» y «[0, 1] (suma = 1)». Ahora «(0, 1)», como en el Diagrama 2.1: e^z > 0, así
+     que ninguna probabilidad vale exactamente 0 ni 1.
+  5. Árbol de decisión (panel D): la salida que no es de clasificación llevaba a «Usa TANH (o ReLU según el caso)».
+     Ahora «Salida lineal / (regresión: sin activación)», que es lo habitual en regresión.
+  6. Tilde del título: la de ACTIVACIÓN estaba desplazada sobre la I. Ahora va sobre la Ó.
 
 ======================================================================
 PROMPT
@@ -74,17 +76,18 @@ a plot, and below a tinted rounded box with "Rango: …" (bold, function color) 
      Plot: y label f(z), ticks 0, 0.5, 1; x ticks −4, −2, 0, 2 and label z. Blue S-curve.
      Box (#E8EEF8): "Rango: (0, 1)" / "Salida siempre entre 0 y 1"
   RELU  — green. Formula: f(z) = max(0, z).
-     Plot: y label f(z), ticks 0, 2, 4; x ticks −4, −2, 0, 2 and label z. Green line flat at 0 until z = 0, then a
-     straight 45° rise.
+     Plot: y label f(z), ticks 0, 2, 4; x ticks −4, −2, 0, 2 and label z. Green line flat at 0 from z = −4 exactly to
+     z = 0, then a straight rise of slope 1 (in the plot's units) ending at (4, 4), at the height of the "4" tick.
      Box (#E9F3E6): "Rango: [0, +∞)" / "Salida 0 para z ≤ 0, lineal para z > 0" (z in serif italic)
   TANH  — orange. Formula: f(z) = tanh(z).
      Plot: y label f(z), ticks −1, 0, 1, thin horizontal gray line at 0; x ticks −4, −2, 0, 2 and label z.
-     Orange S-curve from −1 to 1 through the origin.
+     Orange curve = the true tanh(z) for z ∈ [−4, 4]: symmetric about the origin, flattening at −1 on the left and
+     at +1 on the right (tanh(±4) = ±0.9993).
      Box (#FDEBDD): "Rango: (−1, 1)" / "Salida centrada en 0"
   SOFTMAX (salida)  — purple. Formula: softmax(z_i) = e^{z_i} / Σ_j e^{z_j} as a fraction.
      Plot: y label "probabilidad", ticks 0 and 1; x tick labels "1", "2", "3", "…", "K" and axis label "clases".
      Bars (#A088C4, purple outline): at 1 → 0.628, at 2 → 0.231, at 3 → 0.140, nothing at "…", and at K a hairline
-     bar of 0.001. Right of the plot, two lines (13 px): "Todas las" / "salidas suman 1".
+     bar of 0.001 (practically invisible). Right of the plot, two lines (13 px): "Todas las" / "salidas suman 1".
      Box (#E6E3F3): "Rango: (0, 1)" / "Distribución de probabilidad" / "sobre K clases"
 
 ---------------------------------------------------------------------
@@ -149,5 +152,6 @@ FINAL CHECK
 ✓ Title exactly "DIAGRAMA 3.1 — COMPARATIVA DE FUNCIONES DE ACTIVACIÓN".
 ✓ Softmax bars 0.628 / 0.231 / 0.140 / 0.001: they add up to 1, as the label says.
 ✓ Derivative formulas exactly as listed (σ(1 − σ); 0/1 piecewise; 1 − tanh²; y_i(δ_ij − y_j)).
-✓ Flowchart branches: salida → multiclase → SOFTMAX; → binaria → SIGMOID; → TANH; no salida → ReLU.
-✓ Every Spanish string with its accents: "ACTIVACIÓN", "PRÁCTICA", "Predicción", "generalización", "según".
+✓ Flowchart branches: salida → multiclase → SOFTMAX; → binaria → SIGMOID; → Salida lineal (regresión); no salida → ReLU.
+✓ ReLU hinge exactly at z = 0, slope 1; tanh symmetric from −1 to 1; softmax range written (0, 1), never [0, 1].
+✓ Every Spanish string with its accents: "ACTIVACIÓN", "PRÁCTICA", "Predicción", "generalización", "regresión", "activación".

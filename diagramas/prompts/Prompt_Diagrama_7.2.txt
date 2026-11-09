@@ -1,5 +1,5 @@
 DIAGRAMA 7.2 — DIVISIÓN TRAIN / VALIDACIÓN / TEST
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 7, apartado 7.5 «La división Train / Validación / Test» (el texto lo cita: «la
 división correcta de los datos (Diagrama 7.2)»). Página 71 del PDF de KDP, girada 90° (957 × 1643 en el .docx).
@@ -8,11 +8,14 @@ Cifras: proporciones 70 / 15 / 15 (habituales; el texto no fija otras). El ejemp
 la ejecución real del Programa R-1 (salidas/salida_programa_R1_overfitting.txt), modelo de 256 neuronas:
 error de entrenamiento final 0.03226, de validación 0.09107, «OVERFITTING grave (val es 2.8x train)».
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. «El problema sin división» muestra train_loss 0.001 y test_loss 0.847, cifras inventadas que no salen de ningún
-     programa del libro. Aquí van las del Programa R-1: 0.032 y 0.091 (2.8 veces más error fuera del entrenamiento).
-  2. Junto a «¿Qué es el data leakage?» hay un rectángulo amarillo vacío (icono que falta). Aquí, un icono de gota
-     cayendo de una tubería.
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_7.2.png y en el
+libro desde el 9-11-2026; este prompt describe esa imagen final):
+  1. «El problema sin división» mostraba train_loss 0.001 y test_loss 0.847, cifras inventadas que no salen de
+     ningún programa del libro. Ahora van las del Programa R-1: 0.032 y 0.091 (2.8 veces más error fuera del
+     entrenamiento).
+  2. Junto a «¿Qué es el data leakage?» había un rectángulo amarillo vacío (icono que faltaba). Ahora, un icono de
+     gota cayendo de una tubería.
+  3. Tildes del título: en DIVISIÓN y VALIDACIÓN había una tilde suelta sobre la I, además de la de la Ó. Borradas.
 
 ======================================================================
 PROMPT
@@ -55,7 +58,8 @@ Bold red: "Error de train bajo ≠ modelo útil"
 Card (light green, green border): green check square + bold green "La solución: tres conjuntos", then "Separar los
 datos ANTES de cualquier decisión" / "de diseño. El test nunca se toca hasta el final." and a thick green arrow →.
 
-Arrow tag: "tres conjuntos" / "con roles distintos".
+Arrow tag (at the height of the panel headers, between panels 1 and 2; dark-navy rounded label above a navy
+arrow): "tres conjuntos" / "con roles distintos".
 
 ---------------------------------------------------------------------
 PANEL 2 — "LOS TRES CONJUNTOS Y SUS PROPORCIONES"   (x ≈ 415–830, y ≈ 140–810)
@@ -90,7 +94,8 @@ Six stacked boxes joined by navy down-arrows:
    "for epoca in range(N_EPOCAS):" / "    W = actualizar(W, train)"
  ④ teal border: "④ EVALUAR EN VALIDACIÓN" / "Después de cada época (o cada N épocas)." / "Detectar overfitting,
    ajustar hiperparámetros." / orange monospace "Si val_loss ↑ → revisar regularización"
- An orange dashed arrow loops from ④ back up to ③ with the gray label "iterar" / "hasta" / "convergencia".
+ An orange dashed arrow runs along the LEFT side of the column, from ④ back up to ③ (arrowhead pointing right into
+ ③), with the gray label "iterar" / "hasta" / "convergencia" to its left, in the gap between panels 2 and 3.
  ⑤ green border: "⑤ MODELO FINAL LISTO" / "Entrenamiento terminado. Early stopping aplicado." / "Mejores pesos
    guardados."
  ⑥ thick purple border: "⑥ EVALUAR EN TEST — UNA VEZ" / "Resultado final. Métrica real publicable." / purple
@@ -133,7 +138,7 @@ Green = Buenas prácticas / correcto · Red = Data leakage / prohibido · Orange
 ---------------------------------------------------------------------
 FINAL CHECK
 ---------------------------------------------------------------------
-✓ Title "DIAGRAMA 7.2 — DIVISIÓN TRAIN / VALIDACIÓN / TEST".
+✓ Title "DIAGRAMA 7.2 — DIVISIÓN TRAIN / VALIDACIÓN / TEST" (one accent on each Ó, nothing over the I).
 ✓ "El problema sin división" shows 0.032 and 0.091 (Programa R-1, 256 neuronas), NOT 0.001 / 0.847.
 ✓ Split 70 / 15 / 15 everywhere.
 ✓ No empty placeholder rectangles.

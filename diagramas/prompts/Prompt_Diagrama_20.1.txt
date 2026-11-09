@@ -1,5 +1,5 @@
 DIAGRAMA 20.1 — RAG: RETRIEVAL-AUGMENTED GENERATION
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 20 (Herramientas y próximos pasos), apartado 20.4 «RAG — Retrieval-Augmented
 Generation». Página 313 del PDF de KDP, girada 90° (1024 × 1536 en el .docx).
@@ -11,9 +11,10 @@ descargado y sin usar sus funciones en la nube, tus textos no salen» del equipo
 Ejercicio 20.1 (embeddings simulados, búsqueda por similitud coseno, k fragmentos). El ejemplo del contrato y sus
 similitudes (0.87, 0.74, 0.61, 0.12) es ilustrativo, como en la imagen publicada.
 
-Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
-del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
-originales/Diagrama_20.1_antes_repintado_2026-11-08.png.
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_20.1.png y en el
+libro; este prompt describe esa imagen final). Las 1-4 se repintaron el 8-11-2026 (scripts/repintado_2026-11-08/,
+versión anterior en originales/Diagrama_20.1_antes_repintado_2026-11-08.png); la 5, el 9-11-2026
+(scripts/repintado_2026-11-09b/f20_1.py, versión anterior en originales/Diagrama_20.1_antes_2026-11-09b.png).
   1. «Privacidad total — datos en tu máquina»: el libro lo matizó (hallazgo H38). Aquí: «Privacidad: modelo descargado, sin funciones en la nube» (versión corta de «con un modelo
      descargado y sin funciones en la nube, los datos no salen de tu máquina».
   2. El gráfico de vectores no cuadra con la tabla «Top-3»: el gráfico dibuja la «política de cambios» como chunk 2
@@ -22,6 +23,8 @@ originales/Diagrama_20.1_antes_repintado_2026-11-08.png.
      (0.12, descartado).
   3. La fase de indexación no tiene letras y la de consulta empieza en «E». Aquí, A–D y E–J.
   4. El código del paso I está deformado (comillas y llaves sueltas). Aquí, un prompt limpio.
+  5. Las cadenas del gráfico de vectores iban sin tildes ('devolucion contrato', 'clausula devolucion 30 dias',
+     'articulo 3: garantias', 'politica de cambios'), al contrario que la tabla Top-3. Ahora con tildes.
 
 ======================================================================
 PROMPT
@@ -74,7 +77,8 @@ Green-bordered card: llama icon + bold green "Ollama — LLMs locales"; dark cod
   green: "Privacidad: modelo descargado, sin funciones en la nube"
   Three green checks: "✓ Privacidad   ✓ Sin coste API   ✓ Offline"
 
-Arrow tag: "el pipeline" / "RAG" / "completo".
+Arrow tag between panels 1 and 2: a thick navy arrow at mid-height of the panels and, just below it, a dark-navy
+rounded label with white text "el pipeline" / "RAG" / "completo".
 
 ---------------------------------------------------------------------
 PANEL 2 — "EL PIPELINE RAG — PASO A PASO"   (x ≈ 328–742, y ≈ 110–905)
@@ -103,7 +107,7 @@ Orange-bordered block "② FASE DE CONSULTA (en tiempo real)" with six boxes and
   J  green check "RESPUESTA FUNDAMENTADA" / "“Según la cláusula 7 del contrato, las" / "devoluciones deben solicitarse
      en 30 días.”" / "cita la fuente, no alucina"
 
-Arrow tag: "por qué" / "funciona" / "(similitud" / "coseno)".
+Arrow tag between panels 2 and 3 (same style, mid-height): "por qué" / "funciona" / "(similitud" / "coseno)".
 
 ---------------------------------------------------------------------
 PANEL 3 — "POR QUÉ FUNCIONA RAG"   (x ≈ 750–1105, y ≈ 110–905)
@@ -115,13 +119,17 @@ Orange-bordered cream card: light-bulb + bold orange "El puente entre capítulos
   "RAG extiende esto a FRAGMENTOS completos:" / bullets "Chunk sobre “devoluciones” tiene vector" / "similar a
   pregunta sobre “devoluciones”" · "La similitud coseno los conecta"
   green "→ Semántica, no palabras clave exactas"
-Blue-bordered card "Similitud coseno en acción:" — a 2-D plot from a common origin with five arrows:
+Blue-bordered card "Similitud coseno en acción:" — a 2-D plot: a black vertical axis and a black dot as the common
+origin at the bottom left; five arrows leave the origin (the query almost vertical, at about 78°; each chunk at an
+angle from the query equal to arccos of its similarity); labels stacked in a column at the right, each with three
+lines: name (colored, bold) / text in small gray monospace with accents / "sim = …" in colored monospace:
   blue "q_vec" (pregunta: "devolución contrato");
   green "v1_vec (chunk 1)" "'cláusula devolución 30 días'" "sim = 0.87 ✓ RECUPERADO" — the closest to q_vec;
   teal "v2_vec (chunk 2)" "'artículo 3: garantías'" "sim = 0.74 ✓"
   orange "v3_vec (chunk 3)" "'política de cambios'" "sim = 0.61 ✓"
   red "v4_vec (chunk 4)" "'historia de la empresa'" "sim = 0.12 ✗ descartado" — almost perpendicular to q_vec.
-  Dashed arcs mark the angles; caption "El ángulo entre vectores determina la relevancia".
+  Two dashed gray arcs at the origin mark the angles to v1 (small) and to v4 (large); caption "El ángulo entre
+  vectores determina la relevancia".
 Teal-bordered card "Top-3 resultados del Vector Store:" with a table ("Rank" | "Similitud" | "Fragmento"):
   1 | 0.87 | Cláusula 7: devoluciones...
   2 | 0.74 | Artículo 3: garantías...
@@ -130,7 +138,7 @@ Red-bordered card: red ✗ "Sin RAG — el LLM alucina:" / "“Las devoluciones 
   días.”" + red monospace "← INVENTADO"; separator; green ✓ "Con RAG — respuesta fundamentada:" / "“Según la cláusula 7,
   las devoluciones" / "se solicitan en 30 días.”" + green monospace "← DEL DOCUMENTO".
 
-Arrow tag: "herramientas" / "y" / "multimodalidad".
+Arrow tag between panels 3 and 4 (same style, mid-height): "herramientas" / "y" / "multimodalidad".
 
 ---------------------------------------------------------------------
 PANEL 4 — "ECOSISTEMA Y MULTIMODALIDAD"   (x ≈ 1113–1528, y ≈ 110–905)
@@ -164,7 +172,9 @@ Left, white text with monospace parts:
   "            sim_coseno(q, doc) = (q·doc) / (|q|·|doc|)"
 Three rounded boxes, white bold: blue "HuggingFace + Ollama:" / "modelos listos" · teal "Vector Store:" / "búsqueda
 semántica" · orange "RAG: LLM +" / "conocimiento externo".
-Right: legend with the six colors listed above.
+Right: legend box with the six colors: Blue = Query / HuggingFace / entrada · Teal = Embeddings / Vector Store ·
+Green = Documentos recuperados · Orange = Contexto aumentado / LLM · Purple = Respuesta final / multimodal · Red =
+Limitaciones / alucinaciones.
 
 ---------------------------------------------------------------------
 FINAL CHECK
@@ -173,4 +183,5 @@ FINAL CHECK
 ✓ No "Privacidad total"; the privacy line is conditional (modelo descargado, sin funciones en la nube).
 ✓ Vector plot = table: 0.87, 0.74, 0.61 recovered; 0.12 discarded.
 ✓ Steps lettered A–D (indexación) and E–J (consulta). Clean prompt code in step I.
+✓ Vector-plot strings with accents: "devolución", "cláusula", "días", "artículo", "garantías", "política".
 ✓ Accents: "PRÁCTICO", "INDEXACIÓN", "BÚSQUEDA", "cláusula", "Artículo", "garantías", "Política", "teoría".

@@ -1,5 +1,5 @@
 DIAGRAMA G.1 — CNN: ARQUITECTURA Y FLUJO DE DATOS
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Apéndice G (Visión por Computador y Redes Convolucionales), al final de G.9 «CNN y LLM: el
 mismo ADN». Página 369 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
@@ -9,6 +9,8 @@ está en originales/dG_1_orig.png.
 Cifras:
   · Programa 9B (salidas/salida_programa_9b_cnn.txt): entrada 10 × 10 × 1; 4 filtros 3 × 3 con relleno 1; max
     pooling 2 × 2 → 4 × 5 × 5 = 100; densa 100 → 16 → 1. «Parámetros: filtros=36+4 sesgos, dense=1633, total=1673».
+    Fórmula general (dos capas densas, 16 neuronas ocultas): F·(f² + 1) + 16·(n_flat + 1) + (16 + 1) =
+    4·10 + 16·101 + 17 = 40 + 1616 + 17 = 1673.
     Barra horizontal → 0.0002 (HORIZONTAL); barra vertical → 1.0000 (VERTICAL): la salida sigmoide es P(vertical).
   · Programa 9A: filtros Sobel-X, Sobel-Y, «Detector de esquinas (Laplaciano)» y «Suavizado (Gaussiano 3x3)» con
     pesos 1/16·[1 2 1; 2 4 2; 1 2 1]; convolución con relleno=1 (conserva el tamaño).
@@ -19,9 +21,10 @@ Cifras:
     similares a Sobel y Laplaciano»; y sobre el Programa 9B: «la red no necesita converger a los filtros “canónicos”
     que un ingeniero diseñaría a mano (un Sobel-X limpio, por ejemplo)».
 
-Diferencias con la imagen publicada el 7-11-2026 (este prompt las corrige). Estado: ya corregidas en la imagen
-del libro y del repositorio el 8-11-2026, con scripts/repintado_2026-11-08/; la versión anterior está en
-originales/Diagrama_G.1_antes_repintado_2026-11-08.png.
+Correcciones respecto a la imagen publicada el 7-11-2026 (todas ya están en diagramas/Diagrama_G.1.png y en el
+libro; este prompt describe esa imagen final). Las 1-3 se repintaron el 8-11-2026 (scripts/repintado_2026-11-08/,
+versión anterior en originales/Diagrama_G.1_antes_repintado_2026-11-08.png); las 4-7, el 9-11-2026
+(scripts/repintado_2026-11-09b/fG_1.py, versión anterior en originales/Diagrama_G.1_antes_2026-11-09b.png).
   1. Ejemplo de convolución: la «Imagen (6×6)» tiene solo 5 columnas; el «Mapa de características (4×4)» tiene 3
      columnas y sus valores no salen de esa imagen; el pie «relleno=1 conserva H×W original» contradice un mapa más
      pequeño; y el «Cálculo en posición (1,1)» da 0 con términos que no son los de la ventana. Aquí: imagen 6 × 6, mapa
@@ -33,6 +36,14 @@ originales/Diagrama_G.1_antes_repintado_2026-11-08.png.
      nota fiel sobre lo que aprende el Programa 9B.
   3. «Predicción final … Ej: P(horizontal) = 0.97»: la salida del Programa 9B es P(vertical); con la barra vertical
      da 1.0000. Aquí: «Ej: barra vertical → P(vertical) = 1.0000».
+  4. Tabla CNN ↔ Transformer: «Mismos W,Q,K,V por bloque» (son tres matrices, femeninas) → «Mismas W_Q, W_K, W_V por
+     bloque»; «Sí (spatial)» → «Sí (espacial)»; «MHA → Add&Norm → FFN» es el orden Post-LN, y el libro usa Pre-LN →
+     «LN → MHA → LN → FFN».
+  5. «GPT-4V, Gemini, LLaMA-3.2V combina:» → «combinan:» (sujeto plural).
+  6. Fórmula de parámetros de la barra inferior: «F × (f² + 1) + n_dense × n_flat + n_dense» cuenta una sola capa
+     densa; el Programa 9B tiene dos (100 → 16 → 1). Ahora «params = F·(f²+1) + 16·(n_flat+1) + (16+1)», que da 1673.
+  7. Lema «CNN = Transformer de imágenes / Transformer = CNN de secuencias»: falso tal cual (una CNN no tiene
+     atención). Ahora «Misma receta, distinto dominio: / imágenes (CNN) y secuencias (Transformer)».
 
 ======================================================================
 PROMPT
@@ -76,7 +87,8 @@ Gold-bordered monospace box:
   "TOTAL CNN:                1673 params"
 Green: "vs Transformer: misma idea, diferente dominio"
 
-Arrow tag: "cómo" / "funciona" / "la" / "convolución".
+Arrow tag between panels 1 and 2: a thick navy arrow at mid-height and, just below it, a dark-navy rounded label
+with white text "cómo" / "funciona" / "la" / "convolución".
 
 ---------------------------------------------------------------------
 PANEL 2 — "LA CONVOLUCIÓN — CÓMO FUNCIONA"   (x ≈ 372–735, y ≈ 108–860)
@@ -109,7 +121,7 @@ Orange-bordered cream card: light-bulb + bold orange "Parameter Sharing — la c
 Gray box, monospace: "output[i,j] = Σ_m Σ_n imagen[i+m, j+n] × filtro[m,n] + sesgo" / "Complejidad: O(H × W × f² × F)
   por capa convolucional"
 
-Arrow tag: "los" / "filtros" / "clásicos".
+Arrow tag between panels 2 and 3 (same style, mid-height): "los" / "filtros" / "clásicos".
 
 ---------------------------------------------------------------------
 PANEL 3 — "LOS FILTROS CLÁSICOS (PROGRAMA 9A)"   (x ≈ 742–1105, y ≈ 108–860)
@@ -129,7 +141,7 @@ Orange-bordered cream card, bold orange "¿Y qué aprende la CNN?":
   backpropagation ajusta los 9 valores de cada filtro" / "hasta que separan las dos clases." / bold green "En redes
   grandes: detectores parecidos a Sobel."
 
-Arrow tag: "conexión" / "con el" / "Transformer".
+Arrow tag between panels 3 and 4 (same style, mid-height): "conexión" / "con el" / "Transformer".
 
 ---------------------------------------------------------------------
 PANEL 4 — "CNN ↔ TRANSFORMER: EL MISMO ADN"   (x ≈ 1112–1665, y ≈ 108–860)
@@ -138,7 +150,7 @@ PANEL 4 — "CNN ↔ TRANSFORMER: EL MISMO ADN"   (x ≈ 1112–1665, y ≈ 108�
 "CNN" | "Transformer"):
   Operación base | Convolución 3×3 | Self-Attention
   Dónde opera    | Ventana local f×f | Todos los tokens
-  Reutilización  | Mismo filtro en toda la img | Mismas W_Q, W_K, W_V por bloque
+  Reutilización  | Mismo filtro en toda la img | Mismas W_Q, W_K, W_V por bloque   (Q, K, V as subscripts)
   Apila          | Conv → ReLU → Pool | LN → MHA → LN → FFN
   Aprende        | Detectores de borde | Relaciones entre tokens
   Comparte pesos | Sí (espacial) | Sí (por bloque)
@@ -150,7 +162,8 @@ Two side-by-side cards with a double arrow "misma idea" between them:
 Yellow card: light-bulb + bold orange "El principio unificador del Deep Learning:" / "1. Define una operación
   PARAMETRIZADA pequeña" / "(un filtro 3×3 / una cabeza de atención)" / "2. REUTILÍZALA en toda la secuencia/imagen" /
   "(parameter sharing)" / "3. APILA múltiples capas" / "(jerarquía de representaciones)" / "4. Entrena con
-  backpropagation" / bold green "Misma receta, distinto dominio:" / "imágenes (CNN) y secuencias (Transformer)"
+  backpropagation" / two centered lines in bold green (≈ 15 px): "Misma receta, distinto dominio:" / "imágenes (CNN)
+  y secuencias (Transformer)"
 Light-blue card: bold navy "El futuro: modelos multimodales" / "GPT-4V, Gemini, LLaMA-3.2V combinan:" / ✓ "Un encoder
   CNN (o ViT) para imágenes" / ✓ "Un Transformer para texto" / ✓ "Un mecanismo de fusión entre ambos" / "Con el
   Capítulo 12 y el Apéndice G tienes las bases" / "de AMBOS paradigmas del Deep Learning moderno."
@@ -164,7 +177,9 @@ Left, white monospace:
   "params = F·(f²+1) + 16·(n_flat+1) + (16+1)"
 Three rounded boxes, white bold: teal "Convolución:" / "filtro deslizante" · orange "Pooling:" / "invarianza + reducción"
 · purple "ADN común" / "con el Transformer".
-Right: legend with the six colors listed above.
+Right: legend box with the six colors in two columns: Blue = Imagen de entrada / píxeles · Teal = Filtros
+convolucionales / mapas · Green = ReLU / respuestas positivas | Orange = Max Pooling / reducción · Purple = Capas
+densas / predicción · Gold = Pesos del filtro / parámetros.
 
 ---------------------------------------------------------------------
 FINAL CHECK
@@ -172,5 +187,7 @@ FINAL CHECK
 ✓ Title "DIAGRAMA G.1 — CNN: ARQUITECTURA Y FLUJO DE DATOS"; subtitle mentions "Apéndice G".
 ✓ Image grid 6 × 6; feature map 4 × 4 = [[4,0,−4,0],[4,−1,−4,0],[4,−2,−4,−1],[3,−1,−3,−2]]; position (1,1) = 4.
 ✓ Filters = the four of Programa 9A (Sobel-Y, Sobel-X, Laplaciano, Gaussiano 1/16). No "redescubrió el filtro Sobel".
-✓ Parameters 40 + 1633 = 1673; prediction "P(vertical) = 1.0000".
+✓ Parameters 40 + 1633 = 1673; prediction "P(vertical) = 1.0000"; bottom formula with two dense layers.
+✓ Table: "Mismas W_Q, W_K, W_V", "LN → MHA → LN → FFN" (Pre-LN), "Sí (espacial)". "combinan" (plural).
+✓ No "CNN = Transformer de imágenes" slogan.
 ✓ Accents: "CONVOLUCIÓN", "características", "Predicción", "dimensión", "Analogía", "Operación", "Dónde", "fusión".

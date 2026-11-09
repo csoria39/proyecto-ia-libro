@@ -1,5 +1,5 @@
 DIAGRAMA 17.1 — DE NANO A GIGANTE
-Prompt de regeneración (v18, 8-11-2026). Sustituye a Prompt_Diagrama_16_v18.txt y Prompt_Diagrama_17.1_v18.txt.
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final). Sustituye a Prompt_Diagrama_16_v18.txt y Prompt_Diagrama_17.1_v18.txt.
 
 Ubicación en el libro: Capítulo 17 (Del Nano-LLM a los Gigantes), al final de 17.5 «KV-Cache — por qué la generación
 real es rápida». Página 285 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
@@ -7,8 +7,11 @@ Imagen de referencia: diagramas/Diagrama_17.1.png (1672 × 941 px), idéntica a 
 generó con este prompt (versión del 4-11-2026) y se retocó con scripts/fix_d13_1_d17_1.py; el original del autor está
 en originales/d17_1_autor_2026-11-04.png.
 Cifras:
-  · Nano-LLM (Programa 8): 60 000 parámetros, 93 frases (5076 caracteres, 5 KB), contexto 24, 0.24 MB en float32
-    (60 000 × 4 bytes), unos 2.5 minutos (Apéndice E.7).
+  · Nano-LLM (Programa 8): 60 000 parámetros, 93 frases (5076 caracteres, 5 KB), contexto 24, unos 2.5 minutos
+    (Apéndice E.7). En la tabla de memoria, 0.24 MB = 60 000 × 4 bytes (float32), que es lo que mide esa tabla; el
+    archivo que guarda el Programa 8 está en float64 y ocupa 0.49 MB (Diagrama 13.1 y Capítulo 16).
+  · Escala del gráfico de barras: log10 de cada valor — 60 000 → 4.78 · 124 M → 8.09 · 1500 M → 9.18 · 7000 M →
+    9.85 · 175 000 M → 11.24 · 671 000 M → 11.83. Del primero al último hay 7.05 décadas (×1.1·10⁷).
   · Capítulo 15, Programa RZ-2: «Parámetros: 57,696» (≈ 58 000), 100 % de 2000 sumas no vistas.
   · Memoria (Ejercicio 17.1, con 1 GB = 1024³ bytes): GPT-2 small 124 439 808 × 4 = 0.46 GB; LLaMA-7B 7·10⁹ × 2 =
     13.0 GB; int4 3.3 GB; GPT-3 175·10⁹ × 2 = 326 GB.
@@ -19,7 +22,17 @@ Cifras:
   · Cómputo con la regla 6 × parámetros activos × tokens: Nano-LLM 6 × 60 000 × 12 000 × 192 ≈ 8·10¹¹ ≈ 10¹² FLOPs;
     DeepSeek-V3 6 × 37·10⁹ × 14.8·10¹² ≈ 3.3·10²⁴ FLOPs.
 
-Diferencias con la imagen publicada: ninguna de contenido; la imagen cumple este prompt.
+Correcciones respecto a la imagen publicada el 7-11-2026 (ya están en diagramas/Diagrama_17.1.png y en el libro
+desde el 9-11-2026; scripts/repintado_2026-11-09b/f17_1.py, versión anterior en
+originales/Diagrama_17.1_antes_2026-11-09b.png). Este prompt describe esa imagen final:
+  1. ERROR GRAVE: las barras de la escala logarítmica estaban entre 2 y 3 décadas por debajo de su valor (124 M
+     dibujado a la altura de 10^5.9, 175 000 M a 10^8.3, 671 000 M a 10^8.7). Ahora cada barra llega a su altura
+     real (tabla de log10 de arriba): DeepSeek-V3 queda justo debajo de la línea del billón.
+  2. Con las barras en su sitio, la flecha horizontal «×10 millones (7 órdenes)» ya no cabía. Ahora es una flecha
+     vertical de doble punta sobre el Nano-LLM, de su tope al nivel de DeepSeek-V3, con «×10 millones» y «(7 órdenes
+     de magnitud)» al lado. Las cifras de GPT-3 y DeepSeek-V3 van en vertical, en blanco, dentro de sus barras.
+  3. Panel 2: el rótulo del eje Y del gráfico, «Resultado», estaba deformado y montado sobre la punta de la flecha
+     entre paneles. Ahora se lee bien y queda a la derecha de la flecha.
 Observación: «1 GB = 1024³ bytes» es, en rigor, un GiB. El libro lo escribe así en la pista del Ejercicio 17.1, y los
 programas de los Ejercicios 17.1 y 17.3 rotulan «GiB». Si se regenera, puede ponerse «(GiB = 1024³ bytes)».
 
@@ -119,17 +132,32 @@ HEADER: "LA BRECHA DE ESCALA"
 Sub-label: "Del Nano-LLM a los mayores modelos actuales: unos 7 órdenes de magnitud en parámetros" — black 14px.
 
 LOG SCALE VISUALIZATION (upper two thirds of the panel):
-  Vertical logarithmic axis 10⁴ → 10¹³ (ticks at every power of ten).
-  Left label: "Parámetros (escala log)" — gold bold 15px.
-  6 bars, bottom to top, each with its label and one dark gray note:
-  Nano-LLM · 60 000 (green bar; every label of this bar in black): "tu Programa 8 · CPU · 2.5 minutos"
-  GPT-2 small · 124 M (blue bar; every label of this bar in black): "2019 · 12 bloques"
-  GPT-2 XL · 1500 M (dark blue): "2019 · 48 bloques"
-  LLaMA-7B · 7000 M (purple bar; every label of this bar in black): "2023 · cabe en una GPU"
-  GPT-3 · 175 000 M (dark purple): "2020 · 96 bloques"
-  DeepSeek-V3 · 671 000 M (red bar; every label of this bar in black): "2024 · abierto · MoE: 37 000 M activos por token"
-  Thin red dashed line at 10¹² with black 13px label: "modelos abiertos de 2025-2026 ya superan el billón (p. ej., Kimi K2: 1 billón)"
-  Bars drawn on the TRUE log scale (10^4 … 10^13, ~28 px per decade): Nano-LLM 10^4.78, GPT-2 small 10^8.09, GPT-2 XL 10^9.18, LLaMA-7B 10^9.85, GPT-3 10^11.24, DeepSeek-V3 10^11.83 (just under the 10^12 dashed line). Values of GPT-3 and DeepSeek-V3 written vertically in white inside their bars. Vertical double-headed gold arrow above the Nano-LLM bar, from its top to the DeepSeek-V3 level (dotted gold guide at that level), with "×10 millones" (gold bold 17px) and "(7 órdenes de magnitud)" to its right.
+  Vertical logarithmic axis 10⁴ → 10¹³ (ticks and labels at every power of ten, equally spaced, ≈ 28 px per decade;
+  the bars stand on the 10⁴ line). Left label, rotated: "Parámetros (escala log)" — gold bold 15px.
+  Thin red dashed line at 10¹² across the chart, with the black 13px label above it, on two centered lines:
+  "modelos abiertos de 2025-2026 ya superan" / "el billón (p. ej., Kimi K2: 1 billón)".
+  6 bars, left to right, each drawn on the TRUE log scale (the height of every bar is log10 of its value; nothing
+  approximate):
+    Nano-LLM     · 60 000     → top at 10^4.78   (green bar)
+    GPT-2 small  · 124 M      → top at 10^8.09   (blue bar)
+    GPT-2 XL     · 1500 M     → top at 10^9.18   (dark blue bar)
+    LLaMA-7B     · 7000 M     → top at 10^9.85   (purple bar)
+    GPT-3        · 175 000 M  → top at 10^11.24  (dark purple bar)
+    DeepSeek-V3  · 671 000 M  → top at 10^11.83  (dark red bar, just below the 10¹² dashed line)
+  Value labels: black bold 13px just above the bar for "60 000", "124 M", "1500 M", "7000 M"; for the two tall
+  bars, the value written VERTICALLY (rotated 90°) in white bold INSIDE the bar, near its top: "175 000 M",
+  "671 000 M".
+  Model names under the axis, black bold, two lines where needed: "Nano-" / "LLM" · "GPT-2" / "small" · "GPT-2" /
+  "XL" · "LLaMA-" / "7B" · "GPT-3" · "DeepSeek-" / "V3".
+  Under the names, one small rounded gray-bordered note box per bar (black 12px, 3–4 short lines):
+    "tu" / "Programa 8 ·" / "CPU ·" / "2.5 minutos" · "2019 ·" / "12" / "bloques" · "2019 ·" / "48" / "bloques" ·
+    "2023 ·" / "cabe en" / "una" / "GPU" · "2020 ·" / "96" / "bloques" · "2024 ·" / "abierto ·" / "MoE: 37 000 M" /
+    "activos por" / "token"
+  Scale gap: a VERTICAL double-headed gold arrow placed just above the Nano-LLM bar, from the top of that bar up to
+  the level of the DeepSeek-V3 bar, with a dotted gold guide line at that level running right to the DeepSeek-V3
+  bar. To the right of the arrow, in the empty space above the GPT-2 bars: "×10 millones" (gold bold 17px) and below
+  it "(7 órdenes de magnitud)" (gold 12px).
+  Do NOT draw a horizontal arrow across the bars.
 
 THREE DIMENSIONS (bottom, three columns):
   Title: "Lo que separa al Nano-LLM de un modelo grande:" — navy bold 15px.
@@ -164,7 +192,9 @@ DEFINITION (yellow, orange border):
   "salen del mismo entrenamiento, a mayor escala."
 
 EMERGENCE CHART (220×180px), two curves over the SAME model sizes:
-  X: "Tamaño del modelo (escala log)". Y: "Resultado" 0 → 1. No numbers on the X axis.
+  X: "Tamaño del modelo (escala log)". Y: "Resultado" (rotated, black, clearly legible, placed between the y-tick
+  labels and the inter-panel arrow, never on top of the arrow), ticks 0.0, 0.2, 0.4, 0.6, 0.8, 1.0. No numbers on
+  the X axis. Legend box inside the plot, top left.
   Orange curve, step-like: "acierto exacto (todo o nada)" — flat near 0, then a sharp jump.
   Blue curve, smooth S rising gradually: "métrica continua (p. ej., cifras correctas)"
   Caption (black 13px): "Esquema ilustrativo: la misma mejora parece un salto o una rampa según cómo se mida (Schaeffer et al., 2023)."
@@ -279,16 +309,17 @@ CENTER THIRD — three pills:
   Orange pill: "Emergencia: saltos que dependen también de la medida"
   Purple pill: "Alineación: RLHF o DPO"
 
-RIGHT CORNER — legend, Arial 13px white:
-  ■ Green  = Nano-LLM / modelos pequeños
-  ■ Blue   = GPT-2
-  ■ Purple = Modelos grandes (GPT-3, LLaMA)
-  ■ Red    = Mayores modelos abiertos (MoE)
-  ■ Teal   = Preentrenamiento
-  ■ Orange = Ajuste fino / emergencia
-  ■ Gold   = Parámetros / datos / cómputo
+RIGHT CORNER — legend in Spanish, Arial 13px white, small colored squares:
+  ■ Verde         = Nano-LLM / modelos pequeños
+  ■ Azul          = GPT-2
+  ■ Morado        = Modelos grandes (GPT-3, LLaMA)
+  ■ Rojo          = Mayores modelos abiertos (MoE)
+  ■ Verde azulado = Preentrenamiento
+  ■ Naranja       = Ajuste fino / emergencia
+  ■ Dorado        = Parámetros / datos / cómputo
 
 === INTER-PANEL ARROWS ===
+Navy outlined arrow-shaped tags (white fill, navy border) in the gaps between panels, at mid-height, black bold text:
 Arrow 1→2: "qué cambia con la escala"
 Arrow 2→3: "cómo se entrenan"
 Arrow 3→4: "arquitectura y acceso"

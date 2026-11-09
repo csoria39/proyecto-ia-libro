@@ -1,5 +1,5 @@
 DIAGRAMA 13.1 — EL NANO-LLM DE EXTREMO A EXTREMO
-Prompt de regeneración (v18, 8-11-2026). Sustituye a Prompt_Diagrama_15_v18.txt y Prompt_Diagrama_13.1_v18.txt.
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final). Sustituye a Prompt_Diagrama_15_v18.txt y Prompt_Diagrama_13.1_v18.txt.
 
 Ubicación en el libro: Capítulo 13 (El Nano-LLM), al final de 13.6.1 «Comprobación empírica — ¿arregla el ajuste de
 hiperparámetros el sobreajuste?». Página 181 del PDF de KDP, girada 90° (941 × 1672 en el .docx).
@@ -15,13 +15,18 @@ calculos/diagrama_13_1_nano_llm.py, que ejecuta el Programa 8 sin cambiarlo y gu
   · Texto generado (salidas/salida_programa_8_nano_llm.txt): «la inteligencia artificial aprende de los datos.» /
     «los modelos de lenguaje predicen el siguiente token.»
   · Parámetros: 60 000 = wte 2208 + wpe 1152 + 2 × 28 272 + LN final 96. GPT-2 small: 124 439 808.
+  · Pesos en disco: el Programa 8 guarda los 60 000 pesos con np.savez en float64; nano_llm_pesos.npz ocupa 488 646 B
+    = 0.49 MB. GPT-2 small: model.safetensors, 548 MB (float32).
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. Curva de aprendizaje: los puntos de la imagen (1.39, 0.91, 0.66, 0.51 … 0.31) eran una media móvil cuyo
-     tamaño de ventana no quedó registrado, y no se pueden reproducir exactamente. Aquí se fija una media móvil
-     centrada de 200 pasos, reproducible con el script: 1.46, 0.93, 0.67, 0.52, 0.45, 0.40, 0.37, 0.34, 0.32, 0.30,
-     0.29, 0.28. Las diferencias (≤ 0.07) no se ven a ese tamaño de gráfica.
-Todo lo demás de la imagen publicada cumple este prompt.
+Correcciones respecto a la imagen publicada el 7-11-2026 (las dos ya están en diagramas/Diagrama_13.1.png y en el
+libro; este prompt describe esa imagen final). La 1 venía en la versión verificada externamente (con retoques de
+scripts/repintado_2026-11-09/d13_1.py); la 2 se hizo en la revisión completa del 9-11-2026
+(scripts/repintado_2026-11-09b/f13_1.py; versión anterior en originales/Diagrama_13.1_antes_2026-11-09b.png).
+  1. Curva de aprendizaje: los puntos (1.39, 0.91, 0.66, 0.51 … 0.31) eran una media móvil cuyo tamaño de ventana
+     no quedó registrado, y no se podían reproducir. Ahora es una media móvil centrada de 200 pasos, reproducible con
+     el script: 1.46, 0.93, 0.67, 0.52, 0.45, 0.40, 0.37, 0.34, 0.32, 0.30, 0.29, 0.28.
+  2. Tabla del panel 4, «Pesos en disco»: decía 0.24 MB, que sería el tamaño en float32; el Programa 8 guarda en
+     float64 y el archivo ocupa 0.49 MB. Corregido (y también la misma cifra en la tabla del Capítulo 16 del libro).
 
 ======================================================================
 PROMPT
@@ -95,7 +100,8 @@ No 3D effects. No gradients. Clean academic style. 300dpi.
 HEADER: "ARQUITECTURA COMPLETA"
 Sub-label: "GPT-2 pieza a pieza, con tamaños diminutos" — black 14px.
 
-VERTICAL FLOW (top to bottom, 7 numbered steps). Each step shows its tensor shape on the right, black Courier 14px.
+VERTICAL FLOW (top to bottom, 7 numbered steps, each box titled "1. …", "2. …" in bold). Steps 2–5 show their tensor
+shape in a separate cell at the right of the box, black Courier 14px.
 
 Step 1 (blue box): "Texto de entrenamiento"
 "93 frases · 5076 caracteres"
@@ -121,7 +127,8 @@ Courier 14px, two lines inside:
 "x = x + FFN(LN(x))        ← 48 → 192 → 48, GELU"
 "× 2 bloques"
 Shape: "(24 × 48)"
-Right annotation (dark gray): "máscara causal: cada posición solo ve el pasado"
+Right cell of the same box (black, small, five short lines): "máscara" / "causal" / "cada" / "posición" / "solo ve" /
+"el pasado"
 
 Arrow down.
 
@@ -139,7 +146,7 @@ Arrow down.
 Step 7 (green filled, white text): "Siguiente carácter"
 "muestreo con temperatura 0.8 y top-p 0.9"
 
-NANO-LLM PARAMS (bottom, gold border), Courier 14px, two columns:
+NANO-LLM PARAMS (bottom, gold border), title "PARÁMETROS DEL NANO-LLM" (dark gold bold), Courier 14px, two columns:
 "V = 46        CTX = 24"
 "D = 48        D_FF = 192"
 "cabezas = 4   bloques = 2"
@@ -206,14 +213,18 @@ Courier 14px:
 "lr: warm-up 150 pasos → coseno de 0.003 a 0.0001"
 "12 000 pasos · unos 2.5 min en un portátil"
 
-LEARNING CURVE (mini chart 220×110px):
+LEARNING CURVE (mini chart 220×110px, orange-bordered card titled "Curva de aprendizaje (pérdida en el
+entrenamiento)" in blue bold):
 X-axis: "Pasos" 0 → 12 000 (ticks 0, 4000, 8000, 12 000).
 Y-axis: "Pérdida" 0 → 4 (ticks 0, 1, 2, 3, 4).
 Blue curve through these exact points (centered 200-step moving average of the real run, seed 42):
 (0, 3.85) (1000, 1.46) (2000, 0.93) (3000, 0.67) (4000, 0.52) (5000, 0.45) (6000, 0.40)
 (7000, 0.37) (8000, 0.34) (9000, 0.32) (10 000, 0.30) (11 000, 0.29) (12 000, 0.28)
-Red dashed horizontal at y = 3.83: "ln 46: no haber aprendido nada"
-Green dashed horizontal at y = 0.29: "final"
+Blue line with small round markers at those points.
+Red dashed horizontal at y = 3.83, labelled above it in dark red: "ln 46: no haber aprendido nada (3.83)"
+Green dashed horizontal at y = 0.29, labelled in dark green "final (0.29)" near the right end.
+Small legend inside the plot: blue line with marker "Pérdida (media móvil, 200 pasos)" · red dashed "ln 46: no haber
+aprendido nada" · green dashed "final: 0.29".
 Caption (black 13px): "Medida en el propio texto de entrenamiento: el modelo lo memoriza (13.6)"
 
 === PANEL 3 — GENERACIÓN DE TEXTO (center-right, 24% width) ===
@@ -347,29 +358,29 @@ LEFT THIRD — white Courier New 14px:
 "x = Bloque(x)  × 2   (Pre-LN)        ← proceso"
 "P = softmax(LN(x) · wteᵀ)            ← salida"
 
-CENTER THIRD — three colored pills:
+CENTER THIRD — three colored pills stacked vertically, one per line, between two thin white vertical rules:
 Blue pill #0D47A1: "Tokenizar → Embeber → Transformar"
 Orange pill #993300: "Entrenar: predecir el siguiente carácter"
 Purple pill #6A1B9A: "Generar: un carácter cada vez"
 
-RIGHT CORNER — legend, Arial 13px white, white border 1px:
-■ Blue = Entrada / tokenizador / embeddings
-■ Teal = Bloques Transformer
-■ Green = Salida / texto generado
-■ Orange = Pérdida / entrenamiento
-■ Purple = Generación / muestreo
-■ Gold = Parámetros / formas
+RIGHT CORNER — legend in Spanish, Arial 13px white, white border 1px, small colored squares:
+■ Azul = Entrada / tokenizador / embeddings
+■ Verde azulado = Bloques Transformer
+■ Verde = Salida / texto generado
+■ Naranja = Pérdida / entrenamiento
+■ Morado = Generación / muestreo
+■ Dorado = Parámetros / formas
 
 === INTER-PANEL ARROWS ===
-Navy #1A3A6B, 4px, clear arrowheads.
-Labels (Arial 14px white on navy pill):
+Navy #1A3A6B arrow-shaped tags (chevrons) in the gaps between panels, at mid-height, with white text inside
+(Arial 14px):
 Arrow 1→2: "cómo se entrena"
 Arrow 2→3: "cómo genera texto"
 Arrow 3→4: "conexión con GPT-2"
 
 === ABSOLUTE CORRECTNESS REQUIREMENTS ===
 1. SUBTITLE 1: "Resumen visual del Capítulo 13", NOT Chapter 8, 9 or 12.
-2. EXACT NUMBERS, no others: V = 46, CTX = 24, D = 48, D_FF = 192, 4 cabezas, 2 bloques, 60 000 parámetros, 93 frases, 5076 caracteres, 8 ventanas por lote, 12 000 pasos, CLIP = 1.0, warm-up 150, lr 0.003 → 0.0001, temperatura 0.8, top-p 0.9.
+2. EXACT NUMBERS, no others: pesos en disco 0.49 MB (float64) frente a 548 MB, V = 46, CTX = 24, D = 48, D_FF = 192, 4 cabezas, 2 bloques, 60 000 parámetros, 93 frases, 5076 caracteres, 8 ventanas por lote, 12 000 pasos, CLIP = 1.0, warm-up 150, lr 0.003 → 0.0001, temperatura 0.8, top-p 0.9.
 3. 'la red' = [23, 12, 1, 29, 16, 15]; 'un modelo ' = [32, 25, 1, 24, 26, 15, 16, 23, 26, 1].
 4. LOSS: 3.85 at step 0 (≈ ln 46 = 3.83, in nats, NOT bits); 0.29 at the end = 0.41 bits/carácter. Never "4.17", never "1.5-2.0", never "1.8".
 5. BLOCKS are Pre-LN: LayerNorm goes BEFORE attention and BEFORE the FFN, never after. There IS a final LayerNorm. The output layer reuses wte (shared weights).

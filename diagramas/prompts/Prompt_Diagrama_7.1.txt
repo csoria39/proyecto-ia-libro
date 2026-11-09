@@ -1,5 +1,5 @@
 DIAGRAMA 7.1 — RED NEURONAL MULTICAPA (MLP)
-Prompt de regeneración (v18, 8-11-2026)
+Prompt de regeneración (v18, 8-11-2026; revisado el 9-11-2026 contra la imagen final)
 
 Ubicación en el libro: Capítulo 7 (Sobreajuste y Regularización), apartado 7.2 «El espectro completo: underfitting,
 buen ajuste y overfitting». Página 66 del PDF de KDP, girada 90° (en el .docx va como 941 × 1672).
@@ -9,9 +9,11 @@ pérdida BCE con salida sigmoide, ReLU en las capas ocultas, y dropout INVERTIDO
 de 7.7 («al entrenar se multiplican por 1/(1 − p) las neuronas que siguen activas … y en inferencia no hay que tocar
 nada»).
 
-Diferencias con la imagen publicada (este prompt las corrige):
-  1. Panel «Regularización», apartado 2 (Dropout): la imagen dice «Inferencia: todas activas, pesos × (1−p)» y, bajo
-     el dibujo de inferencia, «× (1−p) en pesos». Eso es el dropout clásico, no el del libro. Aquí:
+Corrección respecto a la imagen publicada el 7-11-2026 (ya está en diagramas/Diagrama_7.1.png y en el libro desde
+el 9-11-2026; este prompt describe esa imagen final, que en la revisión completa del 9-11-2026 no necesitó más
+cambios):
+  1. Panel «Regularización», apartado 2 (Dropout): decía «Inferencia: todas activas, pesos × (1−p)» y, bajo el
+     dibujo de inferencia, «× (1−p) en pesos». Eso es el dropout clásico, no el del libro. Ahora:
        «Train: desactiva neuronas aleatoriamente (p=0.5) y multiplica las activas × 1/(1−p).»
        «Inferencia: todas activas, sin escalar.»   y bajo el dibujo: «sin escalado».
 Observaciones (no cambian el dibujo):
@@ -60,7 +62,8 @@ Bottom gray box, monospace 14 px, three lines aligned:
   "a  =  ReLU(z)        [capas ocultas]"
   "ŷ  =  σ(z)           [capa salida]"
 
-Arrow tag between panels 1 and 2 (dark navy rounded label above a navy arrow): "ciclo de" / "entrenamiento".
+Arrow tag between panels 1 and 2, at the height of the panel headers (dark navy rounded label above a thick navy
+arrow pointing right): "ciclo de" / "entrenamiento".
 
 ---------------------------------------------------------------------
 PANEL 2 — "ENTRENAMIENTO Y PÉRDIDA"   (x ≈ 395–725, y ≈ 130–815)
@@ -77,7 +80,9 @@ Below: italic gray "Cada época: 1 pasada completa por los datos"; italic green 
 Yellow warning card (#FFF4CC, orange border) with a ⚠ triangle: bold "El problema:" then
   "Pérdida baja en train ≠ modelo útil" ("train" in italic) / "Necesitamos validar en datos NO vistos".
 
-Arrow tag: "diagnóstico" / "con curvas".
+A thick navy arrow also leaves the warning card to the right, toward panel 3.
+
+Arrow tag (top, between panels 2 and 3): "diagnóstico" / "con curvas".
 
 ---------------------------------------------------------------------
 PANEL 3 — "LOS TRES ESTADOS DE APRENDIZAJE"   (x ≈ 740–1200, y ≈ 130–815)
@@ -97,7 +102,7 @@ Three stacked cards:
     "Train error:  MUY BAJO ↘" and (red border) "Val error:  ALTO ✕". Lines in red italic: ⚠ "Señal de alarma: train
     sigue bajando, val sube o se estanca"; 💊 "Solución: L2, Dropout, Early Stopping, más datos".
 
-Arrow tag: "técnicas de" / "corrección".
+Arrow tag (top, between panels 3 and 4): "técnicas de" / "corrección".
 
 ---------------------------------------------------------------------
 PANEL 4 — "REGULARIZACIÓN — CÓMO CORREGIR EL OVERFITTING"   (x ≈ 1240–1665, y ≈ 130–815)
@@ -109,8 +114,8 @@ Two mini bar charts (y-axis "|peso|", ticks 0.0, 0.5, 1.0):
   "Con L2" (bold green): three green bars 0.46, 0.44, 0.41 — caption green "pesos equilibrados".
 Dashed blue separator.
 "2. DROPOUT" (bold navy). Two lines:
-  "Train: desactiva neuronas aleatoriamente (p=0.5) y multiplica las activas × 1/(1−p)."
-  "Inferencia: todas activas, sin escalar."
+  "Train: desactiva neuronas aleatoriamente (p=0.5)" / "y multiplica las activas × 1/(1−p)." /
+  "Inferencia: todas activas, sin escalar."   (three lines, 12 px)
 Two mini drawings: left, orange italic "p=0.5, train": three teal nodes with the middle one gray with an "X", dashed
 links below; right, green "inferencia": three teal nodes all active, links below, caption "sin escalado".
 Line: "Cada ejemplo ve una red diferente → más robusto".
