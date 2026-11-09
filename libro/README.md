@@ -51,12 +51,30 @@ los 60 000 pesos en float64 (`nano_llm_pesos.npz` ocupa 488 646 B), así que aho
 Después se limpiaron dos defectos menores: dos trazos sueltos bajo el título del 10.2 y uno sobre la tabla del panel 3
 del 11.2 (`f10_2_titulo.py` y `f11_2.py`; versiones anteriores en `diagramas/originales/Diagrama_<n>_antes_2026-11-09c.png`).
 
+## Paginación (9-11-2026)
+
+Revisión página a página del PDF: números de página (pie de las 377), índice general, índice alfabético
+(143 entradas, 844 referencias), saltos de página, títulos al pie, páginas en blanco y posición de los 19 diagramas.
+Se corrigió:
+
+- 13 títulos que quedaban solos al pie de página (por ejemplo «7.7 Dropout», «16.5 Mirar dentro (I): la lente de
+  logits», «19.3 Casos reales», «Softmax» en 2.6) y 8 títulos de recuadro de código («📄 …») que quedaban al pie sin su
+  código. Los estilos Título 1-4, las barras de título de los programas y los títulos «📄» ahora se conservan con lo
+  que sigue (`scripts/paginacion_2026-11-09/conservar_con_siguiente.py`).
+- Los saltos de página manuales hechos con un párrafo vacío pasan a ser «salto de página anterior» del párrafo
+  siguiente: así nunca dejan una página en blanco (con los cambios anteriores habría aparecido una en el Capítulo 9).
+- Índice alfabético: 8 referencias que se mueven una página con lo anterior (COMPAS, Dropout, Embeddings, KV-cache,
+  Lente de logits, Línea base, Safetensors, Softmax) (`indice_alfabetico.py`).
+
+El texto del libro no cambia; el PDF sigue con 377 páginas, todos los capítulos, partes y apéndices empiezan en la
+misma página que indica el índice, y los diagramas siguen en sus páginas.
+
 ## SHA-256
 
 ```
 097ef3f2b4b7cf11327092e3c08eb98cddf159bb95635114a827832ba2e91931  Cubierta_KDP_377p_color_contraportada_corta.pdf
 9d9b52a0400c8b490590c7807a4e02d2f1d9167951bbe839aaeefc67532d8bc2  Cubierta_KDP_377p_color_contraportada_larga.pdf
-893bfed1b753635e8e56a1e09220d564eaeffe79fb99a374f15f6e803de86dcf  Libro_v18_interior_KDP.pdf
-5d3915aa6935fdfacbffee01aed21a193d97b5d0953adb2f5f720dfd48878e12  Libro_v18_sin_recortes_con_control_de_cambios.docx
-8f879f282a8f83f04c7aff6dfc32497c37218c69c29b9a1420faaff574c892d2  Libro_v18_sin_recortes_limpio.docx
+68ac0f1f94710cb2d9a5880aadc5170a5671b425bbd0b278eb9e482c25c05b36  Libro_v18_interior_KDP.pdf
+f1e02a19e356968a611ab2fc030d091124f61a51e70a2906a7a31ab1b2fbf1a9  Libro_v18_sin_recortes_con_control_de_cambios.docx
+0ce2fd593357a54be73086d0c2e912dc7f31bf59436968d187497b64bf099ee8  Libro_v18_sin_recortes_limpio.docx
 ```
