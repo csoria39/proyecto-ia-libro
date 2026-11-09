@@ -6,6 +6,16 @@ Repositorio oficial del libro de **Carlos Soria Martínez**. Contiene todos los 
 
 El libro lleva a un estudiante de primero de Informática, a un autodidacta o a un curioso con Python básico desde una sola neurona hasta un GPT-2 completo, programado con NumPy. Al final, con ese mismo código, se ejecuta el GPT-2 real de OpenAI.
 
+## Empieza por aquí
+
+| Qué buscas | Dónde está |
+|---|---|
+| **El libro** (edición final) | [`libro/`](libro/): [`Libro_v18_interior_KDP.pdf`](libro/Libro_v18_interior_KDP.pdf) (377 páginas), el .docx [limpio](libro/Libro_v18_sin_recortes_limpio.docx) y [con control de cambios](libro/Libro_v18_sin_recortes_con_control_de_cambios.docx), y las cubiertas. Qué es cada archivo, en [`libro/README.md`](libro/README.md). |
+| **El mapa del repositorio** | [`ESTRUCTURA.md`](ESTRUCTURA.md): dónde está cada archivo, carpeta por carpeta. |
+| **Los instaladores** | En esta misma carpeta: [`instalar_windows.bat`](instalar_windows.bat), [`instalar_mac.sh`](instalar_mac.sh), [`instalar_linux.sh`](instalar_linux.sh) y [`desinstalar_windows.bat`](desinstalar_windows.bat). Cómo usarlos, en [Instalación](#instalación). |
+| **La arquitectura del entorno de desarrollo** | [`docs/Guia_entorno_desarrollo.docx`](docs/Guia_entorno_desarrollo.docx): qué se instala, dónde y cómo se organiza, paso a paso en Windows, macOS y Linux ([versión con control de cambios](docs/Guia_entorno_desarrollo_con_control_de_cambios.docx)). |
+| **La ejecución completa de los programas** | [`verificaciones/Ejecucion_completa_programas.md`](verificaciones/Ejecucion_completa_programas.md) (también en [.txt](verificaciones/Ejecucion_completa_programas.txt)): los 117 listados del libro ejecutados en orden, cada uno con su salida completa y la comparación con lo que imprime el libro. |
+
 ## Instalación
 
 La forma más sencilla es el script de instalación de tu sistema operativo (sección 1.4 del libro). Descárgalo de esta página y ejecútalo:
