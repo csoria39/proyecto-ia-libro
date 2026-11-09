@@ -10,13 +10,14 @@ El libro lleva a un estudiante de primero de Informática, a un autodidacta o a 
 
 | Qué buscas | Dónde está |
 |---|---|
-| **El libro** (edición final) | [`libro/`](libro/): [`Libro_v18_interior_KDP.pdf`](libro/Libro_v18_interior_KDP.pdf) (377 páginas), el .docx [limpio](libro/Libro_v18_sin_recortes_limpio.docx) y [con control de cambios](libro/Libro_v18_sin_recortes_con_control_de_cambios.docx), y las cubiertas. Qué es cada archivo, en [`libro/README.md`](libro/README.md). |
+| **El libro** (edición final) | [`libro/`](libro/): [`Libro_v18_interior_KDP.pdf`](libro/Libro_v18_interior_KDP.pdf) (377 páginas), el [.docx](libro/Libro_v18_sin_recortes_limpio.docx) y la [cubierta](libro/Cubierta_KDP_377p_color_contraportada_larga.pdf). Qué es cada archivo, en [`libro/README.md`](libro/README.md). |
 | **El mapa del repositorio** | [`ESTRUCTURA.md`](ESTRUCTURA.md): dónde está cada archivo, carpeta por carpeta. |
 | **Los instaladores** | En esta misma carpeta: [`instalar_windows.bat`](instalar_windows.bat), [`instalar_mac.sh`](instalar_mac.sh), [`instalar_linux.sh`](instalar_linux.sh) y [`desinstalar_windows.bat`](desinstalar_windows.bat). Cómo usarlos, en [Instalación](#instalación). |
-| **La arquitectura del entorno de desarrollo** | [`docs/Guia_entorno_desarrollo.docx`](docs/Guia_entorno_desarrollo.docx): qué se instala, dónde y cómo se organiza, paso a paso en Windows, macOS y Linux ([versión con control de cambios](docs/Guia_entorno_desarrollo_con_control_de_cambios.docx)). |
+| **La arquitectura del entorno de desarrollo** | [`docs/Guia_entorno_desarrollo.docx`](docs/Guia_entorno_desarrollo.docx): qué se instala, dónde y cómo se organiza, paso a paso en Windows, macOS y Linux. |
 | **La guía para el profesor** | [`docs/Guia_profesor.md`](docs/Guia_profesor.md) (se lee aquí en GitHub; también en [.docx](docs/Guia_profesor.docx)): plan de un cuatrimestre, prácticas evaluables y rúbrica. |
 | **Las plantillas para lectores de prueba** | [`docs/Plantillas_lectores.md`](docs/Plantillas_lectores.md) (también en [.docx](docs/Plantillas_lectores.docx)): cuestionarios para un lector principiante y otro experto en ML. |
 | **La ejecución completa de los programas** | [`verificaciones/Ejecucion_completa_programas.md`](verificaciones/Ejecucion_completa_programas.md) (también en [.txt](verificaciones/Ejecucion_completa_programas.txt)): los 117 listados del libro ejecutados en orden, cada uno con su salida completa y la comparación con lo que imprime el libro. |
+| **Las dependencias de Python** | [`requirements.txt`](requirements.txt): versiones mínimas de los paquetes (`pip install -r requirements.txt`). [`requirements-probado.txt`](requirements-probado.txt): versiones exactas con las que se obtuvieron las salidas del libro. |
 
 ## Instalación
 
