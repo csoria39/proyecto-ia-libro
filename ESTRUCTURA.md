@@ -1,6 +1,6 @@
 # Estructura del repositorio
 
-Mapa de la ubicación de cada archivo, rama `revision-v18`, 9 de noviembre de 2026.
+Mapa de la ubicación de cada archivo, rama `main`, 10 de noviembre de 2026 (735 archivos).
 La lista completa de programas y ejercicios, con el capítulo de cada uno, está en el [README](README.md).
 
 ```
@@ -24,6 +24,7 @@ proyecto-ia-libro/
 │   ├── De_la_Neurona_al_LLM_sin_recortes_con_control_de_cambios.docx
 │   ├── Cubierta_KDP_377p_color_contraportada_larga.pdf
 │   └── Cubierta_KDP_377p_color_contraportada_corta.pdf
+│   (el PDF y el .docx limpio también están en la versión v18: ver «Fuera de las carpetas», al final)
 │
 ├── docs/                         ← GUÍAS COMPLEMENTARIAS
 │   ├── Guia_entorno_desarrollo.docx                     · instalación y organización del entorno
@@ -89,3 +90,19 @@ proyecto-ia-libro/
     ├── verificar_gradientes_float64.py           + su salida .txt
     └── verificar_gradientes_RZ.py                + su salida .txt
 ```
+
+## Fuera de las carpetas
+
+**Versión publicada (Releases).** [`v18` — «De la Neurona al LLM - edición v18 (2026)»](https://github.com/csoria39/proyecto-ia-libro/releases/tag/v18),
+la última publicada, sobre el commit `bbdc510`. Adjuntos:
+
+| Archivo | Tamaño | SHA-256 |
+|---|---|---|
+| `De_la_Neurona_al_LLM_interior_KDP.pdf` | 34.176.022 B | `a6e6869bbaffa411045381c564ce363aa593af2dea2e28bbe0d7fcecc032ff54` |
+| `De_la_Neurona_al_LLM_sin_recortes_limpio.docx` | 26.795.081 B | `c9c2d2fbe91fdf8635d1eee66be700a4dfd332ce58dfe87acbb53fd81d808c39` |
+
+Son los mismos archivos que hay en `libro/`. Los enlaces de descarga del README apuntan a
+`releases/latest/download/…`, de modo que siempre bajan la última versión publicada y GitHub cuenta cada descarga.
+
+**Lo que no está en el repositorio:** los pesos de GPT-2 (se descargan de Hugging Face, ver README) y el historial de
+la revisión v18 (rama `revision-v18` y pull request #1), que se conserva en un repositorio privado del autor.
